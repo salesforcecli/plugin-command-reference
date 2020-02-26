@@ -1,0 +1,68 @@
+{
+  "name": "@salesforce/plugin-command-reference",
+  "description": "Generate the Salesforce CLI command reference guide",
+  "version": "0.0.0",
+  "author": "Thomas @amphro",
+  "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/errors": "^1",
+    "@salesforce/command": "^2",
+    "@salesforce/core": "^2",
+    "chalk": "^3.0.0",
+    "handlebars": "^4.7.3",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@oclif/plugin-help": "^2",
+    "@oclif/test": "^1",
+    "@salesforce/dev-config": "1.4.1",
+    "@types/chai": "^4",
+    "@types/mocha": "^5",
+    "@types/node": "^10",
+    "chai": "^4",
+    "globby": "^8",
+    "mocha": "^5",
+    "nyc": "^14",
+    "ts-node": "^8",
+    "tslint": "^5"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/lib",
+    "/messages",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/templates"
+  ],
+  "homepage": "https://github.com/salesforcecli/plugin-command-reference",
+  "keywords": [
+    "sfdx-plugin"
+  ],
+  "license": "BSD-3-Clause",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "sfdx",
+    "topics": {
+      "commandreference": {
+        "description": "generate the Salesforce CLI command reference guide.",
+        "longDescription": "xx"
+      }
+    },
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "salesforcecli/plugin-command-reference",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "tslint -p test -t stylish",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
