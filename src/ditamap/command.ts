@@ -65,7 +65,7 @@ export class Command extends Ditamap {
       isBetaCommand: commandMeta.state === 'beta',
       trailblazerCommunityUrl,
       trailblazerCommunityName
-    });
+    }) as JsonMap;
 
     // Override destination to include topic and subtopic
     if (subtopic) {
