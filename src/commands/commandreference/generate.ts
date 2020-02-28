@@ -22,10 +22,9 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
 
 export default class CommandReferenceGenerate extends SfdxCommand {
-
   public static description = messages.getMessage('commandDescription');
 
-  public static args = [{name: 'file'}];
+  public static args = [{ name: 'file' }];
 
   protected static flagsConfig = {
     outputdir: flags.string({
@@ -38,24 +37,26 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       description: messages.getMessage('pluginFlagDescription'),
       required: true
     }),
-    hidden: flags.boolean({description: messages.getMessage('hiddenFlagDescription')}),
-    erroronwarnings: flags.boolean({description: messages.getMessage('erroronwarningFlagDescription')})
+    hidden: flags.boolean({ description: messages.getMessage('hiddenFlagDescription') }),
+    erroronwarnings: flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') })
   };
 
   public async run(): Promise<AnyJson> {
-    const plugins = this.flags.plugins.map(plugin => plugin.trim()).map(name => {
-      let pluginName = name;
-      let plugin = this.getPlugin(pluginName);
+    const plugins = this.flags.plugins
+      .map(plugin => plugin.trim())
+      .map(name => {
+        let pluginName = name;
+        let plugin = this.getPlugin(pluginName);
 
-      if (!plugin) {
-        pluginName = `@salesforce/plugin-${pluginName}`;
-        plugin = this.getPlugin(pluginName);
         if (!plugin) {
-          throw new SfdxError(`Plugin ${name} or ${pluginName} not found. Is it installed?`);
+          pluginName = `@salesforce/plugin-${pluginName}`;
+          plugin = this.getPlugin(pluginName);
+          if (!plugin) {
+            throw new SfdxError(`Plugin ${name} or ${pluginName} not found. Is it installed?`);
+          }
         }
-      }
-      return pluginName;
-    });
+        return pluginName;
+      });
 
     Ditamap.outputDir = this.flags.outputdir;
 
@@ -65,12 +66,12 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       const plugin = this.getPlugin(name);
       const version = plugin && plugin.version;
       if (!version) throw new Error(`No version found for plugin ${name}`);
-      return {name, version};
+      return { name, version };
     });
 
     const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, this.flags.hidden, this.loadTopicMetadata());
 
-    events.on('topic', ({topic}) => {
+    events.on('topic', ({ topic }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
     });
 
@@ -87,7 +88,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       throw new SfdxError(`Found ${warnings.length} warnings.`);
     }
 
-    return {warnings};
+    return { warnings };
   }
 
   private pluginMap(plugins: string[]) {

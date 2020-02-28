@@ -5,11 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap} from '@salesforce/ts-types';
+import { asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
-import {join} from 'path';
+import { join } from 'path';
 import { events } from '../utils';
-import {Ditamap} from './ditamap';
+import { Ditamap } from './ditamap';
 
 export class Command extends Ditamap {
   constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
@@ -21,19 +21,24 @@ export class Command extends Ditamap {
     super(filename, {});
 
     const parameters = Object.entries(flags)
-    .filter(([, flag]) => !flag.hidden)
-    .map(([flagName, flag]) => {
-      if (!flag.longDescription) {
-        events.emit('warning', `No flag longDescription for command ${chalk.bold(command.id)} on flag ${flagName}. That command owner must add the longDescription to the flag definition.`);
-      }
-      return Object.assign(flag, {
-        name: flagName,
-        longDescriptionPs: this.formatParagraphs(flag.longDescription),
-        optional: !flag.required,
-        kind: flag.kind || flag.type,
-        hasValue: flag.type !== 'boolean'
+      .filter(([, flag]) => !flag.hidden)
+      .map(([flagName, flag]) => {
+        if (!flag.longDescription) {
+          events.emit(
+            'warning',
+            `No flag longDescription for command ${chalk.bold(
+              command.id
+            )} on flag ${flagName}. That command owner must add the longDescription to the flag definition.`
+          );
+        }
+        return Object.assign(flag, {
+          name: flagName,
+          longDescriptionPs: this.formatParagraphs(flag.longDescription),
+          optional: !flag.required,
+          kind: flag.kind || flag.type,
+          hasValue: flag.type !== 'boolean'
+        });
       });
-    });
 
     let trailblazerCommunityUrl;
     let trailblazerCommunityName;
@@ -44,7 +49,12 @@ export class Command extends Ditamap {
     }
 
     if (!command.longDescription) {
-      events.emit('warning', `No longDescription for command ${chalk.bold(command.id)}. That command owner must add the longDescription to the command definition.`);
+      events.emit(
+        'warning',
+        `No longDescription for command ${chalk.bold(
+          command.id
+        )}. That command owner must add the longDescription to the command definition.`
+      );
     }
 
     let fullName: string;

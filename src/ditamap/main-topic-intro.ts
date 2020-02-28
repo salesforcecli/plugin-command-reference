@@ -5,11 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {ensureJsonMap, JsonMap} from '@salesforce/ts-types';
+import { ensureJsonMap, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
-import {join} from 'path';
+import { join } from 'path';
 import { events } from '../utils';
-import {Ditamap} from './ditamap';
+import { Ditamap } from './ditamap';
 
 export class MainTopicIntro extends Ditamap {
   constructor(topic: string, subtopic: string, subTopicMeta: JsonMap) {
@@ -24,7 +24,12 @@ export class MainTopicIntro extends Ditamap {
     }
 
     if (!subTopicMeta.longDescription) {
-      events.emit('warning', `No long description for topic ${chalk.bold(topic + ':' + subtopic)}. That topic owner must add a longDescription to the topic metadata in the oclif section in the package.json file within their plugin.`);
+      events.emit(
+        'warning',
+        `No long description for topic ${chalk.bold(
+          topic + ':' + subtopic
+        )}. That topic owner must add a longDescription to the topic metadata in the oclif section in the package.json file within their plugin.`
+      );
     }
 
     super(filename, {

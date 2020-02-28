@@ -5,11 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {fs} from '@salesforce/core';
-import {JsonMap} from '@salesforce/ts-types';
+import { fs } from '@salesforce/core';
+import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
-import {compile, registerHelper} from 'handlebars';
-import {dirname, join} from 'path';
+import { compile, registerHelper } from 'handlebars';
+import { dirname, join } from 'path';
 
 const debug = debugCreator('commandreference');
 
@@ -67,7 +67,7 @@ export abstract class Ditamap {
   }
 
   protected formatParagraphs(textToFormat?: string) {
-    return (textToFormat) ? textToFormat.split('\n').filter(n => n !== '') : [];
+    return textToFormat ? textToFormat.split('\n').filter(n => n !== '') : [];
   }
 
   /**

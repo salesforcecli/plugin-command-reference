@@ -5,18 +5,27 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {Plugin} from '@oclif/config';
-import {fs} from '@salesforce/core';
-import {asString, Dictionary, ensure, ensureArray, ensureJsonMap, ensureString, isArray, JsonMap} from '@salesforce/ts-types';
+import { Plugin } from '@oclif/config';
+import { fs } from '@salesforce/core';
+import {
+  asString,
+  Dictionary,
+  ensure,
+  ensureArray,
+  ensureJsonMap,
+  ensureString,
+  isArray,
+  JsonMap
+} from '@salesforce/ts-types';
 import * as chalk from 'chalk';
-import {BaseDitamap} from './ditamap/base-ditamap';
+import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
-import {CLIReferenceTopic} from './ditamap/cli-reference-topic';
-import {Command} from './ditamap/command';
-import {MainTopicIntro} from './ditamap/main-topic-intro';
-import {SubTopicDitamap} from './ditamap/subtopic-ditamap';
-import {TopicDitamap} from './ditamap/topic-ditamap';
-import {copyStaticFile, events} from './utils';
+import { CLIReferenceTopic } from './ditamap/cli-reference-topic';
+import { Command } from './ditamap/command';
+import { MainTopicIntro } from './ditamap/main-topic-intro';
+import { SubTopicDitamap } from './ditamap/subtopic-ditamap';
+import { TopicDitamap } from './ditamap/topic-ditamap';
+import { copyStaticFile, events } from './utils';
 
 const templatesDir = 'templates';
 
@@ -51,12 +60,22 @@ export class Docs {
     if (!description) {
       description = asString(topicMeta.description);
       if (!description) {
-        events.emit('warning', `No longDescription for topic ${chalk.bold(topic)}. Skipping until topic owner adds topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`);
+        events.emit(
+          'warning',
+          `No longDescription for topic ${chalk.bold(
+            topic
+          )}. Skipping until topic owner adds topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`
+        );
         return;
       }
-      events.emit('warning', `No longDescription for topic ${chalk.bold(topic)} but found description. Still generating but topic owner must add topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`);
+      events.emit(
+        'warning',
+        `No longDescription for topic ${chalk.bold(
+          topic
+        )} but found description. Still generating but topic owner must add topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`
+      );
     }
-    await (new CLIReferenceTopic(topic, description).write());
+    await new CLIReferenceTopic(topic, description).write();
 
     const subTopicNames = [];
     const commandNames = [];
@@ -76,14 +95,19 @@ export class Docs {
 
         if (!subTopicsMeta[subtopic]) {
           const fullTopicPath = `${topic}:${subtopic}`;
-          events.emit('warning', `No metadata for topic ${chalk.bold(fullTopicPath)}. That topic owner must add topic metadata in the oclif section in the package.json file within their plugin.`);
+          events.emit(
+            'warning',
+            `No metadata for topic ${chalk.bold(
+              fullTopicPath
+            )}. That topic owner must add topic metadata in the oclif section in the package.json file within their plugin.`
+          );
           continue;
         }
 
         const subtopicMeta = ensureJsonMap(subTopicsMeta[subtopic]);
 
         // The intro doc for this topic
-        await (new MainTopicIntro(topic, subtopic, subtopicMeta)).write();
+        await new MainTopicIntro(topic, subtopic, subtopicMeta).write();
 
         subTopicNames.push(subtopic);
 
@@ -102,7 +126,7 @@ export class Docs {
 
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
-    await (new TopicDitamap(topic, subTopicNames, commandNames)).write();
+    await new TopicDitamap(topic, subTopicNames, commandNames).write();
 
     // TODO just include it in the upper loop?
     // await this.populateSubTopics(topic, subtopics)
@@ -129,7 +153,7 @@ export class Docs {
 
       const topLevelTopic = commandParts[0];
 
-      const plugin = command.plugin as unknown as Plugin;
+      const plugin = (command.plugin as unknown) as Plugin;
       if (this.plugins[plugin.name]) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
@@ -177,16 +201,16 @@ export class Docs {
   private async populateTemplate(commands: JsonMap[]) {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
-    await (new CLIReference()).write();
+    await new CLIReference().write();
     await copyStaticFile(this.outputDir, templatesDir, 'cli_reference_help.xml');
 
     const topics = Object.keys(topicsAndSubtopics);
 
     // Generate one base file with all top-level topics.
-    await (new BaseDitamap(topics)).write();
+    await new BaseDitamap(topics).write();
 
     for (const topic of topics) {
-      events.emit('topic', {topic});
+      events.emit('topic', { topic });
       const subtopics = ensure(topicsAndSubtopics[topic]);
       await this.populateTopic(topic, subtopics);
     }
@@ -212,10 +236,10 @@ export class Docs {
       }
     } catch (error) {
       if (commandId.endsWith(part)) {
-      // This means there wasn't meta information going all the way down to the command, which is ok.
+        // This means there wasn't meta information going all the way down to the command, which is ok.
         return commandMeta;
       } else {
-        events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`)
+        events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
       }
     }
     return commandMeta;

@@ -5,11 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {fs} from '@salesforce/core';
-import {Dictionary, isObject} from '@salesforce/ts-types';
+import { fs } from '@salesforce/core';
+import { Dictionary, isObject } from '@salesforce/ts-types';
 import { EventEmitter } from 'events';
-import {copyFileSync} from 'fs';
-import {join} from 'path';
+import { copyFileSync } from 'fs';
+import { join } from 'path';
 
 export const events = new EventEmitter();
 

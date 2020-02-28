@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {join} from 'path';
-import {Ditamap} from './ditamap';
+import { join } from 'path';
+import { Ditamap } from './ditamap';
 
 export class TopicDitamap extends Ditamap {
   constructor(topic: string, subtopics: string[], commandNames: string[]) {
@@ -14,8 +14,8 @@ export class TopicDitamap extends Ditamap {
     // Set the data of topic and filenames
     super(filename, {
       topic,
-      subtopics: subtopics.sort().map(subtopic => ({subtopic})),
-      commands: commandNames.sort().map(command => ({command}))
+      subtopics: subtopics.sort().map(subtopic => ({ subtopic })),
+      commands: commandNames.sort().map(command => ({ command }))
     });
 
     // Override destination to include topic and subtopic
