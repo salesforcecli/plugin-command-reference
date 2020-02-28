@@ -24,7 +24,7 @@ export class Command extends Ditamap {
     .filter(([, flag]) => !flag.hidden)
     .map(([flagName, flag]) => {
       if (!flag.longDescription) {
-        events.emit('warning', chalk.yellow(`> No flag longDescription for command ${chalk.bold(command.id)} on flag ${flagName}. That command owner must add the longDescription to the flag definition.\n`));
+        events.emit('warning', `No flag longDescription for command ${chalk.bold(command.id)} on flag ${flagName}. That command owner must add the longDescription to the flag definition.`);
       }
       return Object.assign(flag, {
         name: flagName,
@@ -44,7 +44,7 @@ export class Command extends Ditamap {
     }
 
     if (!command.longDescription) {
-      events.emit('warning', chalk.yellow(`> No longDescription for command ${chalk.bold(command.id)}. That command owner must add the longDescription to the command definition.\n`));
+      events.emit('warning', `No longDescription for command ${chalk.bold(command.id)}. That command owner must add the longDescription to the command definition.`);
     }
 
     let fullName: string;
@@ -53,6 +53,7 @@ export class Command extends Ditamap {
     } else {
       fullName = commandWithUnderscores.replace(`${topic}_`, '');
     }
+    const state = command.state || commandMeta.state;
     this.data = Object.assign(command, {
       binary: 'sfdx',
       // The old style didn't have the topic or subtopic in the reference ID.
@@ -60,9 +61,9 @@ export class Command extends Ditamap {
       helpPs: this.formatParagraphs(asString(command.help)),
       longDescriptionPs: this.formatParagraphs(asString(command.longDescription)),
       parameters,
-      isClosedPilotCommand: commandMeta.state === 'closedPilot',
-      isOpenPilotCommand: commandMeta.state === 'openPilot',
-      isBetaCommand: commandMeta.state === 'beta',
+      isClosedPilotCommand: state === 'closedPilot',
+      isOpenPilotCommand: state === 'openPilot',
+      isBetaCommand: state === 'beta',
       trailblazerCommunityUrl,
       trailblazerCommunityName
     }) as JsonMap;

@@ -8,8 +8,8 @@
 import {ensureJsonMap, JsonMap} from '@salesforce/ts-types';
 import chalk = require('chalk');
 import {join} from 'path';
-import {Ditamap} from './ditamap';
 import { events } from '../utils';
+import {Ditamap} from './ditamap';
 
 export class MainTopicIntro extends Ditamap {
   constructor(topic: string, subtopic: string, subTopicMeta: JsonMap) {
@@ -24,7 +24,7 @@ export class MainTopicIntro extends Ditamap {
     }
 
     if (!subTopicMeta.longDescription) {
-      events.emit('warning', chalk.yellow(`> No long description for topic ${chalk.bold(topic + ':' + subtopic)}. That topic owner must add a longDescription to the topic metadata in the oclif section in the package.json file within their plugin.\n`));
+      events.emit('warning', `No long description for topic ${chalk.bold(topic + ':' + subtopic)}. That topic owner must add a longDescription to the topic metadata in the oclif section in the package.json file within their plugin.`);
     }
 
     super(filename, {

@@ -76,7 +76,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
 
     const warnings = [];
     events.on('warning', msg => {
-      process.stderr.write(msg);
+      process.stderr.write(chalk.yellow(`> ${msg}\n`));
       warnings.push(msg);
     });
 

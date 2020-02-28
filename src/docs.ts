@@ -7,7 +7,7 @@
 
 import {Plugin} from '@oclif/config';
 import {fs} from '@salesforce/core';
-import {asString, Dictionary, ensure, ensureJsonMap, ensureString, JsonMap, ensureArray, isArray} from '@salesforce/ts-types';
+import {asString, Dictionary, ensure, ensureArray, ensureJsonMap, ensureString, isArray, JsonMap} from '@salesforce/ts-types';
 import * as chalk from 'chalk';
 import {BaseDitamap} from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
@@ -47,10 +47,14 @@ export class Docs {
    */
   public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>) {
     const topicMeta = ensureJsonMap(this.topicMeta[topic]);
-    const description = asString(topicMeta.longDescription);
+    let description = asString(topicMeta.longDescription);
     if (!description) {
-      events.emit('warning', chalk.yellow(`> No longDescription for topic ${chalk.bold(topic)}. That topic owner must add topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.\n`));
-      return;
+      description = asString(topicMeta.description);
+      if (!description) {
+        events.emit('warning', `No longDescription for topic ${chalk.bold(topic)}. Skipping until topic owner adds topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`);
+        return;
+      }
+      events.emit('warning', `No longDescription for topic ${chalk.bold(topic)} but found description. Still generating but topic owner must add topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`);
     }
     await (new CLIReferenceTopic(topic, description).write());
 
@@ -72,7 +76,7 @@ export class Docs {
 
         if (!subTopicsMeta[subtopic]) {
           const fullTopicPath = `${topic}:${subtopic}`;
-          events.emit('warning', chalk.yellow(`> No metadata for topic ${chalk.bold(fullTopicPath)}. That topic owner must add topic metadata in the oclif section in the package.json file within their plugin.\n`));
+          events.emit('warning', `No metadata for topic ${chalk.bold(fullTopicPath)}. That topic owner must add topic metadata in the oclif section in the package.json file within their plugin.`);
           continue;
         }
 
@@ -92,7 +96,7 @@ export class Docs {
         }
         await new SubTopicDitamap(topic, subtopic, filenames).write();
       } catch (error) {
-        events.emit('warning', chalk.yellow(`> Can't create topic for ${topic}:${subtopic}: ${error.message}\n`));
+        events.emit('warning', `Can't create topic for ${topic}:${subtopic}: ${error.message}\n`);
       }
     }
 
@@ -115,7 +119,14 @@ export class Docs {
     const topLevelTopics: Dictionary<Dictionary<Dictionary | Dictionary[]>> = {};
 
     for (const command of commands) {
+      if (command.hidden && !this.hidden) {
+        continue;
+      }
       const commandParts = ensureString(command.id).split(':');
+      if (commandParts.length === 1) {
+        continue; // Top level topic command. Just ignore for as it is usually help for the topic.
+      }
+
       const topLevelTopic = commandParts[0];
 
       const plugin = command.plugin as unknown as Plugin;
@@ -130,6 +141,15 @@ export class Docs {
           topics[commandParts[1]] = command;
         } else {
           const subtopic = commandParts[1];
+
+          try {
+            const topicMeta = ensureJsonMap(this.topicMeta[topLevelTopic]);
+            const subTopicsMeta = ensureJsonMap(topicMeta.subtopics);
+            if (subTopicsMeta.hidden && !this.hidden) {
+              continue;
+            }
+          } catch (e) {} // It means no meta so it isn't hidden, although it should always fail before here with no meta found
+
           command.subtopic = subtopic;
 
           const existingSubTopics = topics[subtopic];
@@ -176,10 +196,10 @@ export class Docs {
     const commandMeta: JsonMap = {};
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
-
+    let part;
     try {
       let currentMeta: JsonMap | undefined;
-      for (const part of commandParts) {
+      for (part of commandParts) {
         if (currentMeta) {
           const subtopics = ensureJsonMap(currentMeta.subtopics);
           currentMeta = ensureJsonMap(subtopics[part]);
@@ -191,8 +211,12 @@ export class Docs {
         Object.assign(commandMeta, currentMeta);
       }
     } catch (error) {
+      if (commandId.endsWith(part)) {
       // This means there wasn't meta information going all the way down to the command, which is ok.
-      return commandMeta;
+        return commandMeta;
+      } else {
+        events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`)
+      }
     }
     return commandMeta;
   }
