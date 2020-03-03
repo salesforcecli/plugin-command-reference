@@ -37,10 +37,6 @@ export class Docs {
     private topicMeta: JsonMap
   ) {}
 
-  /**
-   * Take CLI help json output and transform into dita map format
-   * @param options - array of command line options (args)
-   */
   public async build(commands: JsonMap[]) {
     // Create if doesn't exist
     await fs.mkdirp(this.outputDir);
@@ -48,12 +44,6 @@ export class Docs {
     await this.populateTemplate(commands);
   }
 
-  /**
-   * Create the descriptor xml file for the main level topic
-   * @param namespace
-   * @param results
-   * @param rootOutputDir
-   */
   public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>) {
     const topicMeta = ensureJsonMap(this.topicMeta[topic]);
     let description = asString(topicMeta.longDescription);
@@ -127,9 +117,6 @@ export class Docs {
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
     await new TopicDitamap(topic, subTopicNames, commandNames).write();
-
-    // TODO just include it in the upper loop?
-    // await this.populateSubTopics(topic, subtopics)
     return subTopicNames;
   }
 
@@ -137,7 +124,7 @@ export class Docs {
    * Group all commands by the top level topic and then subtopic. e.g. force, analytics, evergreen, etc
    * then org, apex, etc within the force namespace.
    * @param commands - The entire set of command data.
-   * @returns The commands grouped by namespace grouped by topics/commands.
+   * @returns The commands grouped by topics/subtopic/commands.
    */
   private groupTopicsAndSubtopics(commands: JsonMap[]) {
     const topLevelTopics: Dictionary<Dictionary<Dictionary | Dictionary[]>> = {};
@@ -192,12 +179,6 @@ export class Docs {
     return topLevelTopics;
   }
 
-  /**
-   * Given help data in json convert it to ditamap format
-   * @param outputdir - directory for ditamap format results
-   * @param showhidden - include hidden parameters in converted help
-   * @param parsedData - {object} containing CLI help
-   */
   private async populateTemplate(commands: JsonMap[]) {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 

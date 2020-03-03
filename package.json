@@ -20,7 +20,8 @@
     "@oclif/plugin-help": "^2",
     "@oclif/test": "^1",
     "globby": "^8",
-    "husky": "^1"
+    "husky": "^1",
+    "salesforcedx": "48.3.1"
   },
   "engines": {
     "node": ">=8.4.0"
@@ -47,7 +48,8 @@
       }
     },
     "devPlugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "salesforcedx"
     ]
   },
   "repository": "salesforcecli/plugin-command-reference",
