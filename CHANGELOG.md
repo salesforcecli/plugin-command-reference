@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.3...v1.0.4) (2020-03-03)
+
+### Bug Fixes
+
+- path for templates, again =) ([ccd7396](https://github.com/forcedotcom/plugin-command-reference/commit/ccd7396a1c3de89298325f8b2508753cc6a3bdd9))
+
 ## [1.0.3](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.2...v1.0.3) (2020-03-03)
 
 ### Bug Fixes
