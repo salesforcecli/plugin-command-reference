@@ -493,10 +493,10 @@
     tslint-microsoft-contrib "^5.2.1"
     typescript "~3.1.6"
 
-"@salesforce/dev-scripts@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/dev-scripts/-/dev-scripts-0.4.1.tgz#d31ad1a7eace50cb64991062b42641a0a3cecd4d"
-  integrity sha512-KTFi9IjM7UHoKgB4cjoxL8tQ78ibgt6dpu62lbEbsDkLf9SmR+C3umMDrJRGdD1G0E5D5+8sl3rJcmY9Pp07Kg==
+"@salesforce/dev-scripts@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/dev-scripts/-/dev-scripts-0.4.2.tgz#739b6e4df99cc79fd852a529811e799806daffb7"
+  integrity sha512-/ifu5TNhMXltPjYTWcdgxkqppMDlVyvp6y8tNZSIBop4/GWCOWbm1HLi+m3o0/fhZQNKIlrTy59SWYFaHRCDRg==
   dependencies:
     "@commitlint/cli" "^8.1.0"
     "@commitlint/config-conventional" "^7.6.0"
