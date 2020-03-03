@@ -1,5 +1,4 @@
-@salesforce/plugin-command-reference
-====================================
+# @salesforce/plugin-command-reference
 
 Generate the [Salesforce CLI command reference guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/).
 
@@ -45,7 +44,8 @@ Then you can run this in your plugin's CI.
 ```
 
 <!-- commands -->
-* [`sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--p-array--d-string---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+
+- [`sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--p-array--d-string---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -53,7 +53,7 @@ generate the command reference guide located
 
 ```
 USAGE
-  $ sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel 
+  $ sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -75,5 +75,6 @@ OPTIONS
                                                                                     this command invocation
 ```
 
-_See code: [lib/commands/commandreference/generate.js](https://github.com/salesforcecli/plugin-command-reference/blob/v0.0.0/lib/commands/commandreference/generate.js)_
+_See code: [lib/commands/commandreference/generate.js](https://github.com/forcedotcom/plugin-command-reference/blob/v1.0.1/lib/commands/commandreference/generate.js)_
+
 <!-- commandsstop -->
