@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.1...v1.0.2) (2020-03-03)
+
+### Bug Fixes
+
+- user dirname for templates ([51b9b0b](https://github.com/forcedotcom/plugin-command-reference/commit/51b9b0b7f1c99e894e72d0f1d7042445a61ad653))
+
 ## [1.0.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.0...v1.0.1) (2020-03-03)
 
 ### Bug Fixes
