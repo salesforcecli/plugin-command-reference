@@ -45,7 +45,7 @@ export abstract class Ditamap {
   private source: string;
 
   constructor(private filename: string, protected data: JsonMap) {
-    this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
+    this.source = join(__dirname, Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }
 
