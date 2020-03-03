@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.4...v1.0.5) (2020-03-03)
+
+### Bug Fixes
+
+- missing path join ([def2d07](https://github.com/forcedotcom/plugin-command-reference/commit/def2d0710f539793c52d36199fe4b78ab88e0afd))
+
 ## [1.0.4](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.3...v1.0.4) (2020-03-03)
 
 ### Bug Fixes
