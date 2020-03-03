@@ -3,7 +3,7 @@
   "description": "Generate the Salesforce CLI command reference guide",
   "version": "0.0.1",
   "author": "Thomas @amphro",
-  "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
+  "bugs": "https://github.com/forcedotcom/plugin-command-reference/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -32,7 +32,7 @@
     "/oclif.manifest.json",
     "/templates"
   ],
-  "homepage": "https://github.com/salesforcecli/plugin-command-reference",
+  "homepage": "https://github.com/forcedotcom/plugin-command-reference",
   "keywords": [
     "sfdx-plugin"
   ],
@@ -50,7 +50,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "salesforcecli/plugin-command-reference",
+  "repository": "forcedotcom/plugin-command-reference",
   "scripts": {
     "build": "yarn sfdx-build",
     "clean": "yarn sfdx-clean",
