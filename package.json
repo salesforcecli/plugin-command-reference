@@ -5,22 +5,24 @@
   "author": "Thomas @amphro",
   "bugs": "https://github.com/forcedotcom/plugin-command-reference/issues",
   "dependencies": {
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
-    "@oclif/errors": "^1",
-    "@salesforce/command": "^2",
-    "@salesforce/core": "^2",
-    "@salesforce/dev-scripts": "^0.4.1",
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.14.0",
+    "@oclif/errors": "^1.2.2",
+    "@salesforce/command": "^3.0.0",
+    "@salesforce/core": "^2.2.0",
     "chalk": "^3.0.0",
     "handlebars": "^4.7.3",
     "tslib": "^1"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1",
-    "@oclif/plugin-help": "^2",
-    "@oclif/test": "^1",
-    "globby": "^8",
-    "husky": "^1"
+    "@oclif/dev-cli": "^1.22.2",
+    "@oclif/plugin-help": "^2.2.3",
+    "@oclif/test": "^1.2.5",
+    "@salesforce/dev-scripts": "^0.4.1",
+    "@semantic-release/changelog": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "husky": "^4.2.3",
+    "semantic-release": "^17.0.4"
   },
   "engines": {
     "node": ">=8.4.0"
@@ -71,5 +73,8 @@
       "pre-commit": "yarn sfdx-husky-pre-commit",
       "pre-push": "yarn sfdx-husky-pre-push"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
