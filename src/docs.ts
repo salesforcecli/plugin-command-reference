@@ -18,6 +18,7 @@ import {
   JsonMap
 } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
+import { join } from 'path';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { CLIReferenceTopic } from './ditamap/cli-reference-topic';
@@ -27,7 +28,7 @@ import { SubTopicDitamap } from './ditamap/subtopic-ditamap';
 import { TopicDitamap } from './ditamap/topic-ditamap';
 import { copyStaticFile, events } from './utils';
 
-const templatesDir = 'templates';
+const templatesDir = join(__dirname, '..', 'templates');
 
 export class Docs {
   public constructor(

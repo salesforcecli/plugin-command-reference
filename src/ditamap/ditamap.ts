@@ -27,7 +27,7 @@ registerHelper('isCodeBlock', function(this: any, val, options) {
 registerHelper('nextVersion', value => parseInt(value, 2) + 1);
 
 export abstract class Ditamap {
-  public static templatesDir = 'templates';
+  public static templatesDir = join(__dirname, '..', '..', 'templates');
 
   public static outputDir: string;
 
@@ -45,7 +45,7 @@ export abstract class Ditamap {
   private source: string;
 
   constructor(private filename: string, protected data: JsonMap) {
-    this.source = join(__dirname, '..', '..', Ditamap.templatesDir, this.getTemplateFileName());
+    (this.source = Ditamap.templatesDir), this.getTemplateFileName();
     this.destination = join(Ditamap.outputDir, filename);
   }
 
