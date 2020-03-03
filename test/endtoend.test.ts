@@ -25,7 +25,7 @@ function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
 }
 
-describe('salesforcedx', () => {
+describe.skip('salesforcedx', () => {
   before(async () => {
     await require('@oclif/command').run([
       'commandreference:generate',
