@@ -23,7 +23,7 @@ export class MainTopicIntro extends Ditamap {
       trailblazerCommunityName = community.name;
     }
 
-    if (!subTopicMeta.longDescription) {
+    if (!subTopicMeta.longDescription && !subTopicMeta.external) {
       events.emit(
         'warning',
         `No long description for topic ${chalk.bold(

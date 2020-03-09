@@ -25,15 +25,13 @@ function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
 }
 
-describe.skip('salesforcedx', () => {
+describe('salesforcedx', () => {
   before(async () => {
-    await require('@oclif/command').run([
-      'commandreference:generate',
-      '--plugins',
-      'salesforcedx',
-      '--outputdir',
-      testFilesPath
-    ]);
+    try {
+      await fs.access(testFilesPath);
+    } catch (e) {
+      throw new Error('Could not read generated test docs. Ensure the "pretest" has run or run it manually.');
+    }
   });
   after(async () => {
     await fs.remove(testFilesPath);

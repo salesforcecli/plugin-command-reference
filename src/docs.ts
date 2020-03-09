@@ -48,7 +48,7 @@ export class Docs {
   public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>) {
     const topicMeta = ensureJsonMap(this.topicMeta[topic]);
     let description = asString(topicMeta.longDescription);
-    if (!description) {
+    if (!description && !topicMeta.external) {
       description = asString(topicMeta.description);
       if (!description) {
         events.emit(

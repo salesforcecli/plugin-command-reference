@@ -22,6 +22,7 @@
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
     "husky": "^4.2.3",
+    "salesforcedx": "^48.4.1",
     "semantic-release": "^17.0.4"
   },
   "engines": {
@@ -49,7 +50,8 @@
       }
     },
     "devPlugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "salesforcedx"
     ]
   },
   "repository": "forcedotcom/plugin-command-reference",
@@ -62,6 +64,7 @@
     "format": "yarn sfdx-format",
     "lint": "yarn sfdx-lint",
     "postpack": "rm -f oclif.manifest.json",
+    "pretest": "./bin/run commandreference:generate --plugins salesforcedx --outputdir test/tmp",
     "posttest": "tslint -p test -t stylish",
     "prepack": "yarn sfdx-build",
     "test": "yarn sfdx-test",

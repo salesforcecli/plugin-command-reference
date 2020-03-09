@@ -26,9 +26,9 @@ export class Command extends Ditamap {
         if (!flag.longDescription) {
           events.emit(
             'warning',
-            `No flag longDescription for command ${chalk.bold(
-              command.id
-            )} on flag ${flagName}. That command owner must add the longDescription to the flag definition.`
+            `No flag longDescription for command "${chalk.bold(command.id)}" on flag "${chalk.bold(
+              flagName
+            )}". That command owner must add the longDescription to the flag definition.`
           );
         }
         return Object.assign(flag, {
