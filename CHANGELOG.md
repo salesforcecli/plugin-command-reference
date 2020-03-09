@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.5...v1.0.6) (2020-03-09)
+
+### Bug Fixes
+
+- add back tests and allow for external topics ([88a9229](https://github.com/forcedotcom/plugin-command-reference/commit/88a9229f55be479a48ba3d696e00ac792e71ce6e))
+
 ## [1.0.5](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.4...v1.0.5) (2020-03-03)
 
 ### Bug Fixes
