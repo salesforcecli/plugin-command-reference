@@ -1,3 +1,9 @@
+## [1.0.7](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.6...v1.0.7) (2020-03-11)
+
+### Bug Fixes
+
+- do not warn on single command topics ([b799259](https://github.com/forcedotcom/plugin-command-reference/commit/b799259ff941fc7a13157cded1e5bb0895d212ce))
+
 ## [1.0.6](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.5...v1.0.6) (2020-03-09)
 
 ### Bug Fixes
