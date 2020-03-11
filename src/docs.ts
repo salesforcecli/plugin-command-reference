@@ -76,7 +76,7 @@ export class Docs {
         if (!isArray(subtopicOrCommand)) {
           // If it is not subtopic (array) it is a command in the top-level topic
           const command = subtopicOrCommand;
-          const commandMeta = this.resolveCommandMeta(ensureString(command.id));
+          const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, 1);
           await this.populateCommand(topic, null, command, commandMeta);
           commandNames.push(subtopic);
           continue;
@@ -105,7 +105,9 @@ export class Docs {
         // Commands within the sub topic
         const filenames: string[] = [];
         for (const command of subtopicOrCommand) {
-          const commandMeta = this.resolveCommandMeta(ensureString(command.id));
+          const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
+          const commandsInFullTopic = subtopicOrCommand.filter(cmd => ensureString(cmd.id).indexOf(fullTopic) === 0);
+          const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
           filenames.push(await this.populateCommand(topic, subtopic, command, commandMeta));
         }
@@ -198,7 +200,7 @@ export class Docs {
     }
   }
 
-  private resolveCommandMeta(commandId: string) {
+  private resolveCommandMeta(commandId: string, command, commandsInTopic: number) {
     const commandMeta: JsonMap = {};
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
@@ -221,7 +223,15 @@ export class Docs {
         // This means there wasn't meta information going all the way down to the command, which is ok.
         return commandMeta;
       } else {
-        events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
+        if (commandsInTopic !== 1) {
+          events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
+        } else {
+          // Since there is no command meta, just use the command description since that is what oclif does.
+          if (!commandMeta.description) {
+            commandMeta.description = command.description;
+            commandMeta.longDescription = command.longDescription;
+          }
+        }
       }
     }
     return commandMeta;
