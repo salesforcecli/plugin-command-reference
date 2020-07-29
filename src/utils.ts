@@ -9,6 +9,7 @@ import { fs } from '@salesforce/core';
 import { Dictionary, isObject } from '@salesforce/ts-types';
 import { EventEmitter } from 'events';
 import { copyFileSync } from 'fs';
+import { EOL } from 'os';
 import { join } from 'path';
 
 export const events = new EventEmitter();
@@ -29,4 +30,18 @@ export function mergeDeep(target: Dictionary, source: Dictionary) {
     }
   });
   return target;
+}
+
+export function punctuate(description: string): string {
+  if (!description) return description;
+
+  const lines = description.split(EOL);
+  let mainDescription = lines[0];
+
+  mainDescription = mainDescription.charAt(0).toUpperCase() + mainDescription.substring(1);
+
+  if (mainDescription.charAt(mainDescription.length - 1) !== '.') {
+    mainDescription += '.';
+  }
+  return [mainDescription, ...lines.slice(1)].join(EOL);
 }

@@ -6,7 +6,8 @@
  */
 
 import { expect } from 'chai';
-import { mergeDeep } from '../src/utils';
+import { EOL } from 'os';
+import { punctuate, mergeDeep } from '../src/utils';
 
 it('merge two shallow objects', () => {
   expect(mergeDeep({ a: 1 }, { b: 2 })).to.deep.equal({ a: 1, b: 2 });
@@ -35,5 +36,21 @@ it('merge two deeply nested objects', () => {
         e: 4
       }
     }
+  });
+});
+
+describe('punctuate', () => {
+  it('description to longDescription', () => {
+    expect(punctuate('lowercase oclif description')).to.equal('Lowercase oclif description.');
+  });
+
+  it('multi line descriptions to longDescriptions', () => {
+    expect(punctuate(`lowercase oclif description${EOL}${EOL}some other stuff`)).to.equal(
+      `Lowercase oclif description.${EOL}${EOL}some other stuff`
+    );
+  });
+
+  it('does not add additional punctuation', () => {
+    expect(punctuate('Uppercase longDescription.')).to.equal('Uppercase longDescription.');
   });
 });

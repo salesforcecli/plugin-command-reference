@@ -5,10 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { ensureJsonMap, JsonMap } from '@salesforce/ts-types';
-import chalk = require('chalk');
+import { asString, ensureJsonMap, JsonMap } from '@salesforce/ts-types';
 import { join } from 'path';
-import { events } from '../utils';
+import { punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
 export class MainTopicIntro extends Ditamap {
@@ -24,17 +23,12 @@ export class MainTopicIntro extends Ditamap {
     }
 
     if (!subTopicMeta.longDescription && !subTopicMeta.external) {
-      events.emit(
-        'warning',
-        `No long description for topic ${chalk.bold(
-          topic + ':' + subtopic
-        )}. That topic owner must add a longDescription to the topic metadata in the oclif section in the package.json file within their plugin.`
-      );
+      subTopicMeta.longDescription = punctuate(asString(subTopicMeta.description));
     }
 
     super(filename, {
       topic: subtopic,
-      longDescription: subTopicMeta.longDescription || subTopicMeta.description,
+      longDescription: subTopicMeta.longDescription,
       isOpenPilotTopic: subTopicMeta.state === 'openPilot',
       isClosedPilotTopic: subTopicMeta.state === 'closedPilot',
       isBetaTopic: subTopicMeta.state === 'beta',

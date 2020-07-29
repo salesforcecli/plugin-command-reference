@@ -6,9 +6,8 @@
  */
 
 import { asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
-import chalk = require('chalk');
 import { join } from 'path';
-import { events } from '../utils';
+import { punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
 export class Command extends Ditamap {
@@ -24,12 +23,7 @@ export class Command extends Ditamap {
       .filter(([, flag]) => !flag.hidden)
       .map(([flagName, flag]) => {
         if (!flag.longDescription) {
-          events.emit(
-            'warning',
-            `No flag longDescription for command "${chalk.bold(command.id)}" on flag "${chalk.bold(
-              flagName
-            )}". That command owner must add the longDescription to the flag definition.`
-          );
+          flag.longDescription = punctuate(flag.description);
         }
         return Object.assign(flag, {
           name: flagName,
@@ -49,12 +43,7 @@ export class Command extends Ditamap {
     }
 
     if (!command.longDescription) {
-      events.emit(
-        'warning',
-        `No longDescription for command ${chalk.bold(
-          command.id
-        )}. That command owner must add the longDescription to the command definition.`
-      );
+      command.longDescription = punctuate(asString(command.description));
     }
 
     let fullName: string;

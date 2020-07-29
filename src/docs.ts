@@ -26,7 +26,7 @@ import { Command } from './ditamap/command';
 import { MainTopicIntro } from './ditamap/main-topic-intro';
 import { SubTopicDitamap } from './ditamap/subtopic-ditamap';
 import { TopicDitamap } from './ditamap/topic-ditamap';
-import { copyStaticFile, events } from './utils';
+import { copyStaticFile, events, punctuate } from './utils';
 
 const templatesDir = join(__dirname, '..', 'templates');
 
@@ -46,25 +46,23 @@ export class Docs {
   }
 
   public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>) {
-    const topicMeta = ensureJsonMap(this.topicMeta[topic]);
+    const topicMeta = ensureJsonMap(
+      this.topicMeta[topic],
+      `No topic meta for ${topic} - add this topic to the oclif section of the package.json.`
+    );
     let description = asString(topicMeta.longDescription);
     if (!description && !topicMeta.external) {
-      description = asString(topicMeta.description);
+      // Punctuate the description in place of longDescription
+      description = punctuate(asString(topicMeta.description));
       if (!description) {
         events.emit(
           'warning',
-          `No longDescription for topic ${chalk.bold(
+          `No description for topic ${chalk.bold(
             topic
           )}. Skipping until topic owner adds topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`
         );
         return;
       }
-      events.emit(
-        'warning',
-        `No longDescription for topic ${chalk.bold(
-          topic
-        )} but found description. Still generating but topic owner must add topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`
-      );
     }
     await new CLIReferenceTopic(topic, description).write();
 
@@ -229,7 +227,7 @@ export class Docs {
           // Since there is no command meta, just use the command description since that is what oclif does.
           if (!commandMeta.description) {
             commandMeta.description = command.description;
-            commandMeta.longDescription = command.longDescription;
+            commandMeta.longDescription = command.longDescription || punctuate(command.description);
           }
         }
       }
