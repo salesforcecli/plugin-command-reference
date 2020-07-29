@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.7...v1.1.0) (2020-07-29)
+
+
+### Features
+
+* support no long description ([4b5dabc](https://github.com/forcedotcom/plugin-command-reference/commit/4b5dabc7acc30bd689bda110484e2c0e345d64da))
+
 ## [1.0.7](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.6...v1.0.7) (2020-03-11)
 
 ### Bug Fixes
