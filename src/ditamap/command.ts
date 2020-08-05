@@ -27,7 +27,7 @@ export class Command extends Ditamap {
     super(filename, {});
 
     const flags = ensureObject(command.flags);
-    const parameters = this.getParametersForTemplate(flags);
+    const parameters = this.getParametersForTemplate(flags as Dictionary<CommandHelpInfo>);
 
     // The template only expects a oneline description. Punctuate the first line of either the lingDescription or description.
     const description = punctuate(asString(command.longDescription) || asString(command.description));

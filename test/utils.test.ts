@@ -46,7 +46,7 @@ describe('punctuate', () => {
 
   it('multi line descriptions to longDescriptions', () => {
     expect(punctuate(`lowercase oclif description${EOL}${EOL}some other stuff`)).to.equal(
-      `Lowercase oclif description.${EOL}${EOL}some other stuff`
+      'Lowercase oclif description.'
     );
   });
 
