@@ -43,5 +43,14 @@ export function punctuate(description: string): string {
   if (mainDescription.charAt(mainDescription.length - 1) !== '.') {
     mainDescription += '.';
   }
-  return [mainDescription, ...lines.slice(1)].join(EOL);
+
+  return mainDescription;
+}
+
+export function helpFromDescription(description: string): string {
+  return description
+    .split(EOL)
+    .slice(1)
+    .join(EOL)
+    .trim();
 }

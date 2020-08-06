@@ -10,7 +10,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT rsears@salesforce.com FOR DETAILS.
 -->
     {{!--Not all commands have a minor noun; some are just commandmajornoun:commandverb. This is a sample topic for a commmand with no minor noun.--}}
     <title><ph id="topic-title"><codeph otherprops="nolang">{{id}}</codeph>{{#if isClosedPilotCommand}} (Pilot){{/if}}{{#if isOpenPilotCommand}} (Pilot){{/if}}{{#if isBetaCommand}} (Beta){{/if}}{{#if deprecated}} (Deprecated){{/if}}</ph></title>
-    <shortdesc><ph id="shortdesc">{{#if deprecated}}The command <codeph otherprops="nolang">{{id}}</codeph> has been deprecated and will be removed in v{{nextVersion deprecated.version}}.0 or later. Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead. {{/if}}{{#if longDescription}}{{longDescription}}{{else}}{{description}}{{/if}}</ph></shortdesc>
+    <shortdesc><ph id="shortdesc">{{#if deprecated}}The command <codeph otherprops="nolang">{{id}}</codeph> has been deprecated and will be removed in v{{nextVersion deprecated.version}}.0 or later. Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead. {{/if}}{{description}}</ph></shortdesc>
     <prolog>
         <metadata>
             {{!--In the future we’ll add keywords here.--}}
@@ -81,7 +81,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT rsears@salesforce.com FOR DETAILS.
                     <dt>{{#if char}}<codeph otherprops="nolang">-{{char}}</codeph> | {{/if}}<codeph otherprops="nolang">--{{name}}</codeph>{{#if hasValue}} <parmname>{{toUpperCase name}}</parmname>{{/if}}</dt>
                     {{#if deprecated}}<dd>The parameter <codeph otherprops="nolang">--{{name}}</codeph> has been deprecated and will be removed in v{{nextVersion deprecated.version}}.0 or later. Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead.</dd>
                     {{/if}}<dd>{{#if optional}}Optional{{else}}Required{{/if}}</dd>
-                    <dd>{{#if longDescriptionPs}}{{#each longDescriptionPs}}<p>{{[]}}</p>{{/each}}{{else}}<p>{{description}}</p>{{/if}}</dd>{{#if kind}}
+                    <dd><p>{{description}}</p></dd>{{#if kind}}
                     <dd>Type: {{kind}}</dd>{{/if}}{{#if options}}
                     <dd>Permissible values are: {{join options}}</dd>{{/if}}{{#if default}}
                     <dd>Default value: {{default}}</dd>{{/if}}
@@ -90,11 +90,13 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT rsears@salesforce.com FOR DETAILS.
             </dl>
         </section>
         {{/if}}
+        {{#if help}}
         <section>
             <title><ph>Help for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
-            {{#each helpPs}}
+            {{#each help}}
             {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
             {{/each}}
         </section>
+        {{/if}}
     </refbody>
 </reference>
