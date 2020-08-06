@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.0...v1.1.1) (2020-08-06)
+
+
+### Bug Fixes
+
+* no multiline in description ([0b846b7](https://github.com/forcedotcom/plugin-command-reference/commit/0b846b7931a35e1cad4956fa918ece30650944f9))
+
 # [1.1.0](https://github.com/forcedotcom/plugin-command-reference/compare/v1.0.7...v1.1.0) (2020-07-29)
 
 
