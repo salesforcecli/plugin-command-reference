@@ -73,7 +73,7 @@ export class Command extends Ditamap {
   }
 
   public getParametersForTemplate(flags: Dictionary<CommandHelpInfo>) {
-    Object.entries(flags)
+    return Object.entries(flags)
       .filter(([, flag]) => !flag.hidden)
       .map(([flagName, flag]) => {
         const description = this.formatParagraphs(flag.longDescription || punctuate(flag.description));

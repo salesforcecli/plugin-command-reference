@@ -53,4 +53,8 @@ describe('salesforcedx', () => {
     const dita = loadTestDitamapFile(join('force', 'source', 'cli_reference_force_source_push.xml'));
     expect(/shortdesc">Pushes changed/.test(dita)).to.be.true;
   });
+  it('creates parameters', async () => {
+    const dita = loadTestDitamapFile(join('force', 'alias', 'cli_reference_force_alias_list.xml'));
+    expect(/<title><ph>Parameters<\/ph><\/title>/.test(dita)).to.be.true;
+  });
 });
