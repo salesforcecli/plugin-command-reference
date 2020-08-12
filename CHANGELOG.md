@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.1...v1.1.2) (2020-08-12)
+
+
+### Bug Fixes
+
+* return parameters ([c713fd0](https://github.com/forcedotcom/plugin-command-reference/commit/c713fd0f7d3f93f64a7f76b9a430d43aeaca875f))
+
 ## [1.1.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.0...v1.1.1) (2020-08-06)
 
 
