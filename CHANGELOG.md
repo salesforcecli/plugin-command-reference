@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.2...v1.1.3) (2020-08-12)
+
+
+### Bug Fixes
+
+* put back multiple flag descriptions ([4c340a8](https://github.com/forcedotcom/plugin-command-reference/commit/4c340a8f414d2e892e135797754883db040ff89a))
+
 ## [1.1.2](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.1...v1.1.2) (2020-08-12)
 
 
