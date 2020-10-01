@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.3...v1.1.4) (2020-10-01)
+
+
+### Bug Fixes
+
+* ensure unique ids ([d51f193](https://github.com/forcedotcom/plugin-command-reference/commit/d51f19350bab150da23575bfa27e94e467df99d6))
+
 ## [1.1.3](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.2...v1.1.3) (2020-08-12)
 
 
