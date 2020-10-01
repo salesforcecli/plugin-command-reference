@@ -49,8 +49,10 @@ export function punctuate(description: string): string {
 
 export function helpFromDescription(description: string): string {
   return description
-    .split(EOL)
-    .slice(1)
-    .join(EOL)
-    .trim();
+    ? description
+        .split(EOL)
+        .slice(1)
+        .join(EOL)
+        .trim()
+    : '';
 }

@@ -7,7 +7,7 @@
 
 import { asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
 import { join } from 'path';
-import { helpFromDescription, punctuate } from '../utils';
+import { events, helpFromDescription, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
 export type CommandHelpInfo = {
@@ -33,7 +33,12 @@ export class Command extends Ditamap {
     const description = punctuate(asString(command.longDescription) || asString(command.description));
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
-    const help = this.formatParagraphs(asString(command.help) || helpFromDescription(asString(command.description)));
+
+    if (!description) {
+      events.emit('warning', `Missing description for ${command.id}\n`);
+    }
+
+    const help = this.formatParagraphs(asString(command.help) || helpFromDescription(description));
     let trailblazerCommunityUrl;
     let trailblazerCommunityName;
 
@@ -43,17 +48,10 @@ export class Command extends Ditamap {
       trailblazerCommunityName = community.name;
     }
 
-    let fullName: string;
-    if (subtopic) {
-      fullName = commandWithUnderscores.replace(`${topic}_${subtopic}_`, '');
-    } else {
-      fullName = commandWithUnderscores.replace(`${topic}_`, '');
-    }
     const state = command.state || commandMeta.state;
     this.data = Object.assign(command, {
       binary: 'sfdx',
-      // The old style didn't have the topic or subtopic in the reference ID.
-      full_name_with_underscores: fullName,
+      commandWithUnderscores,
       help,
       description,
       parameters,
