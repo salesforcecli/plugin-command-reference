@@ -30,7 +30,8 @@ export class Command extends Ditamap {
     const parameters = this.getParametersForTemplate(flags as Dictionary<CommandHelpInfo>);
 
     // The template only expects a oneline description. Punctuate the first line of either the lingDescription or description.
-    const description = punctuate(asString(command.longDescription) || asString(command.description));
+    const fullDescription = asString(command.longDescription) || asString(command.description);
+    const description = punctuate(fullDescription);
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
 
@@ -38,7 +39,7 @@ export class Command extends Ditamap {
       events.emit('warning', `Missing description for ${command.id}\n`);
     }
 
-    const help = this.formatParagraphs(asString(command.help) || helpFromDescription(description));
+    const help = this.formatParagraphs(asString(command.help) || helpFromDescription(fullDescription));
     let trailblazerCommunityUrl;
     let trailblazerCommunityName;
 
