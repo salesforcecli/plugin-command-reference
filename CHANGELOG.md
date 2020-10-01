@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.4...v1.1.5) (2020-10-01)
+
+
+### Bug Fixes
+
+* correct help ([b75dd61](https://github.com/forcedotcom/plugin-command-reference/commit/b75dd61281ec1671e20f9a52078da642ede2e0a6))
+
 ## [1.1.4](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.3...v1.1.4) (2020-10-01)
 
 
