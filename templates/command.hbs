@@ -98,5 +98,21 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
             {{/each}}
         </section>
         {{/if}}
+        {{#if aliases}}
+        <section>
+            <title><ph>Aliases for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
+            {{#each aliases}}
+                <codeblock otherprops="nolang">{{this}}</codeblock>
+            {{/each}}
+        </section>
+        {{/if}}
+        {{#if examples}}
+        <section>
+            <title><ph>Examples for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
+            {{#each examples}}
+            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+            {{/each}}
+        </section>
+        {{/if}}
     </refbody>
 </reference>

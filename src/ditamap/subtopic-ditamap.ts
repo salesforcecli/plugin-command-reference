@@ -11,6 +11,9 @@ import { Ditamap } from './ditamap';
 export class SubTopicDitamap extends Ditamap {
   constructor(topic: string, subtopic: string, commandFileNames: string[]) {
     const filename = `cli_reference_${topic}_${subtopic}.ditamap`;
+
+    commandFileNames.sort();
+
     // Set the data of topic and filenames
     super(filename, {
       topic,

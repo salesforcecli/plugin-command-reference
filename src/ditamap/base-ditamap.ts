@@ -11,7 +11,7 @@ export class BaseDitamap extends Ditamap {
   constructor(topics: string[]) {
     // Set the data of topic and filenames
     super('cli_reference.ditamap', {
-      namespaceDitamapFiles: topics.map(topic => `${topic}/cli_reference_${topic}.ditamap`)
+      namespaceDitamapFiles: topics.sort().map(topic => `${topic}/cli_reference_${topic}.ditamap`)
     });
   }
 
