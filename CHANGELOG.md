@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.5...v1.2.0) (2020-10-21)
+
+
+### Features
+
+* add aliases and examples ([aaf61ad](https://github.com/forcedotcom/plugin-command-reference/commit/aaf61adf3508f69d899898876f03154218ff5a9b))
+
 ## [1.1.5](https://github.com/forcedotcom/plugin-command-reference/compare/v1.1.4...v1.1.5) (2020-10-01)
 
 
