@@ -52,7 +52,7 @@ export class Command extends Ditamap {
     if (Array.isArray(command.examples)) {
       if (
         help.includes('Examples:') &&
-        command.examples.map((foundAll, example) => foundAll && help.includes(example), true)
+        command.examples.map((example, foundAll) => foundAll && help.includes(example), true)
       ) {
         // Examples are already in the help, so don't duplicate.
         // This is legacy support for ToolbeltCommand in salesforce-alm.
