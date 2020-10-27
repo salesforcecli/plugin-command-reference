@@ -49,6 +49,17 @@ export class Command extends Ditamap {
       trailblazerCommunityName = community.name;
     }
 
+    if (Array.isArray(command.examples)) {
+      if (
+        help.includes('Examples:') &&
+        command.examples.map((foundAll, example) => foundAll && help.includes(example), true)
+      ) {
+        // Examples are already in the help, so don't duplicate.
+        // This is legacy support for ToolbeltCommand in salesforce-alm.
+        delete command.examples;
+      }
+    }
+
     const state = command.state || commandMeta.state;
     this.data = Object.assign(command, {
       binary: 'sfdx',
