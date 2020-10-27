@@ -16,16 +16,18 @@ $ sfdx plugins:install @salesforce/plugin-command-reference
 Ensure any plugins are installed that you with to generate documentation for.
 
 ```sh-session
-$ sfdx plugins:install salesforcedx
+$ sfdx plugins:install salesforcedx@latest-rc
 ```
 
-Now we can generate the documentation.
+Now we can generate the documentation for the `latest-rc` tag.
 
 ```sh-session
 $ sfdx commandreference --plugins salesforcedx
 ```
 
 **Note:** Warnings will occur for missing properties in plugins. Those have to be fixed in the plugin itself.
+
+## Add to your Salesforce CLI Plugin
 
 To add this to your plugin to catch warning at development time, add it as a dev plugin in the project.json.
 
@@ -43,8 +45,28 @@ Then you can run this in your plugin's CI.
 ./bin/run commandreference --plugins <name-of-your-plugin> --error-on-warnings
 ```
 
+## Local Development
+
+If you need to make changes to this repository, the easiest thing to do is to link it to your Salesforce CLI. After you cloned this plugin, run the following from this plugin directory:
+
+```sh-session
+sfdx plugins:link .
+```
+
+Now, you can install any plugins you want and run the command reference generation on them.
+
+```sh-session
+sfdx plugins:install salesforcedx
+sfdx plugins:install config
+sfdx plugins:install alias
+sfdx commandreference --plugins salesforcedx,alias,config
+```
+
+## Commands
+
 <!-- commands -->
-* [`sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--p-array--d-string---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+
+- [`sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--p-array--d-string---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -52,7 +74,7 @@ generate the command reference guide located
 
 ```
 USAGE
-  $ sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel 
+  $ sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -75,4 +97,5 @@ OPTIONS
 ```
 
 _See code: [lib/commands/commandreference/generate.js](https://github.com/forcedotcom/plugin-command-reference/blob/v1.2.1/lib/commands/commandreference/generate.js)_
+
 <!-- commandsstop -->
