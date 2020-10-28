@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.1...v1.2.2) (2020-10-28)
+
+
+### Bug Fixes
+
+* rearrange command xml, rename setup guide, fix rn link ([b1ad787](https://github.com/forcedotcom/plugin-command-reference/commit/b1ad7874958bd2cbe38f19896cfc5964da213488))
+
 ## [1.2.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.0...v1.2.1) (2020-10-27)
 
 
