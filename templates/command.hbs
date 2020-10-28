@@ -61,6 +61,22 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
                 format="html" scope="external" type="new-window:HTML">{{trailblazerCommunityName}}</xref> group in the
                 Trailblazer Community.</note>
         </section>{{/if}}
+        {{#if help}}
+        <section>
+            <title><ph>Help for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
+            {{#each help}}
+            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+            {{/each}}
+        </section>
+        {{/if}}
+        {{#if examples}}
+        <section>
+            <title><ph>Examples for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
+            {{#each examples}}
+            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+            {{/each}}
+        </section>
+        {{/if}}
         <section>
             <title><ph>Command Syntax</ph></title>
             <dl>
@@ -90,27 +106,11 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
             </dl>
         </section>
         {{/if}}
-        {{#if help}}
-        <section>
-            <title><ph>Help for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
-            {{#each help}}
-            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
-            {{/each}}
-        </section>
-        {{/if}}
         {{#if aliases}}
         <section>
             <title><ph>Aliases for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
             {{#each aliases}}
                 <codeblock otherprops="nolang">{{this}}</codeblock>
-            {{/each}}
-        </section>
-        {{/if}}
-        {{#if examples}}
-        <section>
-            <title><ph>Examples for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
-            {{#each examples}}
-            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
             {{/each}}
         </section>
         {{/if}}
