@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.2...v1.2.3) (2020-11-05)
+
+
+### Bug Fixes
+
+* fix rel notes link to point to main branch ([663483b](https://github.com/forcedotcom/plugin-command-reference/commit/663483bd3aab0f40c68ac6b6327c34a4edce1014))
+
 ## [1.2.2](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.1...v1.2.2) (2020-10-28)
 
 
