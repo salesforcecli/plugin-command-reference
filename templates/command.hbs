@@ -9,7 +9,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
 
 -->
     {{!--Not all commands have a minor noun; some are just commandmajornoun:commandverb. This is a sample topic for a commmand with no minor noun.--}}
-    <title><ph id="topic-title"><codeph otherprops="nolang">{{id}}</codeph>{{#if isClosedPilotCommand}} (Pilot){{/if}}{{#if isOpenPilotCommand}} (Pilot){{/if}}{{#if isBetaCommand}} (Beta){{/if}}{{#if deprecated}} (Deprecated){{/if}}</ph></title>
+    <title><codeph otherprops="nolang">{{id}}</codeph>{{#if isClosedPilotCommand}} (Pilot){{/if}}{{#if isOpenPilotCommand}} (Pilot){{/if}}{{#if isBetaCommand}} (Beta){{/if}}{{#if deprecated}} (Deprecated){{/if}}</title>
     <shortdesc><ph id="shortdesc">{{#if deprecated}}The command <codeph otherprops="nolang">{{id}}</codeph> has been deprecated and will be removed in v{{nextVersion deprecated.version}}.0 or later. Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead. {{/if}}{{description}}</ph></shortdesc>
     <prolog>
         <metadata>
