@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.3...v1.2.4) (2021-01-20)
+
+
+### Bug Fixes
+
+* remove <ph id="topic-title"> ([2180c1a](https://github.com/forcedotcom/plugin-command-reference/commit/2180c1aaf310fb9cfbda2b947e5f5b77bdf3e226))
+
 ## [1.2.3](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.2...v1.2.3) (2020-11-05)
 
 
