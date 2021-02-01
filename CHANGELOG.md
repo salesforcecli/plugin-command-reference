@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.4...v1.2.5) (2021-02-01)
+
+
+### Bug Fixes
+
+* Add list of other plugins as a top-level topic ([800d797](https://github.com/forcedotcom/plugin-command-reference/commit/800d7973a9e1c29a38866b258e20c0006ecf8aa2))
+
 ## [1.2.4](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.3...v1.2.4) (2021-01-20)
 
 
