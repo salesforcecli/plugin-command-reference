@@ -56,9 +56,8 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
                   otherprops="nolang">( … | … )</codeph>).</li>
             </ul></p><p>If the command takes varargs (name-value pairs that aren’t parameters), the
             usage signature includes <codeph otherprops="nolang">name=value...</codeph>.</p><note
-            type="tip">To see signatures for all commands in the <codeph otherprops="nolang"
-              >force</codeph> namespace, run <codeph otherprops="nolang">sfdx
-              force:doc:commands:list --usage</codeph>.</note></li>
+            type="tip">To see all Salesforce CLI commands, run <codeph otherprops="nolang">sfdx
+              commands</codeph>.</note></li>
         <li><b>Options</b><p>The Options section lists all the command’s parameters, including their
             short name, long name, and purpose. For parameters that accept a value, the value name
             is written after an equals sign (<codeph otherprops="nolang">=</codeph>). The equals
