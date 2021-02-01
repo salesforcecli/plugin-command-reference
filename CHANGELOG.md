@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.5...v1.2.6) (2021-02-01)
+
+
+### Bug Fixes
+
+* remove note about "sfdx force:doc:commands:list" ([2378f39](https://github.com/forcedotcom/plugin-command-reference/commit/2378f39a88923c294a2a2cb8c002372e85e819cf))
+
 ## [1.2.5](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.4...v1.2.5) (2021-02-01)
 
 
