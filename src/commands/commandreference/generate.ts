@@ -51,7 +51,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         pluginNames = [getString(packageJson, 'name')];
       } else {
         throw new SfdxError(
-          'No package.json found in current working directory. Please cd into a directory that contains a valid oclif plugin'
+          'No plugins provided. Provide the \'--plugins\' flag or cd into a directory that contains a valid oclif plugin.'
         );
       }
     } else {
