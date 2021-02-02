@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.6...v1.3.0) (2021-02-02)
+
+
+### Features
+
+* default to current working directory when no plugins are provided ([#15](https://github.com/forcedotcom/plugin-command-reference/issues/15)) ([57a66b2](https://github.com/forcedotcom/plugin-command-reference/commit/57a66b21093f896adc69d71a3025679770e6e7ad))
+
 ## [1.2.6](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.5...v1.2.6) (2021-02-01)
 
 

@@ -65,9 +65,9 @@ sfdx commandreference --plugins salesforcedx,alias,config
 ## Commands
 
 <!-- commands -->
-* [`sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--p-array--d-string---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--d-string--p-array---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 generate the command reference guide located
 
@@ -75,16 +75,17 @@ generate the command reference guide located
 generate the command reference guide located
 
 USAGE
-  $ sfdx commandreference:generate -p <array> [-d <string>] [--hidden] [--erroronwarnings] [--json] [--loglevel 
+  $ sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
   -d, --outputdir=outputdir                                                         [default: ./tmp/root] output
                                                                                     directory to put generated files
 
-  -p, --plugins=plugins                                                             (required) comma separated list of
-                                                                                    plugin names to be part of the
-                                                                                    generation
+  -p, --plugins=plugins                                                             comma separated list of plugin names
+                                                                                    to be part of the generation.
+                                                                                    Defaults to the oclif plugin in the
+                                                                                    current working directory
 
   --erroronwarnings                                                                 fail the command if there are any
                                                                                     warnings
@@ -97,5 +98,5 @@ OPTIONS
                                                                                     this command invocation
 ```
 
-_See code: [lib/commands/commandreference/generate.js](https://github.com/forcedotcom/plugin-command-reference/blob/v1.2.6/lib/commands/commandreference/generate.js)_
+_See code: [lib/commands/commandreference/generate.js](https://github.com/forcedotcom/plugin-command-reference/blob/v1.3.0/lib/commands/commandreference/generate.js)_
 <!-- commandsstop -->
