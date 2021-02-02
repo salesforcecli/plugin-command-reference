@@ -10,6 +10,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { fs, Messages, SfdxError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
+import * as os from 'os';
 import * as path from 'path';
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
@@ -45,8 +46,14 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     let pluginNames: string[];
     if (!this.flags.plugins) {
       const pJsonPath = path.join(process.cwd(), 'package.json');
-      const packageJson = await fs.readJson(pJsonPath);
-      pluginNames = [getString(packageJson, 'name')];
+      if (await fs.fileExists(pJsonPath)) {
+        const packageJson = await fs.readJson(pJsonPath);
+        pluginNames = [getString(packageJson, 'name')];
+      } else {
+        throw new SfdxError(
+          'No package.json found in current working directory. Please cd into a directory that contains a valid oclif plugin'
+        );
+      }
     } else {
       pluginNames = this.flags.plugins;
     }
@@ -66,7 +73,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         }
         return pluginName;
       });
-
+    this.ux.log(`Generating command refernce for the following plugins:${plugins.map(name => `${os.EOL}  - ${name}`)}`);
     Ditamap.outputDir = this.flags.outputdir;
 
     Ditamap.cliVersion = this.config.version.replace(/-[0-9a-zA-Z]+$/, '');
