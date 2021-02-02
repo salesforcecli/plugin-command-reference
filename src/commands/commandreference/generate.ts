@@ -7,9 +7,10 @@
 
 import { IPlugin } from '@oclif/config';
 import { flags, SfdxCommand } from '@salesforce/command';
-import { Messages, SfdxError } from '@salesforce/core';
-import { AnyJson, Dictionary, ensure, JsonMap } from '@salesforce/ts-types';
+import { fs, Messages, SfdxError } from '@salesforce/core';
+import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
+import * as path from 'path';
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { events, mergeDeep } from '../../utils';
@@ -34,15 +35,23 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     }),
     plugins: flags.array({
       char: 'p',
-      description: messages.getMessage('pluginFlagDescription'),
-      required: true
+      description: messages.getMessage('pluginFlagDescription')
     }),
     hidden: flags.boolean({ description: messages.getMessage('hiddenFlagDescription') }),
     erroronwarnings: flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') })
   };
 
   public async run(): Promise<AnyJson> {
-    const plugins = this.flags.plugins
+    let pluginNames: string[];
+    if (!this.flags.plugins) {
+      const pJsonPath = path.join(process.cwd(), 'package.json');
+      const packageJson = await fs.readJson(pJsonPath);
+      pluginNames = [getString(packageJson, 'name')];
+    } else {
+      pluginNames = this.flags.plugins;
+    }
+
+    const plugins = pluginNames
       .map(plugin => plugin.trim())
       .map(name => {
         let pluginName = name;
