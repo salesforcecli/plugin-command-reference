@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.0...v1.3.1) (2021-04-26)
+
+
+### Bug Fixes
+
+* undo commit to master ([47efe40](https://github.com/forcedotcom/plugin-command-reference/commit/47efe40dde6c19782de6a21b89e62f8dc5e2d66a))
+
 # [1.3.0](https://github.com/forcedotcom/plugin-command-reference/compare/v1.2.6...v1.3.0) (2021-02-02)
 
 
