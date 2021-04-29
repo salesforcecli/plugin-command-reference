@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.0...v1.3.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* fix deprecated warning message ([9fc5219](https://github.com/forcedotcom/plugin-command-reference/commit/9fc5219d476f5456b9ed6d2c9c27216560bbf8bb))
+* undo commit to master ([cbc3195](https://github.com/forcedotcom/plugin-command-reference/commit/cbc31958c4797118159039b466cd4365576bee62))
+* undo commit to master ([47efe40](https://github.com/forcedotcom/plugin-command-reference/commit/47efe40dde6c19782de6a21b89e62f8dc5e2d66a))
+
 ## [1.3.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.0...v1.3.1) (2021-04-26)
 
 
