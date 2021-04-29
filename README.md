@@ -59,7 +59,8 @@ Now, you can install any plugins you want and run the command reference generati
 sfdx plugins:install salesforcedx
 sfdx plugins:install config
 sfdx plugins:install alias
-sfdx commandreference --plugins salesforcedx,alias,config
+sfdx plugins:install auth
+sfdx commandreference --plugins salesforcedx,alias,config,auth
 ```
 
 ## Commands
