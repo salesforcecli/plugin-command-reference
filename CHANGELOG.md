@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.1...v1.3.2) (2021-05-03)
+
+
+### Bug Fixes
+
+* force patch release ([9a72942](https://github.com/forcedotcom/plugin-command-reference/commit/9a72942dca2bbdb791a1f765fed067290f365254))
+
 ## [1.3.1](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.0...v1.3.1) (2021-05-03)
 
 
