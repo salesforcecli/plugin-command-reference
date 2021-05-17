@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.2...v1.3.3) (2021-05-17)
+
+
+### Bug Fixes
+
+* async load oclif/core commands ([#26](https://github.com/forcedotcom/plugin-command-reference/issues/26)) ([caa788d](https://github.com/forcedotcom/plugin-command-reference/commit/caa788d4f0efedb5c6e598a6df32e4c65cc4f1b3))
+
 ## [1.3.2](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.1...v1.3.2) (2021-05-03)
 
 
