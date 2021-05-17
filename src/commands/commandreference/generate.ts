@@ -51,7 +51,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         pluginNames = [getString(packageJson, 'name')];
       } else {
         throw new SfdxError(
-          'No plugins provided. Provide the \'--plugins\' flag or cd into a directory that contains a valid oclif plugin.'
+          "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
         );
       }
     } else {
@@ -73,7 +73,9 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         }
         return pluginName;
       });
-    this.ux.log(`Generating command refernce for the following plugins:${plugins.map(name => `${os.EOL}  - ${name}`)}`);
+    this.ux.log(
+      `Generating command reference for the following plugins:${plugins.map(name => `${os.EOL}  - ${name}`)}`
+    );
     Ditamap.outputDir = this.flags.outputdir;
 
     Ditamap.cliVersion = this.config.version.replace(/-[0-9a-zA-Z]+$/, '');
@@ -85,7 +87,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       return { name, version };
     });
 
-    const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, this.flags.hidden, this.loadTopicMetadata());
+    const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, this.flags.hidden, await this.loadTopicMetadata());
 
     events.on('topic', ({ topic }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
@@ -97,7 +99,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       warnings.push(msg);
     });
 
-    await docs.build(this.loadCommands());
+    await docs.build(await this.loadCommands());
     this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
 
     if (this.flags.erroronwarnings && warnings.length > 0) {
@@ -132,14 +134,14 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     return this.config.plugins.find(info => info.name === pluginName);
   }
 
-  private loadTopicMetadata() {
+  private async loadTopicMetadata() {
     const plugins: Dictionary<boolean> = {};
     const topicsMeta = {};
 
     for (const cmd of this.config.commands) {
       // Only load topics for each plugin once
       if (cmd.pluginName && !plugins[cmd.pluginName]) {
-        const commandClass = cmd.load();
+        const commandClass = await this.loadCommand(cmd);
 
         if (commandClass.plugin && commandClass.plugin.pjson.oclif.topics) {
           mergeDeep(topicsMeta, commandClass.plugin.pjson.oclif.topics as Dictionary);
@@ -150,10 +152,10 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     return topicsMeta;
   }
 
-  private loadCommands() {
-    return this.config.commands.map(cmd => {
+  private async loadCommands() {
+    const promises = this.config.commands.map(async cmd => {
       try {
-        let commandClass = cmd.load();
+        let commandClass = await this.loadCommand(cmd);
         let obj = Object.assign({} as JsonMap, cmd, commandClass, {
           flags: Object.assign({}, cmd.flags, commandClass.flags)
         });
@@ -171,5 +173,10 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         return Object.assign({} as JsonMap, cmd);
       }
     });
+    return Promise.all(promises);
+  }
+
+  private async loadCommand(command) {
+    return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
   }
 }
