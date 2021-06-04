@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.3...v1.3.4) (2021-06-04)
+
+
+### Bug Fixes
+
+* list plug-ins and their version in a <ul> ([f0e3f20](https://github.com/forcedotcom/plugin-command-reference/commit/f0e3f201a19818bac9d714a9a3a00fd0c2721407))
+
 ## [1.3.3](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.2...v1.3.3) (2021-05-17)
 
 
