@@ -73,8 +73,6 @@ sfdx commandreference --plugins salesforcedx,alias,config,auth
 generate the command reference guide located
 
 ```
-generate the command reference guide located
-
 USAGE
   $ sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
