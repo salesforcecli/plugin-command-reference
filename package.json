@@ -1,7 +1,7 @@
 {
   "name": "@salesforce/plugin-command-reference",
   "description": "Generate the Salesforce CLI command reference guide",
-  "version": "1.3.12",
+  "version": "1.3.13",
   "author": "Thomas @amphro",
   "bugs": "https://github.com/forcedotcom/plugin-command-reference/issues",
   "dependencies": {
