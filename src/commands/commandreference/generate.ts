@@ -38,11 +38,18 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       char: 'p',
       description: messages.getMessage('pluginFlagDescription')
     }),
+    'ditamap-suffix': flags.string({
+      char: 'b',
+      description: messages.getMessage('ditamapSuffixFlagDescription'),
+      default: Ditamap.SUFFIX
+    }),
     hidden: flags.boolean({ description: messages.getMessage('hiddenFlagDescription') }),
     erroronwarnings: flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') })
   };
 
   public async run(): Promise<AnyJson> {
+    Ditamap.suffix = this.flags['ditamap-suffix'];
+
     let pluginNames: string[];
     if (!this.flags.plugins) {
       const pJsonPath = path.join(process.cwd(), 'package.json');
@@ -87,7 +94,13 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       return { name, version };
     });
 
-    const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, this.flags.hidden, await this.loadTopicMetadata());
+    const docs = new Docs(
+      Ditamap.outputDir,
+      Ditamap.plugins,
+      this.flags.hidden,
+      await this.loadTopicMetadata(),
+      await this.loadCliMeta()
+    );
 
     events.on('topic', ({ topic }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
@@ -178,5 +191,14 @@ export default class CommandReferenceGenerate extends SfdxCommand {
 
   private async loadCommand(command) {
     return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
+  }
+
+  private async loadCliMeta(): Promise<JsonMap> {
+    const packageJson = await fs.readJson(path.join(process.cwd(), 'package.json'));
+    return {
+      binary: getString(packageJson, 'oclif.bin', 'sfdx'),
+      topicSeparator: getString(packageJson, 'oclif.topicSeparator', ':'),
+      state: getString(packageJson, 'oclif.state', null)
+    };
   }
 }

@@ -36,8 +36,7 @@ export class MainTopicIntro extends Ditamap {
       trailblazerCommunityName
     });
 
-    // Override destination to include topic and subtopic
-    this.destination = join(Ditamap.outputDir, topic, subtopic, filename);
+    this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
   public getTemplateFileName(): string {

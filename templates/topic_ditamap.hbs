@@ -9,14 +9,9 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
 
 -->
     <title><codeph otherprops="nolang">{{topic}}</codeph> Namespace</title>
-    <topicref href="cli_reference_{{topic}}.xml" type="concept" format="dita" scope="local">
+    <topicref href="cli_reference_{{topic}}_commands.xml" type="concept" format="dita" scope="local">
         {{#each commands}}
-        <topicref href="cli_reference_{{../topic}}_{{command}}.xml" type="reference" format="dita" scope="local"/>
-        {{/each}}
-        {{#each subtopics}}
-        {{!--<topicref href="package2/cli_reference_force_package2.ditamap" format="ditamap" scope="local"/>--}}
-        <topicref href="{{subtopic}}/cli_reference_{{../topic}}_{{subtopic}}.ditamap" format="ditamap" scope="local" {{#if hideTopicFromTopicList}} audience="future"{{/if}}/>
-        {{!--topicrefs to other <main-topic>s' .ditamap files go here--}}
+        <topicref href="cli_reference_{{command}}.xml" type="reference" format="dita" scope="local"/>
         {{/each}}
     </topicref>
 </map>

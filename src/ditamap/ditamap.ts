@@ -21,12 +21,16 @@ registerHelper('join', array => array.join(', '));
  */
 // tslint:disable-next-line: no-any
 registerHelper('isCodeBlock', function(this: any, val, options) {
-  return val.indexOf('$ sfdx') >= 0 || val.indexOf('>>') >= 0 ? options.fn(this) : options.inverse(this);
+  return val.indexOf('sf') >= 0 || val.indexOf('sfdx') >= 0 || val.indexOf('$') >= 0 || val.indexOf('>>') >= 0
+    ? options.fn(this)
+    : options.inverse(this);
 });
 
 registerHelper('nextVersion', value => parseInt(value, 2) + 1);
 
 export abstract class Ditamap {
+  public static SUFFIX = 'unified';
+
   public static templatesDir = join(__dirname, '..', '..', 'templates');
 
   public static outputDir: string;
@@ -39,6 +43,20 @@ export abstract class Ditamap {
     name: string;
     version: string;
   }>;
+
+  public static get suffix(): string {
+    return Ditamap._suffix;
+  }
+
+  public static set suffix(suffix: string) {
+    Ditamap._suffix = suffix;
+  }
+
+  public static getFileName(): string {
+    return Ditamap.suffix ? `cli_reference_${Ditamap.suffix}.ditamap` : 'cli_reference.ditamap';
+  }
+
+  private static _suffix: string;
 
   protected destination: string;
 
