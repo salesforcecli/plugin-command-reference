@@ -79,6 +79,7 @@
     "clean": "sf-clean",
     "clean-all": "sf-clean all",
     "clean:lib": "shx rm -rf lib && shx rm -rf coverage && shx rm -rf .nyc_output && shx rm -f oclif.manifest.json",
+    "command-reference": "./bin/dev commandreference:generate --plugins login --outputdir test/tmp",
     "compile": "sf-compile",
     "docs": "sf-docs",
     "format": "sf-format",
@@ -88,7 +89,6 @@
     "prepack": "sf-prepack",
     "prepare": "sf-install",
     "pretest": "sf-compile-test && yarn command-reference",
-    "command-reference": "./bin/dev commandreference:generate --plugins login --outputdir test/tmp",
     "test": "sf-test",
     "version": "oclif readme"
   },
