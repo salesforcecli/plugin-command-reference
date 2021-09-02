@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import { join } from 'path';
 import { Plugin } from '@oclif/config';
 import { fs } from '@salesforce/core';
 import {
@@ -15,10 +16,9 @@ import {
   ensureJsonMap,
   ensureString,
   isArray,
-  JsonMap
+  JsonMap,
 } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
-import { join } from 'path';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { CLIReferenceTopic } from './ditamap/cli-reference-topic';
@@ -39,14 +39,14 @@ export class Docs {
     private cliMeta: JsonMap
   ) {}
 
-  public async build(commands: JsonMap[]) {
+  public async build(commands: JsonMap[]): Promise<void> {
     // Create if doesn't exist
     await fs.mkdirp(this.outputDir);
 
     await this.populateTemplate(commands);
   }
 
-  public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>) {
+  public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>): Promise<any[]> {
     const topicMeta = ensureJsonMap(
       this.topicMeta[topic],
       `No topic meta for ${topic} - add this topic to the oclif section of the package.json.`
@@ -105,7 +105,7 @@ export class Docs {
         // Commands within the sub topic
         for (const command of subtopicOrCommand) {
           const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
-          const commandsInFullTopic = subtopicOrCommand.filter(cmd => ensureString(cmd.id).indexOf(fullTopic) === 0);
+          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).indexOf(fullTopic) === 0);
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
           await this.populateCommand(topic, subtopic, command, commandMeta);
@@ -126,6 +126,7 @@ export class Docs {
   /**
    * Group all commands by the top level topic and then subtopic. e.g. force, analytics, evergreen, etc
    * then org, apex, etc within the force namespace.
+   *
    * @param commands - The entire set of command data.
    * @returns The commands grouped by topics/subtopic/commands.
    */
@@ -139,7 +140,7 @@ export class Docs {
       const commandParts = ensureString(command.id).split(':');
       const topLevelTopic = commandParts[0];
 
-      const plugin = (command.plugin as unknown) as Plugin;
+      const plugin = command.plugin as unknown as Plugin;
       if (this.plugins[plugin.name]) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;

@@ -5,10 +5,10 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { fs } from '@salesforce/core';
-import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { fs } from '@salesforce/core';
+import { expect } from 'chai';
 
 /**
  * This plugin was primarily made to generate command reference docs for
@@ -25,7 +25,7 @@ function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
 }
 
-describe('salesforcedx', () => {
+describe('plugin-login', () => {
   before(async () => {
     try {
       await fs.access(testFilesPath);
@@ -35,6 +35,10 @@ describe('salesforcedx', () => {
   });
   after(async () => {
     await fs.remove(testFilesPath);
+  });
+  it('creates with spaced commands', async () => {
+    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt.xml'));
+    expect(/<title><codeph otherprops="nolang">login org jwt/.test(dita)).to.be.true;
   });
   it('creates with summary', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt.xml'));

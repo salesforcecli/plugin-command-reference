@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import { join } from 'path';
 import {
   AnyJson,
   asString,
@@ -12,9 +13,8 @@ import {
   ensureJsonMap,
   ensureObject,
   ensureString,
-  JsonMap
+  JsonMap,
 } from '@salesforce/ts-types';
-import { join } from 'path';
 import { events, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
@@ -28,7 +28,7 @@ export type CommandHelpInfo = {
 };
 
 export class Command extends Ditamap {
-  constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
+  public constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = `cli_reference_${commandWithUnderscores}.xml`;
 
@@ -61,18 +61,18 @@ export class Command extends Ditamap {
 
     const commandName = asString(command.id).replace(/:/g, asString(commandMeta.topicSeparator));
 
-    const examples = ((command.examples as string[]) || []).map(example => {
+    const examples = ((command.examples as string[]) || []).map((example) => {
       const parts = example.split('\n');
       const desc = parts.length > 1 ? parts[0] : null;
       const commands = parts.length > 1 ? parts.slice(1) : [parts[0]];
 
       return {
         description: desc,
-        commands: commands.map(c => {
+        commands: commands.map((c) => {
           return c
             .replace(/<%= config.bin %>/g, asString(commandMeta.binary))
             .replace(/<%= command.id %>/g, commandName);
-        })
+        }),
       };
     });
 
@@ -91,7 +91,7 @@ export class Command extends Ditamap {
       isOpenPilotCommand: state === 'openPilot',
       isBetaCommand: state === 'beta',
       trailblazerCommunityUrl,
-      trailblazerCommunityName
+      trailblazerCommunityName,
     }) as JsonMap;
 
     this.destination = join(Ditamap.outputDir, topic, filename);
@@ -110,7 +110,7 @@ export class Command extends Ditamap {
           description: this.formatParagraphs(entireDescription),
           optional: !flag.required,
           kind: flag.kind || flag.type,
-          hasValue: flag.type !== 'boolean'
+          hasValue: flag.type !== 'boolean',
         });
       });
   }

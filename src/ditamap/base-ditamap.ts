@@ -8,10 +8,10 @@
 import { Ditamap } from './ditamap';
 
 export class BaseDitamap extends Ditamap {
-  constructor(topics: string[]) {
+  public constructor(topics: string[]) {
     // Set the data of topic and filenames
     super(Ditamap.getFileName(), {
-      namespaceDitamapFiles: topics.sort().map(topic => `${topic}/cli_reference_${topic}.ditamap`)
+      namespaceDitamapFiles: topics.sort().map((topic) => `${topic}/cli_reference_${topic}.ditamap`),
     });
   }
 
