@@ -118,7 +118,7 @@ export class Docs {
 
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
-    await new TopicCommands(topicMeta).write();
+    await new TopicCommands(topic, topicMeta).write();
     await new TopicDitamap(topic, commandIds).write();
     return subTopicNames;
   }

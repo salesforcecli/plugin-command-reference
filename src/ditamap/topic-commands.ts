@@ -5,18 +5,18 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { asString, JsonMap } from '@salesforce/ts-types';
+import { JsonMap } from '@salesforce/ts-types';
 import { join } from 'path';
 import { Ditamap } from './ditamap';
 
 export class TopicCommands extends Ditamap {
-  constructor(topicMeta: JsonMap) {
-    const filename = `cli_reference_${topicMeta.name}_commands.xml`;
+  constructor(topic: string, topicMeta: JsonMap) {
+    const filename = `cli_reference_${topic}_commands.xml`;
     // Set the data of topic and filenames
     super(filename, topicMeta);
 
     // Override destination to include topic and subtopic
-    this.destination = join(Ditamap.outputDir, asString(topicMeta.name), filename);
+    this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
   public getTemplateFileName(): string {

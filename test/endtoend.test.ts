@@ -36,25 +36,12 @@ describe('salesforcedx', () => {
   after(async () => {
     await fs.remove(testFilesPath);
   });
-
-  it('creates closed-pilot commands', async () => {
-    const dita = loadTestDitamapFile(join('force', 'org', 'cli_reference_force_org_shape_create.xml'));
-    expect(/invitation-only\s+pilot\s+program/.test(dita)).to.be.true;
-  });
-  it('creates beta commands', async () => {
-    const dita = loadTestDitamapFile(join('force', 'org', 'cli_reference_force_org_clone.xml'));
-    expect(/a\s+beta\s+version\s+of\s+the/.test(dita)).to.be.true;
-  });
-  it('creates open-pilot commands', async () => {
-    const dita = loadTestDitamapFile(join('force', 'package', 'cli_reference_force_package_hammertest_run.xml'));
-    expect(/through\s+a\s+pilot\s+program\s+that\s+requires/.test(dita)).to.be.true;
-  });
-  it('creates with long description', async () => {
-    const dita = loadTestDitamapFile(join('force', 'source', 'cli_reference_force_source_push.xml'));
-    expect(/shortdesc">Pushes changed/.test(dita)).to.be.true;
+  it('creates with summary', async () => {
+    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt.xml'));
+    expect(/shortdesc">\n(\s.*)Log in to a Salesforce org using a JSON web token \(JWT\)./.test(dita)).to.be.true;
   });
   it('creates parameters', async () => {
-    const dita = loadTestDitamapFile(join('force', 'alias', 'cli_reference_force_alias_list.xml'));
+    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt.xml'));
     expect(/<title><ph>Parameters<\/ph><\/title>/.test(dita)).to.be.true;
   });
 });
