@@ -66,36 +66,31 @@ sfdx commandreference --plugins salesforcedx,alias,config,auth
 ## Commands
 
 <!-- commands -->
-* [`sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--d-string--p-array---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sf commandreference:generate`](#sf-commandreferencegenerate)
 
-## `sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sf commandreference:generate`
 
 generate the command reference guide located
 
 ```
+generate the command reference guide located
+
 USAGE
-  $ sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel 
-  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sf commandreference:generate
 
 OPTIONS
-  -d, --outputdir=outputdir                                                         [default: ./tmp/root] output
-                                                                                    directory to put generated files
+  -b, --ditamap-suffix=ditamap-suffix  [default: unified] unique suffix to append to generated ditamap
+  -d, --outputdir=outputdir            [default: ./tmp/root] output directory to put generated files
 
-  -p, --plugins=plugins                                                             comma separated list of plugin names
-                                                                                    to be part of the generation.
-                                                                                    Defaults to the oclif plugin in the
-                                                                                    current working directory
+  -p, --plugins=plugins                comma separated list of plugin names to be part of the generation. Defaults to
+                                       the oclif plugin in the current working directory
 
-  --erroronwarnings                                                                 fail the command if there are any
-                                                                                    warnings
+  --erroronwarnings                    fail the command if there are any warnings
 
-  --hidden                                                                          show hidden commands
+  --hidden                             show hidden commands
 
-  --json                                                                            format output as json
-
-  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
-                                                                                    this command invocation
+  --json                               Format output as json.
 ```
 
-_See code: [lib/commands/commandreference/generate.js](https://github.com/forcedotcom/plugin-command-reference/blob/v1.3.13/lib/commands/commandreference/generate.js)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/v2.0.0/src/commands/commandreference/generate.ts)_
 <!-- commandsstop -->

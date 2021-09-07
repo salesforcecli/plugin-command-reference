@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.14...v2.0.0) (2021-09-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* only works for sf now
+
+* test: update to work with new file structure
+
+* refactor: use oclif/core
+
+* chore: bump to 2.0.0
+
+* chore: satisfy dev-scripts
+
+* chore: code review
+
+* chore: regenerate yarn.lock
+
+* Updates for `sf` (#34) ([6177be2](https://github.com/salesforcecli/plugin-command-reference/commit/6177be292a3895f3226951a763fe4610b5587cd0)), closes [#34](https://github.com/salesforcecli/plugin-command-reference/issues/34)
+
 ### [1.3.14](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.13...v1.3.14) (2021-08-13)
 
 ### [1.3.13](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.12...v1.3.13) (2021-08-13)
