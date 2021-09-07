@@ -103,7 +103,6 @@ export class Command extends Ditamap {
       .map(([flagName, flag]) => {
         const description = Array.isArray(flag.description) ? flag.description.join('\n') : flag.description || '';
         const entireDescription = flag.summary ? `${flag.summary}\n${description}` : description;
-        // const description = Array.isArray(flag.description) ? flag.description : this.formatParagraphs(flag.description);
 
         return Object.assign(flag, {
           name: flagName,
