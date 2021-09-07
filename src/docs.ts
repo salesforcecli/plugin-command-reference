@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import { join } from 'path';
 import { Plugin } from '@oclif/config';
 import { fs } from '@salesforce/core';
 import {
@@ -15,16 +16,15 @@ import {
   ensureJsonMap,
   ensureString,
   isArray,
-  JsonMap
+  JsonMap,
 } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
-import { join } from 'path';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { CLIReferenceTopic } from './ditamap/cli-reference-topic';
 import { Command } from './ditamap/command';
 import { MainTopicIntro } from './ditamap/main-topic-intro';
-import { SubTopicDitamap } from './ditamap/subtopic-ditamap';
+import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
 import { copyStaticFile, events, punctuate } from './utils';
 
@@ -35,22 +35,23 @@ export class Docs {
     private outputDir: string,
     private plugins: JsonMap,
     private hidden: boolean,
-    private topicMeta: JsonMap
+    private topicMeta: JsonMap,
+    private cliMeta: JsonMap
   ) {}
 
-  public async build(commands: JsonMap[]) {
+  public async build(commands: JsonMap[]): Promise<void> {
     // Create if doesn't exist
     await fs.mkdirp(this.outputDir);
 
     await this.populateTemplate(commands);
   }
 
-  public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>) {
+  public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>): Promise<any[]> {
     const topicMeta = ensureJsonMap(
       this.topicMeta[topic],
       `No topic meta for ${topic} - add this topic to the oclif section of the package.json.`
     );
-    let description = asString(topicMeta.longDescription);
+    let description = asString(topicMeta.description);
     if (!description && !topicMeta.external) {
       // Punctuate the description in place of longDescription
       description = punctuate(asString(topicMeta.description));
@@ -67,7 +68,8 @@ export class Docs {
     await new CLIReferenceTopic(topic, description).write();
 
     const subTopicNames = [];
-    const commandNames = [];
+    const commandIds = [];
+    // const commandFileNames = [];
     for (const subtopic of Object.keys(subtopics)) {
       const subtopicOrCommand = subtopics[subtopic];
       try {
@@ -76,7 +78,7 @@ export class Docs {
           const command = subtopicOrCommand;
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, 1);
           await this.populateCommand(topic, null, command, commandMeta);
-          commandNames.push(subtopic);
+          commandIds.push(command.id);
           continue;
         }
 
@@ -101,15 +103,14 @@ export class Docs {
         subTopicNames.push(subtopic);
 
         // Commands within the sub topic
-        const filenames: string[] = [];
         for (const command of subtopicOrCommand) {
           const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
-          const commandsInFullTopic = subtopicOrCommand.filter(cmd => ensureString(cmd.id).indexOf(fullTopic) === 0);
+          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).indexOf(fullTopic) === 0);
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
-          filenames.push(await this.populateCommand(topic, subtopic, command, commandMeta));
+          await this.populateCommand(topic, subtopic, command, commandMeta);
+          commandIds.push(command.id);
         }
-        await new SubTopicDitamap(topic, subtopic, filenames).write();
       } catch (error) {
         events.emit('warning', `Can't create topic for ${topic}:${subtopic}: ${error.message}\n`);
       }
@@ -117,13 +118,15 @@ export class Docs {
 
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
-    await new TopicDitamap(topic, subTopicNames, commandNames).write();
+    await new TopicCommands(topic, topicMeta).write();
+    await new TopicDitamap(topic, commandIds).write();
     return subTopicNames;
   }
 
   /**
    * Group all commands by the top level topic and then subtopic. e.g. force, analytics, evergreen, etc
    * then org, apex, etc within the force namespace.
+   *
    * @param commands - The entire set of command data.
    * @returns The commands grouped by topics/subtopic/commands.
    */
@@ -135,20 +138,19 @@ export class Docs {
         continue;
       }
       const commandParts = ensureString(command.id).split(':');
-      if (commandParts.length === 1) {
-        continue; // Top level topic command. Just ignore for as it is usually help for the topic.
-      }
-
       const topLevelTopic = commandParts[0];
 
-      const plugin = (command.plugin as unknown) as Plugin;
+      const plugin = command.plugin as unknown as Plugin;
       if (this.plugins[plugin.name]) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
         const topics = topLevelTopics[topLevelTopic] || {};
 
-        if (commandParts.length === 2) {
+        if (commandParts.length === 1) {
+          // This is a top-level topic that is also a command
+          topics[commandParts[0]] = command;
+        } else if (commandParts.length === 2) {
           // This is a command directly under the top-level topic
           topics[commandParts[1]] = command;
         } else {
@@ -166,8 +168,8 @@ export class Docs {
 
           const existingSubTopics = topics[subtopic];
           let subtopicCommands = [];
-          if (isArray(existingSubTopics)) {
-            subtopicCommands = existingSubTopics;
+          if (existingSubTopics) {
+            subtopicCommands = isArray(existingSubTopics) ? existingSubTopics : [existingSubTopics];
           }
           ensureArray(subtopicCommands);
           subtopicCommands.push(command);
@@ -199,7 +201,7 @@ export class Docs {
   }
 
   private resolveCommandMeta(commandId: string, command, commandsInTopic: number) {
-    const commandMeta: JsonMap = {};
+    const commandMeta = Object.assign({}, this.cliMeta);
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
     let part;

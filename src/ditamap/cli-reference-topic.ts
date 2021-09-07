@@ -9,12 +9,12 @@ import { join } from 'path';
 import { Ditamap } from './ditamap';
 
 export class CLIReferenceTopic extends Ditamap {
-  constructor(topic: string, longDescription: string) {
+  public constructor(topic: string, longDescription: string) {
     const filename = `cli_reference_${topic}.xml`;
     // Set the data of topic and filenames
     super(filename, {
       topic,
-      longDescription
+      longDescription,
     });
 
     // Override destination to include topic and subtopic

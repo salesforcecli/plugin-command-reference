@@ -5,9 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { expect } from 'chai';
 import { EOL } from 'os';
-import { punctuate, mergeDeep } from '../src/utils';
+import { expect } from 'chai';
+import { punctuate, mergeDeep } from '../../src/utils';
 
 it('merge two shallow objects', () => {
   expect(mergeDeep({ a: 1 }, { b: 2 })).to.deep.equal({ a: 1, b: 2 });
@@ -19,13 +19,13 @@ it('merge two deeply nested objects', () => {
       {
         a: {
           b: 1,
-          c: { d: 3 }
-        }
+          c: { d: 3 },
+        },
       },
       {
         a: {
-          c: { e: 4 }
-        }
+          c: { e: 4 },
+        },
       }
     )
   ).to.deep.equal({
@@ -33,9 +33,9 @@ it('merge two deeply nested objects', () => {
       b: 1,
       c: {
         d: 3,
-        e: 4
-      }
-    }
+        e: 4,
+      },
+    },
   });
 });
 
