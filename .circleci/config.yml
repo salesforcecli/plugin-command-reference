@@ -25,7 +25,7 @@ workflows:
             - release-management/test-package
           filters:
             branches:
-              only: main
+              only: v2
   test-ts-update:
     triggers:
       - schedule:
