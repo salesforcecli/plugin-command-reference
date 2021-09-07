@@ -101,7 +101,7 @@ export default class CommandReferenceGenerate extends SfCommand {
       Ditamap.plugins,
       flags.hidden,
       await this.loadTopicMetadata(),
-      await this.loadCliMeta()
+      this.loadCliMeta()
     );
 
     events.on('topic', ({ topic }) => {
@@ -195,12 +195,11 @@ export default class CommandReferenceGenerate extends SfCommand {
     return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
   }
 
-  private async loadCliMeta(): Promise<JsonMap> {
-    const packageJson = await fs.readJson(path.join(process.cwd(), 'package.json'));
+  private loadCliMeta(): JsonMap {
     return {
-      binary: getString(packageJson, 'oclif.bin', 'sfdx'),
-      topicSeparator: getString(packageJson, 'oclif.topicSeparator', ':'),
-      state: getString(packageJson, 'oclif.state', null),
+      binary: this.config.pjson.oclif.bin || 'sfdx',
+      topicSeparator: this.config.pjson.oclif.topicSeparator,
+      state: this.config.pjson.oclif.state,
     };
   }
 }
