@@ -79,11 +79,12 @@ USAGE
   $ sf commandreference:generate
 
 OPTIONS
-  -b, --ditamap-suffix=ditamap-suffix  [default: unified] unique suffix to append to generated ditamap
   -d, --outputdir=outputdir            [default: ./tmp/root] output directory to put generated files
 
   -p, --plugins=plugins                comma separated list of plugin names to be part of the generation. Defaults to
                                        the oclif plugin in the current working directory
+
+  -s, --ditamap-suffix=ditamap-suffix  [default: unified] unique suffix to append to generated ditamap
 
   --erroronwarnings                    fail the command if there are any warnings
 
@@ -92,5 +93,5 @@ OPTIONS
   --json                               Format output as json.
 ```
 
-_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/v2.0.0/src/commands/commandreference/generate.ts)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/v2.0.1/src/commands/commandreference/generate.ts)_
 <!-- commandsstop -->
