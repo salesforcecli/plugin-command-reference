@@ -10,7 +10,7 @@ import { Ditamap } from './ditamap';
 
 export class CLIReferenceTopic extends Ditamap {
   public constructor(topic: string, longDescription: string) {
-    const filename = `cli_reference_${topic}.xml`;
+    const filename = Ditamap.file(`cli_reference_${topic}`, 'xml');
     // Set the data of topic and filenames
     super(filename, {
       topic,

@@ -30,7 +30,7 @@ export type CommandHelpInfo = {
 export class Command extends Ditamap {
   public constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
-    const filename = `cli_reference_${commandWithUnderscores}.xml`;
+    const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
 
     super(filename, {});
 

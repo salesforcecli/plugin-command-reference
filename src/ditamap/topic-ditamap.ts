@@ -10,7 +10,7 @@ import { Ditamap } from './ditamap';
 
 export class TopicDitamap extends Ditamap {
   public constructor(topic: string, commandIds: string[]) {
-    const filename = `cli_reference_${topic}.ditamap`;
+    const filename = Ditamap.file(`cli_reference_${topic}`, 'ditamap');
     // Set the data of topic and filenames
     const commands = commandIds.sort().map((c) => ({ command: c.replace(/:/g, '_') }));
     super(filename, { topic, commands });

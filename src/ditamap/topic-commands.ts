@@ -11,7 +11,7 @@ import { Ditamap } from './ditamap';
 
 export class TopicCommands extends Ditamap {
   public constructor(topic: string, topicMeta: JsonMap) {
-    const filename = `cli_reference_${topic}_commands.xml`;
+    const filename = Ditamap.file(`cli_reference_${topic}_commands`, 'xml');
     // Set the data of topic and filenames
     super(filename, topicMeta);
 

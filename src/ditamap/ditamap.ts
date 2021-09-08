@@ -52,8 +52,8 @@ export abstract class Ditamap {
     Ditamap._suffix = suffix;
   }
 
-  public static getFileName(): string {
-    return Ditamap.suffix ? `cli_reference_${Ditamap.suffix}.ditamap` : 'cli_reference.ditamap';
+  public static file(name: string, ext: string): string {
+    return Ditamap.suffix ? `${name}_${Ditamap.suffix}.${ext}` : `${name}.${ext}`;
   }
 
   private static _suffix: string;
