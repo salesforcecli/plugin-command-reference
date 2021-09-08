@@ -118,7 +118,7 @@ export class Docs {
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
 
-    if (commandIds.includes(topic)) {
+    if (!commandIds.includes(topic)) {
       await new CLIReferenceTopic(topic, description).write();
     }
     await new TopicCommands(topic, topicMeta).write();

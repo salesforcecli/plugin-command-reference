@@ -37,7 +37,7 @@ export class Command extends Ditamap {
     const flags = ensureObject(command.flags);
     const parameters = this.getParametersForTemplate(flags as Dictionary<CommandHelpInfo>);
 
-    const summmary = punctuate(asString(command.summary));
+    const summary = punctuate(asString(command.summary));
 
     const description = asString(command.description);
 
@@ -83,7 +83,7 @@ export class Command extends Ditamap {
       topicSeparator: commandMeta.topicSeparator,
       commandWithUnderscores,
       examples,
-      summmary,
+      summary,
       description,
       help,
       parameters,
