@@ -37,7 +37,7 @@ export default class CommandReferenceGenerate extends SfCommand {
       multiple: true,
     }),
     'ditamap-suffix': Flags.string({
-      char: 'b',
+      char: 's',
       description: messages.getMessage('ditamapSuffixFlagDescription'),
       default: Ditamap.SUFFIX,
     }),

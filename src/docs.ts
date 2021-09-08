@@ -65,7 +65,6 @@ export class Docs {
         return;
       }
     }
-    await new CLIReferenceTopic(topic, description).write();
 
     const subTopicNames = [];
     const commandIds = [];
@@ -118,6 +117,10 @@ export class Docs {
 
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
+
+    if (commandIds.includes(topic)) {
+      await new CLIReferenceTopic(topic, description).write();
+    }
     await new TopicCommands(topic, topicMeta).write();
     await new TopicDitamap(topic, commandIds).write();
     return subTopicNames;

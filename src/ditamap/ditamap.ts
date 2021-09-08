@@ -21,7 +21,7 @@ hb.registerHelper('join', (array) => array.join(', '));
  */
 // tslint:disable-next-line: no-any
 hb.registerHelper('isCodeBlock', function (this: any, val, options) {
-  return val.indexOf('sf') >= 0 || val.indexOf('sfdx') >= 0 || val.indexOf('$') >= 0 || val.indexOf('>>') >= 0
+  return val.indexOf('sf') === 0 || val.indexOf('sfdx') === 0 || val.indexOf('$') >= 0 || val.indexOf('>>') >= 0
     ? options.fn(this)
     : options.inverse(this);
 });
