@@ -15,6 +15,14 @@ const debug = debugCreator('commandreference');
 
 hb.registerHelper('toUpperCase', (str) => str.toUpperCase());
 hb.registerHelper('join', (array) => array.join(', '));
+hb.registerHelper('xmlFile', (...strings) => {
+  const parts = strings.filter((s) => typeof s === 'string');
+  return Ditamap.file(parts.join('_'), 'xml');
+});
+hb.registerHelper('uniqueId', (...strings) => {
+  const parts = strings.filter((s) => typeof s === 'string');
+  return Ditamap.file(parts.join('_'), 'xml').replace('.xml', '');
+});
 
 /*
  * Returns true if the string should be formatted as code block in docs

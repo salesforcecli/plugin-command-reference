@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { join } from 'path';
 import { Plugin } from '@oclif/config';
 import { fs } from '@salesforce/core';
 import {
@@ -26,9 +25,8 @@ import { Command } from './ditamap/command';
 import { MainTopicIntro } from './ditamap/main-topic-intro';
 import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
-import { copyStaticFile, events, punctuate } from './utils';
-
-const templatesDir = join(__dirname, '..', 'templates');
+import { events, punctuate } from './utils';
+import { HelpReference } from './ditamap/help-reference';
 
 export class Docs {
   public constructor(
@@ -189,7 +187,7 @@ export class Docs {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
     await new CLIReference().write();
-    await copyStaticFile(this.outputDir, templatesDir, 'cli_reference_help.xml');
+    await new HelpReference().write();
 
     const topics = Object.keys(topicsAndSubtopics);
 

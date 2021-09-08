@@ -6,22 +6,10 @@
  */
 
 import { EventEmitter } from 'events';
-import { copyFileSync } from 'fs';
 import { EOL } from 'os';
-import { join } from 'path';
 import { Dictionary, isObject } from '@salesforce/ts-types';
-import { fs } from '@salesforce/core';
-import { Ditamap } from './ditamap/ditamap';
 
 export const events = new EventEmitter();
-
-export async function copyStaticFile(outputDir: string, fileDir: string, fileName: string): Promise<void> {
-  const source = join(fileDir, fileName);
-  const [name, ext] = fileName.split('.');
-  const dest = join(outputDir, Ditamap.file(name, ext));
-  await fs.mkdirp(outputDir);
-  copyFileSync(source, dest);
-}
 
 export function mergeDeep(target: Dictionary, source: Dictionary): Dictionary {
   Object.keys(source).forEach((key) => {
