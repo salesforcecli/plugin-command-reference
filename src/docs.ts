@@ -20,7 +20,6 @@ import {
 import * as chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
-import { CLIReferenceTopic } from './ditamap/cli-reference-topic';
 import { Command } from './ditamap/command';
 import { MainTopicIntro } from './ditamap/main-topic-intro';
 import { TopicCommands } from './ditamap/topic-commands';
@@ -116,9 +115,6 @@ export class Docs {
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
 
-    if (!commandIds.includes(topic)) {
-      await new CLIReferenceTopic(topic, description).write();
-    }
     await new TopicCommands(topic, topicMeta).write();
     await new TopicDitamap(topic, commandIds).write();
     return subTopicNames;
