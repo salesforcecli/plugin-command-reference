@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.6](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.5...v2.0.6) (2021-09-09)
+
+
+### Bug Fixes
+
+* don't generate xml for topics ([60e0056](https://github.com/salesforcecli/plugin-command-reference/commit/60e00563698ce8db4a12077f7866cdbe15fbdf6a))
+
 ### [2.0.5](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.4...v2.0.5) (2021-09-08)
 
 

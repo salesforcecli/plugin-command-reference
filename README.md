@@ -93,5 +93,5 @@ OPTIONS
   --json                               Format output as json.
 ```
 
-_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/v2.0.4/src/commands/commandreference/generate.ts)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/v2.0.5/src/commands/commandreference/generate.ts)_
 <!-- commandsstop -->
