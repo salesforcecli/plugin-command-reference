@@ -16,13 +16,13 @@ $ sfdx plugins:install @salesforce/plugin-command-reference
 Ensure any plugins are installed that you with to generate documentation for.
 
 ```sh-session
-$ sfdx plugins:install salesforcedx@latest-rc
+$ sfdx update stable-rc
 ```
 
-Now we can generate the documentation for the `latest-rc` tag.
+Now we can generate the documentation for all core plug-ins.
 
 ```sh-session
-$ sfdx commandreference --plugins salesforcedx
+$ sfdx commandreference --plugins salesforce-alm,alias,apex,auth,config,custom-metadata,data,limits,org,schema,templates,user,@salesforce/sfdx-plugin-lwc-test,source
 ```
 
 **Note:** Warnings will occur for missing properties in plugins. Those have to be fixed in the plugin itself.
@@ -56,11 +56,10 @@ sfdx plugins:link .
 Now, you can install any plugins you want and run the command reference generation on them.
 
 ```sh-session
-sfdx plugins:install salesforcedx
 sfdx plugins:install config
 sfdx plugins:install alias
 sfdx plugins:install auth
-sfdx commandreference --plugins salesforcedx,alias,config,auth
+sfdx commandreference --plugins alias,config,auth
 ```
 
 ## Commands
