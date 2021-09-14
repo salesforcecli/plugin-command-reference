@@ -39,6 +39,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
                 format="html" scope="external" type="new-window:HTML">{{trailblazerCommunityName}}</xref> group in the
                 Trailblazer Community.</note>
         </section>{{/if}}{{#if isOpenPilotCommand}}
+        </section>{{/if}}{{#if isOpenPilotCommand}}
         <section>
             <note>We provide the <codeph otherprops="nolang">{{name}}</codeph> command to selected customers through a pilot program
                 that requires agreement to specific terms and conditions. To be nominated to participate
@@ -58,7 +59,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
         </section>{{/if}}
         {{#if help}}
         <section>
-            <title><ph>Help for <codeph otherprops="nolang">{{name}}</codeph></ph></title>
+            <title><ph>Description for <codeph otherprops="nolang">{{name}}</codeph></ph></title>
             {{#each help}}
             {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
             {{/each}}
@@ -78,7 +79,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
         </section>
         {{/if}}
         <section>
-            <title><ph>Command Syntax</ph></title>
+            <title><ph>Usage</ph></title>
             <dl>
                 <dlentry>
                     <dt><codeph otherprops="nolang">{{binary}} {{name}}</codeph></dt>
@@ -90,7 +91,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
         </section>
         {{#if parameters}}
         <section>
-            <title><ph>Parameters</ph></title>
+            <title><ph>Flags</ph></title>
             <dl>
                 {{#each parameters}}
                 <dlentry>
