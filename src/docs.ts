@@ -27,6 +27,15 @@ import { TopicDitamap } from './ditamap/topic-ditamap';
 import { events, punctuate } from './utils';
 import { HelpReference } from './ditamap/help-reference';
 
+function emitNoTopicMetadataWarning(topic: string): void {
+  events.emit(
+    'warning',
+    `No metadata for topic ${chalk.bold(
+      topic
+    )}. That topic owner must add topic metadata in the oclif section in the package.json file within their plugin.`
+  );
+}
+
 export class Docs {
   public constructor(
     private outputDir: string,
@@ -50,14 +59,13 @@ export class Docs {
     );
     let description = asString(topicMeta.description);
     if (!description && !topicMeta.external) {
-      // Punctuate the description in place of longDescription
       description = punctuate(asString(topicMeta.description));
       if (!description) {
         events.emit(
           'warning',
           `No description for topic ${chalk.bold(
             topic
-          )}. Skipping until topic owner adds topic metadata, that includes longDescription, in the oclif section in the package.json file within their plugin.`
+          )}. Skipping until topic owner adds topic metadata in the oclif section in the package.json file within their plugin.`
         );
         return;
       }
@@ -65,7 +73,7 @@ export class Docs {
 
     const subTopicNames = [];
     const commandIds = [];
-    // const commandFileNames = [];
+
     for (const subtopic of Object.keys(subtopics)) {
       const subtopicOrCommand = subtopics[subtopic];
       try {
@@ -81,13 +89,7 @@ export class Docs {
         const subTopicsMeta = ensureJsonMap(topicMeta.subtopics);
 
         if (!subTopicsMeta[subtopic]) {
-          const fullTopicPath = `${topic}:${subtopic}`;
-          events.emit(
-            'warning',
-            `No metadata for topic ${chalk.bold(
-              fullTopicPath
-            )}. That topic owner must add topic metadata in the oclif section in the package.json file within their plugin.`
-          );
+          emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
           continue;
         }
 
@@ -108,7 +110,11 @@ export class Docs {
           commandIds.push(command.id);
         }
       } catch (error) {
-        events.emit('warning', `Can't create topic for ${topic}:${subtopic}: ${error.message}\n`);
+        if (error.name === 'UnexpectedValueTypeError') {
+          emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
+        } else {
+          events.emit('warning', `Can't create topic for ${topic}:${subtopic}: ${error.message}\n`);
+        }
       }
     }
 
