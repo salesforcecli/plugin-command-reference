@@ -46,6 +46,6 @@ describe('plugin-login', () => {
   });
   it('creates parameters', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
-    expect(/<title><ph>Parameters<\/ph><\/title>/.test(dita)).to.be.true;
+    expect(/<title><ph>Flags<\/ph><\/title>/.test(dita)).to.be.true;
   });
 });
