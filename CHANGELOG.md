@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.8](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.7...v2.0.8) (2021-09-15)
+
+
+### Bug Fixes
+
+* update template files for sf ([2a0ca0a](https://github.com/salesforcecli/plugin-command-reference/commit/2a0ca0acc1744b2b090d5c7b3d3a196d127061c9))
+* update test with new title in command XML file ([b9b14ea](https://github.com/salesforcecli/plugin-command-reference/commit/b9b14ea2a8505d153a244ebc0d1e7759e2803a40))
+
 ### [2.0.7](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.6...v2.0.7) (2021-09-14)
 
 
