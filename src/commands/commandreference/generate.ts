@@ -7,7 +7,7 @@
 
 import * as os from 'os';
 import * as path from 'path';
-import { SfCommand } from '@salesforce/command';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Flags } from '@oclif/core';
 import { Plugin } from '@oclif/core/lib/interfaces/plugin';
 import { fs, Messages, SfdxError } from '@salesforce/core';
@@ -22,7 +22,7 @@ import { events, mergeDeep } from '../../utils';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
 
-export default class CommandReferenceGenerate extends SfCommand {
+export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
   public static description = messages.getMessage('commandDescription');
 
   public static flags = {

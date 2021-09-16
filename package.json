@@ -5,10 +5,10 @@
   "author": "Thomas @amphro",
   "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
   "dependencies": {
-    "@oclif/core": "^0.5.34",
-    "@salesforce/command": "^4.0.5",
+    "@oclif/core": "^0.5.38",
     "@salesforce/core": "^2.2.0",
     "@salesforce/kit": "^1.5.17",
+    "@salesforce/sf-plugins-core": "^0.0.23",
     "@salesforce/ts-types": "^1.5.20",
     "chalk": "^3.0.0",
     "handlebars": "^4.7.7",
