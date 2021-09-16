@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.10](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.9...v2.0.10) (2021-09-16)
+
+
+### Bug Fixes
+
+* change title/shortdesc of main ditamap so it says "sf" ([48f183e](https://github.com/salesforcecli/plugin-command-reference/commit/48f183ec1be08b265f95baf6bf8bfab72cc932e1))
+
 ### [2.0.9](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.8...v2.0.9) (2021-09-16)
 
 
