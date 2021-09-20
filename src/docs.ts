@@ -21,7 +21,6 @@ import * as chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
-import { MainTopicIntro } from './ditamap/main-topic-intro';
 import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
 import { events, punctuate } from './utils';
@@ -92,11 +91,6 @@ export class Docs {
           emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
           continue;
         }
-
-        const subtopicMeta = ensureJsonMap(subTopicsMeta[subtopic]);
-
-        // The intro doc for this topic
-        await new MainTopicIntro(topic, subtopic, subtopicMeta).write();
 
         subTopicNames.push(subtopic);
 
