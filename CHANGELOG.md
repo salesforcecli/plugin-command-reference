@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.11](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.10...v2.0.11) (2021-09-20)
+
+
+### Bug Fixes
+
+* stop generating main topic intro ([ba42e7f](https://github.com/salesforcecli/plugin-command-reference/commit/ba42e7fc66ca88b64658c9b88f9a7209a6953b55))
+
 ### [2.0.10](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.9...v2.0.10) (2021-09-16)
 
 
