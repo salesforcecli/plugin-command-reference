@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.16](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.15...v1.3.16) (2021-09-30)
+
+
+### Bug Fixes
+
+* update for the combined sf/sfdx cli reference ([ed08b75](https://github.com/forcedotcom/plugin-command-reference/commit/ed08b759b4a42fb245c82ab348ce78803de132db))
+
 ### [1.3.15](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.14...v1.3.15) (2021-09-10)
 
 ### [1.3.14](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.13...v1.3.14) (2021-08-13)
