@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.12](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.11...v2.0.12) (2021-10-01)
+
+
+### Bug Fixes
+
+* bump to GA deps ([#37](https://github.com/salesforcecli/plugin-command-reference/issues/37)) ([0f0644f](https://github.com/salesforcecli/plugin-command-reference/commit/0f0644f9298f44eec86c0210cf9bce267b3c3cfc))
+
 ### [2.0.11](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.10...v2.0.11) (2021-09-20)
 
 

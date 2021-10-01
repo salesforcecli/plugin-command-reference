@@ -66,32 +66,28 @@ sfdx commandreference --plugins salesforcedx,alias,config,auth
 ## Commands
 
 <!-- commands -->
-* [`sf commandreference:generate`](#sf-commandreferencegenerate)
+* [`sf commandreference generate`](#sf-commandreference-generate)
 
-## `sf commandreference:generate`
+## `sf commandreference generate`
 
 generate the command reference guide located
 
 ```
-generate the command reference guide located
-
 USAGE
-  $ sf commandreference:generate
+  $ sf commandreference generate [--json] [-d <value>] [-p <value>] [-s <value>] [--hidden] [--erroronwarnings]
 
-OPTIONS
-  -d, --outputdir=outputdir            [default: ./tmp/root] output directory to put generated files
+FLAGS
+  -d, --outputdir=<value>       [default: ./tmp/root] output directory to put generated files
+  -p, --plugins=<value>...      comma separated list of plugin names to be part of the generation. Defaults to the oclif
+                                plugin in the current working directory
+  -s, --ditamap-suffix=<value>  [default: unified] unique suffix to append to generated ditamap
+  --erroronwarnings             fail the command if there are any warnings
+  --hidden                      show hidden commands
 
-  -p, --plugins=plugins                comma separated list of plugin names to be part of the generation. Defaults to
-                                       the oclif plugin in the current working directory
+GLOBAL FLAGS
+  --json  Format output as json.
 
-  -s, --ditamap-suffix=ditamap-suffix  [default: unified] unique suffix to append to generated ditamap
-
-  --erroronwarnings                    fail the command if there are any warnings
-
-  --hidden                             show hidden commands
-
-  --json                               Format output as json.
+DESCRIPTION
+  generate the command reference guide located
 ```
-
-_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/v2.0.10/src/commands/commandreference/generate.ts)_
 <!-- commandsstop -->
