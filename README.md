@@ -74,9 +74,10 @@ generate the command reference guide located
 
 ```
 USAGE
-  $ sf commandreference generate [--json] [-d <value>] [-p <value>] [-s <value>] [--hidden] [--erroronwarnings]
+  $ sf commandreference generate [--json] [-d <value>] [-p <value> | -a] [-s <value>] [--hidden] [--erroronwarnings]
 
 FLAGS
+  -a, --all                     include all relevant plugins in the generation
   -d, --outputdir=<value>       [default: ./tmp/root] output directory to put generated files
   -p, --plugins=<value>...      comma separated list of plugin names to be part of the generation. Defaults to the oclif
                                 plugin in the current working directory
