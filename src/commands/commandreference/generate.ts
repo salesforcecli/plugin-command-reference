@@ -35,6 +35,12 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       char: 'p',
       description: messages.getMessage('pluginFlagDescription'),
       multiple: true,
+      exclusive: ['all'],
+    }),
+    all: Flags.boolean({
+      char: 'a',
+      description: messages.getMessage('allFlagDescription'),
+      exclusive: ['plugins'],
     }),
     'ditamap-suffix': Flags.string({
       char: 's',
@@ -51,7 +57,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     Ditamap.suffix = flags['ditamap-suffix'];
 
     let pluginNames: string[];
-    if (!flags.plugins) {
+    if (!flags.plugins && !flags.all) {
       const pJsonPath = path.join(process.cwd(), 'package.json');
       if (await fs.fileExists(pJsonPath)) {
         const packageJson = await fs.readJson(pJsonPath);
@@ -61,6 +67,14 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
           "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
         );
       }
+    } else if (flags.all) {
+      const ignore = [
+        /@oclif/,
+        /@salesforce\/cli/,
+        /@salesforce\/plugin-telemetry/,
+        /@salesforce\/plugin-command-reference/,
+      ];
+      pluginNames = this.config.plugins.map((p) => p.name).filter((p) => !ignore.some((i) => i.test(p)));
     } else {
       pluginNames = flags.plugins;
     }
