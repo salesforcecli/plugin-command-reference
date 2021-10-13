@@ -42,7 +42,7 @@ describe('plugin-login', () => {
   });
   it('creates with summary', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
-    expect(/shortdesc">\n(\s.*)Log in to a Salesforce org using a JSON web token \(JWT\)./.test(dita)).to.be.true;
+    expect(/shortdesc">\r?\n(\s.*)Log in to a Salesforce org using a JSON web token \(JWT\)./.test(dita)).to.be.true;
   });
   it('creates parameters', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
