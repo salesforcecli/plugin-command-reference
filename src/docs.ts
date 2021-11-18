@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import { join } from 'path';
 import { Plugin } from '@oclif/config';
 import { fs } from '@salesforce/core';
 import {
@@ -15,10 +16,9 @@ import {
   ensureJsonMap,
   ensureString,
   isArray,
-  JsonMap
+  JsonMap,
 } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
-import { join } from 'path';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { CLIReferenceTopic } from './ditamap/cli-reference-topic';
@@ -38,14 +38,15 @@ export class Docs {
     private topicMeta: JsonMap
   ) {}
 
-  public async build(commands: JsonMap[]) {
+  public async build(commands: JsonMap[]): Promise<void> {
     // Create if doesn't exist
     await fs.mkdirp(this.outputDir);
 
     await this.populateTemplate(commands);
   }
 
-  public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>): Promise<any[]> {
     const topicMeta = ensureJsonMap(
       this.topicMeta[topic],
       `No topic meta for ${topic} - add this topic to the oclif section of the package.json.`
@@ -104,7 +105,7 @@ export class Docs {
         const filenames: string[] = [];
         for (const command of subtopicOrCommand) {
           const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
-          const commandsInFullTopic = subtopicOrCommand.filter(cmd => ensureString(cmd.id).indexOf(fullTopic) === 0);
+          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).indexOf(fullTopic) === 0);
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
           filenames.push(await this.populateCommand(topic, subtopic, command, commandMeta));
@@ -124,10 +125,13 @@ export class Docs {
   /**
    * Group all commands by the top level topic and then subtopic. e.g. force, analytics, evergreen, etc
    * then org, apex, etc within the force namespace.
+   *
    * @param commands - The entire set of command data.
    * @returns The commands grouped by topics/subtopic/commands.
    */
-  private groupTopicsAndSubtopics(commands: JsonMap[]) {
+  private groupTopicsAndSubtopics(
+    commands: JsonMap[]
+  ): Dictionary<Dictionary<Dictionary<unknown> | Array<Dictionary<unknown>>>> {
     const topLevelTopics: Dictionary<Dictionary<Dictionary | Dictionary[]>> = {};
 
     for (const command of commands) {
@@ -141,7 +145,7 @@ export class Docs {
 
       const topLevelTopic = commandParts[0];
 
-      const plugin = (command.plugin as unknown) as Plugin;
+      const plugin = command.plugin as unknown as Plugin;
       if (this.plugins[plugin.name]) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
@@ -160,7 +164,9 @@ export class Docs {
             if (subTopicsMeta.hidden && !this.hidden) {
               continue;
             }
-          } catch (e) {} // It means no meta so it isn't hidden, although it should always fail before here with no meta found
+          } catch (e) {
+            // It means no meta so it isn't hidden, although it should always fail before here with no meta found
+          }
 
           command.subtopic = subtopic;
 
@@ -180,7 +186,7 @@ export class Docs {
     return topLevelTopics;
   }
 
-  private async populateTemplate(commands: JsonMap[]) {
+  private async populateTemplate(commands: JsonMap[]): Promise<void> {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
     await new CLIReference().write();
@@ -198,7 +204,7 @@ export class Docs {
     }
   }
 
-  private resolveCommandMeta(commandId: string, command, commandsInTopic: number) {
+  private resolveCommandMeta(commandId: string, command, commandsInTopic: number): JsonMap {
     const commandMeta: JsonMap = {};
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
@@ -235,7 +241,12 @@ export class Docs {
     return commandMeta;
   }
 
-  private async populateCommand(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap) {
+  private async populateCommand(
+    topic: string,
+    subtopic: string,
+    command: Dictionary,
+    commandMeta: JsonMap
+  ): Promise<string> {
     // If it is a hidden command - abort
     if (command.hidden && !this.hidden) {
       return '';

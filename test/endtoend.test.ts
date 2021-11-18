@@ -5,10 +5,10 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { fs } from '@salesforce/core';
-import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { fs } from '@salesforce/core';
+import { expect } from 'chai';
 
 /**
  * This plugin was primarily made to generate command reference docs for
