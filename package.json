@@ -89,7 +89,7 @@
     "posttest": "yarn lint && yarn test:deprecation-policy && yarn test:command-reference",
     "prepack": "sf-prepack",
     "prepare": "sf-install",
-    "pretest": "sf-compile-test",
+    "pretest": "sf-compile-test && ./bin/run commandreference:generate --plugins salesforcedx --outputdir test/tmp",
     "test": "sf-test",
     "version": "oclif-dev readme && git add README.md"
   },
