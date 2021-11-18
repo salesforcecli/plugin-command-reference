@@ -12,21 +12,22 @@
     "@salesforce/core": "^2.29.0",
     "chalk": "^3.0.0",
     "handlebars": "^4.7.3",
-    "tslib": "^1",
-    "typescript": "^4.4.4"
+    "tslib": "^1"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/plugin-help": "^3.2.5",
     "@oclif/test": "^1.2.8",
-    "@salesforce/dev-scripts": "^0.4.2",
+    "@salesforce/dev-config": "^2.1.2",
+    "@salesforce/dev-scripts": "^0.9.18",
     "@salesforce/prettier-config": "^0.0.1",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
     "@types/jsforce": "^1.9.35",
     "husky": "^4.2.3",
     "salesforcedx": "48.4.1",
-    "semantic-release": "^17.0.4"
+    "semantic-release": "^17.0.4",
+    "typescript": "^4.5.2"
   },
   "engines": {
     "node": ">=8.4.0"
@@ -59,25 +60,26 @@
   },
   "repository": "forcedotcom/plugin-command-reference",
   "scripts": {
-    "build": "yarn sfdx-build",
-    "clean": "yarn sfdx-clean",
-    "clean-all": "yarn sfdx-clean all",
-    "compile": "yarn sfdx-compile",
-    "docs": "yarn sfdx-docs",
-    "format": "yarn sfdx-format",
-    "lint": "yarn sfdx-lint",
-    "postpack": "rm -f oclif.manifest.json",
-    "pretest": "./bin/run commandreference:generate --plugins salesforcedx --outputdir test/tmp",
-    "posttest": "tslint -p test -t stylish",
-    "prepack": "yarn sfdx-build",
-    "test": "yarn sfdx-test",
+    "build": "sf-build",
+    "clean": "sf-clean",
+    "clean-all": "sf-clean all",
+    "compile": "sf-compile",
+    "docs": "sf-docs",
+    "format": "sf-format",
+    "lint": "#no linter",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint && yarn test:deprecation-policy && yarn test:command-reference",
+    "prepack": "sf-prepack",
+    "prepare": "sf-install",
+    "pretest": "sf-compile-test",
+    "test": "sf-test",
     "version": "oclif-dev readme && git add README.md"
   },
   "husky": {
     "hooks": {
-      "commit-msg": "yarn sfdx-husky-commit-msg",
-      "pre-commit": "yarn sfdx-husky-pre-commit",
-      "pre-push": "yarn sfdx-husky-pre-push"
+      "pre-commit": "sf-husky-pre-commit",
+      "commit-msg": "sf-husky-commit-msg",
+      "pre-push": "sf-husky-pre-push"
     }
   },
   "publishConfig": {
