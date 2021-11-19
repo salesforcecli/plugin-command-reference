@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.17](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.16...v1.3.17) (2021-11-19)
+
+
+### Bug Fixes
+
+* combination of compatible handlebars w/ typescript ([a8c9088](https://github.com/forcedotcom/plugin-command-reference/commit/a8c90884fa78b413928fa9bffcfb93b9ba690365))
+* move generate to test command ([a803451](https://github.com/forcedotcom/plugin-command-reference/commit/a80345161da0057767c5d480a3e8047478831a2d))
+* run command in test itself ([9923935](https://github.com/forcedotcom/plugin-command-reference/commit/99239351fa218fcb3cc3fd5798e7148451cbc048))
+
 ### [1.3.16](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.15...v1.3.16) (2021-09-30)
 
 

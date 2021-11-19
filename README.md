@@ -96,5 +96,5 @@ OPTIONS
                                                                                     this command invocation
 ```
 
-_See code: [lib/commands/commandreference/generate.js](https://github.com/forcedotcom/plugin-command-reference/blob/v1.3.15/lib/commands/commandreference/generate.js)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/forcedotcom/plugin-command-reference/blob/v1.3.16/src/commands/commandreference/generate.ts)_
 <!-- commandsstop -->
