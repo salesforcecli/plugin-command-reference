@@ -13,19 +13,6 @@ import { compile, registerHelper } from 'handlebars';
 
 const debug = debugCreator('commandreference');
 
-registerHelper('toUpperCase', (str) => str.toUpperCase());
-registerHelper('join', (array) => array.join(', '));
-
-/*
- * Returns true if the string should be formatted as code block in docs
- */
-// tslint:disable-next-line: no-any
-registerHelper('isCodeBlock', function (this: any, val, options) {
-  return val.indexOf('$ sfdx') >= 0 || val.indexOf('>>') >= 0 ? options.fn(this) : options.inverse(this);
-});
-
-registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
-
 export abstract class Ditamap {
   public static templatesDir = join(__dirname, '..', '..', 'templates');
 
@@ -45,6 +32,18 @@ export abstract class Ditamap {
   private source: string;
 
   public constructor(private filename: string, protected data: JsonMap) {
+    registerHelper('toUpperCase', (str) => str.toUpperCase());
+    registerHelper('join', (array) => array.join(', '));
+
+    /*
+     * Returns true if the string should be formatted as code block in docs
+     */
+    // tslint:disable-next-line: no-any
+    registerHelper('isCodeBlock', function (this: any, val, options) {
+      return val.indexOf('$ sfdx') >= 0 || val.indexOf('>>') >= 0 ? options.fn(this) : options.inverse(this);
+    });
+
+    registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }

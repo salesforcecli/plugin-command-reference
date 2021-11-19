@@ -11,7 +11,7 @@
     "@salesforce/command": "^4.1.5",
     "@salesforce/core": "^2.29.0",
     "chalk": "^3.0.0",
-    "handlebars": "^4.7.3",
+    "handlebars": "4.7.2",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -45,7 +45,7 @@
     "semantic-release": "^17.0.4",
     "sinon": "10.0.0",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.2"
+    "typescript": "4.3"
   },
   "engines": {
     "node": ">=12.0.0"
