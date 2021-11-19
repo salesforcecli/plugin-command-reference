@@ -8,12 +8,12 @@
 import { Ditamap } from './ditamap';
 
 export class CLIReference extends Ditamap {
-  constructor() {
+  public constructor() {
     const filename = 'cli_reference.xml';
 
     super(filename, {
       cliVersion: Ditamap.cliVersion,
-      pluginVersions: Ditamap.pluginVersions
+      pluginVersions: Ditamap.pluginVersions,
     });
   }
 

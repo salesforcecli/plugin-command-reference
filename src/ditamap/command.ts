@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
 import { join } from 'path';
+import { asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
 import { events, helpFromDescription, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
@@ -20,7 +20,7 @@ export type CommandHelpInfo = {
 };
 
 export class Command extends Ditamap {
-  constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
+  public constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = `cli_reference_${commandWithUnderscores}.xml`;
 
@@ -71,7 +71,7 @@ export class Command extends Ditamap {
       isOpenPilotCommand: state === 'openPilot',
       isBetaCommand: state === 'beta',
       trailblazerCommunityUrl,
-      trailblazerCommunityName
+      trailblazerCommunityName,
     }) as JsonMap;
 
     // Override destination to include topic and subtopic
@@ -95,7 +95,7 @@ export class Command extends Ditamap {
           description,
           optional: !flag.required,
           kind: flag.kind || flag.type,
-          hasValue: flag.type !== 'boolean'
+          hasValue: flag.type !== 'boolean',
         });
       });
   }

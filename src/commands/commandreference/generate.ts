@@ -5,13 +5,13 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as os from 'os';
+import * as path from 'path';
 import { IPlugin } from '@oclif/config';
 import { flags, SfdxCommand } from '@salesforce/command';
 import { fs, Messages, SfdxError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
-import * as os from 'os';
-import * as path from 'path';
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { events, mergeDeep } from '../../utils';
@@ -32,14 +32,14 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     outputdir: flags.string({
       char: 'd',
       description: messages.getMessage('outputdirFlagDescription'),
-      default: './tmp/root'
+      default: './tmp/root',
     }),
     plugins: flags.array({
       char: 'p',
-      description: messages.getMessage('pluginFlagDescription')
+      description: messages.getMessage('pluginFlagDescription'),
     }),
     hidden: flags.boolean({ description: messages.getMessage('hiddenFlagDescription') }),
-    erroronwarnings: flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') })
+    erroronwarnings: flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') }),
   };
 
   public async run(): Promise<AnyJson> {
@@ -59,8 +59,8 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     }
 
     const plugins = pluginNames
-      .map(plugin => plugin.trim())
-      .map(name => {
+      .map((plugin) => plugin.trim())
+      .map((name) => {
         let pluginName = name;
         let plugin = this.getPlugin(pluginName);
 
@@ -74,13 +74,13 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         return pluginName;
       });
     this.ux.log(
-      `Generating command reference for the following plugins:${plugins.map(name => `${os.EOL}  - ${name}`)}`
+      `Generating command reference for the following plugins:${plugins.map((name) => `${os.EOL}  - ${name}`)}`
     );
     Ditamap.outputDir = this.flags.outputdir;
 
     Ditamap.cliVersion = this.config.version.replace(/-[0-9a-zA-Z]+$/, '');
     Ditamap.plugins = this.pluginMap(plugins);
-    Ditamap.pluginVersions = plugins.map(name => {
+    Ditamap.pluginVersions = plugins.map((name) => {
       const plugin = this.getPlugin(name);
       const version = plugin && plugin.version;
       if (!version) throw new Error(`No version found for plugin ${name}`);
@@ -94,7 +94,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     });
 
     const warnings = [];
-    events.on('warning', msg => {
+    events.on('warning', (msg) => {
       process.stderr.write(chalk.yellow(`> ${msg}\n`));
       warnings.push(msg);
     });
@@ -131,7 +131,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
   }
 
   private getPlugin(pluginName: string) {
-    return this.config.plugins.find(info => info.name === pluginName);
+    return this.config.plugins.find((info) => info.name === pluginName);
   }
 
   private async loadTopicMetadata() {
@@ -153,18 +153,18 @@ export default class CommandReferenceGenerate extends SfdxCommand {
   }
 
   private async loadCommands() {
-    const promises = this.config.commands.map(async cmd => {
+    const promises = this.config.commands.map(async (cmd) => {
       try {
         let commandClass = await this.loadCommand(cmd);
         let obj = Object.assign({} as JsonMap, cmd, commandClass, {
-          flags: Object.assign({}, cmd.flags, commandClass.flags)
+          flags: Object.assign({}, cmd.flags, commandClass.flags),
         });
 
         // Load all properties on all extending classes.
         while (commandClass !== undefined) {
           commandClass = Object.getPrototypeOf(commandClass) || undefined;
           obj = Object.assign({}, commandClass, obj, {
-            flags: Object.assign({}, commandClass && commandClass.flags, obj.flags)
+            flags: Object.assign({}, commandClass && commandClass.flags, obj.flags),
           });
         }
 

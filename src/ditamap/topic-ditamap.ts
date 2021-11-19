@@ -9,13 +9,13 @@ import { join } from 'path';
 import { Ditamap } from './ditamap';
 
 export class TopicDitamap extends Ditamap {
-  constructor(topic: string, subtopics: string[], commandNames: string[]) {
+  public constructor(topic: string, subtopics: string[], commandNames: string[]) {
     const filename = `cli_reference_${topic}.ditamap`;
     // Set the data of topic and filenames
     super(filename, {
       topic,
-      subtopics: subtopics.sort().map(subtopic => ({ subtopic })),
-      commands: commandNames.sort().map(command => ({ command }))
+      subtopics: subtopics.sort().map((subtopic) => ({ subtopic })),
+      commands: commandNames.sort().map((command) => ({ command })),
     });
 
     // Override destination to include topic and subtopic
