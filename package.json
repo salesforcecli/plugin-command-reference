@@ -89,8 +89,8 @@
     "posttest": "yarn lint",
     "prepack": "sf-prepack",
     "prepare": "sf-install",
-    "pretest": "sf-compile-test && ./bin/run commandreference:generate --plugins salesforcedx --outputdir test/tmp",
-    "test": "sf-test",
+    "pretest": "sf-compile-test",
+    "test": "./bin/run commandreference:generate --plugins salesforcedx --outputdir test/tmp && sf-test",
     "version": "oclif-dev readme && git add README.md"
   },
   "husky": {
