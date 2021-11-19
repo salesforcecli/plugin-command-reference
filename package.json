@@ -12,6 +12,7 @@
     "@salesforce/core": "^2.29.0",
     "chalk": "^3.0.0",
     "handlebars": "4.7.2",
+    "shelljs": "^0.8.4",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -24,6 +25,7 @@
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
     "@types/jsforce": "^1.9.35",
+    "@types/shelljs": "^0.8.9",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
     "chai": "^4.2.0",
@@ -90,7 +92,7 @@
     "prepack": "sf-prepack",
     "prepare": "sf-install",
     "pretest": "sf-compile-test",
-    "test": "./bin/run commandreference:generate --plugins salesforcedx --outputdir test/tmp && sf-test",
+    "test": "sf-test",
     "version": "oclif-dev readme && git add README.md"
   },
   "husky": {
