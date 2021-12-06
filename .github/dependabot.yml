@@ -1,5 +1,4 @@
-17 lines (17 sloc)  433 Bytes
-   
+
 version: 2
 updates:
   - package-ecosystem: "npm"
