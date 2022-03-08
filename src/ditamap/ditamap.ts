@@ -25,6 +25,11 @@ hb.registerHelper('uniqueId', (...strings) => {
   return Ditamap.file(parts.join('_'), 'xml').replace('.xml', '');
 });
 
+hb.registerHelper('getDefault', function (flagDefault) {
+  if (flagDefault && typeof flagDefault !== 'function') return `Default value: ${flagDefault}`;
+  else return '';
+});
+
 /*
  * Returns true if the string should be formatted as code block in docs
  */
