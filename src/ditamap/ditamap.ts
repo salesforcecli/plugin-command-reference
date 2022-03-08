@@ -6,7 +6,8 @@
  */
 
 import { dirname, join } from 'path';
-import { fs } from '@salesforce/core';
+import * as fs from 'fs/promises';
+import * as mkdirp from 'mkdirp';
 import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
 import * as hb from 'handlebars';
@@ -86,7 +87,7 @@ export abstract class Ditamap {
   }
 
   public async write() {
-    await fs.mkdirp(dirname(this.destination));
+    await mkdirp(dirname(this.destination));
     const output = await this.transformToDitamap();
 
     await fs.writeFile(this.destination, output);

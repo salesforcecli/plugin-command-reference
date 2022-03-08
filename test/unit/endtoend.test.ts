@@ -5,9 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import { access, rm } from 'fs/promises';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { fs } from '@salesforce/core';
 import { expect } from 'chai';
 
 /**
@@ -28,13 +28,13 @@ function loadTestDitamapFile(path: string) {
 describe('plugin-login', () => {
   before(async () => {
     try {
-      await fs.access(testFilesPath);
+      await access(testFilesPath);
     } catch (e) {
       throw new Error('Could not read generated test docs. Ensure the "pretest" has run or run it manually.');
     }
   });
   after(async () => {
-    await fs.remove(testFilesPath);
+    await rm(testFilesPath, { recursive: true });
   });
   it('creates with spaced commands', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));

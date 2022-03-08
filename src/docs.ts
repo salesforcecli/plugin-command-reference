@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as mkdirp from 'mkdirp';
 import { Plugin } from '@oclif/config';
-import { fs } from '@salesforce/core';
 import {
   asString,
   Dictionary,
@@ -46,7 +46,7 @@ export class Docs {
 
   public async build(commands: JsonMap[]): Promise<void> {
     // Create if doesn't exist
-    await fs.mkdirp(this.outputDir);
+    await mkdirp(this.outputDir);
 
     await this.populateTemplate(commands);
   }
