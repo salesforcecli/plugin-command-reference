@@ -14,7 +14,6 @@ import { Plugin } from '@oclif/core/lib/interfaces/plugin';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
-import { cli } from 'cli-ux';
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { events, mergeDeep } from '../../utils';
@@ -95,7 +94,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
         }
         return pluginName;
       });
-    cli.log(
+    this.log(
       `Generating command reference for the following plugins:${plugins
         .map((name) => `${os.EOL}  - ${name}`)
         .join(', ')}`
