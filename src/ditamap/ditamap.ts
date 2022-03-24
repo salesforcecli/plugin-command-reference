@@ -26,7 +26,7 @@ hb.registerHelper('uniqueId', (...strings) => {
 });
 
 hb.registerHelper('getDefault', function (flagDefault) {
-  if (flagDefault && typeof flagDefault !== 'function') return `Default value: ${flagDefault}`;
+  if (flagDefault && typeof flagDefault !== 'function') return `\n<dd>Default value: ${flagDefault}</dd>`;
   else return '';
 });
 
