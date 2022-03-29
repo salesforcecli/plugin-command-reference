@@ -10,9 +10,28 @@ import * as fs from 'fs/promises';
 import * as mkdirp from 'mkdirp';
 import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
-import * as hb from 'handlebars';
+import * as handlebars from 'handlebars';
+import * as asyncHelpers from 'handlebars-async-helpers';
+
+const hb = asyncHelpers(handlebars);
 
 const debug = debugCreator('commandreference');
+
+const getDefault = async (flag: { default: () => any }): Promise<string> => {
+  if (typeof flag.default !== 'function') {
+    return new hb.SafeString(`<dd>Default value: ${flag.default}</dd>`);
+  } else if (typeof flag.default === 'function') {
+    try {
+      const help = await flag.default();
+      if (!help) return '';
+      return new hb.SafeString(`<dd>Default value: ${help}</dd>`);
+    } catch {
+      return '';
+    }
+  } else {
+    return '';
+  }
+};
 
 hb.registerHelper('toUpperCase', (str) => str.toUpperCase());
 hb.registerHelper('join', (array) => array.join(', '));
@@ -25,16 +44,18 @@ hb.registerHelper('uniqueId', (...strings) => {
   return Ditamap.file(parts.join('_'), 'xml').replace('.xml', '');
 });
 
-hb.registerHelper('getDefault', function (flagDefault) {
-  if (flagDefault && typeof flagDefault !== 'function') {
-    return new hb.SafeString(`<dd>Default value: ${flagDefault}</dd>`);
-  } else {
-    return '';
-  }
+hb.registerHelper('getDefault', async function (flag) {
+  return getDefault(flag);
 });
 
-hb.registerHelper('hasDefault', function (flag) {
-  return flag.default && typeof flag.default !== 'function';
+hb.registerHelper('hasDefault', async function (flag) {
+  if (!flag.default) {
+    return false;
+  } else if (Array.isArray(flag.default)) {
+    return flag.default.length > 0;
+  } else {
+    return !!flag.default && !!(await getDefault(flag));
+  }
 });
 
 /*
