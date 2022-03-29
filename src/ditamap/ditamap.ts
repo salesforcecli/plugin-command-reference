@@ -26,8 +26,11 @@ hb.registerHelper('uniqueId', (...strings) => {
 });
 
 hb.registerHelper('getDefault', function (flagDefault) {
-  if (flagDefault && typeof flagDefault !== 'function') return `\n<dd>Default value: ${flagDefault}</dd>`;
-  else return '';
+  if (flagDefault && typeof flagDefault !== 'function') {
+    return new hb.SafeString(`<dd>Default value: ${flagDefault}</dd>`);
+  } else {
+    return '';
+  }
 });
 
 /*
