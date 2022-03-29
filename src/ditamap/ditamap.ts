@@ -33,6 +33,10 @@ hb.registerHelper('getDefault', function (flagDefault) {
   }
 });
 
+hb.registerHelper('hasDefault', function (flag) {
+  return flag.default && typeof flag.default !== 'function';
+});
+
 /*
  * Returns true if the string should be formatted as code block in docs
  */

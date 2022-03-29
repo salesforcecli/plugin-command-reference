@@ -18,6 +18,9 @@ import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { events, mergeDeep } from '../../utils';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const uniqBy = require('lodash.uniqby');
+
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
@@ -202,7 +205,8 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
         return Object.assign({} as JsonMap, cmd);
       }
     });
-    return Promise.all(promises);
+    const commands = await Promise.all(promises);
+    return uniqBy(commands, 'id');
   }
 
   private async loadCommand(command) {
