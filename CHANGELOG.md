@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.6](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.5...v2.2.6) (2022-03-30)
+
+### Bug Fixes
+
+- remove async handlebars ([2c91d7a](https://github.com/salesforcecli/plugin-command-reference/commit/2c91d7a6b42e1698876209e776d925898fe87007))
+
 ### [2.2.5](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.4...v2.2.5) (2022-03-29)
 
 ### Bug Fixes
