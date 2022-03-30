@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.7](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.6...v2.2.7) (2022-03-30)
+
+### Bug Fixes
+
+- default value ([efd9701](https://github.com/salesforcecli/plugin-command-reference/commit/efd97012d44ed7ae4e4600f4df39d50ee246d232))
+
 ### [2.2.6](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.5...v2.2.6) (2022-03-30)
 
 ### Bug Fixes
