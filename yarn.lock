@@ -3920,11 +3920,6 @@ growl@1.10.5:
   resolved "https://registry.npmjs.org/growl/-/growl-1.10.5.tgz#f2735dc2283674fa67478b10181059355c369e5e"
   integrity sha512-qBr4OuELkhPenW6goKVXiv47US3clb3/IbuWF9KNKEijAy9oeHxU9IgzjvJhHkUzhaj7rOUD7+YGWqUjLp5oSA==
 
-handlebars-async-helpers@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/handlebars-async-helpers/-/handlebars-async-helpers-1.0.3.tgz#30cfa24b1d32d4b7073909a38dacf6cac88901be"
-  integrity sha512-t2zkA054ZxkXdtDeGbHTDP9rtbabzF8iHYY46+FhzqTNaw22l0WlcNpnb36vKAv1M22MnLA1i/LUIH3A74dl1g==
-
 handlebars@^4.7.7:
   version "4.7.7"
   resolved "https://registry.npmjs.org/handlebars/-/handlebars-4.7.7.tgz#9ce33416aad02dbd6c8fafa8240d5d98004945a1"

@@ -25,17 +25,35 @@ export type CommandHelpInfo = {
   required: boolean;
   kind: string;
   type: string;
+  defaultHelpValue?: string;
+  default: string | (() => Promise<string>);
+};
+
+const getDefault = async (flag: CommandHelpInfo): Promise<string> => {
+  if (typeof flag.default !== 'function') {
+    return flag.default;
+  } else if (typeof flag.default === 'function') {
+    try {
+      const help = await flag.default();
+      return help || '';
+    } catch {
+      return '';
+    }
+  } else {
+    return '';
+  }
 };
 
 export class Command extends Ditamap {
+  private flags: Dictionary<CommandHelpInfo>;
+
   public constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
 
     super(filename, {});
 
-    const flags = ensureObject(command.flags);
-    const parameters = this.getParametersForTemplate(flags as Dictionary<CommandHelpInfo>);
+    this.flags = ensureObject(command.flags);
 
     const summary = punctuate(asString(command.summary));
 
@@ -86,7 +104,6 @@ export class Command extends Ditamap {
       summary,
       description,
       help,
-      parameters,
       isClosedPilotCommand: state === 'closedPilot',
       isOpenPilotCommand: state === 'openPilot',
       isBetaCommand: state === 'beta',
@@ -97,24 +114,35 @@ export class Command extends Ditamap {
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
-  public getParametersForTemplate(flags: Dictionary<CommandHelpInfo>) {
-    return Object.entries(flags)
-      .filter(([, flag]) => !flag.hidden)
-      .map(([flagName, flag]) => {
-        const description = Array.isArray(flag.description) ? flag.description.join('\n') : flag.description || '';
-        const entireDescription = flag.summary ? `${flag.summary}\n${description}` : description;
+  public async getParametersForTemplate(flags: Dictionary<CommandHelpInfo>) {
+    const final = [] as CommandHelpInfo[];
 
-        return Object.assign(flag, {
-          name: flagName,
-          description: this.formatParagraphs(entireDescription),
-          optional: !flag.required,
-          kind: flag.kind || flag.type,
-          hasValue: flag.type !== 'boolean',
-        });
+    for (const [flagName, flag] of Object.entries(flags)) {
+      if (flag.hidden) continue;
+      const description = Array.isArray(flag.description) ? flag.description.join('\n') : flag.description || '';
+      const entireDescription = flag.summary ? `${flag.summary}\n${description}` : description;
+      const updated = Object.assign(flag, {
+        name: flagName,
+        description: this.formatParagraphs(entireDescription),
+        optional: !flag.required,
+        kind: flag.kind || flag.type,
+        hasValue: flag.type !== 'boolean',
+        defaultFlagValue: await getDefault(flag),
       });
+      final.push(updated);
+    }
+    return final;
   }
 
   public getTemplateFileName(): string {
     return 'command.hbs';
+  }
+
+  protected async transformToDitamap() {
+    // eslint-disable-next-line no-console
+    console.log('transformToDitamap');
+    const parameters = await this.getParametersForTemplate(this.flags);
+    this.data = Object.assign({}, this.data, { parameters });
+    return super.transformToDitamap();
   }
 }

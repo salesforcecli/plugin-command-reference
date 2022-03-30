@@ -13,7 +13,6 @@
     "chalk": "^3.0.0",
     "fs-extra": "^10.0.1",
     "handlebars": "^4.7.7",
-    "handlebars-async-helpers": "^1.0.3",
     "lodash.uniqby": "^4.7.0",
     "mkdirp": "^1.0.4",
     "tslib": "^2"

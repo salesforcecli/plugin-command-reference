@@ -10,28 +10,9 @@ import * as fs from 'fs/promises';
 import * as mkdirp from 'mkdirp';
 import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
-import * as handlebars from 'handlebars';
-import * as asyncHelpers from 'handlebars-async-helpers';
-
-const hb = asyncHelpers(handlebars);
+import * as hb from 'handlebars';
 
 const debug = debugCreator('commandreference');
-
-const getDefault = async (flag: { default: () => any }): Promise<string> => {
-  if (typeof flag.default !== 'function') {
-    return new hb.SafeString(`<dd>Default value: ${flag.default}</dd>`);
-  } else if (typeof flag.default === 'function') {
-    try {
-      const help = await flag.default();
-      if (!help) return '';
-      return new hb.SafeString(`<dd>Default value: ${help}</dd>`);
-    } catch {
-      return '';
-    }
-  } else {
-    return '';
-  }
-};
 
 hb.registerHelper('toUpperCase', (str) => str.toUpperCase());
 hb.registerHelper('join', (array) => array.join(', '));
@@ -42,20 +23,6 @@ hb.registerHelper('xmlFile', (...strings) => {
 hb.registerHelper('uniqueId', (...strings) => {
   const parts = strings.filter((s) => typeof s === 'string');
   return Ditamap.file(parts.join('_'), 'xml').replace('.xml', '');
-});
-
-hb.registerHelper('getDefault', async function (flag) {
-  return getDefault(flag);
-});
-
-hb.registerHelper('hasDefault', async function (flag) {
-  if (!flag.default) {
-    return false;
-  } else if (Array.isArray(flag.default)) {
-    return flag.default.length > 0;
-  } else {
-    return !!flag.default && !!(await getDefault(flag));
-  }
 });
 
 /*
@@ -137,10 +104,10 @@ export abstract class Ditamap {
    * @param templateName
    * @returns {object}
    */
-  private async transformToDitamap() {
+  protected async transformToDitamap() {
     debug(`Generating ${this.destination} from ${this.getTemplateFileName()}`);
     const src = await fs.readFile(this.source, 'utf8');
-    const template = hb.compile(src);
+    const template = hb.compile(src, { noEscape: false });
     return template(this.data);
   }
 }

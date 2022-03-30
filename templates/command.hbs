@@ -100,8 +100,8 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
                     {{/if}}<dd>{{#if optional}}Optional{{else}}Required{{/if}}</dd>
                     <dd>{{#each description}}<p>{{[]}}</p>{{/each}}</dd>{{#if kind}}
                     <dd>Type: {{kind}}</dd>{{/if}}{{#if options}}
-                    <dd>Permissible values are: {{join options}}</dd>{{/if}}{{#if (hasDefault this)}}
-                    {{getDefault this}}{{/if}}
+                    <dd>Permissible values are: {{join options}}</dd>{{/if}}{{#if defaultFlagValue}}
+                    <dd>{{defaultFlagValue}}</dd>{{/if}}
                 </dlentry>
                 {{/each}}
             </dl>
