@@ -139,8 +139,6 @@ export class Command extends Ditamap {
   }
 
   protected async transformToDitamap() {
-    // eslint-disable-next-line no-console
-    console.log('transformToDitamap');
     const parameters = await this.getParametersForTemplate(this.flags);
     this.data = Object.assign({}, this.data, { parameters });
     return super.transformToDitamap();
