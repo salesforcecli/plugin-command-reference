@@ -28,7 +28,7 @@
     "@types/shelljs": "^0.8.11",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-salesforce": "^0.1.6",
