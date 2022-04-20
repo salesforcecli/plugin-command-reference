@@ -25,6 +25,7 @@ workflows:
           filters:
             branches:
               only: main
+          context: release
   test-ts-update:
     triggers:
       - schedule:
