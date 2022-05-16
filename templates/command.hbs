@@ -65,7 +65,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
         <section>
             <title><ph>Help for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
             {{#each help}}
-            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{removePrompt this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
             {{/each}}
         </section>
         {{/if}}
@@ -73,7 +73,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
         <section>
             <title><ph>Examples for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
             {{#each examples}}
-            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{removePrompt this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
             {{/each}}
         </section>
         {{/if}}
