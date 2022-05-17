@@ -43,6 +43,10 @@ export abstract class Ditamap {
       return val.indexOf('$ sfdx') >= 0 || val.indexOf('>>') >= 0 ? options.fn(this) : options.inverse(this);
     });
 
+    /*
+     * Remove OS prompt in codeblocks, as per CCX style guidelines in our published docs 
+     */
+    registerHelper('removePrompt', (codeblock) => codeblock.substring((codeblock.indexOf('$') as number) + 1));
     registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
