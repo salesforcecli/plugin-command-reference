@@ -44,7 +44,7 @@ export abstract class Ditamap {
     });
 
     /*
-     * Remove OS prompt in codeblocks, as per CCX style guidelines for published docs 
+     * Remove OS prompt in codeblocks, as per CCX style guidelines in our published docs 
      */
     registerHelper('removePrompt', (codeblock) => codeblock.substring((codeblock.indexOf('$') as number) + 1));
     registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
