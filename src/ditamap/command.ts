@@ -60,10 +60,22 @@ export class Command extends Ditamap {
       }
     }
 
+    let examples;
+    const binary = 'sfdx';
+
+    if (command.examples) {
+      examples = Array.isArray(command.examples) ? command.examples : [command.examples];
+
+      examples = examples.map((example) =>
+        example.replace(/<%= config.bin %>/g, binary).replace(/<%= command.id %>/g, command.id)
+      );
+    }
+
     const state = command.state || commandMeta.state;
     this.data = Object.assign(command, {
-      binary: 'sfdx',
+      binary,
       commandWithUnderscores,
+      examples,
       help,
       description,
       parameters,
