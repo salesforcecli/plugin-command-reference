@@ -44,10 +44,12 @@ describe('merging several plugins together', () => {
     const dita = loadTestDitamapFile(join('force', 'org', 'cli_reference_force_org_snapshot_create.xml'));
     expect(/invitation-only\s+pilot\s+program/.test(dita)).to.be.true;
   });
+  // skipped because commands are not beta anymore
   it.skip('creates beta commands', () => {
     const dita = loadTestDitamapFile(join('force', 'org', 'cli_reference_force_org_clone.xml'));
     expect(/a\s+beta\s+version\s+of\s+the/.test(dita)).to.be.true;
   });
+  // skipped for lack of open-pilot example
   it.skip('creates open-pilot commands', () => {
     const dita = loadTestDitamapFile(join('force', 'package', 'cli_reference_force_package_hammertest_run.xml'));
     expect(/through\s+a\s+pilot\s+program\s+that\s+requires/.test(dita)).to.be.true;
