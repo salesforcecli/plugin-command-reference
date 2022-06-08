@@ -52,9 +52,13 @@ describe('merging several plugins together', () => {
     const dita = loadTestDitamapFile(join('force', 'package', 'cli_reference_force_package_hammertest_run.xml'));
     expect(/through\s+a\s+pilot\s+program\s+that\s+requires/.test(dita)).to.be.true;
   });
-  it('creates with long description', () => {
+  it('puts deprecation warning in short description', () => {
     const dita = loadTestDitamapFile(join('force', 'source', 'cli_reference_force_source_legacy_push.xml'));
-    expect(/shortdesc">Pushes changed/.test(dita)).to.be.true;
+    expect(/shortdesc">.*has\s+been\s+deprecated\s+and\s+will\s+be\s+removed/.test(dita)).to.be.true;
+  });
+  it('creates with short description', () => {
+    const dita = loadTestDitamapFile(join('force', 'source', 'cli_reference_force_source_legacy_push.xml'));
+    expect(/shortdesc">.*Pushes changed/.test(dita)).to.be.true;
   });
   it('creates parameters', () => {
     const dita = loadTestDitamapFile(join('alias', 'cli_reference_alias_list.xml'));
