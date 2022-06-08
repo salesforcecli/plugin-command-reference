@@ -6,8 +6,8 @@
  */
 
 import { join } from 'path';
+import * as fs from 'fs';
 import { Plugin } from '@oclif/config';
-import { fs } from '@salesforce/core';
 import {
   asString,
   Dictionary,
@@ -40,7 +40,7 @@ export class Docs {
 
   public async build(commands: JsonMap[]): Promise<void> {
     // Create if doesn't exist
-    await fs.mkdirp(this.outputDir);
+    await fs.promises.mkdir(this.outputDir, { recursive: true });
 
     await this.populateTemplate(commands);
   }
