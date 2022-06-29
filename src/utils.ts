@@ -7,19 +7,18 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { EventEmitter } from 'events';
-import { copyFileSync } from 'fs';
+import * as fs from 'fs';
 import { EOL } from 'os';
 import { join } from 'path';
 import { Dictionary, isObject } from '@salesforce/ts-types';
-import { fs } from '@salesforce/core';
 
 export const events = new EventEmitter();
 
 export async function copyStaticFile(outputDir: string, fileDir: string, fileName: string): Promise<void> {
   const source = join(fileDir, fileName);
   const dest = join(outputDir, fileName);
-  await fs.mkdirp(outputDir);
-  copyFileSync(source, dest);
+  await fs.promises.mkdir(outputDir, { recursive: true });
+  await fs.promises.copyFile(source, dest);
 }
 
 export function mergeDeep(target: Dictionary, source: Dictionary): Dictionary<unknown> {

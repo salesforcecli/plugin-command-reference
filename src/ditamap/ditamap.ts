@@ -4,9 +4,8 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-
+import * as fs from 'fs';
 import { dirname, join } from 'path';
-import { fs } from '@salesforce/core';
 import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
 import { compile, registerHelper } from 'handlebars';
@@ -61,10 +60,10 @@ export abstract class Ditamap {
   }
 
   public async write() {
-    await fs.mkdirp(dirname(this.destination));
+    await fs.promises.mkdir(dirname(this.destination), { recursive: true });
     const output = await this.transformToDitamap();
 
-    await fs.writeFile(this.destination, output);
+    await fs.promises.writeFile(this.destination, output);
   }
 
   protected formatParagraphs(textToFormat?: string) {
@@ -80,7 +79,7 @@ export abstract class Ditamap {
    */
   private async transformToDitamap() {
     debug(`Generating ${this.destination} from ${this.getTemplateFileName()}`);
-    const src = await fs.readFile(this.source, 'utf8');
+    const src = await fs.promises.readFile(this.source, 'utf8');
     const template = compile(src);
     return template(this.data);
   }

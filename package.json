@@ -5,26 +5,21 @@
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/plugin-command-reference/issues",
   "dependencies": {
-    "@oclif/command": "^1.8.9",
-    "@oclif/config": "^1.18.3",
-    "@oclif/errors": "^1.3.5",
-    "@salesforce/command": "^4.2.2",
-    "@salesforce/core": "^2.37.1",
+    "@salesforce/command": "^5.1.3",
+    "@salesforce/core": "^3.19.5",
     "chalk": "^3.0.0",
     "handlebars": "4.7.7",
     "shelljs": "^0.8.5",
     "tslib": "^1"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.26.10",
-    "@oclif/plugin-help": "^3.3.1",
-    "@oclif/test": "^1.2.9",
-    "@salesforce/dev-config": "^2.1.3",
-    "@salesforce/dev-scripts": "^1.0.4",
+    "@salesforce/dev-config": "^3.0.1",
+    "@salesforce/dev-scripts": "^2.0.2",
+    "@salesforce/plugin-alias": "^2.0.1",
+    "@salesforce/plugin-signups": "^1.1.2",
     "@salesforce/prettier-config": "^0.0.2",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^9.0.1",
-    "@types/jsforce": "^1.9.42",
     "@types/shelljs": "^0.8.11",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
@@ -39,18 +34,19 @@
     "eslint-plugin-jsdoc": "^35.1.2",
     "eslint-plugin-prettier": "^3.1.3",
     "husky": "^7.0.4",
-    "mocha": "^8.4.0",
+    "mocha": "^9.1.3",
     "nyc": "^15.1.0",
+    "oclif": "^3.0.1",
     "prettier": "^2.6.2",
     "pretty-quick": "^3.1.3",
-    "salesforcedx": "48.4.1",
+    "salesforce-alm": "^54.4.0",
     "semantic-release": "^17.4.7",
     "sinon": "10.0.0",
     "ts-node": "^10.8.0",
     "typescript": "4.3"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "files": [
     "/lib",
@@ -75,7 +71,9 @@
     },
     "devPlugins": [
       "@oclif/plugin-help",
-      "salesforcedx"
+      "salesforce-alm",
+      "@salesforce/plugin-alias",
+      "@salesforce/plugin-signups"
     ]
   },
   "repository": "forcedotcom/plugin-command-reference",

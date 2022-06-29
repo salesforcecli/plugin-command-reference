@@ -6,10 +6,11 @@
  */
 
 import * as os from 'os';
+import * as fs from 'fs';
 import * as path from 'path';
-import { IPlugin } from '@oclif/config';
+import { Plugin } from '@oclif/core/lib/interfaces';
 import { flags, SfdxCommand } from '@salesforce/command';
-import { fs, Messages, SfdxError } from '@salesforce/core';
+import { Messages, SfdxError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
@@ -46,8 +47,8 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     let pluginNames: string[];
     if (!this.flags.plugins) {
       const pJsonPath = path.join(process.cwd(), 'package.json');
-      if (await fs.fileExists(pJsonPath)) {
-        const packageJson = await fs.readJson(pJsonPath);
+      if (fs.existsSync(pJsonPath)) {
+        const packageJson = JSON.parse(await fs.promises.readFile(pJsonPath, 'utf8'));
         pluginNames = [getString(packageJson, 'name')];
       } else {
         throw new SfdxError(
@@ -55,7 +56,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         );
       }
     } else {
-      pluginNames = this.flags.plugins;
+      pluginNames = this.flags.plugins as string[];
     }
 
     const plugins = pluginNames
@@ -74,7 +75,9 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         return pluginName;
       });
     this.ux.log(
-      `Generating command reference for the following plugins:${plugins.map((name) => `${os.EOL}  - ${name}`)}`
+      `Generating command reference for the following plugins:${plugins
+        .map((name) => `${os.EOL}  - ${name}`)
+        .join(', ')}`
     );
     Ditamap.outputDir = this.flags.outputdir;
 
@@ -112,7 +115,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
   private pluginMap(plugins: string[]) {
     const pluginToParentPlugin: JsonMap = {};
 
-    const resolveChildPlugins = (parentPlugin: IPlugin) => {
+    const resolveChildPlugins = (parentPlugin: Plugin) => {
       for (const childPlugin of parentPlugin.pjson.oclif.plugins || []) {
         pluginToParentPlugin[childPlugin] = parentPlugin.name;
         resolveChildPlugins(ensure(this.getPlugin(childPlugin)));
