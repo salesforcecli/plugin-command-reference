@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.20...v1.4.0) (2022-06-29)
+
+### Features
+
+- parking orbit ([be2adf1](https://github.com/forcedotcom/plugin-command-reference/commit/be2adf1a49364feead6290fa384184fdf7793f13))
+
 ### [1.3.20](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.19...v1.3.20) (2022-05-24)
 
 ### [1.3.19](https://github.com/forcedotcom/plugin-command-reference/compare/v1.3.17...v1.3.19) (2022-05-17)
