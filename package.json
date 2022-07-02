@@ -5,7 +5,7 @@
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/plugin-command-reference/issues",
   "dependencies": {
-    "@salesforce/command": "^5.1.3",
+    "@salesforce/command": "^5.2.1",
     "@salesforce/core": "^3.19.5",
     "chalk": "^3.0.0",
     "handlebars": "4.7.7",
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@salesforce/dev-config": "^3.0.1",
-    "@salesforce/dev-scripts": "^2.0.2",
+    "@salesforce/dev-scripts": "^2.0.3",
     "@salesforce/plugin-alias": "^2.0.1",
     "@salesforce/plugin-signups": "^1.1.2",
     "@salesforce/prettier-config": "^0.0.2",
