@@ -15,7 +15,7 @@
   "devDependencies": {
     "@salesforce/dev-config": "^3.0.1",
     "@salesforce/dev-scripts": "^2.0.3",
-    "@salesforce/plugin-alias": "^2.0.1",
+    "@salesforce/plugin-alias": "^2.1.0",
     "@salesforce/plugin-signups": "^1.1.2",
     "@salesforce/prettier-config": "^0.0.2",
     "@semantic-release/changelog": "^5.0.0",
