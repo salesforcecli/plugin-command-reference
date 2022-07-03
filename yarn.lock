@@ -696,10 +696,10 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.0.8", "@oclif/core@^1.2.1", "@oclif/core@^1.3.6", "@oclif/core@^1.5.1", "@oclif/core@^1.6.3", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.8.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.9.0.tgz#bb2a7820a9176f28921f449c0f577d39c15e74d0"
-  integrity sha512-duvlaRQf4JM+mKuwwos1DNa/Q9x6tnF3khV5RU0fy5hhETF7THlTmxioKlIvKMyQDVpySqtZXZ0OKHeCi2EWuQ==
+"@oclif/core@^1.0.8", "@oclif/core@^1.2.1", "@oclif/core@^1.3.6", "@oclif/core@^1.6.3", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.8.0", "@oclif/core@^1.9.0":
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.9.5.tgz#4dd00f35fceb89906245da791b14bd503103771a"
+  integrity sha512-C605Cr4RhHTMXYApLxdVt/PL6IA5cguN6MPvsMjxkvBppk2Fvcsj05dtRdDqShskRpZzHtu65emG1tHy8TWPWQ==
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     "@oclif/screen" "^3.0.2"
@@ -1016,10 +1016,10 @@
     "@salesforce/ts-types" "^1.5.20"
     chalk "^2.4.2"
 
-"@salesforce/core@^3.16.0", "@salesforce/core@^3.19.0", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1", "@salesforce/core@^3.7.8":
-  version "3.20.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.20.1.tgz#2f293a84eb793ce549ee42045877b82b9cf5e8d0"
-  integrity sha512-lOy+qJ9YxwUmvKG9eAvnWJn1yOHvd4G/3vuvUTXugj9G8JTqUyPwKFmWgIS2FSEBWkRIhDQnEIXbgrM6/ytC4A==
+"@salesforce/core@^3.16.0", "@salesforce/core@^3.19.0", "@salesforce/core@^3.19.3", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1":
+  version "3.23.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.23.3.tgz#7eb72fb91383f6f36eacedcbd3ad412482f49278"
+  integrity sha512-nLrvvxq1PcrPZ53ylEkCvEVsnMuJLH7SW4F5GERBLNYGxqW6aZxjtoySqsMrYoHk53vCGtycno3j3KhaIYx1FQ==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.41"
@@ -1036,7 +1036,7 @@
     form-data "^4.0.0"
     graceful-fs "^4.2.9"
     js2xmlparser "^4.0.1"
-    jsforce "2.0.0-beta.10"
+    jsforce "2.0.0-beta.14"
     jsonwebtoken "8.5.1"
     mkdirp "1.0.4"
     ts-retry-promise "^0.6.0"
@@ -1095,14 +1095,14 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/plugin-alias@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-alias/-/plugin-alias-2.0.1.tgz#e82350ee7224715c97d781679a72afd2226a62fb"
-  integrity sha512-D2auUlH0kWMbFDFkb9BqpH8pYs9iG+UbV47imFApwdH46Zj+l2q/1mT8qRmpyUOKJHQdkHx2pxuQ95A4Oyn4oQ==
+"@salesforce/plugin-alias@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-alias/-/plugin-alias-2.1.0.tgz#6acb6653f571004f1f3fb890b0b095033427a550"
+  integrity sha512-EszxoE5lMbqmn86yNdsQXNm6LJLBGeupnVg7d+vkwHxSw5Dl/iR3ZJYW0cXwwMQWancWrSwacLP4e8z5couoBg==
   dependencies:
-    "@oclif/core" "^1.5.1"
+    "@oclif/core" "^1.9.0"
     "@salesforce/command" "^5.0.0"
-    "@salesforce/core" "^3.7.8"
+    "@salesforce/core" "^3.19.3"
     chalk "^4.1.2"
     tslib "^2"
 
@@ -5577,6 +5577,32 @@ jsforce@2.0.0-beta.10:
   version "2.0.0-beta.10"
   resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-2.0.0-beta.10.tgz#c33fee5dd01c96d121235cffb8fee1458a35423e"
   integrity sha512-AFigJHQocj8t36Eu+9XffoKoC2FO4/uMDMg08TfTXgvIp53lzvnQJoQrhEnwnKReof4tO2d+7j+d1QyiOa2yGg==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@babel/runtime-corejs3" "^7.12.5"
+    "@types/node" "^12.19.9"
+    abort-controller "^3.0.0"
+    base64url "^3.0.1"
+    commander "^4.0.1"
+    core-js "^3.6.4"
+    csv-parse "^4.8.2"
+    csv-stringify "^5.3.4"
+    faye "^1.4.0"
+    form-data "^4.0.0"
+    fs-extra "^8.1.0"
+    https-proxy-agent "^5.0.0"
+    inquirer "^7.0.0"
+    multistream "^3.1.0"
+    node-fetch "^2.6.1"
+    open "^7.0.0"
+    regenerator-runtime "^0.13.3"
+    strip-ansi "^6.0.0"
+    xml2js "^0.4.22"
+
+jsforce@2.0.0-beta.14:
+  version "2.0.0-beta.14"
+  resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-2.0.0-beta.14.tgz#237753bdabb7e80447b5b266eaefc4abf8b6c951"
+  integrity sha512-j66PaKroshB4VZbfKBAx9+lJy8etFfGG1hGFsI7ufwxvacXxLTAxZwOEZPkYPMigiHrPlEMtIwh5NqwBsIn9HA==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@babel/runtime-corejs3" "^7.12.5"
