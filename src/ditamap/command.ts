@@ -15,7 +15,7 @@ import {
   ensureString,
   JsonMap,
 } from '@salesforce/ts-types';
-import { events, punctuate } from '../utils';
+import { CommandClass, events, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
 export type CommandHelpInfo = {
@@ -47,7 +47,7 @@ const getDefault = async (flag: CommandHelpInfo): Promise<string> => {
 export class Command extends Ditamap {
   private flags: Dictionary<CommandHelpInfo>;
 
-  public constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
+  public constructor(topic: string, subtopic: string, command: CommandClass, commandMeta: JsonMap = {}) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
 
@@ -109,7 +109,7 @@ export class Command extends Ditamap {
       isBetaCommand: state === 'beta',
       trailblazerCommunityUrl,
       trailblazerCommunityName,
-    }) as JsonMap;
+    });
 
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
