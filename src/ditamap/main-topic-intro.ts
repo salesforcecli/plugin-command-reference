@@ -6,7 +6,7 @@
  */
 
 import { join } from 'path';
-import { asString, ensureJsonMap, JsonMap } from '@salesforce/ts-types';
+import { AnyJson, asString, ensureJsonMap, JsonMap } from '@salesforce/ts-types';
 import { punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
@@ -14,8 +14,8 @@ export class MainTopicIntro extends Ditamap {
   public constructor(topic: string, subtopic: string, subTopicMeta: JsonMap) {
     const filename = Ditamap.file(`cli_reference_${topic}_${subtopic}`, 'xml');
 
-    let trailblazerCommunityUrl;
-    let trailblazerCommunityName;
+    let trailblazerCommunityUrl: AnyJson;
+    let trailblazerCommunityName: AnyJson;
     if (subTopicMeta.trailblazerCommunityLink) {
       const community = ensureJsonMap(subTopicMeta.trailblazerCommunityLink);
       trailblazerCommunityUrl = community.url;

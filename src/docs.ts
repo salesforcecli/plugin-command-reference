@@ -6,7 +6,6 @@
  */
 
 import * as mkdirp from 'mkdirp';
-import { Plugin } from '@oclif/config';
 import {
   asString,
   Dictionary,
@@ -23,7 +22,7 @@ import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
 import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
-import { events, punctuate } from './utils';
+import { CommandClass, events, punctuate } from './utils';
 import { HelpReference } from './ditamap/help-reference';
 
 function emitNoTopicMetadataWarning(topic: string): void {
@@ -44,14 +43,14 @@ export class Docs {
     private cliMeta: JsonMap
   ) {}
 
-  public async build(commands: JsonMap[]): Promise<void> {
+  public async build(commands: CommandClass[]): Promise<void> {
     // Create if doesn't exist
     await mkdirp(this.outputDir);
 
     await this.populateTemplate(commands);
   }
 
-  public async populateTopic(topic: string, subtopics: Dictionary<Dictionary | Dictionary[]>): Promise<any[]> {
+  public async populateTopic(topic: string, subtopics: Dictionary<CommandClass | CommandClass[]>): Promise<any[]> {
     const topicMeta = ensureJsonMap(
       this.topicMeta[topic],
       `No topic meta for ${topic} - add this topic to the oclif section of the package.json.`
@@ -127,8 +126,8 @@ export class Docs {
    * @param commands - The entire set of command data.
    * @returns The commands grouped by topics/subtopic/commands.
    */
-  private groupTopicsAndSubtopics(commands: JsonMap[]) {
-    const topLevelTopics: Dictionary<Dictionary<Dictionary | Dictionary[]>> = {};
+  private groupTopicsAndSubtopics(commands: CommandClass[]): Dictionary<Dictionary<CommandClass | CommandClass[]>> {
+    const topLevelTopics: Dictionary<Dictionary<CommandClass | CommandClass[]>> = {};
 
     for (const command of commands) {
       if (command.hidden && !this.hidden) {
@@ -137,7 +136,7 @@ export class Docs {
       const commandParts = ensureString(command.id).split(':');
       const topLevelTopic = commandParts[0];
 
-      const plugin = command.plugin as unknown as Plugin;
+      const plugin = command.plugin;
       if (this.plugins[plugin.name]) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
@@ -179,7 +178,7 @@ export class Docs {
     return topLevelTopics;
   }
 
-  private async populateTemplate(commands: JsonMap[]) {
+  private async populateTemplate(commands: CommandClass[]) {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
     await new CLIReference().write();
@@ -234,7 +233,7 @@ export class Docs {
     return commandMeta;
   }
 
-  private async populateCommand(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap) {
+  private async populateCommand(topic: string, subtopic: string, command: CommandClass, commandMeta: JsonMap) {
     // If it is a hidden command - abort
     if (command.hidden && !this.hidden) {
       return '';

@@ -7,7 +7,10 @@
 
 import { EventEmitter } from 'events';
 import { EOL } from 'os';
-import { Dictionary, isObject } from '@salesforce/ts-types';
+import { Dictionary, isObject, JsonMap } from '@salesforce/ts-types';
+import { Interfaces } from '@oclif/core';
+
+export type CommandClass = Interfaces.Command.Class & { topic: string; subtopic: string } & JsonMap;
 
 export const events = new EventEmitter();
 

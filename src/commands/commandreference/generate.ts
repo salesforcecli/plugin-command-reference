@@ -9,14 +9,13 @@ import * as os from 'os';
 import * as path from 'path';
 import { readJSON, pathExists } from 'fs-extra';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { Flags } from '@oclif/core';
-import { Plugin } from '@oclif/core/lib/interfaces/plugin';
+import { Flags, Interfaces } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
-import { events, mergeDeep } from '../../utils';
+import { events, mergeDeep, CommandClass } from '../../utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const uniqBy = require('lodash.uniqby');
@@ -74,6 +73,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       const ignore = [
         /@oclif/,
         /@salesforce\/cli/,
+        /@salesforce\/plugin-dev/,
         /@salesforce\/plugin-telemetry/,
         /@salesforce\/plugin-command-reference/,
       ];
@@ -144,7 +144,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
   private pluginMap(plugins: string[]) {
     const pluginToParentPlugin: JsonMap = {};
 
-    const resolveChildPlugins = (parentPlugin: Plugin) => {
+    const resolveChildPlugins = (parentPlugin: Interfaces.Plugin) => {
       for (const childPlugin of parentPlugin.pjson.oclif.plugins || []) {
         pluginToParentPlugin[childPlugin] = parentPlugin.name;
         resolveChildPlugins(ensure(this.getPlugin(childPlugin)));
@@ -184,7 +184,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return topicsMeta;
   }
 
-  private async loadCommands() {
+  private async loadCommands(): Promise<CommandClass[]> {
     const promises = this.config.commands.map(async (cmd) => {
       try {
         let commandClass = await this.loadCommand(cmd);
@@ -202,14 +202,14 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
 
         return obj;
       } catch (error) {
-        return Object.assign({} as JsonMap, cmd);
+        return Object.assign({}, cmd);
       }
     });
     const commands = await Promise.all(promises);
     return uniqBy(commands, 'id');
   }
 
-  private async loadCommand(command) {
+  private async loadCommand(command: Interfaces.Command.Loadable): Promise<Interfaces.Command.Class> {
     return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
   }
 
