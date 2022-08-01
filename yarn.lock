@@ -1016,7 +1016,7 @@
     "@salesforce/ts-types" "^1.5.20"
     chalk "^2.4.2"
 
-"@salesforce/core@^3.16.0", "@salesforce/core@^3.19.0", "@salesforce/core@^3.19.3", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1", "@salesforce/core@^3.21.5":
+"@salesforce/core@^3.19.0", "@salesforce/core@^3.19.3", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1", "@salesforce/core@^3.21.5":
   version "3.23.3"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.23.3.tgz#7eb72fb91383f6f36eacedcbd3ad412482f49278"
   integrity sha512-nLrvvxq1PcrPZ53ylEkCvEVsnMuJLH7SW4F5GERBLNYGxqW6aZxjtoySqsMrYoHk53vCGtycno3j3KhaIYx1FQ==
@@ -1106,14 +1106,14 @@
     chalk "^4.1.2"
     tslib "^2"
 
-"@salesforce/plugin-signups@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.1.2.tgz#8d259d568a1c72a56d2a6e72463d5661418e4917"
-  integrity sha512-rTi+tvkMAlNGMA3GRmopeMwt2tONOwFn5aMsizpW4VRkYUNo7K5Ic8GLSpQheOSo0B8DwyVvoYq2mtdoIuC2Sg==
+"@salesforce/plugin-signups@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.0.tgz#2f7828e1873292e5355065a29fc6cefa557d4702"
+  integrity sha512-PkHvaox4EFdEcVv7ok1MJr8GPqHiEyQ1UVwXv5/zSnjwoIx000DTRGagPk3w34ol0G91+09OYkmiszM6Hw9Z7A==
   dependencies:
     "@oclif/core" "^1.6.3"
     "@salesforce/command" "^5.0.1"
-    "@salesforce/core" "^3.16.0"
+    "@salesforce/core" "^3.19.3"
     chalk "^4.1.2"
     change-case "^4.1.2"
     tslib "^2"
