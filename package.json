@@ -13,7 +13,7 @@
     "tslib": "^1"
   },
   "devDependencies": {
-    "@salesforce/dev-config": "^3.0.1",
+    "@salesforce/dev-config": "^3.1.0",
     "@salesforce/dev-scripts": "^2.0.4",
     "@salesforce/plugin-alias": "^2.1.0",
     "@salesforce/plugin-signups": "^1.2.0",
