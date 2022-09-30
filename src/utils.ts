@@ -40,7 +40,7 @@ export function punctuate(description: string): string {
 
   mainDescription = mainDescription.charAt(0).toUpperCase() + mainDescription.substring(1);
 
-  if (mainDescription.charAt(mainDescription.length - 1) !== '.') {
+  if (!mainDescription.endsWith('.')) {
     mainDescription += '.';
   }
 
