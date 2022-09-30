@@ -46,7 +46,7 @@ export abstract class Ditamap {
      * Remove OS prompt in codeblocks, as per CCX style guidelines in our published docs
      */
     registerHelper('removePrompt', (codeblock) => codeblock.substring((codeblock.indexOf('$') as number) + 1));
-    registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
+    registerHelper('nextVersion', (value) => parseInt(value as string, 2) + 1);
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }
@@ -66,7 +66,8 @@ export abstract class Ditamap {
     await fs.promises.writeFile(this.destination, output);
   }
 
-  protected formatParagraphs(textToFormat?: string) {
+  // eslint-disable-next-line class-methods-use-this
+  protected formatParagraphs(textToFormat?: string): string[] {
     return textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];
   }
 

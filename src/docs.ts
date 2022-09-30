@@ -67,8 +67,8 @@ export class Docs {
     }
     await new CLIReferenceTopic(topic, description).write();
 
-    const subTopicNames = [];
-    const commandNames = [];
+    const subTopicNames: string[] = [];
+    const commandNames: string[] = [];
     for (const subtopic of Object.keys(subtopics)) {
       const subtopicOrCommand = subtopics[subtopic];
       try {
@@ -76,6 +76,7 @@ export class Docs {
           // If it is not subtopic (array) it is a command in the top-level topic
           const command = subtopicOrCommand;
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, 1);
+          // eslint-disable-next-line no-await-in-loop
           await this.populateCommand(topic, null, command, commandMeta);
           commandNames.push(subtopic);
           continue;
@@ -97,6 +98,7 @@ export class Docs {
         const subtopicMeta = ensureJsonMap(subTopicsMeta[subtopic]);
 
         // The intro doc for this topic
+        // eslint-disable-next-line no-await-in-loop
         await new MainTopicIntro(topic, subtopic, subtopicMeta).write();
 
         subTopicNames.push(subtopic);
@@ -108,8 +110,10 @@ export class Docs {
           const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).startsWith(fullTopic));
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
+          // eslint-disable-next-line no-await-in-loop
           filenames.push(await this.populateCommand(topic, subtopic, command, commandMeta));
         }
+        // eslint-disable-next-line no-await-in-loop
         await new SubTopicDitamap(topic, subtopic, filenames).write();
       } catch (error) {
         events.emit('warning', `Can't create topic for ${topic}:${subtopic}: ${error.message}\n`);
@@ -197,18 +201,20 @@ export class Docs {
     // Generate one base file with all top-level topics.
     await new BaseDitamap(topics).write();
 
-    for (const topic of topics) {
-      events.emit('topic', { topic });
-      const subtopics = ensure(topicsAndSubtopics[topic]);
-      await this.populateTopic(topic, subtopics);
-    }
+    await Promise.all(
+      topics.map((topic) => {
+        events.emit('topic', { topic });
+        const subtopics = ensure(topicsAndSubtopics[topic]);
+        return this.populateTopic(topic, subtopics);
+      })
+    );
   }
 
   private resolveCommandMeta(commandId: string, command, commandsInTopic: number): JsonMap {
-    const commandMeta: JsonMap = {};
+    const commandMeta: JsonMap & { longDescription?: string; description?: string } = {};
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
-    let part;
+    let part: string;
     try {
       let currentMeta: JsonMap | undefined;
       for (part of commandParts) {
@@ -227,14 +233,12 @@ export class Docs {
         // This means there wasn't meta information going all the way down to the command, which is ok.
         return commandMeta;
       } else if (commandsInTopic !== 1) {
-          events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
-        } else {
-          // Since there is no command meta, just use the command description since that is what oclif does.
-          if (!commandMeta.description) {
-            commandMeta.description = command.description;
-            commandMeta.longDescription = command.longDescription || punctuate(command.description);
-          }
-        }
+        events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
+      } else if (!commandMeta.description) {
+        // Since there is no command meta, just use the command description since that is what oclif does.
+        commandMeta.description = command.description;
+        commandMeta.longDescription = command.longDescription ?? punctuate(command.description as string);
+      }
     }
     return commandMeta;
   }

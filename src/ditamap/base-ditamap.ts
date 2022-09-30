@@ -15,6 +15,7 @@ export class BaseDitamap extends Ditamap {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'base_ditamap.hbs';
   }

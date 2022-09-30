@@ -25,6 +25,7 @@ export class SubTopicDitamap extends Ditamap {
     this.destination = join(Ditamap.outputDir, topic, subtopic, filename);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'subtopic_ditamap.hbs';
   }

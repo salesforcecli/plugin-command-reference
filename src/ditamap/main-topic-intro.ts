@@ -41,6 +41,7 @@ export class MainTopicIntro extends Ditamap {
     this.destination = join(Ditamap.outputDir, topic, subtopic, filename);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'main_topic_intro.hbs';
   }
