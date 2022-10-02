@@ -64,6 +64,6 @@ describe('merging several plugins together', () => {
   });
   it('creates parameters', () => {
     const dita = loadTestDitamapFile(join('alias', 'cli_reference_alias_list.xml'));
-    expect(/<title><ph>Parameters<\/ph><\/title>/.test(dita)).to.be.true;
+    expect(dita.includes('<title><ph>Parameters</ph></title>')).to.be.true;
   });
 });

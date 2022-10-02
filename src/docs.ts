@@ -105,7 +105,7 @@ export class Docs {
         const filenames: string[] = [];
         for (const command of subtopicOrCommand) {
           const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
-          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).indexOf(fullTopic) === 0);
+          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).startsWith(fullTopic));
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
           filenames.push(await this.populateCommand(topic, subtopic, command, commandMeta));
@@ -226,8 +226,7 @@ export class Docs {
       if (commandId.endsWith(part)) {
         // This means there wasn't meta information going all the way down to the command, which is ok.
         return commandMeta;
-      } else {
-        if (commandsInTopic !== 1) {
+      } else if (commandsInTopic !== 1) {
           events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
         } else {
           // Since there is no command meta, just use the command description since that is what oclif does.
@@ -236,7 +235,6 @@ export class Docs {
             commandMeta.longDescription = command.longDescription || punctuate(command.description);
           }
         }
-      }
     }
     return commandMeta;
   }
