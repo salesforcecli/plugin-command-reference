@@ -17,6 +17,9 @@ import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { events, mergeDeep } from '../../utils';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const uniqBy = require('lodash.uniqby');
+
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 
@@ -107,6 +110,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       warnings.push(msg);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     await docs.build(await this.loadCommands());
     this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
 
@@ -182,7 +186,8 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         return Object.assign({} as JsonMap, cmd);
       }
     });
-    return Promise.all(promises);
+    const commands = await Promise.all(promises);
+    return uniqBy(commands, 'id');
   }
 }
 

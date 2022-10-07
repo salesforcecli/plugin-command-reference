@@ -1,14 +1,16 @@
 {
   "name": "@salesforce/plugin-command-reference",
   "description": "Generate the Salesforce CLI command reference guide",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/plugin-command-reference/issues",
   "dependencies": {
     "@salesforce/command": "^5.2.11",
     "@salesforce/core": "^3.30.10",
+    "@types/lodash.uniqby": "^4.7.7",
     "chalk": "^3.0.0",
     "handlebars": "4.7.7",
+    "lodash.uniqby": "^4.7.0",
     "shelljs": "^0.8.5",
     "tslib": "^2"
   },
