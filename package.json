@@ -5,7 +5,6 @@
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/plugin-command-reference/issues",
   "dependencies": {
-    "@oclif/core": "^1.16.4",
     "@salesforce/command": "^5.2.11",
     "@salesforce/core": "^3.30.10",
     "chalk": "^3.0.0",
