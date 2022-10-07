@@ -8,9 +8,9 @@
 import * as os from 'os';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Plugin } from '@oclif/core/lib/interfaces';
+import { Plugin, Command } from '@oclif/core/lib/interfaces';
 import { flags, SfdxCommand } from '@salesforce/command';
-import { Messages, SfdxError } from '@salesforce/core';
+import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
@@ -54,7 +54,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         const packageJson = JSON.parse(await fs.promises.readFile(pJsonPath, 'utf8'));
         pluginNames = [getString(packageJson, 'name')];
       } else {
-        throw new SfdxError(
+        throw new SfError(
           "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
         );
       }
@@ -72,7 +72,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
           pluginName = `@salesforce/plugin-${pluginName}`;
           plugin = this.getPlugin(pluginName);
           if (!plugin) {
-            throw new SfdxError(`Plugin ${name} or ${pluginName} not found. Is it installed?`);
+            throw new SfError(`Plugin ${name} or ${pluginName} not found. Is it installed?`);
           }
         }
         return pluginName;
@@ -82,18 +82,23 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         .map((name) => `${os.EOL}  - ${name}`)
         .join(', ')}`
     );
-    Ditamap.outputDir = this.flags.outputdir;
+    Ditamap.outputDir = this.flags.outputdir as string;
 
     Ditamap.cliVersion = this.config.version.replace(/-[0-9a-zA-Z]+$/, '');
     Ditamap.plugins = this.pluginMap(plugins);
     Ditamap.pluginVersions = plugins.map((name) => {
       const plugin = this.getPlugin(name);
-      const version = plugin && plugin.version;
+      const version = plugin?.version;
       if (!version) throw new Error(`No version found for plugin ${name}`);
       return { name, version };
     });
 
-    const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, this.flags.hidden, await this.loadTopicMetadata());
+    const docs = new Docs(
+      Ditamap.outputDir,
+      Ditamap.plugins,
+      this.flags.hidden as boolean,
+      await this.loadTopicMetadata()
+    );
 
     events.on('topic', ({ topic }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
@@ -105,11 +110,12 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       warnings.push(msg);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     await docs.build(await this.loadCommands());
     this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
 
     if (this.flags.erroronwarnings && warnings.length > 0) {
-      throw new SfdxError(`Found ${warnings.length} warnings.`);
+      throw new SfError(`Found ${warnings.length} warnings.`);
     }
 
     return { warnings };
@@ -119,7 +125,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     const pluginToParentPlugin: JsonMap = {};
 
     const resolveChildPlugins = (parentPlugin: Plugin) => {
-      for (const childPlugin of parentPlugin.pjson.oclif.plugins || []) {
+      for (const childPlugin of parentPlugin.pjson.oclif.plugins ?? []) {
         pluginToParentPlugin[childPlugin] = parentPlugin.name;
         resolveChildPlugins(ensure(this.getPlugin(childPlugin)));
       }
@@ -128,7 +134,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     for (const plugin of plugins) {
       const masterPlugin = this.getPlugin(plugin);
       if (!masterPlugin) {
-        throw new SfdxError(`Plugin ${plugin} not found. Is it installed?`);
+        throw new SfError(`Plugin ${plugin} not found. Is it installed?`);
       }
       pluginToParentPlugin[masterPlugin.name] = masterPlugin.name;
       resolveChildPlugins(masterPlugin);
@@ -136,7 +142,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     return pluginToParentPlugin;
   }
 
-  private getPlugin(pluginName: string) {
+  private getPlugin(pluginName: string): Plugin | undefined {
     return this.config.plugins.find((info) => info.name === pluginName);
   }
 
@@ -147,9 +153,10 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     for (const cmd of this.config.commands) {
       // Only load topics for each plugin once
       if (cmd.pluginName && !plugins[cmd.pluginName]) {
-        const commandClass = await this.loadCommand(cmd);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-await-in-loop
+        const commandClass = await loadCommand(cmd);
 
-        if (commandClass.plugin && commandClass.plugin.pjson.oclif.topics) {
+        if (commandClass.plugin?.pjson.oclif.topics) {
           mergeDeep(topicsMeta, commandClass.plugin.pjson.oclif.topics as Dictionary);
           plugins[commandClass.plugin.name] = true;
         }
@@ -161,7 +168,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
   private async loadCommands() {
     const promises = this.config.commands.map(async (cmd) => {
       try {
-        let commandClass = await this.loadCommand(cmd);
+        let commandClass = await loadCommand(cmd);
         let obj = Object.assign({} as JsonMap, cmd, commandClass, {
           flags: Object.assign({}, cmd.flags, commandClass.flags),
         });
@@ -170,7 +177,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         while (commandClass !== undefined) {
           commandClass = Object.getPrototypeOf(commandClass) || undefined;
           obj = Object.assign({}, commandClass, obj, {
-            flags: Object.assign({}, commandClass && commandClass.flags, obj.flags),
+            flags: Object.assign({}, commandClass?.flags, obj.flags),
           });
         }
 
@@ -182,8 +189,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     const commands = await Promise.all(promises);
     return uniqBy(commands, 'id');
   }
-
-  private async loadCommand(command) {
-    return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
-  }
 }
+
+const loadCommand = async (command: Command.Loadable): Promise<Command.Class> =>
+  command.load.constructor.name === 'AsyncFunction' ? command.load() : command.load();

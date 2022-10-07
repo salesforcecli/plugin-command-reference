@@ -52,6 +52,7 @@ export class Command extends Ditamap {
     if (Array.isArray(command.examples)) {
       if (
         help.includes('Examples:') &&
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         command.examples.map((example, foundAll) => foundAll && help.includes(example), true)
       ) {
         // Examples are already in the help, so don't duplicate.
@@ -112,6 +113,7 @@ export class Command extends Ditamap {
       });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'command.hbs';
   }

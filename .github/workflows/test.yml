@@ -6,4 +6,13 @@ on:
 
 jobs:
   unit-tests:
-    uses: salesforcecli/github-workflows/.github/workflows/unitTest.yml@main
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: yarn
+      - run: yarn install --network-timeout 600000
+      - run: yarn build
+      - run: yarn test

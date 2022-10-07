@@ -8,7 +8,8 @@ import * as fs from 'fs';
 import { dirname, join } from 'path';
 import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
-import { compile, registerHelper } from 'handlebars';
+// import { compile, registerHelper } from 'handlebars';
+import * as handlebars from 'handlebars';
 
 const debug = debugCreator('commandreference');
 
@@ -31,22 +32,24 @@ export abstract class Ditamap {
   private source: string;
 
   public constructor(private filename: string, protected data: JsonMap) {
-    registerHelper('toUpperCase', (str) => str.toUpperCase());
-    registerHelper('join', (array) => array.join(', '));
+    handlebars.registerHelper('toUpperCase', (str) => str.toUpperCase());
+    handlebars.registerHelper('join', (array) => array.join(', '));
 
     /*
      * Returns true if the string should be formatted as code block in docs
      */
     // tslint:disable-next-line: no-any
-    registerHelper('isCodeBlock', function (this: any, val, options) {
+    handlebars.registerHelper('isCodeBlock', function (this: any, val, options) {
       return val.indexOf('$ sfdx') >= 0 || val.indexOf('>>') >= 0 ? options.fn(this) : options.inverse(this);
     });
 
     /*
      * Remove OS prompt in codeblocks, as per CCX style guidelines in our published docs
      */
-    registerHelper('removePrompt', (codeblock) => codeblock.substring((codeblock.indexOf('$') as number) + 1));
-    registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
+    handlebars.registerHelper('removePrompt', (codeblock) =>
+      codeblock.substring((codeblock.indexOf('$') as number) + 1)
+    );
+    handlebars.registerHelper('nextVersion', (value) => parseInt(value as string, 2) + 1);
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }
@@ -66,7 +69,8 @@ export abstract class Ditamap {
     await fs.promises.writeFile(this.destination, output);
   }
 
-  protected formatParagraphs(textToFormat?: string) {
+  // eslint-disable-next-line class-methods-use-this
+  protected formatParagraphs(textToFormat?: string): string[] {
     return textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];
   }
 
@@ -80,7 +84,7 @@ export abstract class Ditamap {
   private async transformToDitamap() {
     debug(`Generating ${this.destination} from ${this.getTemplateFileName()}`);
     const src = await fs.promises.readFile(this.source, 'utf8');
-    const template = compile(src);
+    const template = handlebars.compile(src);
     return template(this.data);
   }
 
