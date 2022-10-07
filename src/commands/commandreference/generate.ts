@@ -10,7 +10,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Plugin, Command } from '@oclif/core/lib/interfaces';
 import { flags, SfdxCommand } from '@salesforce/command';
-import { Messages, SfdxError } from '@salesforce/core';
+import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
@@ -51,7 +51,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         const packageJson = JSON.parse(await fs.promises.readFile(pJsonPath, 'utf8'));
         pluginNames = [getString(packageJson, 'name')];
       } else {
-        throw new SfdxError(
+        throw new SfError(
           "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
         );
       }
@@ -69,7 +69,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
           pluginName = `@salesforce/plugin-${pluginName}`;
           plugin = this.getPlugin(pluginName);
           if (!plugin) {
-            throw new SfdxError(`Plugin ${name} or ${pluginName} not found. Is it installed?`);
+            throw new SfError(`Plugin ${name} or ${pluginName} not found. Is it installed?`);
           }
         }
         return pluginName;
@@ -79,7 +79,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         .map((name) => `${os.EOL}  - ${name}`)
         .join(', ')}`
     );
-    Ditamap.outputDir = this.flags.outputdir;
+    Ditamap.outputDir = this.flags.outputdir as string;
 
     Ditamap.cliVersion = this.config.version.replace(/-[0-9a-zA-Z]+$/, '');
     Ditamap.plugins = this.pluginMap(plugins);
@@ -111,7 +111,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
 
     if (this.flags.erroronwarnings && warnings.length > 0) {
-      throw new SfdxError(`Found ${warnings.length} warnings.`);
+      throw new SfError(`Found ${warnings.length} warnings.`);
     }
 
     return { warnings };
@@ -130,7 +130,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     for (const plugin of plugins) {
       const masterPlugin = this.getPlugin(plugin);
       if (!masterPlugin) {
-        throw new SfdxError(`Plugin ${plugin} not found. Is it installed?`);
+        throw new SfError(`Plugin ${plugin} not found. Is it installed?`);
       }
       pluginToParentPlugin[masterPlugin.name] = masterPlugin.name;
       resolveChildPlugins(masterPlugin);

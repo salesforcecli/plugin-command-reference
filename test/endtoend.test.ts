@@ -14,7 +14,7 @@ import { exec } from 'shelljs';
  * This plugin was primarily made to generate command reference docs for
  * salesforcedx. Generate actual docs and ensure some of the files are generated
  * correctly. If there is new code added to fix a new bug that relies on a new
- * version of salesforcedx, updated it in the package.json. To add test for other
+ * version of salesforcedx, update it in the package.json. To add test for other
  * plugins, it would probably be best to create a base test to generate the docs
  * for the test cases to reference.
  */
