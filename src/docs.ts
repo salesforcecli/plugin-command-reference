@@ -7,7 +7,6 @@
 
 import { join } from 'path';
 import * as fs from 'fs';
-import { Plugin } from '@oclif/config';
 import {
   asString,
   Dictionary,
@@ -18,6 +17,7 @@ import {
   isArray,
   JsonMap,
 } from '@salesforce/ts-types';
+import * as OclifCommand from '@oclif/command';
 import * as chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
@@ -30,6 +30,12 @@ import { copyStaticFile, events, punctuate } from './utils';
 
 const templatesDir = join(__dirname, '..', 'templates');
 
+type CommandClass = OclifCommand.Command & {
+  topic: string;
+  subtopic: string;
+  plugin: JsonMap & { name: string };
+} & JsonMap;
+
 export class Docs {
   public constructor(
     private outputDir: string,
@@ -38,7 +44,7 @@ export class Docs {
     private topicMeta: JsonMap
   ) {}
 
-  public async build(commands: JsonMap[]): Promise<void> {
+  public async build(commands: CommandClass[]): Promise<void> {
     // Create if doesn't exist
     await fs.promises.mkdir(this.outputDir, { recursive: true });
 
@@ -133,30 +139,28 @@ export class Docs {
    * @param commands - The entire set of command data.
    * @returns The commands grouped by topics/subtopic/commands.
    */
-  private groupTopicsAndSubtopics(
-    commands: JsonMap[]
-  ): Dictionary<Dictionary<Dictionary<unknown> | Array<Dictionary<unknown>>>> {
-    const topLevelTopics: Dictionary<Dictionary<Dictionary | Dictionary[]>> = {};
+  private groupTopicsAndSubtopics(commands: CommandClass[]): Dictionary<Dictionary<CommandClass | CommandClass[]>> {
+    const topLevelTopics: Dictionary<Dictionary<CommandClass | CommandClass[]>> = {};
 
     for (const command of commands) {
       if (command.hidden && !this.hidden) {
         continue;
       }
       const commandParts = ensureString(command.id).split(':');
-      if (commandParts.length === 1) {
-        continue; // Top level topic command. Just ignore for as it is usually help for the topic.
-      }
-
       const topLevelTopic = commandParts[0];
 
-      const plugin = command.plugin as unknown as Plugin;
+      const plugin = command.plugin;
+
       if (this.plugins[plugin.name]) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
         const topics = topLevelTopics[topLevelTopic] || {};
 
-        if (commandParts.length === 2) {
+        if (commandParts.length === 1) {
+          // This is a top-level topic that is also a command
+          topics[commandParts[0]] = command;
+        } else if (commandParts.length === 2) {
           // This is a command directly under the top-level topic
           topics[commandParts[1]] = command;
         } else {
@@ -176,8 +180,8 @@ export class Docs {
 
           const existingSubTopics = topics[subtopic];
           let subtopicCommands = [];
-          if (isArray(existingSubTopics)) {
-            subtopicCommands = existingSubTopics;
+          if (existingSubTopics) {
+            subtopicCommands = isArray(existingSubTopics) ? existingSubTopics : [existingSubTopics];
           }
           ensureArray(subtopicCommands);
           subtopicCommands.push(command);
@@ -187,10 +191,11 @@ export class Docs {
         topLevelTopics[topLevelTopic] = topics;
       }
     }
+
     return topLevelTopics;
   }
 
-  private async populateTemplate(commands: JsonMap[]): Promise<void> {
+  private async populateTemplate(commands: CommandClass[]): Promise<void> {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
     await new CLIReference().write();
@@ -205,6 +210,8 @@ export class Docs {
       topics.map((topic) => {
         events.emit('topic', { topic });
         const subtopics = ensure(topicsAndSubtopics[topic]);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         return this.populateTopic(topic, subtopics);
       })
     );
