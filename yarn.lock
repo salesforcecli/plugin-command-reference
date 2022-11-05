@@ -728,13 +728,13 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.16.4", "@oclif/core@^1.18.0", "@oclif/core@^1.19.1", "@oclif/core@^1.8.0":
-  version "1.19.1"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.19.1.tgz#6dba92cfb7f1412e43068db3e9716215786f85a3"
-  integrity sha512-+LtMYQNzfLoYUcBTsWSFQ/4mqiA70XRU6tP+lDNmQQTrB5FHzDoBbyYvdjvMeS42izg78gjlN++rLUaAUCloNw==
+"@oclif/core@^1.16.4", "@oclif/core@^1.18.0", "@oclif/core@^1.19.1", "@oclif/core@^1.20.2", "@oclif/core@^1.8.0":
+  version "1.20.3"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.20.3.tgz#e237b1f3d36b9fca4e8f3f91130d83ca1c12636e"
+  integrity sha512-sM2zQlzOUpHpcTBi7ETnHzK1KRF5BReKvERuF0jRlI2HgQ669arGccv1gkdouyMTG5prG92qy9P4ByhFVkLSQQ==
   dependencies:
     "@oclif/linewrap" "^1.0.0"
-    "@oclif/screen" "^3.0.2"
+    "@oclif/screen" "^3.0.3"
     ansi-escapes "^4.3.2"
     ansi-styles "^4.3.0"
     cardinal "^2.1.1"
@@ -874,10 +874,10 @@
   resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-1.0.4.tgz#b740f68609dfae8aa71c3a6cab15d816407ba493"
   integrity sha512-60CHpq+eqnTxLZQ4PGHYNwUX572hgpMHGPtTWMjdTMsAvlm69lZV/4ly6O3sAYkomo4NggGcomrDpBe34rxUqw==
 
-"@oclif/screen@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-3.0.2.tgz#969054308fe98d130c02844a45cc792199b75670"
-  integrity sha512-S/SF/XYJeevwIgHFmVDAFRUvM3m+OjhvCAYMk78ZJQCYCQ5wS7j+LTt1ZEv2jpEEGg2tx/F6TYYWxddNAYHrFQ==
+"@oclif/screen@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-3.0.3.tgz#e679ad10535e31d333f809f7a71335cc9aef1e55"
+  integrity sha512-KX8gMYA9ujBPOd1HFsV9e0iEx7Uoj8AG/3YsW4TtWQTg4lJvr82qNm7o/cFQfYRIt+jw7Ew/4oL4A22zOT+IRA==
 
 "@oclif/test@^2.2.4":
   version "2.2.6"
@@ -1143,12 +1143,12 @@
     chalk "^4.1.2"
     tslib "^2"
 
-"@salesforce/plugin-signups@^1.2.10":
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.10.tgz#d3317e0da904855f5a0edd3fe52cb52e8c414117"
-  integrity sha512-VZH0apNzx0Q3QnpVmjR1Mx8MX+o0qKBRaQPTvqIPZE4k19f1XmFf/GmrLToklz+4bmaEgtZnCMfdq7+xJDZg0w==
+"@salesforce/plugin-signups@^1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.12.tgz#3f42005d91fc836a5bfe138877375d30f133599f"
+  integrity sha512-wy0awIUWzwxMToPxjZ8CYye1PIGyAZlkEXYiT6GV5671g+La6vdpOYeuT6tG8C4mATs8fYUWBDqEJTjHFP9ApA==
   dependencies:
-    "@oclif/core" "^1.18.0"
+    "@oclif/core" "^1.20.2"
     "@salesforce/command" "^5.2.16"
     "@salesforce/core" "^3.31.17"
     chalk "^4.1.2"
