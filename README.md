@@ -42,7 +42,7 @@ To add this to your plugin to catch warning at development time, add it as a dev
 Then you can run this in your plugin's CI.
 
 ```sh-session
-./bin/run commandreference --plugins <name-of-your-plugin> --error-on-warnings
+./bin/dev commandreference --plugins <name-of-your-plugin> --error-on-warnings
 ```
 
 ## Local Development
