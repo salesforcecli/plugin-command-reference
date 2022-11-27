@@ -879,13 +879,13 @@
   resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-3.0.3.tgz#e679ad10535e31d333f809f7a71335cc9aef1e55"
   integrity sha512-KX8gMYA9ujBPOd1HFsV9e0iEx7Uoj8AG/3YsW4TtWQTg4lJvr82qNm7o/cFQfYRIt+jw7Ew/4oL4A22zOT+IRA==
 
-"@oclif/test@^2.2.4":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@oclif/test/-/test-2.2.6.tgz#2c98bb1ecab3ddf6b01b51f8a3489c9105353d67"
-  integrity sha512-rf67rTBkEeulpomdeBYm0D+Q0e1uMqTPUNPhY2/G6guAJhmu3M+78HvSKpLdG7WqpbfQJ68D5Dh5HnauO+MY2g==
+"@oclif/test@^2.2.12":
+  version "2.2.12"
+  resolved "https://registry.yarnpkg.com/@oclif/test/-/test-2.2.12.tgz#bb97a8c678b349e0e323013be67d68f619e6aaf2"
+  integrity sha512-6s1XwvBTXHdVjVZY/qDgMl74NVvoy8MQoknqT/YfR9K3P/6fPW4xeZqemtvrvU4heM5kzSShta5sk0I28MXHMg==
   dependencies:
-    "@oclif/core" "^1.19.1"
-    fancy-test "^2.0.5"
+    "@oclif/core" "^1.20.4"
+    fancy-test "^2.0.7"
 
 "@octokit/auth-token@^2.4.0", "@octokit/auth-token@^2.4.4":
   version "2.5.0"
@@ -1044,14 +1044,14 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.15", "@salesforce/command@^5.2.16", "@salesforce/command@^5.2.20":
-  version "5.2.23"
-  resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.2.23.tgz#f52a766db075b93ce7394a1391833e7ceb754c6b"
-  integrity sha512-EmKWydXXlD9SF9ZJ/5iOiJTRmHj3f1NI24om3FQF3DAK44cYm0QYu3YcOV/nLt+lr/6P95qfVq7m4zp/2k/Iug==
+"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.15", "@salesforce/command@^5.2.20", "@salesforce/command@^5.2.26":
+  version "5.2.27"
+  resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.2.27.tgz#6440102fb5213a456a3722b8f8ad6bc4ce890efa"
+  integrity sha512-Mjp+8YfKRcQEf2DpBa1AXuyNkW9eUwiwd37eNdxR/tyksc71EiJ1Ex3hWcN4rHHLecjoAIyjhm4juCn/vXw+Bg==
   dependencies:
     "@oclif/core" "^1.20.4"
-    "@oclif/test" "^2.2.4"
-    "@salesforce/core" "^3.31.17"
+    "@oclif/test" "^2.2.12"
+    "@salesforce/core" "^3.32.1"
     "@salesforce/kit" "^1.8.0"
     "@salesforce/ts-types" "^1.7.1"
     chalk "^2.4.2"
@@ -1143,13 +1143,13 @@
     chalk "^4.1.2"
     tslib "^2"
 
-"@salesforce/plugin-signups@^1.2.12":
-  version "1.2.12"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.12.tgz#3f42005d91fc836a5bfe138877375d30f133599f"
-  integrity sha512-wy0awIUWzwxMToPxjZ8CYye1PIGyAZlkEXYiT6GV5671g+La6vdpOYeuT6tG8C4mATs8fYUWBDqEJTjHFP9ApA==
+"@salesforce/plugin-signups@^1.2.13":
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.13.tgz#d3963a70f032c26e71cff28077466aa5127ac00f"
+  integrity sha512-xh3+n5aZyrATLilZWsJ2V165R19we5UBrl0BWjtU18Pjo9TzfAdANyyHdgRKN4mVQau1u1xlTzsZ5eaFSF7kpw==
   dependencies:
     "@oclif/core" "^1.20.2"
-    "@salesforce/command" "^5.2.16"
+    "@salesforce/command" "^5.2.26"
     "@salesforce/core" "^3.31.17"
     chalk "^4.1.2"
     change-case "^4.1.2"
@@ -4158,10 +4158,10 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.1.tgz#8d172c064867f235c0c84a596806d279bf4bcc07"
   integrity sha512-Wrk35e8ydCKDj/ArClo1VrPVmN8zph5V4AtHwIuHhvMXsKf73UT3BOD+azBIW+3wOJ4FhEH7zyaJCFvChjYvMA==
 
-fancy-test@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/fancy-test/-/fancy-test-2.0.5.tgz#eb39e10b77e476147aa4ed5a81e14e809b46aaae"
-  integrity sha512-ASPLNVkHSSIdRI/uLlK+XGhf1ul/MpRN9VE84ehXL+FOprQjXrDXX3wW1wqKvtcTTC+AW0E0RxdpJ5IEopjhQA==
+fancy-test@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/fancy-test/-/fancy-test-2.0.7.tgz#a5e8e23113384c5550914da4f429d10822622521"
+  integrity sha512-E9qiHMi/Wf3y0PLwoRbgr8SRTcvQY+6gx9d/qaVNT6N5AQ79iZr08ftY2Ki5KRC5LS02GoVD/CYT4t/KwwC/Pw==
   dependencies:
     "@types/chai" "*"
     "@types/lodash" "*"
