@@ -12,6 +12,7 @@ import { Ditamap } from './ditamap';
 
 export type CommandHelpInfo = {
   hidden: boolean;
+  summary: string;
   description: string;
   longDescription: string;
   required: boolean;
@@ -99,9 +100,9 @@ export class Command extends Ditamap {
     return Object.entries(flags)
       .filter(([, flag]) => !flag.hidden)
       .map(([flagName, flag]) => {
-        const description = this.formatParagraphs(flag.longDescription || punctuate(flag.description));
+        const description = this.formatParagraphs(flag.longDescription || punctuate(flag.summary || flag.description));
         if (!flag.longDescription) {
-          flag.longDescription = punctuate(flag.description);
+          flag.longDescription = punctuate(flag.summary || flag.description);
         }
         return Object.assign(flag, {
           name: flagName,
