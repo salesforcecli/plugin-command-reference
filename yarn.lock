@@ -1044,7 +1044,7 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.20", "@salesforce/command@^5.2.26", "@salesforce/command@^5.2.33":
+"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.26", "@salesforce/command@^5.2.30", "@salesforce/command@^5.2.33":
   version "5.2.33"
   resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.2.33.tgz#294ce25873c76ee8a4a70e1f0518cfc10bfa8049"
   integrity sha512-k4Dh1PK7ZcJr9QwBXtJ9/h4jIfrAKNUkOdWvTa/QaBmiOhfUgS1qDGTd+4fIUhaQxFWAmxIcJ0szJ8a3bRLEkQ==
@@ -1056,7 +1056,7 @@
     "@salesforce/ts-types" "^1.7.1"
     chalk "^2.4.2"
 
-"@salesforce/core@^3.21.5", "@salesforce/core@^3.30.9", "@salesforce/core@^3.31.16", "@salesforce/core@^3.31.17", "@salesforce/core@^3.32.11":
+"@salesforce/core@^3.21.5", "@salesforce/core@^3.31.16", "@salesforce/core@^3.31.17", "@salesforce/core@^3.32.11":
   version "3.32.11"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.32.11.tgz#d40740ae4f3d3f835a77395d91b29fd7f6bdc2c6"
   integrity sha512-fAxDcu2N+hw1IMWsvpp1aRxeczY7C6Yb0idaYY0npNzDmC+4wGdWkZlPoz6FHhidgBfAGnwRKVSr7/UL/o8mDQ==
@@ -1132,14 +1132,14 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/plugin-alias@^2.1.8":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-alias/-/plugin-alias-2.1.8.tgz#5681f77a674844fa11afdfdad007d7a2fab6b3c1"
-  integrity sha512-XcCPlOFx4JqO60zzrNH6PxXJyTYW8tlLb1XRekwms8yisM2sobDSw9+DR0sGxBjprMz2XF/aboBIidX6Fob45g==
+"@salesforce/plugin-alias@^2.1.13":
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-alias/-/plugin-alias-2.1.13.tgz#fb2a3884bd72d62485e357d8212b81bb8a0f67c0"
+  integrity sha512-wRY1n+/2USnoGNt3+4SkcKb2H2jZ5DdGzO6UkztOXX1OffEUKqTGBP8YPvAYTDCVPyYaGkKPJOBdFqFUDkz7oA==
   dependencies:
     "@oclif/core" "^1.16.4"
-    "@salesforce/command" "^5.2.20"
-    "@salesforce/core" "^3.30.9"
+    "@salesforce/command" "^5.2.30"
+    "@salesforce/core" "^3.32.11"
     chalk "^4.1.2"
     tslib "^2"
 
