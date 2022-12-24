@@ -728,7 +728,7 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.16.4", "@oclif/core@^1.20.0", "@oclif/core@^1.20.2", "@oclif/core@^1.20.4", "@oclif/core@^1.22.0", "@oclif/core@^1.8.0":
+"@oclif/core@^1.16.4", "@oclif/core@^1.20.0", "@oclif/core@^1.20.4", "@oclif/core@^1.21.0", "@oclif/core@^1.22.0", "@oclif/core@^1.8.0":
   version "1.22.0"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.22.0.tgz#dfdd76db6435cc1be2de7bbe25c23302332b9297"
   integrity sha512-Bvyi6uFbmpkFl9XUATsGMlqEDGfqMKWL0Mu5VQTuPg7/NIyfygYkaburn11uGkOp0a8yG6fPpyVBfGmztjNPGA==
@@ -1044,7 +1044,7 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.26", "@salesforce/command@^5.2.30", "@salesforce/command@^5.2.33":
+"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.30", "@salesforce/command@^5.2.33":
   version "5.2.33"
   resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.2.33.tgz#294ce25873c76ee8a4a70e1f0518cfc10bfa8049"
   integrity sha512-k4Dh1PK7ZcJr9QwBXtJ9/h4jIfrAKNUkOdWvTa/QaBmiOhfUgS1qDGTd+4fIUhaQxFWAmxIcJ0szJ8a3bRLEkQ==
@@ -1143,13 +1143,13 @@
     chalk "^4.1.2"
     tslib "^2"
 
-"@salesforce/plugin-signups@^1.2.13":
-  version "1.2.13"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.13.tgz#d3963a70f032c26e71cff28077466aa5127ac00f"
-  integrity sha512-xh3+n5aZyrATLilZWsJ2V165R19we5UBrl0BWjtU18Pjo9TzfAdANyyHdgRKN4mVQau1u1xlTzsZ5eaFSF7kpw==
+"@salesforce/plugin-signups@^1.2.15":
+  version "1.2.15"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.15.tgz#46888bcd46e30a8365eaca7a04beb19d7d64c0cf"
+  integrity sha512-4anLOqoXBPujWKx3VcuUVDYxMmHDxVv1NMVmygjlCtmHu8yqn1RazFIT9FREACu0AZtH+/sFrpuEqFs9SywkGw==
   dependencies:
-    "@oclif/core" "^1.20.2"
-    "@salesforce/command" "^5.2.26"
+    "@oclif/core" "^1.21.0"
+    "@salesforce/command" "^5.2.33"
     "@salesforce/core" "^3.31.17"
     chalk "^4.1.2"
     change-case "^4.1.2"
