@@ -1044,7 +1044,7 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.30", "@salesforce/command@^5.2.33", "@salesforce/command@^5.2.35":
+"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.33", "@salesforce/command@^5.2.35":
   version "5.2.35"
   resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.2.35.tgz#2f0e721c49aee0db4531b291722c8ebab5b68598"
   integrity sha512-OMy4kASYFyIOrenJ2r0o9PvRECv+OwlAa45lf0Ip4M5UwvRQvQPay+AqVdvd4olPlqgyrHAEw4wTe5lMHK6cxA==
@@ -1132,13 +1132,13 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/plugin-alias@^2.1.13":
-  version "2.1.13"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-alias/-/plugin-alias-2.1.13.tgz#fb2a3884bd72d62485e357d8212b81bb8a0f67c0"
-  integrity sha512-wRY1n+/2USnoGNt3+4SkcKb2H2jZ5DdGzO6UkztOXX1OffEUKqTGBP8YPvAYTDCVPyYaGkKPJOBdFqFUDkz7oA==
+"@salesforce/plugin-alias@^2.1.14":
+  version "2.1.14"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-alias/-/plugin-alias-2.1.14.tgz#7fcd1034ee374010e3ee18937c4dc6487d2d3638"
+  integrity sha512-VEOiRZ182dDVsxBQHo20M1y7Ch4bqyyHTcuaPUqt0v1Wb31uN286+qnKhY3Y5iuJv5o7tf9CUc6zOjsXY9UWbw==
   dependencies:
     "@oclif/core" "^1.16.4"
-    "@salesforce/command" "^5.2.30"
+    "@salesforce/command" "^5.2.35"
     "@salesforce/core" "^3.32.11"
     chalk "^4.1.2"
     tslib "^2"
