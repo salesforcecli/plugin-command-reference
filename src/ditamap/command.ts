@@ -15,7 +15,7 @@ import {
   ensureString,
   JsonMap,
 } from '@salesforce/ts-types';
-import { CommandClass, events, punctuate } from '../utils';
+import { CommandClass, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
 export type CommandHelpInfo = {
@@ -61,10 +61,6 @@ export class Command extends Ditamap {
 
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
-
-    if (!description) {
-      events.emit('warning', `Missing description for ${command.id}\n`);
-    }
 
     const help = this.formatParagraphs(description);
 
