@@ -1,7 +1,7 @@
 name: tests
 on:
   push:
-    branches-ignore: [v2]
+    branches-ignore: [main, v2]
   workflow_dispatch:
 
 jobs:
