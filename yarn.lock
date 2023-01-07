@@ -8998,10 +8998,10 @@ safe-json-stringify@~1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-salesforce-alm@^54.8.4:
-  version "54.8.4"
-  resolved "https://registry.yarnpkg.com/salesforce-alm/-/salesforce-alm-54.8.4.tgz#e3e15654d3e50371a0fdc3ac8606a89a6afb6987"
-  integrity sha512-3nKt6go+GvG/U3X7toID4hLJ96Og2yqSTQIW12dXgbZCya4Mzz7YtkOzOt1yXV6AlqBJlJz6/vqOwuQkGcWtrQ==
+salesforce-alm@^54.8.5:
+  version "54.8.5"
+  resolved "https://registry.yarnpkg.com/salesforce-alm/-/salesforce-alm-54.8.5.tgz#3b5a7d6c64bdf0d1939f0193758283a6fb3b7584"
+  integrity sha512-ZGTtoamzQikST7o9J0ip8xNJE+woRSALmGUXJe+O0cIF3VdRDgBnCaadTJSEg6g2XpXmYAo0wpujgrulGrpaJg==
   dependencies:
     "@oclif/core" "^1.8.0"
     "@salesforce/bunyan" "^2.0.0"
