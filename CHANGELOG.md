@@ -1,3 +1,12 @@
+## [1.5.11](https://github.com/forcedotcom/plugin-command-reference/compare/1.5.10...1.5.11) (2023-01-07)
+
+
+### Bug Fixes
+
+* **deps:** bump json5 from 1.0.1 to 1.0.2 ([fa00cd0](https://github.com/forcedotcom/plugin-command-reference/commit/fa00cd048bef9acf6075ec47433729352f551ab4))
+
+
+
 ## [1.5.10](https://github.com/forcedotcom/plugin-command-reference/compare/1.5.9...1.5.10) (2022-12-25)
 
 
