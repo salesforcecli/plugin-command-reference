@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/forcedotcom/plugin-command-reference/compare/1.5.12...1.6.0) (2023-01-09)
+
+
+### Features
+
+* long-lived v1/v2 ([2881f3f](https://github.com/forcedotcom/plugin-command-reference/commit/2881f3f10a211d98054de5ce9cc7e366eba57d46))
+
+
+
 ## [1.5.12](https://github.com/forcedotcom/plugin-command-reference/compare/1.5.11...1.5.12) (2023-01-08)
 
 
