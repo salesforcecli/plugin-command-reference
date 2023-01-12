@@ -3,7 +3,7 @@ name: version, tag and github release
 
 on:
   push:
-    branches: [v2]
+    branches: [main, v2]
 
 jobs:
   release:
