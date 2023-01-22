@@ -1,3 +1,12 @@
+## [1.6.1](https://github.com/forcedotcom/plugin-command-reference/compare/1.6.0...1.6.1) (2023-01-22)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 3.32.12 to 3.33.0 ([0952e19](https://github.com/forcedotcom/plugin-command-reference/commit/0952e19ae955cf3d3fcf173060fdae43e8155948))
+
+
+
 # [1.6.0](https://github.com/forcedotcom/plugin-command-reference/compare/1.5.12...1.6.0) (2023-01-09)
 
 
