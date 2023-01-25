@@ -1,3 +1,12 @@
+## [2.2.10](https://github.com/salesforcecli/plugin-command-reference/compare/2.2.9...2.2.10) (2023-01-25)
+
+
+### Bug Fixes
+
+* check if plugin exists ([b69d92d](https://github.com/salesforcecli/plugin-command-reference/commit/b69d92d22781f234dfd31acb7f324d2996f9b8aa))
+
+
+
 ## [2.2.9](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.8...2.2.9) (2023-01-12)
 
 
