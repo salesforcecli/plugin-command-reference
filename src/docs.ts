@@ -137,7 +137,7 @@ export class Docs {
       const topLevelTopic = commandParts[0];
 
       const plugin = command.plugin;
-      if (this.plugins[plugin.name]) {
+      if (plugin && this.plugins[plugin.name]) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
