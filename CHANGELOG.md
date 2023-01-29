@@ -1,3 +1,12 @@
+## [1.6.2](https://github.com/forcedotcom/plugin-command-reference/compare/1.6.1...1.6.2) (2023-01-29)
+
+
+### Bug Fixes
+
+* **deps:** bump tslib from 2.4.1 to 2.5.0 ([65e2c41](https://github.com/forcedotcom/plugin-command-reference/commit/65e2c411b066df109e8c7e6504b8d6d555d5eacf))
+
+
+
 ## [1.6.1](https://github.com/forcedotcom/plugin-command-reference/compare/1.6.0...1.6.1) (2023-01-22)
 
 
