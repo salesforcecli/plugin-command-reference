@@ -9,7 +9,7 @@ import * as os from 'os';
 import * as path from 'path';
 import { readJSON, pathExists } from 'fs-extra';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { Flags, Interfaces } from '@oclif/core';
+import { Flags, Interfaces, Command } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
@@ -209,7 +209,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return uniqBy(commands, 'id');
   }
 
-  private async loadCommand(command: Interfaces.Command.Loadable): Promise<Interfaces.Command.Class> {
+  private async loadCommand(command: Command.Loadable): Promise<Command.Class> {
     return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
   }
 
