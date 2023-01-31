@@ -1,3 +1,12 @@
+# [2.3.0](https://github.com/salesforcecli/plugin-command-reference/compare/2.2.10...2.3.0) (2023-01-31)
+
+
+### Features
+
+* use oclif/core v2 ([9b2d3e7](https://github.com/salesforcecli/plugin-command-reference/commit/9b2d3e7e7d4cfd9c726cc143f150bfaeb6415eda))
+
+
+
 ## [2.2.10](https://github.com/salesforcecli/plugin-command-reference/compare/2.2.9...2.2.10) (2023-01-25)
 
 
