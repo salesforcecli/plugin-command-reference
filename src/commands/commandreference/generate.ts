@@ -8,8 +8,11 @@
 import * as os from 'os';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Plugin, Command } from '@oclif/core/lib/interfaces';
-import { flags, SfdxCommand } from '@salesforce/command';
+// This is a very special use case where importing oclif/command is needed
+// eslint-disable-next-line sf-plugin/no-oclif-flags-command-import
+import { Command } from '@oclif/core';
+import { Plugin } from '@oclif/core/lib/interfaces';
+import { arrayWithDeprecation, Flags, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
@@ -27,28 +30,28 @@ Messages.importMessagesDirectory(__dirname);
 // or any library that is using the messages framework can also be loaded this way.
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
 
-export default class CommandReferenceGenerate extends SfdxCommand {
-  public static description = messages.getMessage('commandDescription');
+export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
+  public static readonly summary = messages.getMessage('commandDescription');
+  public static readonly description = messages.getMessage('commandDescription');
 
-  public static args = [{ name: 'file' }];
-
-  protected static flagsConfig = {
-    outputdir: flags.string({
+  public static readonly flags = {
+    outputdir: Flags.string({
       char: 'd',
-      description: messages.getMessage('outputdirFlagDescription'),
+      summary: messages.getMessage('outputdirFlagDescription'),
       default: './tmp/root',
     }),
-    plugins: flags.array({
+    plugins: arrayWithDeprecation({
       char: 'p',
-      description: messages.getMessage('pluginFlagDescription'),
+      summary: messages.getMessage('pluginFlagDescription'),
     }),
-    hidden: flags.boolean({ description: messages.getMessage('hiddenFlagDescription') }),
-    erroronwarnings: flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') }),
+    hidden: Flags.boolean({ summary: messages.getMessage('hiddenFlagDescription') }),
+    erroronwarnings: Flags.boolean({ summary: messages.getMessage('erroronwarningFlagDescription') }),
   };
 
   public async run(): Promise<AnyJson> {
+    const { flags } = await this.parse(CommandReferenceGenerate);
     let pluginNames: string[];
-    if (!this.flags.plugins) {
+    if (!flags.plugins) {
       const pJsonPath = path.join(process.cwd(), 'package.json');
       if (fs.existsSync(pJsonPath)) {
         const packageJson = JSON.parse(await fs.promises.readFile(pJsonPath, 'utf8'));
@@ -59,7 +62,7 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         );
       }
     } else {
-      pluginNames = this.flags.plugins as string[];
+      pluginNames = flags.plugins;
     }
 
     const plugins = pluginNames
@@ -77,12 +80,12 @@ export default class CommandReferenceGenerate extends SfdxCommand {
         }
         return pluginName;
       });
-    this.ux.log(
+    this.log(
       `Generating command reference for the following plugins:${plugins
         .map((name) => `${os.EOL}  - ${name}`)
         .join(', ')}`
     );
-    Ditamap.outputDir = this.flags.outputdir as string;
+    Ditamap.outputDir = flags.outputdir;
 
     Ditamap.cliVersion = this.config.version.replace(/-[0-9a-zA-Z]+$/, '');
     Ditamap.plugins = this.pluginMap(plugins);
@@ -93,19 +96,14 @@ export default class CommandReferenceGenerate extends SfdxCommand {
       return { name, version };
     });
 
-    const docs = new Docs(
-      Ditamap.outputDir,
-      Ditamap.plugins,
-      this.flags.hidden as boolean,
-      await this.loadTopicMetadata()
-    );
+    const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, flags.hidden, await this.loadTopicMetadata());
 
-    events.on('topic', ({ topic }) => {
+    events.on('topic', ({ topic }: { topic: string }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
     });
 
     const warnings = [];
-    events.on('warning', (msg) => {
+    events.on('warning', (msg: string) => {
       process.stderr.write(chalk.yellow(`> ${msg}\n`));
       warnings.push(msg);
     });
@@ -114,17 +112,17 @@ export default class CommandReferenceGenerate extends SfdxCommand {
     await docs.build(await this.loadCommands());
     this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
 
-    if (this.flags.erroronwarnings && warnings.length > 0) {
+    if (flags.erroronwarnings && warnings.length > 0) {
       throw new SfError(`Found ${warnings.length} warnings.`);
     }
 
     return { warnings };
   }
 
-  private pluginMap(plugins: string[]) {
+  private pluginMap(plugins: string[]): JsonMap {
     const pluginToParentPlugin: JsonMap = {};
 
-    const resolveChildPlugins = (parentPlugin: Plugin) => {
+    const resolveChildPlugins = (parentPlugin: Plugin): void => {
       for (const childPlugin of parentPlugin.pjson.oclif.plugins ?? []) {
         pluginToParentPlugin[childPlugin] = parentPlugin.name;
         resolveChildPlugins(ensure(this.getPlugin(childPlugin)));
