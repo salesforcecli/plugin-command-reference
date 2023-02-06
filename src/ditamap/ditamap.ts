@@ -32,37 +32,35 @@ export abstract class Ditamap {
   private source: string;
 
   public constructor(private filename: string, protected data: JsonMap) {
-    handlebars.registerHelper('toUpperCase', (str) => str.toUpperCase());
-    handlebars.registerHelper('join', (array) => array.join(', '));
+    handlebars.registerHelper('toUpperCase', (str: string) => str.toUpperCase());
+    handlebars.registerHelper('join', (array: string[]) => array.join(', '));
 
     /*
      * Returns true if the string should be formatted as code block in docs
      */
     // tslint:disable-next-line: no-any
-    handlebars.registerHelper('isCodeBlock', function (this: any, val, options) {
-      return val.indexOf('$ sfdx') >= 0 || val.indexOf('>>') >= 0 ? options.fn(this) : options.inverse(this);
+    handlebars.registerHelper('isCodeBlock', function (this: any, val: string, options) {
+      return val.includes('$ sfdx') || val.includes('>>') ? options.fn(this) : options.inverse(this);
     });
 
     /*
      * Remove OS prompt in codeblocks, as per CCX style guidelines in our published docs
      */
-    handlebars.registerHelper('removePrompt', (codeblock) =>
-      codeblock.substring((codeblock.indexOf('$') as number) + 1)
-    );
+    handlebars.registerHelper('removePrompt', (codeblock: string) => codeblock.substring(codeblock.indexOf('$') + 1));
     handlebars.registerHelper('nextVersion', (value) => parseInt(value as string, 2) + 1);
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }
 
-  public getFilename() {
+  public getFilename(): string {
     return this.filename;
   }
 
-  public getOutputFilePath() {
+  public getOutputFilePath(): string {
     return this.destination;
   }
 
-  public async write() {
+  public async write(): Promise<void> {
     await fs.promises.mkdir(dirname(this.destination), { recursive: true });
     const output = await this.transformToDitamap();
 
@@ -81,7 +79,7 @@ export abstract class Ditamap {
    * @param templateName
    * @returns {object}
    */
-  private async transformToDitamap() {
+  private async transformToDitamap(): Promise<string> {
     debug(`Generating ${this.destination} from ${this.getTemplateFileName()}`);
     const src = await fs.promises.readFile(this.source, 'utf8');
     const template = handlebars.compile(src);

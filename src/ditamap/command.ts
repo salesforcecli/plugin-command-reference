@@ -6,7 +6,17 @@
  */
 
 import { join } from 'path';
-import { asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
+import {
+  asString,
+  Dictionary,
+  ensureJsonMap,
+  ensureObject,
+  ensureString,
+  isString,
+  JsonMap,
+} from '@salesforce/ts-types';
+import { ensureArray } from '@salesforce/kit';
+import { SfError } from '@salesforce/core';
 import { events, helpFromDescription, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
@@ -25,7 +35,10 @@ export class Command extends Ditamap {
     const filename = `cli_reference_${commandWithUnderscores}.xml`;
 
     super(filename, {});
-
+    const id = command.id;
+    if (typeof id !== 'string') {
+      throw new SfError('Command id must be a string');
+    }
     const flags = ensureObject(command.flags);
     const parameters = this.getParametersForTemplate(flags as Dictionary<CommandHelpInfo>);
 
@@ -36,7 +49,7 @@ export class Command extends Ditamap {
     // support that.
 
     if (!description) {
-      events.emit('warning', `Missing description for ${command.id}\n`);
+      events.emit('warning', `Missing description for ${id}\n`);
     }
 
     const help = this.formatParagraphs(asString(command.help) || helpFromDescription(fullDescription));
@@ -61,18 +74,14 @@ export class Command extends Ditamap {
       }
     }
 
-    let examples;
     const binary = 'sfdx';
+    const examples = command.examples
+      ? ensureArray(command.examples)
+          .filter(isString)
+          .map((example) => example.replace(/<%= config.bin %>/g, binary).replace(/<%= command.id %>/g, id))
+      : undefined;
 
-    if (command.examples) {
-      examples = Array.isArray(command.examples) ? command.examples : [command.examples];
-
-      examples = examples.map((example) =>
-        example.replace(/<%= config.bin %>/g, binary).replace(/<%= command.id %>/g, command.id)
-      );
-    }
-
-    const state = command.state || commandMeta.state;
+    const state = command.state ?? commandMeta.state;
     this.data = Object.assign(command, {
       binary,
       commandWithUnderscores,

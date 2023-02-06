@@ -14,5 +14,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 'warn',
     '@typescript-eslint/no-unsafe-call': 'warn',
     '@typescript-eslint/no-unsafe-return': 'warn',
+    // this requires strict null checks, and we're not there yet
+    '@typescript-eslint/prefer-nullish-coalescing': 'off',
   },
 };
