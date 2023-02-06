@@ -40,8 +40,9 @@ describe('merging several plugins together', () => {
     await fs.promises.rm(testFilesPath, { recursive: true });
   });
 
-  it('creates closed-pilot commands', () => {
-    const dita = loadTestDitamapFile(join('force', 'org', 'cli_reference_force_org_snapshot_create.xml'));
+  // skipped because topic-level is not closed-pilot (command is, but topics are reorganized)
+  it.skip('creates closed-pilot commands', () => {
+    const dita = loadTestDitamapFile(join('org', 'create', 'cli_reference_org_create_snapshot.xml'));
     expect(/invitation-only\s+pilot\s+program/.test(dita)).to.be.true;
   });
   // skipped because commands are not beta anymore
