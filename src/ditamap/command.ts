@@ -117,7 +117,7 @@ export class Command extends Ditamap {
       if (flag.hidden) continue;
       const description = Array.isArray(flag.description) ? flag.description.join('\n') : flag.description || '';
       const entireDescription = flag.summary ? `${flag.summary}\n${description}` : description;
-      const updated = Object.assign(flag, {
+      const updated = Object.assign({}, flag, {
         name: flagName,
         description: this.formatParagraphs(entireDescription),
         optional: !flag.required,

@@ -73,11 +73,14 @@ export class Docs {
     const commandIds = [];
 
     for (const subtopic of Object.keys(subtopics)) {
-      const subtopicOrCommand = subtopics[subtopic];
+      const subtopicOrCommand = isArray(subtopics[subtopic])
+        ? Object.assign([], subtopics[subtopic])
+        : Object.assign({}, subtopics[subtopic]);
+
       try {
         if (!isArray(subtopicOrCommand)) {
           // If it is not subtopic (array) it is a command in the top-level topic
-          const command = subtopicOrCommand;
+          const command = Object.assign({}, subtopicOrCommand);
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, 1);
           await this.populateCommand(topic, null, command, commandMeta);
           commandIds.push(command.id);
@@ -212,7 +215,7 @@ export class Docs {
         }
 
         // Collect all tiers of the meta, so the command will also pick up the topic state (isPilot, etc) if applicable
-        Object.assign(commandMeta, currentMeta);
+        Object.assign({}, commandMeta, currentMeta);
       }
     } catch (error) {
       if (commandId.endsWith(part)) {
