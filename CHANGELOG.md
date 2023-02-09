@@ -1,3 +1,12 @@
+## [2.3.1](https://github.com/salesforcecli/plugin-command-reference/compare/2.3.0...2.3.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* duplicate flag descriptions ([9adcc28](https://github.com/salesforcecli/plugin-command-reference/commit/9adcc28bffc8168e727c2bdf418c40ee70c7f211))
+
+
+
 # [2.3.0](https://github.com/salesforcecli/plugin-command-reference/compare/2.2.10...2.3.0) (2023-01-31)
 
 
