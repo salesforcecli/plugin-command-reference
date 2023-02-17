@@ -71,6 +71,9 @@
       "commandreference": {
         "description": "generate the Salesforce CLI command reference guide.",
         "longDescription": "xx"
+      },
+      "jit": {
+        "description": "description for jit"
       }
     },
     "devPlugins": [
