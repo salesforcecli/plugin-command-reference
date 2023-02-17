@@ -6,6 +6,7 @@
  */
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
+import * as chalk from 'chalk';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.load('@salesforce/plugin-command-reference', 'jit.install', [
@@ -27,21 +28,15 @@ export default class JitInstall extends SfCommand<void> {
 
   public async run(): Promise<void> {
     const { flags } = await this.parse(JitInstall);
-    const plugins = this.config.plugins
-      .find((p) => p.name === this.config.pjson.name)
-      .commands.reduce((result, current) => {
-        if (current.pluginType !== 'jit') return result;
-        return result.includes(current.pluginName) ? result : [...result, current.pluginName];
-      }, []);
 
-    if (flags['dry-run']) {
-      this.styledHeader('Install all JIT Plugins (dry-run)');
-      for (const plugin of plugins) this.log(`• ${plugin}`);
-    } else {
-      this.styledHeader('Install all JIT Plugins');
-      for (const plugin of plugins) {
-        this.log(`• ${plugin}`);
-        await this.config.runCommand(`plugins:install ${plugin}`);
+    this.styledHeader(`Install all JIT Plugins${flags['dry-run'] ? ' (dry-run)' : ''}`);
+    for (const [plugin, version] of Object.entries(this.config.pjson.oclif.jitPlugins)) {
+      this.log(`• ${plugin} ${chalk.dim(version)}`);
+      if (flags['dry-run']) continue;
+      try {
+        await this.config.runCommand(`plugins:install ${plugin}@${version}`);
+      } catch {
+        this.log(`Failed to install ${plugin} ${chalk.dim(version)}.`);
       }
     }
   }
