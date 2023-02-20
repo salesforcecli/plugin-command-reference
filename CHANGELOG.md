@@ -1,3 +1,12 @@
+# [2.4.0](https://github.com/salesforcecli/plugin-command-reference/compare/2.3.1...2.4.0) (2023-02-20)
+
+
+### Features
+
+* jit install command ([#265](https://github.com/salesforcecli/plugin-command-reference/issues/265)) ([778cf6b](https://github.com/salesforcecli/plugin-command-reference/commit/778cf6bcaae79f2d64db65359f6a9e2f5a6bb349))
+
+
+
 ## [2.3.1](https://github.com/salesforcecli/plugin-command-reference/compare/2.3.0...2.3.1) (2023-02-09)
 
 
