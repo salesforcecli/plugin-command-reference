@@ -34,7 +34,7 @@ export default class JitInstall extends SfCommand<void> {
       this.log(`• ${plugin} ${chalk.dim(version)}`);
       if (flags['dry-run']) continue;
       try {
-        await this.config.runCommand(`plugins:install ${plugin}@${version}`);
+        await this.config.runCommand('plugins:install', [`${plugin}@${version}`]);
       } catch {
         this.log(`Failed to install ${plugin} ${chalk.dim(version)}.`);
       }
