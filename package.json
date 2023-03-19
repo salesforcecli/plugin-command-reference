@@ -18,7 +18,7 @@
     "@salesforce/dev-config": "^3.1.0",
     "@salesforce/dev-scripts": "^3.1.1",
     "@salesforce/plugin-alias": "^2.2.4",
-    "@salesforce/plugin-signups": "^1.2.17",
+    "@salesforce/plugin-signups": "^1.4.8",
     "@salesforce/prettier-config": "^0.0.2",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^9.0.1",
