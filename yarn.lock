@@ -751,7 +751,7 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.20.0", "@oclif/core@^1.20.4", "@oclif/core@^1.23.0", "@oclif/core@^1.25.0", "@oclif/core@^1.8.0":
+"@oclif/core@^1.20.0", "@oclif/core@^1.20.4", "@oclif/core@^1.25.0", "@oclif/core@^1.8.0":
   version "1.25.0"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.25.0.tgz#a3891f903bf211ce1f3c8a05419b686f02c5bbd6"
   integrity sha512-vS8L5Uqc5Wuq3zmKVvX5LLcyxhfH2X2q+LG1P6czzkh6k09uLeDaZfwaYPXD7ItM4Vfy+KEctfKiWePeLDnOpg==
@@ -785,7 +785,7 @@
     widest-line "^3.1.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^2.0.8", "@oclif/core@^2.4.0", "@oclif/core@^2.8.0":
+"@oclif/core@^2.0.8", "@oclif/core@^2.4.0", "@oclif/core@^2.7.1", "@oclif/core@^2.8.0":
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.8.0.tgz#4948de3168804169fa68895af8ec4853f332b307"
   integrity sha512-A2wHItFrD/WOw5bJ6Mtv9MD7If0bsKNR0pwEY0me+fo4HSXlJOtgYGqmzb8t8akX3DUUT7XsjPajsoHLkIJyvg==
@@ -1102,7 +1102,7 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.38", "@salesforce/command@^5.3.0", "@salesforce/command@^5.3.5":
+"@salesforce/command@^5.1.0", "@salesforce/command@^5.3.0", "@salesforce/command@^5.3.5":
   version "5.3.5"
   resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.3.5.tgz#4a613f6312428707aa9af8d7e4944f164bea1321"
   integrity sha512-RJho0j0VVHU5jf+zFWVjwx2BbBed7t5wlmFG1yyHvW4WA6Akr4JZ764qlob0olpn7ZN7L5kLw9F5xbWDtZnLYA==
@@ -1181,7 +1181,7 @@
     typedoc-plugin-missing-exports "0.23.0"
     typescript "^4.1.3"
 
-"@salesforce/kit@^1.6.0", "@salesforce/kit@^1.6.1", "@salesforce/kit@^1.7.2", "@salesforce/kit@^1.8.5", "@salesforce/kit@^1.9.2":
+"@salesforce/kit@^1.6.0", "@salesforce/kit@^1.6.1", "@salesforce/kit@^1.7.2", "@salesforce/kit@^1.8.5", "@salesforce/kit@^1.9.0", "@salesforce/kit@^1.9.2":
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.9.2.tgz#d232f135428363cdfe2649cb99a94bc2eb0a12fd"
   integrity sha512-kjZvjFNP6njhAiEa/ErdLXSDWZKafHYJyKCKz1wnSFmDM8TOpKHCCVw5cQo87ZQr8OqxqwUDIAlSBLyMzKi4Lg==
@@ -1201,14 +1201,15 @@
     chalk "^4.1.2"
     tslib "^2"
 
-"@salesforce/plugin-signups@^1.2.17":
-  version "1.2.17"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.2.17.tgz#8aa16a2ea2bc11d0cafc010d2d5861a800d3cb3e"
-  integrity sha512-m8YT65H1KypV8Hymsu8ffNgfMv2RxcjvpRuG8ygXQnC9oQZkDkOYu3EhvjWu6PVZFJXSGOKZs3q2b+lRUvhVPA==
+"@salesforce/plugin-signups@^1.4.12":
+  version "1.4.12"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-signups/-/plugin-signups-1.4.12.tgz#022888f192598e6217d7589ab5eb16a65bb01010"
+  integrity sha512-tLFbfRpmj+mjCwpicfSEEk43NaUtbUZhP9q0GA4eHyjcKue5S4ZuhW0jR7xfJ29obgwNrtRB+iF23rOW9HjAHA==
   dependencies:
-    "@oclif/core" "^1.23.0"
-    "@salesforce/command" "^5.2.38"
-    "@salesforce/core" "^3.31.17"
+    "@oclif/core" "^2.7.1"
+    "@salesforce/core" "^3.34.6"
+    "@salesforce/kit" "^1.9.2"
+    "@salesforce/sf-plugins-core" "^2.2.7"
     chalk "^4.1.2"
     change-case "^4.1.2"
     tslib "^2"
@@ -1222,6 +1223,18 @@
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.5.1.tgz#2d1bfdcf593caaa04cd4b3e6fe621097ff7f28fe"
   integrity sha512-MRqU+tn8w5IFvZ0Lm9YKLgxYxr2MQMI+fXXsTrwfUnijsps+ybF9IOTu6MOMxxl2vCUkO8XDjA435wXlWSLI6g==
+
+"@salesforce/sf-plugins-core@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-2.2.7.tgz#dd3d567ef89396b3f414645b986dbddadc6ee342"
+  integrity sha512-bwtfYfJbvjrx3Up2fLmqHXgfXWdcI3CFS5D5zQf2wZhc5Ori4jlNMPsW2SP2J3ze50thjX+kLOTKu96AHiW7sA==
+  dependencies:
+    "@oclif/core" "^2.8.0"
+    "@salesforce/core" "^3.34.6"
+    "@salesforce/kit" "^1.9.0"
+    "@salesforce/ts-types" "^1.7.3"
+    chalk "^4"
+    inquirer "^8.2.5"
 
 "@salesforce/source-deploy-retrieve@^7.0.1":
   version "7.5.7"
@@ -2663,7 +2676,7 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
+chalk@^4, chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -5487,6 +5500,27 @@ inquirer@^8.0.0:
   version "8.2.4"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.4.tgz#ddbfe86ca2f67649a67daa6f1051c128f684f0b4"
   integrity sha512-nn4F01dxU8VeKfq192IjLsxu0/OmMZ4Lg3xKAns148rCaXP6ntAoEkVYZThWjwON8AlzdZZi6oqnhNbxUG9hVg==
+  dependencies:
+    ansi-escapes "^4.2.1"
+    chalk "^4.1.1"
+    cli-cursor "^3.1.0"
+    cli-width "^3.0.0"
+    external-editor "^3.0.3"
+    figures "^3.0.0"
+    lodash "^4.17.21"
+    mute-stream "0.0.8"
+    ora "^5.4.1"
+    run-async "^2.4.0"
+    rxjs "^7.5.5"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+    through "^2.3.6"
+    wrap-ansi "^7.0.0"
+
+inquirer@^8.2.5:
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.5.tgz#d8654a7542c35a9b9e069d27e2df4858784d54f8"
+  integrity sha512-QAgPDQMEgrDssk1XiwwHoOGYF9BAbUcc1+j+FhEvaOt8/cKRqyLn0U5qA6F74fGhTMGxf92pOvPBeh29jQJDTQ==
   dependencies:
     ansi-escapes "^4.2.1"
     chalk "^4.1.1"
