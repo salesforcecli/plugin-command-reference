@@ -26,6 +26,8 @@ coverage
 docs
 
 # -- CLEAN ALL
+.eslintcache
+.wireit
 node_modules
 
 # --

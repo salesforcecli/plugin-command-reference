@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as mkdirp from 'mkdirp';
+import * as fs from 'fs';
 import {
   asString,
   Dictionary,
@@ -44,9 +44,7 @@ export class Docs {
   ) {}
 
   public async build(commands: CommandClass[]): Promise<void> {
-    // Create if doesn't exist
-    await mkdirp(this.outputDir);
-
+    await fs.promises.mkdir(this.outputDir, { recursive: true });
     await this.populateTemplate(commands);
   }
 

@@ -7,7 +7,6 @@
 
 import { dirname, join } from 'path';
 import * as fs from 'fs/promises';
-import * as mkdirp from 'mkdirp';
 import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
 import * as hb from 'handlebars';
@@ -35,7 +34,7 @@ hb.registerHelper('isCodeBlock', function (this: any, val, options) {
     : options.inverse(this);
 });
 
-hb.registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
+hb.registerHelper('nextVersion', (value: string) => parseInt(value, 2) + 1);
 
 export abstract class Ditamap {
   public static SUFFIX = 'unified';
@@ -87,7 +86,7 @@ export abstract class Ditamap {
   }
 
   public async write() {
-    await mkdirp(dirname(this.destination));
+    await fs.mkdir(dirname(this.destination), { recursive: true });
     const output = await this.transformToDitamap();
 
     await fs.writeFile(this.destination, output);
