@@ -25,19 +25,18 @@ export function mergeDeep(target: Dictionary, source: Dictionary): Dictionary {
   return target;
 }
 
-export function punctuate(description: string): string {
+export function punctuate(description: undefined): undefined;
+export function punctuate(description: string): string;
+export function punctuate(description: string | undefined): string | undefined;
+export function punctuate(description?: string): string | undefined {
   if (!description) return description;
 
   const lines = description.split(EOL);
-  let mainDescription = lines[0];
+  const firstLine = lines[0];
 
-  mainDescription = mainDescription.charAt(0).toUpperCase() + mainDescription.substring(1);
+  const mainDescription = firstLine.charAt(0).toUpperCase() + firstLine.substring(1);
 
-  if (mainDescription.charAt(mainDescription.length - 1) !== '.') {
-    mainDescription += '.';
-  }
-
-  return mainDescription;
+  return mainDescription.endsWith('.') ? mainDescription : `${mainDescription}.`;
 }
 
 export function helpFromDescription(description: string): string {

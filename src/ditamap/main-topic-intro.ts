@@ -6,7 +6,7 @@
  */
 
 import { join } from 'path';
-import { AnyJson, asString, ensureJsonMap, JsonMap } from '@salesforce/ts-types';
+import { AnyJson, ensureJsonMap, ensureString, JsonMap } from '@salesforce/ts-types';
 import { punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
@@ -14,8 +14,8 @@ export class MainTopicIntro extends Ditamap {
   public constructor(topic: string, subtopic: string, subTopicMeta: JsonMap) {
     const filename = Ditamap.file(`cli_reference_${topic}_${subtopic}`, 'xml');
 
-    let trailblazerCommunityUrl: AnyJson;
-    let trailblazerCommunityName: AnyJson;
+    let trailblazerCommunityUrl: AnyJson | undefined;
+    let trailblazerCommunityName: AnyJson | undefined;
     if (subTopicMeta.trailblazerCommunityLink) {
       const community = ensureJsonMap(subTopicMeta.trailblazerCommunityLink);
       trailblazerCommunityUrl = community.url;
@@ -23,7 +23,7 @@ export class MainTopicIntro extends Ditamap {
     }
 
     if (!subTopicMeta.longDescription && !subTopicMeta.external) {
-      subTopicMeta.longDescription = punctuate(asString(subTopicMeta.description));
+      subTopicMeta.longDescription = punctuate(ensureString(subTopicMeta.description));
     }
 
     super(filename, {
@@ -39,6 +39,7 @@ export class MainTopicIntro extends Ditamap {
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'main_topic_intro.hbs';
   }

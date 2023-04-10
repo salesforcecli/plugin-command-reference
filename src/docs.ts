@@ -6,17 +6,9 @@
  */
 
 import * as fs from 'fs';
-import {
-  asString,
-  Dictionary,
-  ensure,
-  ensureArray,
-  ensureJsonMap,
-  ensureString,
-  isArray,
-  JsonMap,
-} from '@salesforce/ts-types';
+import { asString, Dictionary, ensure, ensureJsonMap, ensureString, isArray, JsonMap } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
+import { ensureArray } from '@salesforce/kit';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
@@ -55,7 +47,7 @@ export class Docs {
     );
     let description = asString(topicMeta.description);
     if (!description && !topicMeta.external) {
-      description = punctuate(asString(topicMeta.description));
+      description = punctuate(topicMeta.description as string);
       if (!description) {
         events.emit(
           'warning',
@@ -63,7 +55,7 @@ export class Docs {
             topic
           )}. Skipping until topic owner adds topic metadata in the oclif section in the package.json file within their plugin.`
         );
-        return;
+        return [];
       }
     }
 
@@ -80,7 +72,8 @@ export class Docs {
           // If it is not subtopic (array) it is a command in the top-level topic
           const command = Object.assign({}, subtopicOrCommand);
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, 1);
-          await this.populateCommand(topic, null, command, commandMeta);
+          // eslint-disable-next-line no-await-in-loop
+          await this.populateCommand(topic, command, commandMeta);
           commandIds.push(command.id);
           continue;
         }
@@ -97,13 +90,17 @@ export class Docs {
         // Commands within the sub topic
         for (const command of subtopicOrCommand) {
           const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
-          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).indexOf(fullTopic) === 0);
+          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).startsWith(fullTopic));
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
-          await this.populateCommand(topic, subtopic, command, commandMeta);
+          // eslint-disable-next-line no-await-in-loop
+          await this.populateCommand(topic, command, commandMeta);
           commandIds.push(command.id);
         }
       } catch (error) {
+        if (!(error instanceof Error)) {
+          throw error;
+        }
         if (error.name === 'UnexpectedValueTypeError') {
           emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
         } else {
@@ -142,7 +139,7 @@ export class Docs {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
-        const topics = topLevelTopics[topLevelTopic] || {};
+        const topics = topLevelTopics[topLevelTopic] ?? {};
 
         if (commandParts.length === 1) {
           // This is a top-level topic that is also a command
@@ -162,15 +159,7 @@ export class Docs {
           } catch (e) {} // It means no meta so it isn't hidden, although it should always fail before here with no meta found
 
           command.subtopic = subtopic;
-
-          const existingSubTopics = topics[subtopic];
-          let subtopicCommands = [];
-          if (existingSubTopics) {
-            subtopicCommands = isArray(existingSubTopics) ? existingSubTopics : [existingSubTopics];
-          }
-          ensureArray(subtopicCommands);
-          subtopicCommands.push(command);
-          topics[subtopic] = subtopicCommands;
+          topics[subtopic] = ensureArray(topics[subtopic]).concat([command]);
         }
 
         topLevelTopics[topLevelTopic] = topics;
@@ -193,15 +182,16 @@ export class Docs {
     for (const topic of topics) {
       events.emit('topic', { topic });
       const subtopics = ensure(topicsAndSubtopics[topic]);
+      // eslint-disable-next-line no-await-in-loop
       await this.populateTopic(topic, subtopics);
     }
   }
 
-  private resolveCommandMeta(commandId: string, command, commandsInTopic: number) {
+  private resolveCommandMeta(commandId: string, command: CommandClass, commandsInTopic: number) {
     const commandMeta = Object.assign({}, this.cliMeta);
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
-    let part;
+    let part: string | undefined;
     try {
       let currentMeta: JsonMap | undefined;
       for (part of commandParts) {
@@ -216,31 +206,27 @@ export class Docs {
         Object.assign({}, commandMeta, currentMeta);
       }
     } catch (error) {
-      if (commandId.endsWith(part)) {
+      if (part && commandId.endsWith(part)) {
         // This means there wasn't meta information going all the way down to the command, which is ok.
         return commandMeta;
-      } else {
-        if (commandsInTopic !== 1) {
-          events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
-        } else {
-          // Since there is no command meta, just use the command description since that is what oclif does.
-          if (!commandMeta.description) {
-            commandMeta.description = command.description;
-            commandMeta.longDescription = command.longDescription || punctuate(command.description);
-          }
-        }
+      } else if (commandsInTopic !== 1) {
+        events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
+      } else if (!commandMeta.description) {
+        // Since there is no command meta, just use the command description since that is what oclif does.
+        commandMeta.description = command.description;
+        commandMeta.longDescription = command.longDescription ?? punctuate(command.description);
       }
     }
     return commandMeta;
   }
 
-  private async populateCommand(topic: string, subtopic: string, command: CommandClass, commandMeta: JsonMap) {
+  private async populateCommand(topic: string, command: CommandClass, commandMeta: JsonMap) {
     // If it is a hidden command - abort
     if (command.hidden && !this.hidden) {
       return '';
     }
 
-    const commandDitamap = new Command(topic, subtopic, command, commandMeta);
+    const commandDitamap = new Command(topic, command, commandMeta);
     await commandDitamap.write();
     return commandDitamap.getFilename();
   }

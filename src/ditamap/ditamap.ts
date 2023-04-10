@@ -92,10 +92,6 @@ export abstract class Ditamap {
     await fs.writeFile(this.destination, output);
   }
 
-  protected formatParagraphs(textToFormat?: string) {
-    return textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];
-  }
-
   /**
    * Applies the named handlebars template to the supplied data
    *
@@ -110,3 +106,6 @@ export abstract class Ditamap {
     return template(this.data);
   }
 }
+
+export const formatParagraphs = (textToFormat?: string) =>
+  textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];

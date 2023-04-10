@@ -2,5 +2,24 @@
   "test": {
     "testsPath": "test/**/*.test.ts"
   },
-  "exclude-scripts": ["pretest"]
+  "exclude-scripts": ["pretest", "test"],
+  "wireit": {
+    "test": {
+      "dependencies": ["test:compile", "test:only", "lint"]
+    },
+    "test:only": {
+      "command": "nyc mocha \"test/**/*.test.ts\"",
+      "env": {
+        "FORCE_COLOR": "2"
+      },
+      "dependencies": ["test:command-reference"],
+      "files": ["test/**/*.ts", "src/**/*.ts", "**/tsconfig.json", ".mocha*", "!*.nut.ts", ".nycrc"],
+      "output": []
+    },
+    "test:command-reference": {
+      "command": "\"./bin/dev\" commandreference:generate --plugins login --outputdir test/tmp",
+      "files": ["src/**/*.ts", "messages/**", "package.json"],
+      "output": ["tmp/root"]
+    }
+  }
 }

@@ -30,10 +30,11 @@ export default class JitInstall extends SfCommand<void> {
     const { flags } = await this.parse(JitInstall);
 
     this.styledHeader(`Install all JIT Plugins${flags['dry-run'] ? ' (dry-run)' : ''}`);
-    for (const [plugin, version] of Object.entries(this.config.pjson.oclif.jitPlugins)) {
+    for (const [plugin, version] of Object.entries(this.config.pjson.oclif.jitPlugins ?? [])) {
       this.log(`• ${plugin} ${chalk.dim(version)}`);
       if (flags['dry-run']) continue;
       try {
+        // eslint-disable-next-line no-await-in-loop
         await this.config.runCommand('plugins:install', [`${plugin}@${version}`]);
       } catch {
         this.log(`Failed to install ${plugin} ${chalk.dim(version)}.`);

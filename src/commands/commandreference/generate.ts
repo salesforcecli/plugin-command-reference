@@ -11,7 +11,7 @@ import { readJSON, pathExists } from 'fs-extra';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Flags, Interfaces, Command } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
-import { AnyJson, Dictionary, ensure, getString, JsonMap } from '@salesforce/ts-types';
+import { AnyJson, Dictionary, ensure, getString, ensureString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
@@ -63,7 +63,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       const pJsonPath = path.join(process.cwd(), 'package.json');
       if (await pathExists(pJsonPath)) {
         const packageJson = await readJSON(pJsonPath);
-        pluginNames = [getString(packageJson, 'name')];
+        pluginNames = [ensureString(getString(packageJson, 'name'))];
       } else {
         throw new SfError(
           "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
@@ -79,7 +79,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       ];
       pluginNames = this.config.plugins.map((p) => p.name).filter((p) => !ignore.some((i) => i.test(p)));
     } else {
-      pluginNames = flags.plugins;
+      pluginNames = flags.plugins ?? [];
     }
 
     const plugins = pluginNames
@@ -108,7 +108,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     Ditamap.plugins = this.pluginMap(plugins);
     Ditamap.pluginVersions = plugins.map((name) => {
       const plugin = this.getPlugin(name);
-      const version = plugin && plugin.version;
+      const version = plugin?.version;
       if (!version) throw new Error(`No version found for plugin ${name}`);
       return { name, version };
     });
@@ -125,8 +125,8 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       this.log(chalk.green(`Generating topic '${topic}'`));
     });
 
-    const warnings = [];
-    events.on('warning', (msg) => {
+    const warnings: string[] = [];
+    events.on('warning', (msg: string) => {
       process.stderr.write(chalk.yellow(`> ${msg}\n`));
       warnings.push(msg);
     });
@@ -145,7 +145,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     const pluginToParentPlugin: JsonMap = {};
 
     const resolveChildPlugins = (parentPlugin: Interfaces.Plugin) => {
-      for (const childPlugin of parentPlugin.pjson.oclif.plugins || []) {
+      for (const childPlugin of parentPlugin.pjson.oclif.plugins ?? []) {
         pluginToParentPlugin[childPlugin] = parentPlugin.name;
         resolveChildPlugins(ensure(this.getPlugin(childPlugin)));
       }
@@ -173,9 +173,10 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     for (const cmd of this.config.commands) {
       // Only load topics for each plugin once
       if (cmd.pluginName && !plugins[cmd.pluginName]) {
-        const commandClass = await this.loadCommand(cmd);
+        // eslint-disable-next-line no-await-in-loop
+        const commandClass = await loadCommand(cmd);
 
-        if (commandClass.plugin && commandClass.plugin.pjson.oclif.topics) {
+        if (commandClass.plugin?.pjson.oclif.topics) {
           mergeDeep(topicsMeta, commandClass.plugin.pjson.oclif.topics as Dictionary);
           plugins[commandClass.plugin.name] = true;
         }
@@ -187,7 +188,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
   private async loadCommands(): Promise<CommandClass[]> {
     const promises = this.config.commands.map(async (cmd) => {
       try {
-        let commandClass = await this.loadCommand(cmd);
+        let commandClass = await loadCommand(cmd);
         let obj = Object.assign({} as JsonMap, cmd, commandClass, {
           flags: Object.assign({}, cmd.flags, commandClass.flags),
         });
@@ -196,7 +197,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
         while (commandClass !== undefined) {
           commandClass = Object.getPrototypeOf(commandClass) || undefined;
           obj = Object.assign({}, commandClass, obj, {
-            flags: Object.assign({}, commandClass && commandClass.flags, obj.flags),
+            flags: Object.assign({}, commandClass?.flags, obj.flags),
           });
         }
 
@@ -209,15 +210,14 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return uniqBy(commands, 'id');
   }
 
-  private async loadCommand(command: Command.Loadable): Promise<Command.Class> {
-    return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
-  }
-
   private loadCliMeta(): JsonMap {
     return {
-      binary: this.config.pjson.oclif.bin || 'sfdx',
+      binary: this.config.pjson.oclif.bin ?? 'sfdx',
       topicSeparator: this.config.pjson.oclif.topicSeparator,
       state: this.config.pjson.oclif.state,
     };
   }
 }
+
+const loadCommand = (command: Command.Loadable): Promise<Command.Class> =>
+  command.load.constructor.name === 'AsyncFunction' ? command.load() : command.load();

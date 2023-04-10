@@ -38,7 +38,7 @@ describe('plugin-login', () => {
   });
   it('creates with spaced commands', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
-    expect(/<title><codeph otherprops="nolang">login org jwt/.test(dita)).to.be.true;
+    expect(dita.includes('<title><codeph otherprops="nolang">login org jwt')).to.be.true;
   });
   it('creates with summary', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
@@ -46,6 +46,6 @@ describe('plugin-login', () => {
   });
   it('creates parameters', async () => {
     const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
-    expect(/<title><ph>Flags<\/ph><\/title>/.test(dita)).to.be.true;
+    expect(dita.includes('<title><ph>Flags</ph></title>')).to.be.true;
   });
 });

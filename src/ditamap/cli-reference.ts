@@ -17,6 +17,7 @@ export class CLIReference extends Ditamap {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'cli_reference_xml.hbs';
   }
