@@ -156,7 +156,9 @@ export class Docs {
             if (subTopicsMeta.hidden && !this.hidden) {
               continue;
             }
-          } catch (e) {} // It means no meta so it isn't hidden, although it should always fail before here with no meta found
+          } catch (e) {
+            // It means no meta so it isn't hidden, although it should always fail before here with no meta found
+          }
 
           command.subtopic = subtopic;
           topics[subtopic] = ensureArray(topics[subtopic]).concat([command]);

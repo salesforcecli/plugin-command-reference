@@ -5,6 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+/* eslint-disable @typescript-eslint/member-ordering */
+
 import { dirname, join } from 'path';
 import * as fs from 'fs/promises';
 import { JsonMap } from '@salesforce/ts-types';
@@ -13,8 +15,8 @@ import * as hb from 'handlebars';
 
 const debug = debugCreator('commandreference');
 
-hb.registerHelper('toUpperCase', (str) => str.toUpperCase());
-hb.registerHelper('join', (array) => array.join(', '));
+hb.registerHelper('toUpperCase', (str: string) => str.toUpperCase());
+hb.registerHelper('join', (array: unknown[]) => array.join(', '));
 hb.registerHelper('xmlFile', (...strings) => {
   const parts = strings.filter((s) => typeof s === 'string');
   return Ditamap.file(parts.join('_'), 'xml');
@@ -29,6 +31,7 @@ hb.registerHelper('uniqueId', (...strings) => {
  */
 // tslint:disable-next-line: no-any
 hb.registerHelper('isCodeBlock', function (this: any, val, options) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return val.indexOf('sf') === 0 || val.indexOf('sfdx') === 0 || val.indexOf('$') >= 0 || val.indexOf('>>') >= 0
     ? options.fn(this)
     : options.inverse(this);
@@ -52,14 +55,6 @@ export abstract class Ditamap {
     version: string;
   }>;
 
-  public static get suffix(): string {
-    return Ditamap._suffix;
-  }
-
-  public static set suffix(suffix: string) {
-    Ditamap._suffix = suffix;
-  }
-
   public static file(name: string, ext: string): string {
     return Ditamap.suffix ? `${name}_${Ditamap.suffix}.${ext}` : `${name}.${ext}`;
   }
@@ -75,17 +70,27 @@ export abstract class Ditamap {
     this.destination = join(Ditamap.outputDir, filename);
   }
 
+  public static get suffix(): string {
+    // eslint-disable-next-line no-underscore-dangle
+    return Ditamap._suffix;
+  }
+
+  public static set suffix(suffix: string) {
+    // eslint-disable-next-line no-underscore-dangle
+    Ditamap._suffix = suffix;
+  }
+
   public abstract getTemplateFileName(): string;
 
-  public getFilename() {
+  public getFilename(): string {
     return this.filename;
   }
 
-  public getOutputFilePath() {
+  public getOutputFilePath(): string {
     return this.destination;
   }
 
-  public async write() {
+  public async write(): Promise<void> {
     await fs.mkdir(dirname(this.destination), { recursive: true });
     const output = await this.transformToDitamap();
 

@@ -8,16 +8,18 @@
 import * as os from 'os';
 import * as path from 'path';
 import { readJSON, pathExists } from 'fs-extra';
-import { SfCommand } from '@salesforce/sf-plugins-core';
-import { Flags, Interfaces, Command } from '@oclif/core';
+import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
+// we're doing introspective stuff with the oclif Command stuff here, using it as a type
+// eslint-disable-next-line sf-plugin/no-oclif-flags-command-import
+import { Interfaces, Command } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
-import { AnyJson, Dictionary, ensure, getString, ensureString, JsonMap } from '@salesforce/ts-types';
+import { AnyJson, Dictionary, ensure, ensureString, JsonMap } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { events, mergeDeep, CommandClass } from '../../utils';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment
 const uniqBy = require('lodash.uniqby');
 
 // Initialize Messages with the current plugin directory
@@ -25,32 +27,33 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
 
 export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
-  public static description = messages.getMessage('commandDescription');
+  public static readonly summary = messages.getMessage('commandDescription');
+  public static readonly description = messages.getMessage('commandDescription');
 
-  public static flags = {
+  public static readonly flags = {
     outputdir: Flags.string({
       char: 'd',
-      description: messages.getMessage('outputdirFlagDescription'),
+      summary: messages.getMessage('outputdirFlagDescription'),
       default: './tmp/root',
     }),
     plugins: Flags.string({
       char: 'p',
-      description: messages.getMessage('pluginFlagDescription'),
+      summary: messages.getMessage('pluginFlagDescription'),
       multiple: true,
       exclusive: ['all'],
     }),
     all: Flags.boolean({
       char: 'a',
-      description: messages.getMessage('allFlagDescription'),
+      summary: messages.getMessage('allFlagDescription'),
       exclusive: ['plugins'],
     }),
     'ditamap-suffix': Flags.string({
       char: 's',
-      description: messages.getMessage('ditamapSuffixFlagDescription'),
+      summary: messages.getMessage('ditamapSuffixFlagDescription'),
       default: Ditamap.SUFFIX,
     }),
-    hidden: Flags.boolean({ description: messages.getMessage('hiddenFlagDescription') }),
-    erroronwarnings: Flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') }),
+    hidden: Flags.boolean({ summary: messages.getMessage('hiddenFlagDescription') }),
+    erroronwarnings: Flags.boolean({ summary: messages.getMessage('erroronwarningFlagDescription') }),
   };
 
   public async run(): Promise<AnyJson> {
@@ -62,8 +65,8 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     if (!flags.plugins && !flags.all) {
       const pJsonPath = path.join(process.cwd(), 'package.json');
       if (await pathExists(pJsonPath)) {
-        const packageJson = await readJSON(pJsonPath);
-        pluginNames = [ensureString(getString(packageJson, 'name'))];
+        const packageJson = (await readJSON(pJsonPath)) as unknown as { name: string };
+        pluginNames = [ensureString(packageJson.name)];
       } else {
         throw new SfError(
           "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
@@ -121,7 +124,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       this.loadCliMeta()
     );
 
-    events.on('topic', ({ topic }) => {
+    events.on('topic', ({ topic }: { topic: string }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
     });
 
@@ -141,7 +144,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return { warnings };
   }
 
-  private pluginMap(plugins: string[]) {
+  private pluginMap(plugins: string[]): JsonMap {
     const pluginToParentPlugin: JsonMap = {};
 
     const resolveChildPlugins = (parentPlugin: Interfaces.Plugin) => {
@@ -162,7 +165,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return pluginToParentPlugin;
   }
 
-  private getPlugin(pluginName: string) {
+  private getPlugin(pluginName: string): Interfaces.Plugin | undefined {
     return this.config.plugins.find((info) => info.name === pluginName);
   }
 
@@ -195,7 +198,8 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
 
         // Load all properties on all extending classes.
         while (commandClass !== undefined) {
-          commandClass = Object.getPrototypeOf(commandClass) || undefined;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          commandClass = Object.getPrototypeOf(commandClass) ?? undefined;
           obj = Object.assign({}, commandClass, obj, {
             flags: Object.assign({}, commandClass?.flags, obj.flags),
           });
@@ -207,6 +211,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       }
     });
     const commands = await Promise.all(promises);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return uniqBy(commands, 'id');
   }
 

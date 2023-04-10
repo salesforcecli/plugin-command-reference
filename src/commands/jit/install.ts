@@ -9,11 +9,7 @@ import { Messages } from '@salesforce/core';
 import * as chalk from 'chalk';
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.load('@salesforce/plugin-command-reference', 'jit.install', [
-  'summary',
-  'examples',
-  'flags.dry-run.summary',
-]);
+const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'jit.install');
 
 export default class JitInstall extends SfCommand<void> {
   public static readonly summary = messages.getMessage('summary');
