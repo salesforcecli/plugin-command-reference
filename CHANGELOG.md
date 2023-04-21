@@ -1,3 +1,12 @@
+## [1.6.13](https://github.com/forcedotcom/plugin-command-reference/compare/1.6.12...1.6.13) (2023-04-21)
+
+
+### Bug Fixes
+
+* **deps:** bump vm2 from 3.9.16 to 3.9.17 ([fb93914](https://github.com/forcedotcom/plugin-command-reference/commit/fb93914b123be4a6aaa30218712778459d81ccbc))
+
+
+
 ## [1.6.12](https://github.com/forcedotcom/plugin-command-reference/compare/1.6.11...1.6.12) (2023-04-13)
 
 
