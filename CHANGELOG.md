@@ -1,3 +1,12 @@
+## [1.6.14](https://github.com/forcedotcom/plugin-command-reference/compare/1.6.13...1.6.14) (2023-04-23)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/command from 5.3.5 to 5.3.6 ([47bf0aa](https://github.com/forcedotcom/plugin-command-reference/commit/47bf0aa0b65a10efac8932ec7ece284af5918801))
+
+
+
 ## [1.6.13](https://github.com/forcedotcom/plugin-command-reference/compare/1.6.12...1.6.13) (2023-04-21)
 
 
