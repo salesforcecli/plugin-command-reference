@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@salesforce/dev-config": "^3.1.0",
-    "@salesforce/dev-scripts": "^3.1.1",
+    "@salesforce/dev-scripts": "^4.3.0",
     "@salesforce/plugin-alias": "^2.2.4",
     "@salesforce/plugin-signups": "^1.2.17",
     "@salesforce/prettier-config": "^0.0.2",
@@ -45,7 +45,8 @@
     "semantic-release": "^17.4.7",
     "sinon": "10.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "wireit": "^0.9.5"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -80,22 +81,126 @@
   },
   "repository": "forcedotcom/plugin-command-reference",
   "scripts": {
-    "build": "sf-build",
+    "build": "wireit",
     "clean": "sf-clean",
     "clean-all": "sf-clean all",
-    "compile": "sf-compile",
+    "compile": "wireit",
     "docs": "sf-docs",
-    "format": "sf-format",
-    "lint": "sf-lint",
+    "format": "wireit",
+    "lint": "wireit",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
     "prepack": "sf-prepack",
     "prepare": "sf-install",
-    "pretest": "sf-compile-test",
-    "test": "sf-test",
+    "test": "wireit",
+    "test:only": "wireit",
     "version": "oclif-dev readme && git add README.md"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "compile",
+        "lint"
+      ]
+    },
+    "compile": {
+      "command": "tsc -p . --pretty --incremental",
+      "files": [
+        "src/**/*.ts",
+        "**/tsconfig.json",
+        "messages/**"
+      ],
+      "output": [
+        "lib/**",
+        "*.tsbuildinfo"
+      ],
+      "clean": "if-file-deleted"
+    },
+    "format": {
+      "command": "prettier --write \"+(src|test|schemas)/**/*.+(ts|js|json)|command-snapshot.json\"",
+      "files": [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "schemas/**/*.json",
+        "command-snapshot.json",
+        ".prettier*"
+      ],
+      "output": []
+    },
+    "lint": {
+      "command": "eslint src test --color --cache --cache-location .eslintcache",
+      "files": [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "messages/**",
+        "**/.eslint*",
+        "**/tsconfig.json"
+      ],
+      "output": []
+    },
+    "test:compile": {
+      "command": "tsc -p \"./test\" --pretty",
+      "files": [
+        "test/**/*.ts",
+        "**/tsconfig.json"
+      ],
+      "output": []
+    },
+    "test": {
+      "dependencies": [
+        "test:compile",
+        "test:only",
+        "test:command-reference",
+        "test:deprecation-policy",
+        "lint",
+        "test:json-schema"
+      ]
+    },
+    "test:only": {
+      "command": "nyc mocha \"test/**/*.test.ts\"",
+      "env": {
+        "FORCE_COLOR": "2"
+      },
+      "files": [
+        "test/**/*.ts",
+        "src/**/*.ts",
+        "**/tsconfig.json",
+        ".mocha*",
+        "!*.nut.ts",
+        ".nycrc"
+      ],
+      "output": []
+    },
+    "test:command-reference": {
+      "command": "\"./bin/dev\" commandreference:generate --erroronwarnings",
+      "files": [
+        "src/**/*.ts",
+        "messages/**",
+        "package.json"
+      ],
+      "output": [
+        "tmp/root"
+      ]
+    },
+    "test:deprecation-policy": {
+      "command": "\"./bin/dev\" snapshot:compare",
+      "files": [
+        "src/**/*.ts"
+      ],
+      "output": [],
+      "dependencies": [
+        "compile"
+      ]
+    },
+    "test:json-schema": {
+      "command": "\"./bin/dev\" schema:compare",
+      "files": [
+        "src/**/*.ts",
+        "schemas"
+      ],
+      "output": []
+    }
   }
 }
