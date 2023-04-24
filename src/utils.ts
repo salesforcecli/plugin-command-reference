@@ -7,10 +7,10 @@
 
 import { EventEmitter } from 'events';
 import { EOL } from 'os';
-import { Dictionary, isObject, JsonMap } from '@salesforce/ts-types';
+import { Dictionary, isObject } from '@salesforce/ts-types';
 import { Command } from '@oclif/core';
 
-export type CommandClass = Command.Class & { topic: string; subtopic: string } & JsonMap;
+export type CommandClass = Command.Class & { topic: string; subtopic: string } & Record<string, unknown>;
 
 export const events = new EventEmitter();
 
@@ -25,7 +25,7 @@ export function mergeDeep(target: Dictionary, source: Dictionary): Dictionary {
   return target;
 }
 
-export function punctuate(description: string): string {
+export function punctuate(description?: string): string | undefined {
   if (!description) return description;
 
   const lines = description.split(EOL);
@@ -33,7 +33,7 @@ export function punctuate(description: string): string {
 
   mainDescription = mainDescription.charAt(0).toUpperCase() + mainDescription.substring(1);
 
-  if (mainDescription.charAt(mainDescription.length - 1) !== '.') {
+  if (!mainDescription.endsWith('.')) {
     mainDescription += '.';
   }
 

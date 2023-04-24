@@ -16,6 +16,7 @@ export class HelpReference extends Ditamap {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'cli_reference_help.hbs';
   }
