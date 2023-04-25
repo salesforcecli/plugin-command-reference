@@ -25,7 +25,7 @@ function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
 }
 
-describe('plugin-login', () => {
+describe('plugin-auth', () => {
   const resolvedPath = resolve(process.cwd(), testFilesPath);
   before(async () => {
     try {

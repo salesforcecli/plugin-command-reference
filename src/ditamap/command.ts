@@ -68,10 +68,17 @@ export class Command extends Ditamap {
 
     const commandName = command.id.replace(/:/g, asString(commandMeta.topicSeparator, ':'));
 
-    const examples = ((command.examples as string[]) || []).map((example) => {
-      const parts = example.split('\n');
-      const desc = parts.length > 1 ? parts[0] : null;
-      const commands = parts.length > 1 ? parts.slice(1) : [parts[0]];
+    const examples = (command.examples ?? []).map((example) => {
+      let desc: string | null = null;
+      let commands: string[] = [];
+      if (typeof example === 'string') {
+        const parts = example.split('\n');
+        desc = parts.length > 1 ? parts[0] : null;
+        commands = parts.length > 1 ? parts.slice(1) : [parts[0]];
+      } else {
+        desc = example.description;
+        commands = [example.command];
+      }
 
       return {
         description: desc,
