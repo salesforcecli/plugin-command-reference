@@ -12,11 +12,9 @@ import {
   Dictionary,
   ensure,
   ensureArray,
-  ensureJsonMap,
   ensureObject,
   ensureString,
   isArray,
-  JsonMap,
 } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap';
@@ -57,7 +55,7 @@ export class Docs {
       throw new Error(`No topic meta for ${topic} - add this topic to the oclif section of the package.json.`);
     }
 
-    const topicMeta: JsonMap = (this.topicMeta[topic] ?? {}) as JsonMap;
+    const topicMeta: Record<string, unknown> = (this.topicMeta[topic] ?? {}) as Record<string, unknown>;
 
     let description = asString(topicMeta.description);
     if (!description && !topicMeta.external) {
@@ -93,7 +91,7 @@ export class Docs {
           continue;
         }
 
-        const subTopicsMeta = ensureJsonMap(topicMeta.subtopics);
+        const subTopicsMeta = ensureObject<Record<string, unknown>>(topicMeta.subtopics);
 
         if (!subTopicsMeta[subtopic]) {
           emitNoTopicMetadataWarning(`${topic}:${subtopic}`);

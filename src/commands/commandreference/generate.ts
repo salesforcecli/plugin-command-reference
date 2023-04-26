@@ -12,7 +12,7 @@ import * as path from 'path';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Command, Flags, Interfaces } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
-import { AnyJson, ensure, ensureString, JsonMap } from '@salesforce/ts-types';
+import { AnyJson, ensure, ensureString } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { parseJsonMap } from '@salesforce/kit';
 import { Ditamap } from '../../ditamap/ditamap';
@@ -167,9 +167,9 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return this.config.plugins.find((info) => info.name === pluginName);
   }
 
-  private async loadTopicMetadata(): Promise<JsonMap> {
-    const plugins: JsonMap = {};
-    const topicsMeta: JsonMap = {};
+  private async loadTopicMetadata(): Promise<Record<string, unknown>> {
+    const plugins: Record<string, unknown> = {};
+    const topicsMeta: Record<string, unknown> = {};
 
     for (const cmd of this.config.commands) {
       // Only load topics for each plugin once
@@ -224,7 +224,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
   }
 
-  private loadCliMeta(): JsonMap {
+  private loadCliMeta(): Record<string, unknown> {
     return {
       binary: this.config.pjson.oclif.bin ?? 'sfdx',
       topicSeparator: this.config.pjson.oclif.topicSeparator,

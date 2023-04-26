@@ -6,7 +6,7 @@
  */
 
 import { join } from 'path';
-import { asString, Dictionary, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
+import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
 import { CommandClass, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
@@ -110,7 +110,7 @@ export class Command extends Ditamap {
       isBetaCommand: state === 'beta',
       trailblazerCommunityUrl,
       trailblazerCommunityName,
-    }) as JsonMap;
+    }) as Record<string, unknown>;
 
     this.destination = join(Ditamap.outputDir, topic, filename);
   }

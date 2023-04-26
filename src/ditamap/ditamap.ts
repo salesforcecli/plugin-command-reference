@@ -7,7 +7,6 @@
 
 import { dirname, join } from 'path';
 import * as fs from 'fs/promises';
-import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
 import * as hb from 'handlebars';
 import { HelperOptions } from 'handlebars';
@@ -59,7 +58,7 @@ export abstract class Ditamap {
 
   private readonly source: string;
 
-  public constructor(private filename: string, protected data: JsonMap) {
+  public constructor(private filename: string, protected data: Record<string, unknown>) {
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }

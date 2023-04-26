@@ -6,18 +6,21 @@
  */
 
 import { join } from 'path';
-import { asString, ensureJsonMap, JsonMap } from '@salesforce/ts-types';
+import { asString, ensureObject } from '@salesforce/ts-types';
 import { punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
 export class MainTopicIntro extends Ditamap {
-  public constructor(topic: string, subtopic: string, subTopicMeta: JsonMap) {
+  public constructor(topic: string, subtopic: string, subTopicMeta: Record<string, unknown>) {
     const filename = Ditamap.file(`cli_reference_${topic}_${subtopic}`, 'xml');
 
     let trailblazerCommunityUrl: string | undefined;
     let trailblazerCommunityName: string | undefined;
     if (subTopicMeta.trailblazerCommunityLink) {
-      const community = ensureJsonMap(subTopicMeta.trailblazerCommunityLink) as { url: string; name: string };
+      const community = ensureObject<Record<string, unknown>>(subTopicMeta.trailblazerCommunityLink) as {
+        url: string;
+        name: string;
+      };
       trailblazerCommunityUrl = community.url ?? 'unknown';
       trailblazerCommunityName = community.name ?? 'unknown';
     }
