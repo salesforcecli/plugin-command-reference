@@ -13,6 +13,7 @@ import {
   ensure,
   ensureArray,
   ensureJsonMap,
+  ensureObject,
   ensureString,
   isArray,
   JsonMap,
@@ -38,10 +39,10 @@ function emitNoTopicMetadataWarning(topic: string): void {
 export class Docs {
   public constructor(
     private outputDir: string,
-    private plugins: JsonMap,
+    private plugins: Record<string, unknown>,
     private hidden: boolean,
-    private topicMeta: JsonMap,
-    private cliMeta: JsonMap
+    private topicMeta: Record<string, unknown>,
+    private cliMeta: Record<string, unknown>
   ) {}
 
   public async build(commands: CommandClass[]): Promise<void> {
@@ -164,8 +165,8 @@ export class Docs {
           const subtopic = commandParts[1];
 
           try {
-            const topicMeta = ensureJsonMap(this.topicMeta[topLevelTopic]);
-            const subTopicsMeta = ensureJsonMap(topicMeta.subtopics);
+            const topicMeta = ensureObject<Record<string, unknown>>(this.topicMeta[topLevelTopic]);
+            const subTopicsMeta = ensureObject<Record<string, unknown>>(topicMeta.subtopics);
             if (subTopicsMeta.hidden && !this.hidden) {
               continue;
             }
@@ -210,19 +211,23 @@ export class Docs {
     }
   }
 
-  private resolveCommandMeta(commandId: string, command: CommandClass, commandsInTopic: number): JsonMap {
+  private resolveCommandMeta(
+    commandId: string,
+    command: CommandClass,
+    commandsInTopic: number
+  ): Record<string, unknown> {
     const commandMeta = Object.assign({}, this.cliMeta);
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
     let part;
     try {
-      let currentMeta: JsonMap | undefined;
+      let currentMeta: Record<string, unknown> | undefined;
       for (part of commandParts) {
         if (currentMeta) {
-          const subtopics = ensureJsonMap(currentMeta.subtopics);
-          currentMeta = ensureJsonMap(subtopics[part]);
+          const subtopics = ensureObject<Record<string, unknown>>(currentMeta.subtopics);
+          currentMeta = ensureObject<Record<string, unknown>>(subtopics[part]);
         } else {
-          currentMeta = ensureJsonMap(this.topicMeta[part]);
+          currentMeta = ensureObject<Record<string, unknown>>(this.topicMeta[part]);
         }
 
         // Collect all tiers of the meta, so the command will also pick up the topic state (isPilot, etc) if applicable
@@ -249,7 +254,7 @@ export class Docs {
     topic: string,
     subtopic: string | null,
     command: CommandClass,
-    commandMeta: JsonMap
+    commandMeta: Record<string, unknown>
   ): Promise<string> {
     // If it is a hidden command - abort
     if (command.hidden && !this.hidden) {

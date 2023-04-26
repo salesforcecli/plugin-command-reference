@@ -46,7 +46,7 @@ export abstract class Ditamap {
 
   public static cliVersion: string;
 
-  public static plugins: JsonMap;
+  public static plugins: Record<string, unknown>;
 
   public static pluginVersions: Array<{
     name: string;

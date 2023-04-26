@@ -6,6 +6,7 @@
  */
 
 import * as fs from 'fs/promises';
+import { existsSync } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import { SfCommand } from '@salesforce/sf-plugins-core';
@@ -21,12 +22,6 @@ import { CommandClass, events } from '../../utils';
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
-
-const fileExists = async (filePath: string): Promise<boolean> =>
-  fs
-    .stat(filePath)
-    .then(() => true)
-    .catch(() => false);
 
 export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
   public static description = messages.getMessage('commandDescription');
@@ -65,7 +60,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     let pluginNames: string[];
     if (!flags.plugins && !flags.all) {
       const pJsonPath = path.join(process.cwd(), 'package.json');
-      if (await fileExists(pJsonPath)) {
+      if (existsSync(pJsonPath)) {
         const packageJson = parseJsonMap(await fs.readFile(pJsonPath, 'utf-8'));
         pluginNames = [ensureString(packageJson.name)];
       } else {
@@ -125,8 +120,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
       this.loadCliMeta()
     );
 
-    events.on('topic', ({ topic }) => {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    events.on('topic', ({ topic }: { topic: string }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
     });
 
@@ -148,8 +142,8 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return { warnings };
   }
 
-  private pluginMap(plugins: string[]): JsonMap {
-    const pluginToParentPlugin: JsonMap = {};
+  private pluginMap(plugins: string[]): Record<string, unknown> {
+    const pluginToParentPlugin: Record<string, unknown> = {};
 
     const resolveChildPlugins = (parentPlugin: Interfaces.Plugin): void => {
       for (const childPlugin of parentPlugin.pjson.oclif.plugins ?? []) {

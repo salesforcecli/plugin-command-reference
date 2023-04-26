@@ -40,7 +40,12 @@ const getDefault = async (flag?: CommandHelpInfo): Promise<string> => {
 export class Command extends Ditamap {
   private flags: Dictionary<CommandHelpInfo>;
 
-  public constructor(topic: string, subtopic: string | null, command: CommandClass, commandMeta: JsonMap = {}) {
+  public constructor(
+    topic: string,
+    subtopic: string | null,
+    command: CommandClass,
+    commandMeta: Record<string, unknown> = {}
+  ) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
 
@@ -69,8 +74,8 @@ export class Command extends Ditamap {
     const commandName = command.id.replace(/:/g, asString(commandMeta.topicSeparator, ':'));
 
     const examples = (command.examples ?? []).map((example) => {
-      let desc: string | null = null;
-      let commands: string[] = [];
+      let desc: string | null;
+      let commands: string[];
       if (typeof example === 'string') {
         const parts = example.split('\n');
         desc = parts.length > 1 ? parts[0] : null;
