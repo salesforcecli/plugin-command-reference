@@ -142,8 +142,8 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
     return { warnings };
   }
 
-  private pluginMap(plugins: string[]): Record<string, unknown> {
-    const pluginToParentPlugin: Record<string, unknown> = {};
+  private pluginMap(plugins: string[]): Record<string, string> {
+    const pluginToParentPlugin: Record<string, string> = {};
 
     const resolveChildPlugins = (parentPlugin: Interfaces.Plugin): void => {
       for (const childPlugin of parentPlugin.pjson.oclif.plugins ?? []) {
@@ -168,7 +168,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
   }
 
   private async loadTopicMetadata(): Promise<Record<string, unknown>> {
-    const plugins: Record<string, unknown> = {};
+    const plugins: Record<string, boolean> = {};
     const topicsMeta: Record<string, unknown> = {};
 
     for (const cmd of this.config.commands) {
