@@ -177,7 +177,12 @@ export class Docs {
           const existingSubTopics = topics[subtopic];
           let subtopicCommands: CommandClass[] = [];
           if (existingSubTopics) {
-            subtopicCommands = ensureArray(existingSubTopics);
+            subtopicCommands = ensureArray(
+              existingSubTopics,
+              `existingSubTopics is not an array subtopic: ${subtopic} ${JSON.stringify(
+                Object.keys(existingSubTopics)
+              )}`
+            );
           }
           ensureArray(subtopicCommands);
           subtopicCommands.push(command);

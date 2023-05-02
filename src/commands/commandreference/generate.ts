@@ -5,16 +5,14 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as fs from 'fs/promises';
-import { existsSync } from 'fs';
 import * as os from 'os';
-import * as path from 'path';
-import { SfCommand } from '@salesforce/sf-plugins-core';
-import { Command, Flags, Interfaces } from '@oclif/core';
+import { resolve } from 'path';
+import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
+// eslint-disable-next-line sf-plugin/no-oclif-flags-command-import
+import { Config, Interfaces, Command } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
-import { AnyJson, ensure, ensureString } from '@salesforce/ts-types';
+import { AnyJson, ensure } from '@salesforce/ts-types';
 import chalk = require('chalk');
-import { parseJsonMap } from '@salesforce/kit';
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { CommandClass, events } from '../../utils';
@@ -23,51 +21,63 @@ import { CommandClass, events } from '../../utils';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
 
-export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
-  public static description = messages.getMessage('commandDescription');
+export type CommandReferenceGenerateResults = {
+  warnings: AnyJson[];
+};
 
-  public static flags = {
-    outputdir: Flags.string({
+export default class CommandReferenceGenerate extends SfCommand<CommandReferenceGenerateResults> {
+  public static readonly summary = messages.getMessage('commandSummary');
+  public static readonly description = messages.getMessage('commandDescription');
+  public static readonly examples = messages.getMessages('examples');
+
+  public static readonly flags = {
+    'output-dir': Flags.string({
       char: 'd',
-      description: messages.getMessage('outputdirFlagDescription'),
+      summary: messages.getMessage('outputdirFlagSummary'),
+      aliases: ['outputdir'],
+      deprecateAliases: true,
       default: './tmp/root',
     }),
     plugins: Flags.string({
       char: 'p',
-      description: messages.getMessage('pluginFlagDescription'),
+      summary: messages.getMessage('pluginFlagSummary'),
       multiple: true,
       exclusive: ['all'],
     }),
     all: Flags.boolean({
       char: 'a',
-      description: messages.getMessage('allFlagDescription'),
+      summary: messages.getMessage('allFlagSummary'),
       exclusive: ['plugins'],
     }),
     'ditamap-suffix': Flags.string({
       char: 's',
-      description: messages.getMessage('ditamapSuffixFlagDescription'),
+      summary: messages.getMessage('ditamapSuffixFlagSummary'),
       default: Ditamap.SUFFIX,
     }),
-    hidden: Flags.boolean({ description: messages.getMessage('hiddenFlagDescription') }),
-    erroronwarnings: Flags.boolean({ description: messages.getMessage('erroronwarningFlagDescription') }),
+    hidden: Flags.boolean({ summary: messages.getMessage('hiddenFlagSummary') }),
+    'error-on-warnings': Flags.boolean({
+      summary: messages.getMessage('erroronwarningFlagSummary'),
+      aliases: ['erroronwarnings'],
+      deprecateAliases: true,
+    }),
+    'config-path': Flags.directory({
+      summary: messages.getMessage('configPathFlagSummary'),
+      char: 'c',
+    }),
   };
 
-  public async run(): Promise<AnyJson> {
+  private loadedConfig!: Interfaces.Config;
+
+  public async run(): Promise<CommandReferenceGenerateResults> {
     const { flags } = await this.parse(CommandReferenceGenerate);
 
     Ditamap.suffix = flags['ditamap-suffix'];
 
+    this.loadedConfig = flags['config-path'] ? await Config.load(resolve(flags['config-path'])) : this.config;
+
     let pluginNames: string[];
     if (!flags.plugins && !flags.all) {
-      const pJsonPath = path.join(process.cwd(), 'package.json');
-      if (existsSync(pJsonPath)) {
-        const packageJson = parseJsonMap(await fs.readFile(pJsonPath, 'utf-8'));
-        pluginNames = [ensureString(packageJson.name)];
-      } else {
-        throw new SfError(
-          "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
-        );
-      }
+      pluginNames = this.loadedConfig.plugins.map((p) => p.name);
     } else if (flags.all) {
       const ignore = [
         /@oclif/,
@@ -76,13 +86,19 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
         /@salesforce\/plugin-telemetry/,
         /@salesforce\/plugin-command-reference/,
       ];
-      pluginNames = this.config.plugins.map((p) => p.name).filter((p) => !ignore.some((i) => i.test(p)));
+      pluginNames = this.loadedConfig.plugins.map((p) => p.name).filter((p) => !ignore.some((i) => i.test(p)));
     } else {
       pluginNames = flags.plugins ?? [];
     }
 
+    if (pluginNames.length === 0) {
+      throw new SfError(
+        "No plugins provided. Provide the '--plugins' flag or cd into a directory that contains a valid oclif plugin."
+      );
+    }
+
     const plugins = pluginNames
-      .map((plugin) => plugin.trim())
+      .map((name) => name.trim())
       .map((name) => {
         let pluginName = name;
         let plugin = this.getPlugin(pluginName);
@@ -101,9 +117,10 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
         .map((name) => `${os.EOL}  - ${name}`)
         .join(', ')}`
     );
-    Ditamap.outputDir = flags.outputdir;
 
-    Ditamap.cliVersion = this.config.version.replace(/-[0-9a-zA-Z]+$/, '');
+    Ditamap.outputDir = flags['output-dir'];
+
+    Ditamap.cliVersion = this.loadedConfig.version.replace(/-[0-9a-zA-Z]+$/, '');
     Ditamap.plugins = this.pluginMap(plugins);
     Ditamap.pluginVersions = plugins.map((name) => {
       const plugin = this.getPlugin(name);
@@ -164,14 +181,14 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
   }
 
   private getPlugin(pluginName: string): Interfaces.Plugin | undefined {
-    return this.config.plugins.find((info) => info.name === pluginName);
+    return this.loadedConfig.plugins.find((info) => info.name === pluginName);
   }
 
   private async loadTopicMetadata(): Promise<Record<string, unknown>> {
     const plugins: Record<string, boolean> = {};
     const topicsMeta: Record<string, unknown> = {};
 
-    for (const cmd of this.config.commands) {
+    for (const cmd of this.loadedConfig.commands) {
       // Only load topics for each plugin once
       if (cmd.pluginName && !plugins[cmd.pluginName]) {
         // eslint-disable-next-line no-await-in-loop
@@ -187,7 +204,7 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
   }
 
   private async loadCommands(): Promise<CommandClass[]> {
-    const promises = this.config.commands.map(async (cmd): Promise<CommandClass> => {
+    const promises = this.loadedConfig.commands.map(async (cmd): Promise<CommandClass> => {
       try {
         let commandClass: Command.Class = await this.loadCommand(cmd);
         let obj = Object.assign({}, cmd, commandClass, {
@@ -226,9 +243,9 @@ export default class CommandReferenceGenerate extends SfCommand<AnyJson> {
 
   private loadCliMeta(): Record<string, unknown> {
     return {
-      binary: this.config.pjson.oclif.bin ?? 'sfdx',
-      topicSeparator: this.config.pjson.oclif.topicSeparator,
-      state: this.config.pjson.oclif.state,
+      binary: this.loadedConfig.pjson.oclif.bin ?? 'sfdx',
+      topicSeparator: this.loadedConfig.pjson.oclif.topicSeparator,
+      state: this.loadedConfig.pjson.oclif.state,
     };
   }
 }
