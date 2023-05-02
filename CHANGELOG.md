@@ -1,3 +1,12 @@
+## [2.4.2](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.1...2.4.2) (2023-05-02)
+
+
+### Bug Fixes
+
+* add strict null checks ([768de7e](https://github.com/salesforcecli/plugin-command-reference/commit/768de7e1f9fe51047833c202ef946f670c91381b))
+
+
+
 ## [2.4.1](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.0...2.4.1) (2023-02-20)
 
 
