@@ -21,7 +21,6 @@ export class CLIReferenceTopic extends Ditamap {
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'cli_reference_topic.hbs';
   }

@@ -7,7 +7,37 @@
 
 import { EOL } from 'os';
 import { expect } from 'chai';
-import { punctuate } from '../../src/utils';
+import { punctuate, mergeDeep } from '../../src/utils';
+
+it('merge two shallow objects', () => {
+  expect(mergeDeep({ a: 1 }, { b: 2 })).to.deep.equal({ a: 1, b: 2 });
+});
+
+it('merge two deeply nested objects', () => {
+  expect(
+    mergeDeep(
+      {
+        a: {
+          b: 1,
+          c: { d: 3 },
+        },
+      },
+      {
+        a: {
+          c: { e: 4 },
+        },
+      }
+    )
+  ).to.deep.equal({
+    a: {
+      b: 1,
+      c: {
+        d: 3,
+        e: 4,
+      },
+    },
+  });
+});
 
 describe('punctuate', () => {
   it('description to longDescription', () => {
