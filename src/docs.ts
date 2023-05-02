@@ -5,16 +5,16 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as mkdirp from 'mkdirp';
+import * as fs from 'fs/promises';
 import {
+  AnyJson,
   asString,
   Dictionary,
   ensure,
   ensureArray,
-  ensureJsonMap,
+  ensureObject,
   ensureString,
   isArray,
-  JsonMap,
 } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap';
@@ -37,26 +37,29 @@ function emitNoTopicMetadataWarning(topic: string): void {
 export class Docs {
   public constructor(
     private outputDir: string,
-    private plugins: JsonMap,
+    private plugins: Record<string, unknown>,
     private hidden: boolean,
-    private topicMeta: JsonMap,
-    private cliMeta: JsonMap
+    private topicMeta: Record<string, unknown>,
+    private cliMeta: Record<string, unknown>
   ) {}
 
   public async build(commands: CommandClass[]): Promise<void> {
     // Create if doesn't exist
-    await mkdirp(this.outputDir);
+    await fs.mkdir(this.outputDir, { recursive: true });
 
     await this.populateTemplate(commands);
   }
 
-  public async populateTopic(topic: string, subtopics: Dictionary<CommandClass | CommandClass[]>): Promise<any[]> {
-    const topicMeta = ensureJsonMap(
-      this.topicMeta[topic],
-      `No topic meta for ${topic} - add this topic to the oclif section of the package.json.`
-    );
+  public async populateTopic(topic: string, subtopics: Dictionary<CommandClass | CommandClass[]>): Promise<AnyJson[]> {
+    if (!this.topicMeta?.[topic]) {
+      throw new Error(`No topic meta for ${topic} - add this topic to the oclif section of the package.json.`);
+    }
+
+    const topicMeta: Record<string, unknown> = (this.topicMeta[topic] ?? {}) as Record<string, unknown>;
+
     let description = asString(topicMeta.description);
     if (!description && !topicMeta.external) {
+      // TODO: check why the same property is used again when it is already used above
       description = punctuate(asString(topicMeta.description));
       if (!description) {
         events.emit(
@@ -65,7 +68,7 @@ export class Docs {
             topic
           )}. Skipping until topic owner adds topic metadata in the oclif section in the package.json file within their plugin.`
         );
-        return;
+        return [];
       }
     }
 
@@ -82,12 +85,13 @@ export class Docs {
           // If it is not subtopic (array) it is a command in the top-level topic
           const command = Object.assign({}, subtopicOrCommand);
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, 1);
+          // eslint-disable-next-line no-await-in-loop
           await this.populateCommand(topic, null, command, commandMeta);
           commandIds.push(command.id);
           continue;
         }
 
-        const subTopicsMeta = ensureJsonMap(topicMeta.subtopics);
+        const subTopicsMeta = ensureObject<Record<string, unknown>>(topicMeta.subtopics);
 
         if (!subTopicsMeta[subtopic]) {
           emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
@@ -99,17 +103,20 @@ export class Docs {
         // Commands within the sub topic
         for (const command of subtopicOrCommand) {
           const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
-          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).indexOf(fullTopic) === 0);
+          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).startsWith(fullTopic));
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
+          // eslint-disable-next-line no-await-in-loop
           await this.populateCommand(topic, subtopic, command, commandMeta);
           commandIds.push(command.id);
         }
       } catch (error) {
-        if (error.name === 'UnexpectedValueTypeError') {
+        const err =
+          error instanceof Error ? error : typeof error === 'string' ? new Error(error) : new Error('Unknown error');
+        if (err.name === 'UnexpectedValueTypeError') {
           emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
         } else {
-          events.emit('warning', `Can't create topic for ${topic}:${subtopic}: ${error.message}\n`);
+          events.emit('warning', `Can't create topic for ${topic}:${subtopic}: ${err.message}\n`);
         }
       }
     }
@@ -144,7 +151,7 @@ export class Docs {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
-        const topics = topLevelTopics[topLevelTopic] || {};
+        const topics = topLevelTopics[topLevelTopic] ?? {};
 
         if (commandParts.length === 1) {
           // This is a top-level topic that is also a command
@@ -156,19 +163,21 @@ export class Docs {
           const subtopic = commandParts[1];
 
           try {
-            const topicMeta = ensureJsonMap(this.topicMeta[topLevelTopic]);
-            const subTopicsMeta = ensureJsonMap(topicMeta.subtopics);
+            const topicMeta = ensureObject<Record<string, unknown>>(this.topicMeta[topLevelTopic]);
+            const subTopicsMeta = ensureObject<Record<string, unknown>>(topicMeta.subtopics);
             if (subTopicsMeta.hidden && !this.hidden) {
               continue;
             }
-          } catch (e) {} // It means no meta so it isn't hidden, although it should always fail before here with no meta found
+          } catch (e) {
+            // It means no meta so it isn't hidden, although it should always fail before here with no meta found
+          }
 
           command.subtopic = subtopic;
 
           const existingSubTopics = topics[subtopic];
-          let subtopicCommands = [];
+          let subtopicCommands: CommandClass[] = [];
           if (existingSubTopics) {
-            subtopicCommands = isArray(existingSubTopics) ? existingSubTopics : [existingSubTopics];
+            subtopicCommands = ensureArray(existingSubTopics);
           }
           ensureArray(subtopicCommands);
           subtopicCommands.push(command);
@@ -181,7 +190,7 @@ export class Docs {
     return topLevelTopics;
   }
 
-  private async populateTemplate(commands: CommandClass[]) {
+  private async populateTemplate(commands: CommandClass[]): Promise<void> {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
     await new CLIReference().write();
@@ -195,48 +204,56 @@ export class Docs {
     for (const topic of topics) {
       events.emit('topic', { topic });
       const subtopics = ensure(topicsAndSubtopics[topic]);
+      // eslint-disable-next-line no-await-in-loop
       await this.populateTopic(topic, subtopics);
     }
   }
 
-  private resolveCommandMeta(commandId: string, command, commandsInTopic: number) {
+  private resolveCommandMeta(
+    commandId: string,
+    command: CommandClass,
+    commandsInTopic: number
+  ): Record<string, unknown> {
     const commandMeta = Object.assign({}, this.cliMeta);
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
     let part;
     try {
-      let currentMeta: JsonMap | undefined;
+      let currentMeta: Record<string, unknown> | undefined;
       for (part of commandParts) {
         if (currentMeta) {
-          const subtopics = ensureJsonMap(currentMeta.subtopics);
-          currentMeta = ensureJsonMap(subtopics[part]);
+          const subtopics = ensureObject<Record<string, unknown>>(currentMeta.subtopics);
+          currentMeta = ensureObject<Record<string, unknown>>(subtopics[part]);
         } else {
-          currentMeta = ensureJsonMap(this.topicMeta[part]);
+          currentMeta = ensureObject<Record<string, unknown>>(this.topicMeta[part]);
         }
 
         // Collect all tiers of the meta, so the command will also pick up the topic state (isPilot, etc) if applicable
         Object.assign({}, commandMeta, currentMeta);
       }
     } catch (error) {
+      // @ts-expect-error: part may be undefined
       if (commandId.endsWith(part)) {
         // This means there wasn't meta information going all the way down to the command, which is ok.
         return commandMeta;
-      } else {
-        if (commandsInTopic !== 1) {
-          events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
-        } else {
-          // Since there is no command meta, just use the command description since that is what oclif does.
-          if (!commandMeta.description) {
-            commandMeta.description = command.description;
-            commandMeta.longDescription = command.longDescription || punctuate(command.description);
-          }
-        }
+      } else if (commandsInTopic !== 1) {
+        events.emit('warning', `subtopic "${part}" meta not found for command ${commandId}`);
+      } else if (!commandMeta.description) {
+        commandMeta.description = command.description;
+        commandMeta.longDescription = (
+          command.longDescription ? command.longDescription : punctuate(command.description)
+        ) as AnyJson;
       }
     }
     return commandMeta;
   }
 
-  private async populateCommand(topic: string, subtopic: string, command: CommandClass, commandMeta: JsonMap) {
+  private async populateCommand(
+    topic: string,
+    subtopic: string | null,
+    command: CommandClass,
+    commandMeta: Record<string, unknown>
+  ): Promise<string> {
     // If it is a hidden command - abort
     if (command.hidden && !this.hidden) {
       return '';

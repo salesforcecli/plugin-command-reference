@@ -7,7 +7,7 @@
 
 import { access, rm } from 'fs/promises';
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { expect } from 'chai';
 
 /**
@@ -19,16 +19,17 @@ import { expect } from 'chai';
  * for the test cases to reference.
  */
 
-const testFilesPath = './test/tmp';
+const testFilesPath = 'tmp/test';
 
 function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
 }
 
-describe('plugin-login', () => {
+describe('plugin-auth', () => {
+  const resolvedPath = resolve(process.cwd(), testFilesPath);
   before(async () => {
     try {
-      await access(testFilesPath);
+      await access(resolvedPath);
     } catch (e) {
       throw new Error('Could not read generated test docs. Ensure the "pretest" has run or run it manually.');
     }
@@ -37,15 +38,15 @@ describe('plugin-login', () => {
     await rm(testFilesPath, { recursive: true });
   });
   it('creates with spaced commands', async () => {
-    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
-    expect(/<title><codeph otherprops="nolang">login org jwt/.test(dita)).to.be.true;
+    const dita = loadTestDitamapFile(join('org', 'cli_reference_org_login_jwt_unified.xml'));
+    expect(dita.includes('<title><codeph otherprops="nolang">org login jwt')).to.be.true;
   });
   it('creates with summary', async () => {
-    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
+    const dita = loadTestDitamapFile(join('org', 'cli_reference_org_login_jwt_unified.xml'));
     expect(/shortdesc">\r?\n(\s.*)Log in to a Salesforce org using a JSON web token \(JWT\)./.test(dita)).to.be.true;
   });
   it('creates parameters', async () => {
-    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
-    expect(/<title><ph>Flags<\/ph><\/title>/.test(dita)).to.be.true;
+    const dita = loadTestDitamapFile(join('org', 'cli_reference_org_login_jwt_unified.xml'));
+    expect(dita.includes('<title><ph>Flags</ph></title>')).to.be.true;
   });
 });
