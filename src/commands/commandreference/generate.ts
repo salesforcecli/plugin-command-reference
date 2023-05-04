@@ -15,7 +15,7 @@ import { AnyJson, ensure } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
-import { CommandClass, events } from '../../utils';
+import { CliMeta, CommandClass, events } from '../../utils';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
@@ -128,14 +128,9 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
       if (!version) throw new Error(`No version found for plugin ${name}`);
       return { name, version };
     });
-
-    const docs = new Docs(
-      Ditamap.outputDir,
-      Ditamap.plugins,
-      flags.hidden,
-      await this.loadTopicMetadata(),
-      this.loadCliMeta()
-    );
+    const topicMetadata = await this.loadTopicMetadata();
+    const cliMeta = this.loadCliMeta();
+    const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, flags.hidden, topicMetadata, cliMeta);
 
     events.on('topic', ({ topic }: { topic: string }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
@@ -241,9 +236,9 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
     return command.load.constructor.name === 'AsyncFunction' ? await command.load() : command.load();
   }
 
-  private loadCliMeta(): Record<string, unknown> {
+  private loadCliMeta(): CliMeta {
     return {
-      binary: this.loadedConfig.pjson.oclif.bin ?? 'sfdx',
+      binary: this.loadedConfig.pjson.oclif.bin ?? 'sf',
       topicSeparator: this.loadedConfig.pjson.oclif.topicSeparator,
       state: this.loadedConfig.pjson.oclif.state,
     };

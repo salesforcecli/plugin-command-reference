@@ -22,7 +22,7 @@ import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
 import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
-import { CommandClass, events, punctuate } from './utils';
+import { CliMeta, CommandClass, events, punctuate } from './utils';
 import { HelpReference } from './ditamap/help-reference';
 
 function emitNoTopicMetadataWarning(topic: string): void {
@@ -37,10 +37,10 @@ function emitNoTopicMetadataWarning(topic: string): void {
 export class Docs {
   public constructor(
     private outputDir: string,
-    private plugins: Record<string, unknown>,
+    private plugins: Record<string, string>,
     private hidden: boolean,
     private topicMeta: Record<string, unknown>,
-    private cliMeta: Record<string, unknown>
+    private cliMeta: CliMeta
   ) {}
 
   public async build(commands: CommandClass[]): Promise<void> {

@@ -7,7 +7,8 @@
 
 import { EventEmitter } from 'events';
 import { EOL } from 'os';
-import { Command } from '@oclif/core';
+import { Command, Interfaces } from '@oclif/core';
+import { AnyJson } from '@salesforce/ts-types';
 
 export type CommandClass = Command.Class & { topic: string; subtopic: string } & Record<string, unknown>;
 
@@ -31,3 +32,23 @@ export function punctuate(description?: string): string | undefined {
 export function helpFromDescription(description: string): string {
   return description ? description.split(EOL).slice(1).join(EOL).trim() : '';
 }
+
+export type CliMeta = {
+  binary: string;
+  topicSeparator?: string;
+  state?: string;
+  description?: string;
+  longDescription?: string | AnyJson;
+};
+
+export type TopicDetails = Interfaces.Topic & {
+  external?: boolean;
+  trailblazerCommunityLink?: {
+    url: string;
+    name: string;
+  };
+  subtopics?: DocsTopicMetadata;
+};
+export type DocsTopicMetadata = {
+  [topic: string]: TopicDetails;
+};
