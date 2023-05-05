@@ -10,6 +10,7 @@ import * as fs from 'fs/promises';
 import * as debugCreator from 'debug';
 import * as hb from 'handlebars';
 import { HelperOptions } from 'handlebars';
+import { DitamapData } from '../utils';
 
 const debug = debugCreator('commandreference');
 
@@ -58,7 +59,7 @@ export abstract class Ditamap {
 
   private readonly source: string;
 
-  public constructor(private filename: string, protected data: Record<string, unknown>) {
+  public constructor(private filename: string, protected data: DitamapData) {
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }

@@ -6,10 +6,11 @@
  */
 
 import { join } from 'path';
+import { SfTopic } from '../utils';
 import { Ditamap } from './ditamap';
 
 export class TopicCommands extends Ditamap {
-  public constructor(topic: string, topicMeta: Record<string, unknown>) {
+  public constructor(topic: string, topicMeta: SfTopic) {
     const filename = Ditamap.file(`cli_reference_${topic}_commands`, 'xml');
     // Set the data of topic and filenames
     super(filename, topicMeta);

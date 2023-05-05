@@ -7,10 +7,10 @@
 
 import { join } from 'path';
 import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
-import { CommandClass, punctuate } from '../utils';
+import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils';
 import { Ditamap } from './ditamap';
 
-export type CommandHelpInfo = {
+export type FlagInfo = {
   hidden: boolean;
   description: string;
   summary: string;
@@ -21,7 +21,7 @@ export type CommandHelpInfo = {
   default: string | (() => Promise<string>);
 };
 
-const getDefault = async (flag?: CommandHelpInfo): Promise<string> => {
+const getDefault = async (flag?: FlagInfo): Promise<string> => {
   if (!flag) {
     return '';
   }
@@ -38,7 +38,9 @@ const getDefault = async (flag?: CommandHelpInfo): Promise<string> => {
 };
 
 export class Command extends Ditamap {
-  private flags: Dictionary<CommandHelpInfo>;
+  private flags: Dictionary<FlagInfo>;
+  private commandMeta: Record<string, unknown>;
+  private commandName: string;
 
   public constructor(
     topic: string,
@@ -49,9 +51,10 @@ export class Command extends Ditamap {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
 
-    super(filename, {});
+    super(filename, undefined);
 
     this.flags = ensureObject(command.flags);
+    this.commandMeta = commandMeta;
 
     const summary = punctuate(asString(command.summary));
 
@@ -65,13 +68,13 @@ export class Command extends Ditamap {
     let trailblazerCommunityUrl: string | undefined;
     let trailblazerCommunityName: string | undefined;
 
-    if (commandMeta.trailblazerCommunityLink) {
-      const community = commandMeta.trailblazerCommunityLink as { url: string; name: string };
+    if (this.commandMeta.trailblazerCommunityLink) {
+      const community = this.commandMeta.trailblazerCommunityLink as { url: string; name: string };
       trailblazerCommunityUrl = community.url ?? 'unknown';
       trailblazerCommunityName = community.name ?? 'unknown';
     }
 
-    const commandName = command.id.replace(/:/g, asString(commandMeta.topicSeparator, ':'));
+    this.commandName = command.id.replace(/:/g, asString(this.commandMeta.topicSeparator, ':'));
 
     const examples = (command.examples ?? []).map((example) => {
       let desc: string | null;
@@ -86,42 +89,52 @@ export class Command extends Ditamap {
       }
 
       return {
-        description: desc,
-        commands: commands.map((c) =>
-          c
-            .replace(/<%= config.bin %>/g, asString(commandMeta.binary, 'unknown'))
-            .replace(/<%= command.id %>/g, commandName)
+        description: replaceConfigVariables(desc ?? '', asString(this.commandMeta.binary, 'unknown'), this.commandName),
+        commands: commands.map((cmd) =>
+          replaceConfigVariables(cmd, asString(this.commandMeta.binary, 'unknown'), this.commandName)
         ),
       };
     });
 
-    const state = command.state ?? commandMeta.state;
-    this.data = Object.assign(command, {
-      name: commandName,
-      binary: commandMeta.binary,
-      topicSeparator: commandMeta.topicSeparator,
-      commandWithUnderscores,
-      examples,
+    const state = command.state ?? this.commandMeta.state;
+    const commandData: CommandData = {
+      name: this.commandName,
       summary,
       description,
+      binary: command.binary ?? 'unknown',
+      commandWithUnderscores,
+      deprecated: (command.deprecated as boolean) ?? false,
+      examples,
       help,
+      isBetaCommand: state === 'beta',
       isClosedPilotCommand: state === 'closedPilot',
       isOpenPilotCommand: state === 'openPilot',
-      isBetaCommand: state === 'beta',
-      trailblazerCommunityUrl,
       trailblazerCommunityName,
-    }) as Record<string, unknown>;
+      trailblazerCommunityUrl,
+    };
+
+    this.data = Object.assign(command, commandData);
 
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
-  public async getParametersForTemplate(flags: Dictionary<CommandHelpInfo>): Promise<CommandHelpInfo[]> {
-    const final = [] as CommandHelpInfo[];
+  public async getParametersForTemplate(flags: Dictionary<FlagInfo>): Promise<CommandParameterData[]> {
+    const final: CommandParameterData[] = [];
 
     for (const [flagName, flag] of Object.entries(flags)) {
-      if (flag?.hidden) continue;
-      const description = Array.isArray(flag?.description) ? flag?.description.join('\n') : flag?.description ?? '';
-      const entireDescription = flag?.summary ? `${flag.summary}\n${description}` : description;
+      if (!flag || flag.hidden) continue;
+      const description = replaceConfigVariables(
+        Array.isArray(flag?.description) ? flag?.description.join('\n') : flag?.description ?? '',
+        asString(this.commandMeta.binary, 'unknown'),
+        this.commandName
+      );
+      const entireDescription = flag.summary
+        ? `${replaceConfigVariables(
+            flag.summary,
+            asString(this.commandMeta.binary, 'unknown'),
+            this.commandName
+          )}\n${description}`
+        : description;
       const updated = Object.assign({}, flag, {
         name: flagName,
         description: this.formatParagraphs(entireDescription),

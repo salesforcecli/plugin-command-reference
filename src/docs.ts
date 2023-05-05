@@ -8,6 +8,7 @@
 import * as fs from 'fs/promises';
 import {
   AnyJson,
+  asArray,
   asString,
   Dictionary,
   ensure,
@@ -15,6 +16,7 @@ import {
   ensureObject,
   ensureString,
   isArray,
+  Optional,
 } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap';
@@ -22,7 +24,7 @@ import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
 import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
-import { CliMeta, CommandClass, events, punctuate } from './utils';
+import { CliMeta, CommandClass, events, punctuate, SfTopic, SfTopics } from './utils';
 import { HelpReference } from './ditamap/help-reference';
 
 function emitNoTopicMetadataWarning(topic: string): void {
@@ -37,9 +39,8 @@ function emitNoTopicMetadataWarning(topic: string): void {
 export class Docs {
   public constructor(
     private outputDir: string,
-    private plugins: Record<string, string>,
     private hidden: boolean,
-    private topicMeta: Record<string, unknown>,
+    private topicMeta: SfTopics,
     private cliMeta: CliMeta
   ) {}
 
@@ -55,7 +56,7 @@ export class Docs {
       throw new Error(`No topic meta for ${topic} - add this topic to the oclif section of the package.json.`);
     }
 
-    const topicMeta: Record<string, unknown> = (this.topicMeta[topic] ?? {}) as Record<string, unknown>;
+    const topicMeta: SfTopic = this.topicMeta[topic] ?? {};
 
     let description = asString(topicMeta.description);
     if (!description && !topicMeta.external) {
@@ -147,7 +148,7 @@ export class Docs {
       const topLevelTopic = commandParts[0];
 
       const plugin = command.plugin;
-      if (plugin && this.plugins[plugin.name]) {
+      if (plugin) {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
@@ -163,8 +164,8 @@ export class Docs {
           const subtopic = commandParts[1];
 
           try {
-            const topicMeta = ensureObject<Record<string, unknown>>(this.topicMeta[topLevelTopic]);
-            const subTopicsMeta = ensureObject<Record<string, unknown>>(topicMeta.subtopics);
+            const topicMeta = ensureObject<SfTopics>(this.topicMeta[topLevelTopic]);
+            const subTopicsMeta = ensureObject<SfTopics>(topicMeta.subtopics);
             if (subTopicsMeta.hidden && !this.hidden) {
               continue;
             }
@@ -174,19 +175,12 @@ export class Docs {
 
           command.subtopic = subtopic;
 
-          const existingSubTopics = topics[subtopic];
-          let subtopicCommands: CommandClass[] = [];
-          if (existingSubTopics) {
-            subtopicCommands = ensureArray(
-              existingSubTopics,
-              `existingSubTopics is not an array subtopic: ${subtopic} ${JSON.stringify(
-                Object.keys(existingSubTopics)
-              )}`
-            );
+          const subtopicCommands: Optional<CommandClass[]> = topics[subtopic] ? asArray(topics[subtopic]) : [];
+          if (subtopicCommands) {
+            ensureArray(subtopicCommands);
+            subtopicCommands.push(command);
+            topics[subtopic] = subtopicCommands;
           }
-          ensureArray(subtopicCommands);
-          subtopicCommands.push(command);
-          topics[subtopic] = subtopicCommands;
         }
 
         topLevelTopics[topLevelTopic] = topics;

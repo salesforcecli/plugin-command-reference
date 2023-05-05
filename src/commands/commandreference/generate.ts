@@ -7,15 +7,15 @@
 
 import * as os from 'os';
 import { resolve } from 'path';
-import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
+import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
 // eslint-disable-next-line sf-plugin/no-oclif-flags-command-import
-import { Config, Interfaces, Command } from '@oclif/core';
+import { Command, Config, Interfaces } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, ensure } from '@salesforce/ts-types';
 import chalk = require('chalk');
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
-import { CliMeta, CommandClass, events } from '../../utils';
+import { CliMeta, CommandClass, events, SfTopic, SfTopics } from '../../utils';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
@@ -128,9 +128,12 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
       if (!version) throw new Error(`No version found for plugin ${name}`);
       return { name, version };
     });
-    const topicMetadata = await this.loadTopicMetadata();
+    const commands = await this.loadCommands(plugins);
+    const topicMetadata = this.loadTopicMetadata(commands);
     const cliMeta = this.loadCliMeta();
-    const docs = new Docs(Ditamap.outputDir, Ditamap.plugins, flags.hidden, topicMetadata, cliMeta);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const docs = new Docs(Ditamap.outputDir, flags.hidden, topicMetadata, cliMeta);
 
     events.on('topic', ({ topic }: { topic: string }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
@@ -143,8 +146,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
       warnings.push(msg);
     });
 
-    const cmnds = await this.loadCommands();
-    await docs.build(cmnds);
+    await docs.build(commands);
     this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
 
     if (flags.erroronwarnings && warnings.length > 0) {
@@ -179,46 +181,53 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
     return this.loadedConfig.plugins.find((info) => info.name === pluginName);
   }
 
-  private async loadTopicMetadata(): Promise<Record<string, unknown>> {
+  // eslint-disable-next-line class-methods-use-this
+  private loadTopicMetadata(commands: CommandClass[]): SfTopics | undefined {
     const plugins: Record<string, boolean> = {};
-    const topicsMeta: Record<string, unknown> = {};
 
-    for (const cmd of this.loadedConfig.commands) {
-      // Only load topics for each plugin once
-      if (cmd.pluginName && !plugins[cmd.pluginName]) {
-        // eslint-disable-next-line no-await-in-loop
-        const commandClass = await this.loadCommand(cmd);
-
-        if (commandClass.plugin?.pjson.oclif.topics) {
-          Object.assign(topicsMeta, commandClass.plugin.pjson.oclif.topics);
-          plugins[commandClass.plugin.name] = true;
-        }
-      }
-    }
-    return topicsMeta;
+    return Object.fromEntries(
+      commands
+        .map((commandClass): Array<[string, SfTopic]> | undefined => {
+          // Only load topics for each plugin once
+          if (commandClass.pluginName && !plugins[commandClass.pluginName]) {
+            if (commandClass.plugin?.pjson.oclif.topics) {
+              plugins[commandClass.plugin.name] = true;
+              return Object.entries(commandClass.plugin.pjson.oclif.topics).map(([topic, topicInfo]) => [
+                topic,
+                topicInfo as SfTopic,
+              ]);
+            }
+          }
+          return undefined;
+        })
+        .flat()
+        .filter((x) => x) as Array<[string, SfTopic]>
+    );
   }
 
-  private async loadCommands(): Promise<CommandClass[]> {
-    const promises = this.loadedConfig.commands.map(async (cmd): Promise<CommandClass> => {
-      try {
-        let commandClass: Command.Class = await this.loadCommand(cmd);
-        let obj = Object.assign({}, cmd, commandClass, {
-          flags: Object.assign({}, cmd.flags, commandClass.flags),
-        });
-
-        // Load all properties on all extending classes.
-        while (commandClass !== undefined) {
-          commandClass = (Reflect.getPrototypeOf(commandClass) as Command.Class) || undefined;
-          obj = Object.assign({}, commandClass, obj, {
-            flags: Object.assign({}, commandClass?.flags, obj.flags),
+  private async loadCommands(plugins: string[]): Promise<CommandClass[]> {
+    const promises = this.loadedConfig.commands
+      .filter((cmd) => plugins.includes(cmd.pluginName ?? ''))
+      .map(async (cmd): Promise<CommandClass> => {
+        try {
+          let commandClass: Command.Class = await this.loadCommand(cmd);
+          let obj = Object.assign({}, cmd, commandClass, {
+            flags: Object.assign({}, cmd.flags, commandClass.flags),
           });
-        }
 
-        return obj as unknown as CommandClass;
-      } catch (error) {
-        return cmd as unknown as CommandClass;
-      }
-    });
+          // Load all properties on all extending classes.
+          while (commandClass !== undefined) {
+            commandClass = (Reflect.getPrototypeOf(commandClass) as Command.Class) || undefined;
+            obj = Object.assign({}, commandClass, obj, {
+              flags: Object.assign({}, commandClass?.flags, obj.flags),
+            });
+          }
+
+          return obj as unknown as CommandClass;
+        } catch (error) {
+          return cmd as unknown as CommandClass;
+        }
+      });
     const commands = await Promise.all(promises);
     return Array.from(
       commands

@@ -7,7 +7,7 @@
 
 import { join } from 'path';
 import { asString, ensureObject } from '@salesforce/ts-types';
-import { punctuate } from '../utils';
+import { MainTopicIntroData, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
 export class MainTopicIntro extends Ditamap {
@@ -37,7 +37,7 @@ export class MainTopicIntro extends Ditamap {
       isBetaTopic: subTopicMeta.state === 'beta',
       trailblazerCommunityUrl,
       trailblazerCommunityName,
-    });
+    } as MainTopicIntroData);
 
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
