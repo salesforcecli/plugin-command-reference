@@ -1,3 +1,12 @@
+## [2.4.4](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.2...2.4.4) (2023-05-08)
+
+
+### Bug Fixes
+
+* revert 2.4.2 ([c0f845c](https://github.com/salesforcecli/plugin-command-reference/commit/c0f845ccdcc046aac2646709341b6b59532842fa))
+
+
+
 ## [2.4.2](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.1...2.4.2) (2023-05-02)
 
 
