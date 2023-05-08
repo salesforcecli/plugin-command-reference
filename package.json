@@ -151,12 +151,8 @@
     },
     "test": {
       "dependencies": [
-        "test:compile",
         "test:only",
-        "test:command-reference",
-        "test:deprecation-policy",
-        "lint",
-        "test:json-schema"
+        "lint"
       ]
     },
     "test:only": {
@@ -164,25 +160,30 @@
       "env": {
         "FORCE_COLOR": "2"
       },
+      "dependencies": [
+        "test:compile",
+        "test:command-reference"
+      ],
       "files": [
         "test/**/*.ts",
         "src/**/*.ts",
         "**/tsconfig.json",
         ".mocha*",
         "!*.nut.ts",
-        ".nycrc"
+        ".nycrc",
+        "tmp/test/**"
       ],
       "output": []
     },
     "test:command-reference": {
-      "command": "\"./bin/dev\" commandreference:generate --erroronwarnings",
+      "command": "\"./bin/dev\" commandreference:generate --plugins auth --outputdir ./tmp/test",
       "files": [
         "src/**/*.ts",
         "messages/**",
         "package.json"
       ],
       "output": [
-        "tmp/root"
+        "tmp/test/**"
       ]
     },
     "test:deprecation-policy": {

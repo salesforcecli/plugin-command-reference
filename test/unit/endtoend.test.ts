@@ -19,7 +19,7 @@ import { expect } from 'chai';
  * for the test cases to reference.
  */
 
-const testFilesPath = './test/tmp';
+const testFilesPath = './tmp/test';
 
 function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
@@ -37,15 +37,15 @@ describe('plugin-login', () => {
     await rm(testFilesPath, { recursive: true });
   });
   it('creates with spaced commands', async () => {
-    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
-    expect(dita.includes('<title><codeph otherprops="nolang">login org jwt')).to.be.true;
+    const dita = loadTestDitamapFile(join('org', 'cli_reference_org_login_jwt_unified.xml'));
+    expect(dita.includes('<title><codeph otherprops="nolang">org login jwt')).to.be.true;
   });
   it('creates with summary', async () => {
-    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
+    const dita = loadTestDitamapFile(join('org', 'cli_reference_org_login_jwt_unified.xml'));
     expect(/shortdesc">\r?\n(\s.*)Log in to a Salesforce org using a JSON web token \(JWT\)./.test(dita)).to.be.true;
   });
   it('creates parameters', async () => {
-    const dita = loadTestDitamapFile(join('login', 'cli_reference_login_org_jwt_unified.xml'));
+    const dita = loadTestDitamapFile(join('org', 'cli_reference_org_login_jwt_unified.xml'));
     expect(dita.includes('title><ph>Flags</ph></title>')).to.be.true;
   });
 });
