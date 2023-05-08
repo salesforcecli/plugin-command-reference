@@ -1,39 +1,39 @@
 {
   "name": "@salesforce/plugin-command-reference",
   "description": "Generate the Salesforce CLI command reference guide",
-  "version": "2.4.2",
+  "version": "2.4.4",
   "author": "Salesforce",
   "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
   "dependencies": {
-    "@oclif/core": "^2.8.4",
+    "@oclif/core": "^2.8.5",
     "@salesforce/core": "^3.36.0",
-    "@salesforce/kit": "^1.9.2",
-    "@salesforce/sf-plugins-core": "^2.4.0",
-    "@salesforce/ts-types": "^1.7.1",
+    "@salesforce/kit": "^3.0.0",
+    "@salesforce/sf-plugins-core": "^2.4.2",
+    "@salesforce/ts-types": "^2.0.1",
     "chalk": "^3.0.0",
     "handlebars": "^4.7.7",
     "tslib": "^2"
   },
   "devDependencies": {
     "@oclif/plugin-help": "^5.2.9",
-    "@salesforce/dev-config": "^3.1.0",
-    "@salesforce/dev-scripts": "^4.3.1",
-    "@salesforce/plugin-auth": "^2.7.14",
+    "@salesforce/dev-config": "^4.0.1",
+    "@salesforce/dev-scripts": "^5.0.1",
+    "@salesforce/plugin-auth": "^2.7.15",
     "@salesforce/prettier-config": "^0.0.2",
     "@types/debug": "^4.1.7",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "chai": "^4.2.0",
-    "eslint": "^8.39.0",
+    "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-config-salesforce": "^1.2.0",
+    "eslint-config-salesforce": "^2.0.1",
     "eslint-config-salesforce-license": "^0.2.0",
     "eslint-config-salesforce-typescript": "^1.1.1",
     "eslint-plugin-header": "^3.0.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsdoc": "^43.1.1",
-    "eslint-plugin-sf-plugin": "^1.15.1",
-    "husky": "^7.0.4",
+    "eslint-plugin-jsdoc": "^44.0.0",
+    "eslint-plugin-sf-plugin": "^1.15.2",
+    "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "oclif": "^3.9.0",
@@ -46,7 +46,7 @@
     "wireit": "^0.9.5"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   },
   "files": [
     "/lib",
@@ -151,8 +151,12 @@
     },
     "test": {
       "dependencies": [
+        "test:compile",
         "test:only",
-        "lint"
+        "test:command-reference",
+        "test:deprecation-policy",
+        "lint",
+        "test:json-schema"
       ]
     },
     "test:only": {
@@ -160,30 +164,25 @@
       "env": {
         "FORCE_COLOR": "2"
       },
-      "dependencies": [
-        "test:compile",
-        "test:command-reference"
-      ],
       "files": [
         "test/**/*.ts",
         "src/**/*.ts",
         "**/tsconfig.json",
         ".mocha*",
         "!*.nut.ts",
-        ".nycrc",
-        "tmp/test/**"
+        ".nycrc"
       ],
       "output": []
     },
     "test:command-reference": {
-      "command": "\"./bin/dev\" commandreference:generate --plugins auth --outputdir ./tmp/test",
+      "command": "\"./bin/dev\" commandreference:generate --erroronwarnings",
       "files": [
         "src/**/*.ts",
         "messages/**",
         "package.json"
       ],
       "output": [
-        "tmp/test/**"
+        "tmp/root"
       ]
     },
     "test:deprecation-policy": {

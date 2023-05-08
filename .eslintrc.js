@@ -7,7 +7,16 @@
 module.exports = {
   extends: ['eslint-config-salesforce-typescript', 'eslint-config-salesforce-license', 'plugin:sf-plugin/recommended'],
   rules: {
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/member-ordering': 'off',
     'no-underscore-dangle': 'off',
-    'jsdoc/newline-after-description': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'no-empty': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };
