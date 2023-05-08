@@ -10,6 +10,7 @@ package-lock.json
 npm-error.log
 yarn-error.log
 lerna-debug.log
+*.tsbuildinfo
 
 # compile source
 lib
@@ -25,9 +26,6 @@ coverage
 docs
 
 # -- CLEAN ALL
-*.tsbuildinfo
-.eslintcache
-.wireit
 node_modules
 
 # --

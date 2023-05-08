@@ -7,14 +7,15 @@
 
 import { dirname, join } from 'path';
 import * as fs from 'fs/promises';
+import * as mkdirp from 'mkdirp';
+import { JsonMap } from '@salesforce/ts-types';
 import * as debugCreator from 'debug';
 import * as hb from 'handlebars';
-import { HelperOptions } from 'handlebars';
 
 const debug = debugCreator('commandreference');
 
-hb.registerHelper('toUpperCase', (str: string) => str.toUpperCase());
-hb.registerHelper('join', (array: string[]) => array.join(', '));
+hb.registerHelper('toUpperCase', (str) => str.toUpperCase());
+hb.registerHelper('join', (array) => array.join(', '));
 hb.registerHelper('xmlFile', (...strings) => {
   const parts = strings.filter((s) => typeof s === 'string');
   return Ditamap.file(parts.join('_'), 'xml');
@@ -27,14 +28,14 @@ hb.registerHelper('uniqueId', (...strings) => {
 /*
  * Returns true if the string should be formatted as code block in docs
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-hb.registerHelper('isCodeBlock', function (this: any, val: string, options: HelperOptions): any {
-  return val.startsWith('sf') || val.startsWith('sfdx') || val.includes('$') || val.includes('>>')
+// tslint:disable-next-line: no-any
+hb.registerHelper('isCodeBlock', function (this: any, val, options) {
+  return val.indexOf('sf') === 0 || val.indexOf('sfdx') === 0 || val.indexOf('$') >= 0 || val.indexOf('>>') >= 0
     ? options.fn(this)
     : options.inverse(this);
 });
 
-hb.registerHelper('nextVersion', (value: string) => parseInt(value, 2) + 1);
+hb.registerHelper('nextVersion', (value) => parseInt(value, 2) + 1);
 
 export abstract class Ditamap {
   public static SUFFIX = 'unified';
@@ -45,23 +46,12 @@ export abstract class Ditamap {
 
   public static cliVersion: string;
 
-  public static plugins: Record<string, unknown>;
+  public static plugins: JsonMap;
 
   public static pluginVersions: Array<{
     name: string;
     version: string;
   }>;
-
-  private static _suffix: string;
-
-  protected destination: string;
-
-  private readonly source: string;
-
-  public constructor(private filename: string, protected data: Record<string, unknown>) {
-    this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
-    this.destination = join(Ditamap.outputDir, filename);
-  }
 
   public static get suffix(): string {
     return Ditamap._suffix;
@@ -75,23 +65,35 @@ export abstract class Ditamap {
     return Ditamap.suffix ? `${name}_${Ditamap.suffix}.${ext}` : `${name}.${ext}`;
   }
 
-  public getFilename(): string {
+  private static _suffix: string;
+
+  protected destination: string;
+
+  private source: string;
+
+  public constructor(private filename: string, protected data: JsonMap) {
+    this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
+    this.destination = join(Ditamap.outputDir, filename);
+  }
+
+  public abstract getTemplateFileName(): string;
+
+  public getFilename() {
     return this.filename;
   }
 
-  public getOutputFilePath(): string {
+  public getOutputFilePath() {
     return this.destination;
   }
 
-  public async write(): Promise<void> {
-    await fs.mkdir(dirname(this.destination), { recursive: true });
+  public async write() {
+    await mkdirp(dirname(this.destination));
     const output = await this.transformToDitamap();
 
     await fs.writeFile(this.destination, output);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  protected formatParagraphs(textToFormat?: string): string[] {
+  protected formatParagraphs(textToFormat?: string) {
     return textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];
   }
 
@@ -102,12 +104,10 @@ export abstract class Ditamap {
    * @param templateName
    * @returns {object}
    */
-  protected async transformToDitamap(): Promise<string> {
+  protected async transformToDitamap() {
     debug(`Generating ${this.destination} from ${this.getTemplateFileName()}`);
     const src = await fs.readFile(this.source, 'utf8');
     const template = hb.compile(src, { noEscape: false });
     return template(this.data);
   }
-
-  public abstract getTemplateFileName(): string;
 }
