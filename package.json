@@ -23,6 +23,7 @@
     "@salesforce/dev-scripts": "^2.0.4",
     "@salesforce/plugin-login": "^1.1.15",
     "@salesforce/prettier-config": "^0.0.2",
+    "@types/ejs": "^3.1.2",
     "@types/fs-extra": "^9.0.13",
     "@types/lodash.uniqby": "^4.7.6",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
