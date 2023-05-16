@@ -15,6 +15,7 @@ import {
   ensureString,
   JsonMap,
 } from '@salesforce/ts-types';
+import * as ejs from 'ejs';
 import { CommandClass, punctuate } from '../utils';
 import { Ditamap } from './ditamap';
 
@@ -53,11 +54,30 @@ export class Command extends Ditamap {
 
     super(filename, {});
 
+    for (const flag of Object.keys(command.flags)) {
+      if (command.flags[flag].summary) {
+        command.flags[flag].summary = ejs.render(command.flags[flag].summary, {
+          command,
+          config: { bin: commandMeta.binary },
+        });
+      }
+      if (command.flags[flag].description) {
+        command.flags[flag].description = ejs.render(command.flags[flag].description, {
+          command,
+          config: { bin: commandMeta.binary },
+        });
+      }
+    }
+
     this.flags = ensureObject(command.flags);
 
-    const summary = punctuate(asString(command.summary));
+    const summary = punctuate(
+      asString(ejs.render(command.summary || '', { command, config: { bin: commandMeta.binary } }))
+    );
 
-    const description = asString(command.description);
+    const description = asString(
+      ejs.render(command.description || '', { command, config: { bin: commandMeta.binary } })
+    );
 
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
