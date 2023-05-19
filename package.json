@@ -154,7 +154,6 @@
       "dependencies": [
         "test:compile",
         "test:only",
-        "test:command-reference",
         "lint"
       ]
     },
@@ -171,17 +170,20 @@
         "!*.nut.ts",
         ".nycrc"
       ],
-      "output": []
+      "output": [],
+      "dependencies": [
+        "test:command-reference"
+      ]
     },
     "test:command-reference": {
-      "command": "\"./bin/dev\" commandreference:generate --plugins login --outputdir test/tmp",
+      "command": "\"./bin/dev\" commandreference:generate --plugins auth --outputdir test/tmp",
       "files": [
         "src/**/*.ts",
         "messages/**",
         "package.json"
       ],
       "output": [
-        "tmp/root"
+        "test/tmp"
       ]
     },
     "test:deprecation-policy": {

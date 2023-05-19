@@ -19,18 +19,20 @@ import { expect } from 'chai';
  * for the test cases to reference.
  */
 
-const testFilesPath = './tmp/test';
+const testFilesPath = './test/tmp';
 
 function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
 }
 
-describe('plugin-login', () => {
+describe('plugin-auth', () => {
   before(async () => {
     try {
       await access(testFilesPath);
     } catch (e) {
-      throw new Error('Could not read generated test docs. Ensure the "pretest" has run or run it manually.');
+      throw new Error(
+        `Could not read generated test docs from ${testFilesPath}. Ensure the "pretest" has run or run it manually.`
+      );
     }
   });
   after(async () => {
