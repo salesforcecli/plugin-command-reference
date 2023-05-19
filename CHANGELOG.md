@@ -1,3 +1,9 @@
+## [2.4.5](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.4...2.4.5) (2023-05-16)
+
+### Bug Fixes
+
+- render cmd and flag sum/desc ejs template ([#350](https://github.com/salesforcecli/plugin-command-reference/issues/350)) ([293c4f2](https://github.com/salesforcecli/plugin-command-reference/commit/293c4f20aa23f2fc9fed09928854a651a6a34e0d))
+
 ## [2.4.4](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.2...2.4.4) (2023-05-08)
 
 ### Bug Fixes
