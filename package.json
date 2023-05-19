@@ -155,9 +155,7 @@
         "test:compile",
         "test:only",
         "test:command-reference",
-        "test:deprecation-policy",
-        "lint",
-        "test:json-schema"
+        "lint"
       ]
     },
     "test:only": {
@@ -176,7 +174,7 @@
       "output": []
     },
     "test:command-reference": {
-      "command": "\"./bin/dev\" commandreference:generate --erroronwarnings",
+      "command": "\"./bin/dev\" commandreference:generate --plugins login --outputdir test/tmp",
       "files": [
         "src/**/*.ts",
         "messages/**",

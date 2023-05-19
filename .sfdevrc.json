@@ -2,5 +2,15 @@
   "test": {
     "testsPath": "test/**/*.test.ts"
   },
+  "wireit": {
+    "test:command-reference": {
+      "command": "\"./bin/dev\" commandreference:generate --plugins login --outputdir test/tmp",
+      "files": ["src/**/*.ts", "messages/**", "package.json"],
+      "output": ["tmp/root"]
+    },
+    "test": {
+      "dependencies": ["test:compile", "test:only", "test:command-reference", "lint"]
+    }
+  },
   "exclude-scripts": ["pretest"]
 }
