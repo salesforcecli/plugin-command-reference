@@ -187,7 +187,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
 
     return Object.fromEntries(
       commands
-        .map((commandClass): Array<[string, SfTopic]> | undefined => {
+        .flatMap((commandClass): Array<[string, SfTopic]> | undefined => {
           // Only load topics for each plugin once
           if (commandClass.pluginName && !plugins[commandClass.pluginName]) {
             if (commandClass.plugin?.pjson.oclif.topics) {
@@ -200,8 +200,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
           }
           return undefined;
         })
-        .flat()
-        .filter((x) => x) as Array<[string, SfTopic]>
+        .filter((x): x is [string, SfTopic] => Boolean(x))
     );
   }
 
