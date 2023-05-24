@@ -56,9 +56,12 @@ export class Command extends Ditamap {
     this.flags = ensureObject(command.flags);
     this.commandMeta = commandMeta;
 
-    const summary = punctuate(asString(command.summary));
+    const summary = punctuate(command.summary);
+    this.commandName = command.id.replace(/:/g, asString(this.commandMeta.topicSeparator, ':'));
 
-    const description = asString(command.description);
+    const description = command.description
+      ? replaceConfigVariables(command.description, asString(this.commandMeta.binary, 'unknown'), this.commandName)
+      : undefined;
 
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
@@ -73,8 +76,6 @@ export class Command extends Ditamap {
       trailblazerCommunityUrl = community.url ?? 'unknown';
       trailblazerCommunityName = community.name ?? 'unknown';
     }
-
-    this.commandName = command.id.replace(/:/g, asString(this.commandMeta.topicSeparator, ':'));
 
     const examples = (command.examples ?? []).map((example) => {
       let desc: string | null;
