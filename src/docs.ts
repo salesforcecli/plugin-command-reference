@@ -6,18 +6,9 @@
  */
 
 import * as fs from 'fs/promises';
-import {
-  AnyJson,
-  asArray,
-  asString,
-  Dictionary,
-  ensure,
-  ensureArray,
-  ensureString,
-  isArray,
-  Optional,
-} from '@salesforce/ts-types';
+import { AnyJson, asString, Dictionary, ensure, ensureString, isArray, Optional } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
+import { ensureArray } from '@salesforce/kit';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
@@ -173,9 +164,8 @@ export class Docs {
 
           command.subtopic = subtopic;
 
-          const subtopicCommands: Optional<CommandClass[]> = topics[subtopic] ? asArray(topics[subtopic]) : [];
+          const subtopicCommands: Optional<CommandClass[]> = topics[subtopic] ? ensureArray(topics[subtopic]) : [];
           if (subtopicCommands) {
-            ensureArray(subtopicCommands);
             subtopicCommands.push(command);
             topics[subtopic] = subtopicCommands;
           }
