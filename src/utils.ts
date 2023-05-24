@@ -32,10 +32,6 @@ export function punctuate(description?: string): string | undefined {
   return mainDescription;
 }
 
-export function helpFromDescription(description: string): string {
-  return description ? description.split(EOL).slice(1).join(EOL).trim() : '';
-}
-
 export const replaceConfigVariables = (text: string, bin: string, id: string): string =>
   text.replace(/<%= config.bin %>/g, bin ?? 'unknown').replace(/<%= command.id %>/g, id);
 
@@ -49,32 +45,27 @@ export type CliMeta = {
 
 // re-engineering types used in the docs
 
-export type PluginVersion = {
+type PluginVersion = {
   name: string;
   version: string;
 };
 
-export type BaseDitamapData = {
+type BaseDitamapData = {
   namespaceDitamapFiles: string[];
 };
 
-export type CliRefData = {
+type CliRefData = {
   cliVersion: string;
   pluginVersions: PluginVersion[];
 };
 
-export type CliRefHelpData = {
+type CliRefHelpData = {
   id: string;
 };
 
-export type ClIRefTopicData = {
+type ClIRefTopicData = {
   topic: string;
   longDescription?: string;
-};
-
-export type CliRefTopicCommandsData = {
-  name: string;
-  description?: string;
 };
 
 export type CommandParameterData = {
@@ -100,7 +91,6 @@ export type DitamapData =
   | ClIRefTopicData
   | CommandData
   | SfTopic
-  | MainTopicIntroData
   | TopicDitamapData
   | undefined;
 
@@ -123,16 +113,7 @@ export type CommandData = {
   parameters?: CommandParameterData[];
 };
 
-export type MainTopicIntroData = {
-  topic: string;
-  longDescription?: string;
-  isClosedPilotTopic?: boolean;
-  isOpenPilotTopic?: boolean;
-  isBetaTopic?: boolean;
-  trailblazerCommunityUrl?: string;
-};
-
-export type TopicDitamapData = {
+type TopicDitamapData = {
   topic: string;
   commands: Array<{ command: string }>;
 };

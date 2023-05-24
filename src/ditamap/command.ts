@@ -10,7 +10,7 @@ import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts
 import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils';
 import { Ditamap } from './ditamap';
 
-export type FlagInfo = {
+type FlagInfo = {
   hidden: boolean;
   description: string;
   summary: string;
