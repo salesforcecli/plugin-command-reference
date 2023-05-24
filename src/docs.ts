@@ -6,7 +6,7 @@
  */
 
 import * as fs from 'fs/promises';
-import { AnyJson, asString, Dictionary, ensure, ensureString, isArray, Optional } from '@salesforce/ts-types';
+import { AnyJson, Dictionary, ensure, ensureString, isArray, Optional } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
 import { ensureArray } from '@salesforce/kit';
 import { BaseDitamap } from './ditamap/base-ditamap';
@@ -47,10 +47,10 @@ export class Docs {
       throw new Error(`No topic meta for ${topic} - add this topic to the oclif section of the package.json.`);
     }
 
-    let description = asString(topicMeta.description);
+    let description = topicMeta.description;
     if (!description && !topicMeta.external) {
       // TODO: check why the same property is used again when it is already used above
-      description = punctuate(asString(topicMeta.description));
+      description = punctuate(topicMeta.description);
       if (!description) {
         events.emit(
           'warning',

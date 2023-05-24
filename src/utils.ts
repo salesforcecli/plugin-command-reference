@@ -8,7 +8,7 @@
 import { EventEmitter } from 'events';
 import { EOL } from 'os';
 import { Command, Interfaces } from '@oclif/core';
-import { AnyJson, asString } from '@salesforce/ts-types';
+import { AnyJson } from '@salesforce/ts-types';
 
 export type CommandClass = Pick<
   Command.Class,
@@ -37,7 +37,7 @@ export function helpFromDescription(description: string): string {
 }
 
 export const replaceConfigVariables = (text: string, bin: string, id: string): string =>
-  text.replace(/<%= config.bin %>/g, asString(bin, 'unknown')).replace(/<%= command.id %>/g, id);
+  text.replace(/<%= config.bin %>/g, bin ?? 'unknown').replace(/<%= command.id %>/g, id);
 
 export type CliMeta = {
   binary: string;
