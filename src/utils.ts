@@ -146,4 +146,4 @@ export type SfTopic = Interfaces.Topic & {
   subtopics?: SfTopics;
 };
 
-export type SfTopics = Record<string, SfTopic>;
+export type SfTopics = Map<string, SfTopic>;

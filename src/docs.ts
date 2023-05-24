@@ -13,7 +13,6 @@ import {
   Dictionary,
   ensure,
   ensureArray,
-  ensureObject,
   ensureString,
   isArray,
   Optional,
@@ -52,11 +51,10 @@ export class Docs {
   }
 
   public async populateTopic(topic: string, subtopics: Dictionary<CommandClass | CommandClass[]>): Promise<AnyJson[]> {
-    if (!this.topicMeta?.[topic]) {
+    const topicMeta = this.topicMeta.get(topic);
+    if (!topicMeta) {
       throw new Error(`No topic meta for ${topic} - add this topic to the oclif section of the package.json.`);
     }
-
-    const topicMeta: SfTopic = this.topicMeta[topic] ?? {};
 
     let description = asString(topicMeta.description);
     if (!description && !topicMeta.external) {
@@ -92,9 +90,9 @@ export class Docs {
           continue;
         }
 
-        const subTopicsMeta = ensureObject<Record<string, unknown>>(topicMeta.subtopics);
+        const subTopicsMeta = topicMeta.subtopics;
 
-        if (!subTopicsMeta[subtopic]) {
+        if (!subTopicsMeta?.get(subtopic)) {
           emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
           continue;
         }
@@ -164,9 +162,9 @@ export class Docs {
           const subtopic = commandParts[1];
 
           try {
-            const topicMeta = ensureObject<SfTopics>(this.topicMeta[topLevelTopic]);
-            const subTopicsMeta = ensureObject<SfTopics>(topicMeta.subtopics);
-            if (subTopicsMeta.hidden && !this.hidden) {
+            const topicMeta = this.topicMeta.get(topLevelTopic);
+            const subTopicsMeta = topicMeta?.subtopics?.get(subtopic);
+            if (subTopicsMeta?.hidden && !this.hidden) {
               continue;
             }
           } catch (e) {
@@ -218,13 +216,13 @@ export class Docs {
     const commandParts = commandId.split(':');
     let part;
     try {
-      let currentMeta: Record<string, unknown> | undefined;
+      let currentMeta: SfTopic | undefined;
       for (part of commandParts) {
         if (currentMeta) {
-          const subtopics = ensureObject<Record<string, unknown>>(currentMeta.subtopics);
-          currentMeta = ensureObject<Record<string, unknown>>(subtopics[part]);
+          const subtopics = currentMeta.subtopics;
+          currentMeta = subtopics?.get(part);
         } else {
-          currentMeta = ensureObject<Record<string, unknown>>(this.topicMeta[part]);
+          currentMeta = this.topicMeta.get(part);
         }
 
         // Collect all tiers of the meta, so the command will also pick up the topic state (isPilot, etc) if applicable

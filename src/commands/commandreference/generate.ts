@@ -13,6 +13,7 @@ import { Command, Config, Interfaces } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, ensure } from '@salesforce/ts-types';
 import chalk = require('chalk');
+import { PJSON } from '@oclif/core/lib/interfaces';
 import { Ditamap } from '../../ditamap/ditamap';
 import { Docs } from '../../docs';
 import { CliMeta, CommandClass, events, SfTopic, SfTopics } from '../../utils';
@@ -183,25 +184,41 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
 
   // eslint-disable-next-line class-methods-use-this
   private loadTopicMetadata(commands: CommandClass[]): SfTopics | undefined {
-    const plugins: Record<string, boolean> = {};
-
-    return Object.fromEntries(
-      commands
-        .flatMap((commandClass): Array<[string, SfTopic]> | undefined => {
-          // Only load topics for each plugin once
-          if (commandClass.pluginName && !plugins[commandClass.pluginName]) {
-            if (commandClass.plugin?.pjson.oclif.topics) {
-              plugins[commandClass.plugin.name] = true;
-              return Object.entries(commandClass.plugin.pjson.oclif.topics).map(([topic, topicInfo]) => [
-                topic,
-                topicInfo as SfTopic,
-              ]);
-            }
+    const finishedPlugins = new Set<string>();
+    const output = new Map<string, SfTopic>();
+    commands
+      .flatMap((commandClass): SfTopics | undefined => {
+        // Only load topics for each plugin once
+        if (commandClass.pluginName && !finishedPlugins.has(commandClass.pluginName)) {
+          if (commandClass.plugin?.pjson.oclif.topics) {
+            finishedPlugins.add(commandClass.plugin.name);
+            return objectTopicsToMap(commandClass.plugin.pjson.oclif.topics);
           }
-          return undefined;
-        })
-        .filter((x): x is [string, SfTopic] => Boolean(x))
-    );
+        }
+        return undefined;
+      })
+      .filter((x): x is SfTopics => Boolean(x))
+      // we might have the same topic in different plugins, so we need to merge those to avoid Object.fromEntries "last wins" algo
+      .map((sfTopics) => {
+        sfTopics.forEach((topicInfo, topic) => {
+          const existing = output.get(topic);
+          if (existing) {
+            // merge the topic objects, merge the subtopic maps
+            output.set(topic, {
+              ...existing,
+              ...topicInfo,
+              // TODO: this might need to be recursive if keys collide at lower levels
+              subtopics:
+                existing.subtopics || topicInfo.subtopics
+                  ? new Map([...(existing.subtopics ?? []), ...(topicInfo.subtopics ?? [])])
+                  : undefined,
+            });
+          } else {
+            output.set(topic, topicInfo);
+          }
+        });
+      });
+    return output;
   }
 
   private async loadCommands(plugins: string[]): Promise<CommandClass[]> {
@@ -252,3 +269,15 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
     };
   }
 }
+
+/** recursively convert the oclif style topics to the command reference topic SfTopicStructure */
+const objectTopicsToMap = (pjsonTopics: PJSON.Plugin['oclif']['topics']): SfTopics =>
+  new Map<string, SfTopic>(
+    Object.entries(pjsonTopics ?? {}).map(([topic, topicInfo]) => {
+      if (topicInfo.subtopics) {
+        // TODO
+        return [topic, { ...topicInfo, name: topic, subtopics: objectTopicsToMap(topicInfo.subtopics) }];
+      }
+      return [topic, { ...topicInfo, name: topic, subtopics: undefined }];
+    })
+  );
