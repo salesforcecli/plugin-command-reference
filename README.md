@@ -9,20 +9,21 @@ Generate the [Salesforce CLI command reference guide](https://developer.salesfor
 
 First install the plugin.
 
-```sh-session
-$ sfdx plugins:install @salesforce/plugin-command-reference
+```bash
+$ sf plugins install @salesforce/plugin-command-reference
 ```
 
 Ensure any plugins are installed that you with to generate documentation for.
 
-```sh-session
-$ sfdx plugins:install salesforcedx@latest-rc
+```bash
+$ sf plugins:install salesforce@plugin-auth
 ```
 
 Now we can generate the documentation for the `latest-rc` tag.
 
-```sh-session
-$ sfdx commandreference --plugins salesforcedx
+```bash
+# notice we can use the oclif shorthand for the plugin name.  @salesforce/plugin-foo => foo
+$ sf commandreference --plugins auth
 ```
 
 **Note:** Warnings will occur for missing properties in plugins. Those have to be fixed in the plugin itself.
@@ -50,23 +51,37 @@ Then you can run this in your plugin's CI.
 If you need to make changes to this repository, the easiest thing to do is to link it to your Salesforce CLI. After you cloned this plugin, run the following from this plugin directory:
 
 ```sh-session
-sfdx plugins:link .
+sf plugins link .
 ```
 
-Now, you can install any plugins you want and run the command reference generation on them.
+## Testing
 
-```sh-session
-sfdx plugins:install salesforcedx
-sfdx plugins:install config
-sfdx plugins:install alias
-sfdx plugins:install auth
-sfdx commandreference --plugins salesforcedx,alias,config,auth
+How do you know if the output is correct, given your change?
+
+```bash
+# Install the current version of the plugin (use `@sf` until the plugin is publishing the sf version as main)
+sf plugins install @salesforce/plugin-command-reference@sf
+# installs all JIT plugins (if you intend to produce ditamaps for them)
+sf jit install
+# run using a relatively current version of plugins, saving the output as a "gold file"
+sf commandreference generate --plugins login env deploy-retrieve settings functions info sobject limits schema custom-metadata data community signups user org packaging templates apex auth dev @salesforce/sfdx-plugin-lwc-test -d outputGold
 ```
+
+While working on your branch
+
+```bash
+sf plugins link .
+# run the same command from above, but with your new version of the plugin, writing to a new output file
+sf commandreference generate --plugins login env deploy-retrieve settings functions info sobject limits schema custom-metadata data community signups user org packaging templates apex auth dev @salesforce/sfdx-plugin-lwc-test -d outputNew
+```
+
+Now diff the output. Changes should be intentional!
 
 ## Commands
 
 <!-- commands -->
-* [`sf commandreference generate`](#sf-commandreference-generate)
+
+- [`sf commandreference generate`](#sf-commandreference-generate)
 
 ## `sf commandreference generate`
 
@@ -91,4 +106,5 @@ GLOBAL FLAGS
 DESCRIPTION
   generate the command reference guide located
 ```
+
 <!-- commandsstop -->
