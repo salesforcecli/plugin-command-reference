@@ -1,398 +1,606 @@
-## [2.4.5](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.4...2.4.5) (2023-05-16)
+## [2.4.6](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.5...2.4.6) (2023-05-25)
+
 
 ### Bug Fixes
 
-- render cmd and flag sum/desc ejs template ([#350](https://github.com/salesforcecli/plugin-command-reference/issues/350)) ([293c4f2](https://github.com/salesforcecli/plugin-command-reference/commit/293c4f20aa23f2fc9fed09928854a651a6a34e0d))
+* don't overwrite commands with equivalent topics in other plugins ([acae404](https://github.com/salesforcecli/plugin-command-reference/commit/acae4048e20e3107ea6af2b7abdc3d389732e2b5))
+
+
+
+## [2.4.5](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.4...2.4.5) (2023-05-16)
+
+
+### Bug Fixes
+
+* render cmd and flag sum/desc ejs template ([#350](https://github.com/salesforcecli/plugin-command-reference/issues/350)) ([293c4f2](https://github.com/salesforcecli/plugin-command-reference/commit/293c4f20aa23f2fc9fed09928854a651a6a34e0d))
+
+
 
 ## [2.4.4](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.2...2.4.4) (2023-05-08)
 
+
 ### Bug Fixes
 
-- revert 2.4.2 ([c0f845c](https://github.com/salesforcecli/plugin-command-reference/commit/c0f845ccdcc046aac2646709341b6b59532842fa))
+* revert 2.4.2 ([c0f845c](https://github.com/salesforcecli/plugin-command-reference/commit/c0f845ccdcc046aac2646709341b6b59532842fa))
+
+
 
 ## [2.4.2](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.1...2.4.2) (2023-05-02)
 
+
 ### Bug Fixes
 
-- add strict null checks ([768de7e](https://github.com/salesforcecli/plugin-command-reference/commit/768de7e1f9fe51047833c202ef946f670c91381b))
+* add strict null checks ([768de7e](https://github.com/salesforcecli/plugin-command-reference/commit/768de7e1f9fe51047833c202ef946f670c91381b))
+
+
 
 ## [2.4.1](https://github.com/salesforcecli/plugin-command-reference/compare/2.4.0...2.4.1) (2023-02-20)
 
+
 ### Bug Fixes
 
-- jit install ([1ca1e70](https://github.com/salesforcecli/plugin-command-reference/commit/1ca1e70565a2b548b32a41b9eead23ca0f83dfb1))
+* jit install ([1ca1e70](https://github.com/salesforcecli/plugin-command-reference/commit/1ca1e70565a2b548b32a41b9eead23ca0f83dfb1))
+
+
 
 # [2.4.0](https://github.com/salesforcecli/plugin-command-reference/compare/2.3.1...2.4.0) (2023-02-20)
 
+
 ### Features
 
-- jit install command ([#265](https://github.com/salesforcecli/plugin-command-reference/issues/265)) ([778cf6b](https://github.com/salesforcecli/plugin-command-reference/commit/778cf6bcaae79f2d64db65359f6a9e2f5a6bb349))
+* jit install command ([#265](https://github.com/salesforcecli/plugin-command-reference/issues/265)) ([778cf6b](https://github.com/salesforcecli/plugin-command-reference/commit/778cf6bcaae79f2d64db65359f6a9e2f5a6bb349))
+
+
 
 ## [2.3.1](https://github.com/salesforcecli/plugin-command-reference/compare/2.3.0...2.3.1) (2023-02-09)
 
+
 ### Bug Fixes
 
-- duplicate flag descriptions ([9adcc28](https://github.com/salesforcecli/plugin-command-reference/commit/9adcc28bffc8168e727c2bdf418c40ee70c7f211))
+* duplicate flag descriptions ([9adcc28](https://github.com/salesforcecli/plugin-command-reference/commit/9adcc28bffc8168e727c2bdf418c40ee70c7f211))
+
+
 
 # [2.3.0](https://github.com/salesforcecli/plugin-command-reference/compare/2.2.10...2.3.0) (2023-01-31)
 
+
 ### Features
 
-- use oclif/core v2 ([9b2d3e7](https://github.com/salesforcecli/plugin-command-reference/commit/9b2d3e7e7d4cfd9c726cc143f150bfaeb6415eda))
+* use oclif/core v2 ([9b2d3e7](https://github.com/salesforcecli/plugin-command-reference/commit/9b2d3e7e7d4cfd9c726cc143f150bfaeb6415eda))
+
+
 
 ## [2.2.10](https://github.com/salesforcecli/plugin-command-reference/compare/2.2.9...2.2.10) (2023-01-25)
 
+
 ### Bug Fixes
 
-- check if plugin exists ([b69d92d](https://github.com/salesforcecli/plugin-command-reference/commit/b69d92d22781f234dfd31acb7f324d2996f9b8aa))
+* check if plugin exists ([b69d92d](https://github.com/salesforcecli/plugin-command-reference/commit/b69d92d22781f234dfd31acb7f324d2996f9b8aa))
+
+
 
 ## [2.2.9](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.8...2.2.9) (2023-01-12)
 
+
 ### Bug Fixes
 
-- add GHA folder ([ce74bf8](https://github.com/salesforcecli/plugin-command-reference/commit/ce74bf886b9cced6029f24bf21774f7294de7d02))
-- description no longer required for sf ([27d0099](https://github.com/salesforcecli/plugin-command-reference/commit/27d0099524fa1b1dc2cdebca08738f1829d60423))
-- improve types ([#99](https://github.com/salesforcecli/plugin-command-reference/issues/99)) ([99c3aa6](https://github.com/salesforcecli/plugin-command-reference/commit/99c3aa6b9a6713b4f513118501202ee7afe398f0))
+* add GHA folder ([ce74bf8](https://github.com/salesforcecli/plugin-command-reference/commit/ce74bf886b9cced6029f24bf21774f7294de7d02))
+* description no longer required for sf ([27d0099](https://github.com/salesforcecli/plugin-command-reference/commit/27d0099524fa1b1dc2cdebca08738f1829d60423))
+* improve types ([#99](https://github.com/salesforcecli/plugin-command-reference/issues/99)) ([99c3aa6](https://github.com/salesforcecli/plugin-command-reference/commit/99c3aa6b9a6713b4f513118501202ee7afe398f0))
+
+
 
 ## [2.2.8](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.7...v2.2.8) (2022-03-31)
 
+
 ### Bug Fixes
 
-- remove console.log ([39e398e](https://github.com/salesforcecli/plugin-command-reference/commit/39e398e035b1c8cd0cafa305431c6a0125d4612a))
+* remove console.log ([39e398e](https://github.com/salesforcecli/plugin-command-reference/commit/39e398e035b1c8cd0cafa305431c6a0125d4612a))
+
+
 
 ## [2.2.7](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.6...v2.2.7) (2022-03-30)
 
+
 ### Bug Fixes
 
-- default value ([efd9701](https://github.com/salesforcecli/plugin-command-reference/commit/efd97012d44ed7ae4e4600f4df39d50ee246d232))
+* default value ([efd9701](https://github.com/salesforcecli/plugin-command-reference/commit/efd97012d44ed7ae4e4600f4df39d50ee246d232))
+
+
 
 ## [2.2.6](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.5...v2.2.6) (2022-03-30)
 
+
 ### Bug Fixes
 
-- remove async handlebars ([2c91d7a](https://github.com/salesforcecli/plugin-command-reference/commit/2c91d7a6b42e1698876209e776d925898fe87007))
+* remove async handlebars ([2c91d7a](https://github.com/salesforcecli/plugin-command-reference/commit/2c91d7a6b42e1698876209e776d925898fe87007))
+
+
 
 ## [2.2.5](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.4...v2.2.5) (2022-03-29)
 
+
 ### Bug Fixes
 
-- refine default value ([213fb5e](https://github.com/salesforcecli/plugin-command-reference/commit/213fb5ecf66b56514c1745085744fe99f89630ff))
-- remove duplicates ([15615fb](https://github.com/salesforcecli/plugin-command-reference/commit/15615fb115b28825ccce77299ae5c190e06fde59))
+* refine default value ([213fb5e](https://github.com/salesforcecli/plugin-command-reference/commit/213fb5ecf66b56514c1745085744fe99f89630ff))
+* remove duplicates ([15615fb](https://github.com/salesforcecli/plugin-command-reference/commit/15615fb115b28825ccce77299ae5c190e06fde59))
+
+
 
 ## [2.2.4](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.3...v2.2.4) (2022-03-29)
 
+
 ### Bug Fixes
 
-- escape tags ([b6f4a6a](https://github.com/salesforcecli/plugin-command-reference/commit/b6f4a6ae7bcbe66c2042e272635e2ab0ec1ca0e0))
+* escape tags ([b6f4a6a](https://github.com/salesforcecli/plugin-command-reference/commit/b6f4a6ae7bcbe66c2042e272635e2ab0ec1ca0e0))
+
+
 
 ## [2.2.3](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.2...v2.2.3) (2022-03-24)
 
+
 ### Bug Fixes
 
-- prevent empty tags ([93120f3](https://github.com/salesforcecli/plugin-command-reference/commit/93120f3a9a2f9d48bca78ab2f9fbbcf6cd11bed8))
+* prevent empty tags ([93120f3](https://github.com/salesforcecli/plugin-command-reference/commit/93120f3a9a2f9d48bca78ab2f9fbbcf6cd11bed8))
+
+
 
 ## [2.2.2](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.1...v2.2.2) (2022-03-24)
 
+
 ### Bug Fixes
 
-- remove cli-ux reference ([43c8680](https://github.com/salesforcecli/plugin-command-reference/commit/43c86808eb7b24783b15b703d39c1f49df5fc4f8))
+* remove cli-ux reference ([43c8680](https://github.com/salesforcecli/plugin-command-reference/commit/43c86808eb7b24783b15b703d39c1f49df5fc4f8))
+
+
 
 ## [2.2.1](https://github.com/salesforcecli/plugin-command-reference/compare/v2.2.0...v2.2.1) (2022-03-08)
 
+
 ### Bug Fixes
 
-- dont run default functions ([264b7bb](https://github.com/salesforcecli/plugin-command-reference/commit/264b7bb02fded86c23c75e6e81b1410aececca08))
+* dont run default functions ([264b7bb](https://github.com/salesforcecli/plugin-command-reference/commit/264b7bb02fded86c23c75e6e81b1410aececca08))
+
+
 
 # [2.2.0](https://github.com/salesforcecli/plugin-command-reference/compare/v2.1.1...v2.2.0) (2022-03-08)
 
+
 ### Features
 
-- update dependencies ([289c50c](https://github.com/salesforcecli/plugin-command-reference/commit/289c50c026efae4e5708ba9d14c67dac29a9b392))
+* update dependencies ([289c50c](https://github.com/salesforcecli/plugin-command-reference/commit/289c50c026efae4e5708ba9d14c67dac29a9b392))
+
+
 
 ## [2.1.1](https://github.com/salesforcecli/plugin-command-reference/compare/v2.1.0...v2.1.1) (2021-10-13)
 
+
+
 # [2.1.0](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.12...v2.1.0) (2021-10-07)
+
 
 ### Features
 
-- add --all ([#38](https://github.com/salesforcecli/plugin-command-reference/issues/38)) ([ecf8fb2](https://github.com/salesforcecli/plugin-command-reference/commit/ecf8fb2539c553aa4acb43206e6bd5bc7d27e6e2))
+* add --all ([#38](https://github.com/salesforcecli/plugin-command-reference/issues/38)) ([ecf8fb2](https://github.com/salesforcecli/plugin-command-reference/commit/ecf8fb2539c553aa4acb43206e6bd5bc7d27e6e2))
+
+
 
 ## [2.0.12](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.11...v2.0.12) (2021-10-01)
 
+
 ### Bug Fixes
 
-- bump to GA deps ([#37](https://github.com/salesforcecli/plugin-command-reference/issues/37)) ([0f0644f](https://github.com/salesforcecli/plugin-command-reference/commit/0f0644f9298f44eec86c0210cf9bce267b3c3cfc))
+* bump to GA deps ([#37](https://github.com/salesforcecli/plugin-command-reference/issues/37)) ([0f0644f](https://github.com/salesforcecli/plugin-command-reference/commit/0f0644f9298f44eec86c0210cf9bce267b3c3cfc))
+
+
 
 ## [2.0.11](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.10...v2.0.11) (2021-09-20)
 
+
 ### Bug Fixes
 
-- stop generating main topic intro ([ba42e7f](https://github.com/salesforcecli/plugin-command-reference/commit/ba42e7fc66ca88b64658c9b88f9a7209a6953b55))
+* stop generating main topic intro ([ba42e7f](https://github.com/salesforcecli/plugin-command-reference/commit/ba42e7fc66ca88b64658c9b88f9a7209a6953b55))
+
+
 
 ## [2.0.10](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.9...v2.0.10) (2021-09-16)
 
+
 ### Bug Fixes
 
-- change title/shortdesc of main ditamap so it says "sf" ([48f183e](https://github.com/salesforcecli/plugin-command-reference/commit/48f183ec1be08b265f95baf6bf8bfab72cc932e1))
+* change title/shortdesc of main ditamap so it says "sf" ([48f183e](https://github.com/salesforcecli/plugin-command-reference/commit/48f183ec1be08b265f95baf6bf8bfab72cc932e1))
+
+
 
 ## [2.0.9](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.8...v2.0.9) (2021-09-16)
 
+
 ### Bug Fixes
 
-- use latest sf-plugins-core ([9366b09](https://github.com/salesforcecli/plugin-command-reference/commit/9366b096cfcbe2fae41b1f6eede805c8d817570b))
+* use latest sf-plugins-core ([9366b09](https://github.com/salesforcecli/plugin-command-reference/commit/9366b096cfcbe2fae41b1f6eede805c8d817570b))
+
+
 
 ## [2.0.8](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.7...v2.0.8) (2021-09-15)
 
+
 ### Bug Fixes
 
-- update template files for sf ([2a0ca0a](https://github.com/salesforcecli/plugin-command-reference/commit/2a0ca0acc1744b2b090d5c7b3d3a196d127061c9))
-- update test with new title in command XML file ([b9b14ea](https://github.com/salesforcecli/plugin-command-reference/commit/b9b14ea2a8505d153a244ebc0d1e7759e2803a40))
+* update template files for sf ([2a0ca0a](https://github.com/salesforcecli/plugin-command-reference/commit/2a0ca0acc1744b2b090d5c7b3d3a196d127061c9))
+* update test with new title in command XML file ([b9b14ea](https://github.com/salesforcecli/plugin-command-reference/commit/b9b14ea2a8505d153a244ebc0d1e7759e2803a40))
+
+
 
 ## [2.0.7](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.6...v2.0.7) (2021-09-14)
 
+
 ### Bug Fixes
 
-- improve error handling ([50a8f5a](https://github.com/salesforcecli/plugin-command-reference/commit/50a8f5a7c92307ac2a0b0d3e72cc98e3e679870d))
+* improve error handling ([50a8f5a](https://github.com/salesforcecli/plugin-command-reference/commit/50a8f5a7c92307ac2a0b0d3e72cc98e3e679870d))
+
+
 
 ## [2.0.6](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.5...v2.0.6) (2021-09-09)
 
+
 ### Bug Fixes
 
-- don't generate xml for topics ([60e0056](https://github.com/salesforcecli/plugin-command-reference/commit/60e00563698ce8db4a12077f7866cdbe15fbdf6a))
+* don't generate xml for topics ([60e0056](https://github.com/salesforcecli/plugin-command-reference/commit/60e00563698ce8db4a12077f7866cdbe15fbdf6a))
+
+
 
 ## [2.0.5](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.4...v2.0.5) (2021-09-08)
 
+
 ### Bug Fixes
 
-- use unique id ([56c946e](https://github.com/salesforcecli/plugin-command-reference/commit/56c946eab0dcb8775bd538ddc80e824aee8b7273))
+* use unique id ([56c946e](https://github.com/salesforcecli/plugin-command-reference/commit/56c946eab0dcb8775bd538ddc80e824aee8b7273))
+
+
 
 ## [2.0.4](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.3...v2.0.4) (2021-09-08)
 
+
 ### Bug Fixes
 
-- append suffix to all filenames ([6264636](https://github.com/salesforcecli/plugin-command-reference/commit/626463690bc5e6d157949b14dc5b1966e65c5d3f))
+* append suffix to all filenames ([6264636](https://github.com/salesforcecli/plugin-command-reference/commit/626463690bc5e6d157949b14dc5b1966e65c5d3f))
+
+
 
 ## [2.0.3](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.2...v2.0.3) (2021-09-08)
 
+
 ### Bug Fixes
 
-- populate topic command xml ([d8b61e5](https://github.com/salesforcecli/plugin-command-reference/commit/d8b61e51b41192a97de3a166011d0d494606959d))
+* populate topic command xml ([d8b61e5](https://github.com/salesforcecli/plugin-command-reference/commit/d8b61e51b41192a97de3a166011d0d494606959d))
+
+
 
 ## [2.0.2](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.1...v2.0.2) (2021-09-08)
 
+
 ### Bug Fixes
 
-- update generate command reference ([d864b2d](https://github.com/salesforcecli/plugin-command-reference/commit/d864b2d5749732e1870e2f59c80c8975b028c21b))
+* update generate command reference ([d864b2d](https://github.com/salesforcecli/plugin-command-reference/commit/d864b2d5749732e1870e2f59c80c8975b028c21b))
+
+
 
 ## [2.0.1](https://github.com/salesforcecli/plugin-command-reference/compare/v2.0.0...v2.0.1) (2021-09-07)
 
+
 ### Bug Fixes
 
-- use this.config ([de4a137](https://github.com/salesforcecli/plugin-command-reference/commit/de4a137d6e3e5ca8d322e5c45e3e893c6830ff40))
+* use this.config ([de4a137](https://github.com/salesforcecli/plugin-command-reference/commit/de4a137d6e3e5ca8d322e5c45e3e893c6830ff40))
+
+
 
 # [2.0.0](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.14...v2.0.0) (2021-09-07)
 
-- Updates for `sf` (#34) ([6177be2](https://github.com/salesforcecli/plugin-command-reference/commit/6177be292a3895f3226951a763fe4610b5587cd0)), closes [#34](https://github.com/salesforcecli/plugin-command-reference/issues/34)
+
+* Updates for `sf` (#34) ([6177be2](https://github.com/salesforcecli/plugin-command-reference/commit/6177be292a3895f3226951a763fe4610b5587cd0)), closes [#34](https://github.com/salesforcecli/plugin-command-reference/issues/34)
+
 
 ### BREAKING CHANGES
 
-- only works for sf now
+* only works for sf now
 
-- test: update to work with new file structure
+* test: update to work with new file structure
 
-- refactor: use oclif/core
+* refactor: use oclif/core
 
-- chore: bump to 2.0.0
+* chore: bump to 2.0.0
 
-- chore: satisfy dev-scripts
+* chore: satisfy dev-scripts
 
-- chore: code review
+* chore: code review
 
-- chore: regenerate yarn.lock
+* chore: regenerate yarn.lock
+
+
 
 ## [1.3.14](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.13...v1.3.14) (2021-08-13)
 
+
+
 ## [1.3.13](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.12...v1.3.13) (2021-08-13)
+
+
 
 ## [1.3.12](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.11...v1.3.12) (2021-08-12)
 
+
+
 ## [1.3.11](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.10...v1.3.11) (2021-08-12)
+
+
 
 ## [1.3.10](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.9...v1.3.10) (2021-08-12)
 
+
+
 ## [1.3.9](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.8...v1.3.9) (2021-08-12)
+
+
 
 ## [1.3.8](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.7...v1.3.8) (2021-08-11)
 
+
+
 ## [1.3.7](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.6...v1.3.7) (2021-08-11)
+
+
 
 ## [1.3.6](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.5...v1.3.6) (2021-08-11)
 
+
+
 ## [1.3.5](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.4...v1.3.5) (2021-08-10)
+
+
 
 ## [1.3.4](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.3...v1.3.4) (2021-06-04)
 
+
 ### Bug Fixes
 
-- list plug-ins and their version in a <ul> ([f0e3f20](https://github.com/salesforcecli/plugin-command-reference/commit/f0e3f201a19818bac9d714a9a3a00fd0c2721407))
+* list plug-ins and their version in a <ul> ([f0e3f20](https://github.com/salesforcecli/plugin-command-reference/commit/f0e3f201a19818bac9d714a9a3a00fd0c2721407))
+
+
 
 ## [1.3.3](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.2...v1.3.3) (2021-05-17)
 
+
 ### Bug Fixes
 
-- async load oclif/core commands ([#26](https://github.com/salesforcecli/plugin-command-reference/issues/26)) ([caa788d](https://github.com/salesforcecli/plugin-command-reference/commit/caa788d4f0efedb5c6e598a6df32e4c65cc4f1b3))
+* async load oclif/core commands ([#26](https://github.com/salesforcecli/plugin-command-reference/issues/26)) ([caa788d](https://github.com/salesforcecli/plugin-command-reference/commit/caa788d4f0efedb5c6e598a6df32e4c65cc4f1b3))
+
+
 
 ## [1.3.2](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.1...v1.3.2) (2021-05-03)
 
+
 ### Bug Fixes
 
-- force patch release ([9a72942](https://github.com/salesforcecli/plugin-command-reference/commit/9a72942dca2bbdb791a1f765fed067290f365254))
+* force patch release ([9a72942](https://github.com/salesforcecli/plugin-command-reference/commit/9a72942dca2bbdb791a1f765fed067290f365254))
+
+
 
 ## [1.3.1](https://github.com/salesforcecli/plugin-command-reference/compare/v1.3.0...v1.3.1) (2021-05-03)
 
+
 ### Bug Fixes
 
-- add auth to list of plugins ([0a5494a](https://github.com/salesforcecli/plugin-command-reference/commit/0a5494a96bec63c3519ae5ea726d7f5e09e79cef))
-- add back spaces that were mistakenly removed ([381d2f9](https://github.com/salesforcecli/plugin-command-reference/commit/381d2f92966f1dcdfa2149f086b693ad658a548a))
-- bump version 1.3.2 to force release ([2d38cf5](https://github.com/salesforcecli/plugin-command-reference/commit/2d38cf5a5ed6090e51360bbcab5131e13f709893))
-- bump version 1.3.2 to force release ([34d8c00](https://github.com/salesforcecli/plugin-command-reference/commit/34d8c001f9a33b430ea1eeabc884194815ee2d25))
-- fix deprecated warning message ([9fc5219](https://github.com/salesforcecli/plugin-command-reference/commit/9fc5219d476f5456b9ed6d2c9c27216560bbf8bb))
-- undo commit to master ([cbc3195](https://github.com/salesforcecli/plugin-command-reference/commit/cbc31958c4797118159039b466cd4365576bee62))
-- undo commit to master ([47efe40](https://github.com/salesforcecli/plugin-command-reference/commit/47efe40dde6c19782de6a21b89e62f8dc5e2d66a))
+* add auth to list of plugins ([0a5494a](https://github.com/salesforcecli/plugin-command-reference/commit/0a5494a96bec63c3519ae5ea726d7f5e09e79cef))
+* add back spaces that were mistakenly removed ([381d2f9](https://github.com/salesforcecli/plugin-command-reference/commit/381d2f92966f1dcdfa2149f086b693ad658a548a))
+* bump version 1.3.2 to force release ([2d38cf5](https://github.com/salesforcecli/plugin-command-reference/commit/2d38cf5a5ed6090e51360bbcab5131e13f709893))
+* bump version 1.3.2 to force release ([34d8c00](https://github.com/salesforcecli/plugin-command-reference/commit/34d8c001f9a33b430ea1eeabc884194815ee2d25))
+* fix deprecated warning message ([9fc5219](https://github.com/salesforcecli/plugin-command-reference/commit/9fc5219d476f5456b9ed6d2c9c27216560bbf8bb))
+* undo commit to master ([cbc3195](https://github.com/salesforcecli/plugin-command-reference/commit/cbc31958c4797118159039b466cd4365576bee62))
+* undo commit to master ([47efe40](https://github.com/salesforcecli/plugin-command-reference/commit/47efe40dde6c19782de6a21b89e62f8dc5e2d66a))
+
+
 
 # [1.3.0](https://github.com/salesforcecli/plugin-command-reference/compare/v1.2.6...v1.3.0) (2021-02-02)
 
+
 ### Features
 
-- default to current working directory when no plugins are provided ([#15](https://github.com/salesforcecli/plugin-command-reference/issues/15)) ([57a66b2](https://github.com/salesforcecli/plugin-command-reference/commit/57a66b21093f896adc69d71a3025679770e6e7ad))
+* default to current working directory when no plugins are provided ([#15](https://github.com/salesforcecli/plugin-command-reference/issues/15)) ([57a66b2](https://github.com/salesforcecli/plugin-command-reference/commit/57a66b21093f896adc69d71a3025679770e6e7ad))
+
+
 
 ## [1.2.6](https://github.com/salesforcecli/plugin-command-reference/compare/v1.2.5...v1.2.6) (2021-02-01)
 
+
 ### Bug Fixes
 
-- remove note about "sfdx force:doc:commands:list" ([2378f39](https://github.com/salesforcecli/plugin-command-reference/commit/2378f39a88923c294a2a2cb8c002372e85e819cf))
+* remove note about "sfdx force:doc:commands:list" ([2378f39](https://github.com/salesforcecli/plugin-command-reference/commit/2378f39a88923c294a2a2cb8c002372e85e819cf))
+
+
 
 ## [1.2.5](https://github.com/salesforcecli/plugin-command-reference/compare/v1.2.4...v1.2.5) (2021-02-01)
 
+
 ### Bug Fixes
 
-- Add list of other plugins as a top-level topic ([800d797](https://github.com/salesforcecli/plugin-command-reference/commit/800d7973a9e1c29a38866b258e20c0006ecf8aa2))
+* Add list of other plugins as a top-level topic ([800d797](https://github.com/salesforcecli/plugin-command-reference/commit/800d7973a9e1c29a38866b258e20c0006ecf8aa2))
+
+
 
 ## [1.2.4](https://github.com/salesforcecli/plugin-command-reference/compare/v1.2.3...v1.2.4) (2021-01-20)
 
+
 ### Bug Fixes
 
-- remove <ph id="topic-title"> ([2180c1a](https://github.com/salesforcecli/plugin-command-reference/commit/2180c1aaf310fb9cfbda2b947e5f5b77bdf3e226))
+* remove <ph id="topic-title"> ([2180c1a](https://github.com/salesforcecli/plugin-command-reference/commit/2180c1aaf310fb9cfbda2b947e5f5b77bdf3e226))
+
+
 
 ## [1.2.3](https://github.com/salesforcecli/plugin-command-reference/compare/v1.2.2...v1.2.3) (2020-11-05)
 
+
 ### Bug Fixes
 
-- fix rel notes link to point to main branch ([663483b](https://github.com/salesforcecli/plugin-command-reference/commit/663483bd3aab0f40c68ac6b6327c34a4edce1014))
+* fix rel notes link to point to main branch ([663483b](https://github.com/salesforcecli/plugin-command-reference/commit/663483bd3aab0f40c68ac6b6327c34a4edce1014))
+
+
 
 ## [1.2.2](https://github.com/salesforcecli/plugin-command-reference/compare/v1.2.1...v1.2.2) (2020-10-28)
 
+
 ### Bug Fixes
 
-- rearrange command xml, rename setup guide, fix rn link ([b1ad787](https://github.com/salesforcecli/plugin-command-reference/commit/b1ad7874958bd2cbe38f19896cfc5964da213488))
+* rearrange command xml, rename setup guide, fix rn link ([b1ad787](https://github.com/salesforcecli/plugin-command-reference/commit/b1ad7874958bd2cbe38f19896cfc5964da213488))
+
+
 
 ## [1.2.1](https://github.com/salesforcecli/plugin-command-reference/compare/v1.2.0...v1.2.1) (2020-10-27)
 
+
 ### Bug Fixes
 
-- don't duplicate examples ([cd6328b](https://github.com/salesforcecli/plugin-command-reference/commit/cd6328b5cbc4a58f11d309acade7a67513acaf58))
+* don't duplicate examples ([cd6328b](https://github.com/salesforcecli/plugin-command-reference/commit/cd6328b5cbc4a58f11d309acade7a67513acaf58))
+
+
 
 # [1.2.0](https://github.com/salesforcecli/plugin-command-reference/compare/v1.1.5...v1.2.0) (2020-10-21)
 
+
 ### Features
 
-- add aliases and examples ([aaf61ad](https://github.com/salesforcecli/plugin-command-reference/commit/aaf61adf3508f69d899898876f03154218ff5a9b))
+* add aliases and examples ([aaf61ad](https://github.com/salesforcecli/plugin-command-reference/commit/aaf61adf3508f69d899898876f03154218ff5a9b))
+
+
 
 ## [1.1.5](https://github.com/salesforcecli/plugin-command-reference/compare/v1.1.4...v1.1.5) (2020-10-01)
 
+
 ### Bug Fixes
 
-- correct help ([b75dd61](https://github.com/salesforcecli/plugin-command-reference/commit/b75dd61281ec1671e20f9a52078da642ede2e0a6))
+* correct help ([b75dd61](https://github.com/salesforcecli/plugin-command-reference/commit/b75dd61281ec1671e20f9a52078da642ede2e0a6))
+
+
 
 ## [1.1.4](https://github.com/salesforcecli/plugin-command-reference/compare/v1.1.3...v1.1.4) (2020-10-01)
 
+
 ### Bug Fixes
 
-- ensure unique ids ([d51f193](https://github.com/salesforcecli/plugin-command-reference/commit/d51f19350bab150da23575bfa27e94e467df99d6))
+* ensure unique ids ([d51f193](https://github.com/salesforcecli/plugin-command-reference/commit/d51f19350bab150da23575bfa27e94e467df99d6))
+
+
 
 ## [1.1.3](https://github.com/salesforcecli/plugin-command-reference/compare/v1.1.2...v1.1.3) (2020-08-12)
 
+
 ### Bug Fixes
 
-- put back multiple flag descriptions ([4c340a8](https://github.com/salesforcecli/plugin-command-reference/commit/4c340a8f414d2e892e135797754883db040ff89a))
+* put back multiple flag descriptions ([4c340a8](https://github.com/salesforcecli/plugin-command-reference/commit/4c340a8f414d2e892e135797754883db040ff89a))
+
+
 
 ## [1.1.2](https://github.com/salesforcecli/plugin-command-reference/compare/v1.1.1...v1.1.2) (2020-08-12)
 
+
 ### Bug Fixes
 
-- return parameters ([c713fd0](https://github.com/salesforcecli/plugin-command-reference/commit/c713fd0f7d3f93f64a7f76b9a430d43aeaca875f))
+* return parameters ([c713fd0](https://github.com/salesforcecli/plugin-command-reference/commit/c713fd0f7d3f93f64a7f76b9a430d43aeaca875f))
+
+
 
 ## [1.1.1](https://github.com/salesforcecli/plugin-command-reference/compare/v1.1.0...v1.1.1) (2020-08-06)
 
+
 ### Bug Fixes
 
-- no multiline in description ([0b846b7](https://github.com/salesforcecli/plugin-command-reference/commit/0b846b7931a35e1cad4956fa918ece30650944f9))
+* no multiline in description ([0b846b7](https://github.com/salesforcecli/plugin-command-reference/commit/0b846b7931a35e1cad4956fa918ece30650944f9))
+
+
 
 # [1.1.0](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.7...v1.1.0) (2020-07-29)
 
+
 ### Features
 
-- support no long description ([4b5dabc](https://github.com/salesforcecli/plugin-command-reference/commit/4b5dabc7acc30bd689bda110484e2c0e345d64da))
+* support no long description ([4b5dabc](https://github.com/salesforcecli/plugin-command-reference/commit/4b5dabc7acc30bd689bda110484e2c0e345d64da))
+
+
 
 ## [1.0.7](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.6...v1.0.7) (2020-03-11)
 
+
 ### Bug Fixes
 
-- do not warn on single command topics ([b799259](https://github.com/salesforcecli/plugin-command-reference/commit/b799259ff941fc7a13157cded1e5bb0895d212ce))
+* do not warn on single command topics ([b799259](https://github.com/salesforcecli/plugin-command-reference/commit/b799259ff941fc7a13157cded1e5bb0895d212ce))
+
+
 
 ## [1.0.6](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.5...v1.0.6) (2020-03-09)
 
+
 ### Bug Fixes
 
-- add back tests and allow for external topics ([88a9229](https://github.com/salesforcecli/plugin-command-reference/commit/88a9229f55be479a48ba3d696e00ac792e71ce6e))
+* add back tests and allow for external topics ([88a9229](https://github.com/salesforcecli/plugin-command-reference/commit/88a9229f55be479a48ba3d696e00ac792e71ce6e))
+
+
 
 ## [1.0.5](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.4...v1.0.5) (2020-03-03)
 
+
 ### Bug Fixes
 
-- missing path join ([def2d07](https://github.com/salesforcecli/plugin-command-reference/commit/def2d0710f539793c52d36199fe4b78ab88e0afd))
+* missing path join ([def2d07](https://github.com/salesforcecli/plugin-command-reference/commit/def2d0710f539793c52d36199fe4b78ab88e0afd))
+
+
 
 ## [1.0.4](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.3...v1.0.4) (2020-03-03)
 
+
 ### Bug Fixes
 
-- path for templates, again =) ([ccd7396](https://github.com/salesforcecli/plugin-command-reference/commit/ccd7396a1c3de89298325f8b2508753cc6a3bdd9))
+* path for templates, again =) ([ccd7396](https://github.com/salesforcecli/plugin-command-reference/commit/ccd7396a1c3de89298325f8b2508753cc6a3bdd9))
+
+
 
 ## [1.0.3](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.2...v1.0.3) (2020-03-03)
 
+
 ### Bug Fixes
 
-- path for templates ([652f269](https://github.com/salesforcecli/plugin-command-reference/commit/652f269c4d8f57a2f3e1afb1b299079c5ccbe180))
+* path for templates ([652f269](https://github.com/salesforcecli/plugin-command-reference/commit/652f269c4d8f57a2f3e1afb1b299079c5ccbe180))
+
+
 
 ## [1.0.2](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.1...v1.0.2) (2020-03-03)
 
+
 ### Bug Fixes
 
-- user dirname for templates ([51b9b0b](https://github.com/salesforcecli/plugin-command-reference/commit/51b9b0b7f1c99e894e72d0f1d7042445a61ad653))
+* user dirname for templates ([51b9b0b](https://github.com/salesforcecli/plugin-command-reference/commit/51b9b0b7f1c99e894e72d0f1d7042445a61ad653))
+
+
 
 ## [1.0.1](https://github.com/salesforcecli/plugin-command-reference/compare/v1.0.0...v1.0.1) (2020-03-03)
 
+
 ### Bug Fixes
 
-- **release:** add plugins to commit changelog and package ([aa70b82](https://github.com/salesforcecli/plugin-command-reference/commit/aa70b82e7323c218fb86e88011c7e1809d5b5fa3))
-- update invalid script in dev-scripts ([cae155a](https://github.com/salesforcecli/plugin-command-reference/commit/cae155aa1d7fa9a007c08bc01fb29b1272aad9be))
+* **release:** add plugins to commit changelog and package ([aa70b82](https://github.com/salesforcecli/plugin-command-reference/commit/aa70b82e7323c218fb86e88011c7e1809d5b5fa3))
+* update invalid script in dev-scripts ([cae155a](https://github.com/salesforcecli/plugin-command-reference/commit/cae155aa1d7fa9a007c08bc01fb29b1272aad9be))
+
+
 
 # [1.0.0](https://github.com/salesforcecli/plugin-command-reference/compare/979babe1de92cd6146ea9584674f5a7bf10c4291...v1.0.0) (2020-03-03)
 
+
 ### Bug Fixes
 
-- minor issues ([efa98b5](https://github.com/salesforcecli/plugin-command-reference/commit/efa98b58563fc4b1696a256fa68304f6ca2930ed))
+* minor issues ([efa98b5](https://github.com/salesforcecli/plugin-command-reference/commit/efa98b58563fc4b1696a256fa68304f6ca2930ed))
+
 
 ### Features
 
-- initial commit to generate command reference ([979babe](https://github.com/salesforcecli/plugin-command-reference/commit/979babe1de92cd6146ea9584674f5a7bf10c4291))
+* initial commit to generate command reference ([979babe](https://github.com/salesforcecli/plugin-command-reference/commit/979babe1de92cd6146ea9584674f5a7bf10c4291))
+
+
+
