@@ -24,8 +24,11 @@ coverage
 
 # generated docs
 docs
+output*
 
 # -- CLEAN ALL
+.eslintcache
+.wireit
 node_modules
 
 # --

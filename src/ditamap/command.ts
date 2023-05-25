@@ -6,20 +6,11 @@
  */
 
 import { join } from 'path';
-import {
-  AnyJson,
-  asString,
-  Dictionary,
-  ensureJsonMap,
-  ensureObject,
-  ensureString,
-  JsonMap,
-} from '@salesforce/ts-types';
-import * as ejs from 'ejs';
-import { CommandClass, punctuate } from '../utils';
+import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
+import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils';
 import { Ditamap } from './ditamap';
 
-export type CommandHelpInfo = {
+type FlagInfo = {
   hidden: boolean;
   description: string;
   summary: string;
@@ -30,10 +21,11 @@ export type CommandHelpInfo = {
   default: string | (() => Promise<string>);
 };
 
-const getDefault = async (flag: CommandHelpInfo): Promise<string> => {
-  if (typeof flag.default !== 'function') {
-    return flag.default;
-  } else if (typeof flag.default === 'function') {
+const getDefault = async (flag?: FlagInfo): Promise<string> => {
+  if (!flag) {
+    return '';
+  }
+  if (typeof flag.default === 'function') {
     try {
       const help = await flag.default();
       return help || '';
@@ -41,108 +33,116 @@ const getDefault = async (flag: CommandHelpInfo): Promise<string> => {
       return '';
     }
   } else {
-    return '';
+    return flag.default;
   }
 };
 
 export class Command extends Ditamap {
-  private flags: Dictionary<CommandHelpInfo>;
+  private flags: Dictionary<FlagInfo>;
+  private commandMeta: Record<string, unknown>;
+  private commandName: string;
 
-  public constructor(topic: string, subtopic: string, command: CommandClass, commandMeta: JsonMap = {}) {
+  public constructor(
+    topic: string,
+    subtopic: string | null,
+    command: CommandClass,
+    commandMeta: Record<string, unknown> = {}
+  ) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
 
-    super(filename, {});
-
-    for (const flag of Object.keys(command.flags)) {
-      if (command.flags[flag].summary) {
-        command.flags[flag].summary = ejs.render(command.flags[flag].summary, {
-          command,
-          config: { bin: commandMeta.binary },
-        });
-      }
-      if (command.flags[flag].description) {
-        command.flags[flag].description = ejs.render(command.flags[flag].description, {
-          command,
-          config: { bin: commandMeta.binary },
-        });
-      }
-    }
+    super(filename, undefined);
 
     this.flags = ensureObject(command.flags);
+    this.commandMeta = commandMeta;
 
-    const summary = punctuate(
-      asString(ejs.render(command.summary || '', { command, config: { bin: commandMeta.binary } }))
-    );
+    const summary = punctuate(command.summary);
+    this.commandName = command.id.replace(/:/g, asString(this.commandMeta.topicSeparator, ':'));
 
-    const description = asString(
-      ejs.render(command.description || '', { command, config: { bin: commandMeta.binary } })
-    );
+    const description = command.description
+      ? replaceConfigVariables(command.description, asString(this.commandMeta.binary, 'unknown'), this.commandName)
+      : undefined;
 
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
 
     const help = this.formatParagraphs(description);
 
-    let trailblazerCommunityUrl: AnyJson;
-    let trailblazerCommunityName: AnyJson;
+    let trailblazerCommunityUrl: string | undefined;
+    let trailblazerCommunityName: string | undefined;
 
-    if (commandMeta.trailblazerCommunityLink) {
-      const community = ensureJsonMap(commandMeta.trailblazerCommunityLink);
-      trailblazerCommunityUrl = community.url;
-      trailblazerCommunityName = community.name;
+    if (this.commandMeta.trailblazerCommunityLink) {
+      const community = this.commandMeta.trailblazerCommunityLink as { url: string; name: string };
+      trailblazerCommunityUrl = community.url ?? 'unknown';
+      trailblazerCommunityName = community.name ?? 'unknown';
     }
 
-    const commandName = asString(command.id).replace(/:/g, asString(commandMeta.topicSeparator));
-
-    const examples = ((command.examples as string[]) || []).map((example) => {
-      const parts = example.split('\n');
-      const desc = parts.length > 1 ? parts[0] : null;
-      const commands = parts.length > 1 ? parts.slice(1) : [parts[0]];
+    const examples = (command.examples ?? []).map((example) => {
+      let desc: string | null;
+      let commands: string[];
+      if (typeof example === 'string') {
+        const parts = example.split('\n');
+        desc = parts.length > 1 ? parts[0] : null;
+        commands = parts.length > 1 ? parts.slice(1) : [parts[0]];
+      } else {
+        desc = example.description;
+        commands = [example.command];
+      }
 
       return {
-        description: desc,
-        commands: commands.map((c) => {
-          return c
-            .replace(/<%= config.bin %>/g, asString(commandMeta.binary))
-            .replace(/<%= command.id %>/g, commandName);
-        }),
+        description: replaceConfigVariables(desc ?? '', asString(this.commandMeta.binary, 'unknown'), this.commandName),
+        commands: commands.map((cmd) =>
+          replaceConfigVariables(cmd, asString(this.commandMeta.binary, 'unknown'), this.commandName)
+        ),
       };
     });
 
-    const state = command.state || commandMeta.state;
-    this.data = Object.assign(command, {
-      name: commandName,
-      binary: commandMeta.binary,
-      topicSeparator: commandMeta.topicSeparator,
-      commandWithUnderscores,
-      examples,
+    const state = command.state ?? this.commandMeta.state;
+    const commandData: CommandData = {
+      name: this.commandName,
       summary,
       description,
+      binary: 'binary' in commandMeta && typeof commandMeta.binary === 'string' ? commandMeta.binary : 'unknown',
+      commandWithUnderscores,
+      deprecated: (command.deprecated as boolean) ?? false,
+      examples,
       help,
+      isBetaCommand: state === 'beta',
       isClosedPilotCommand: state === 'closedPilot',
       isOpenPilotCommand: state === 'openPilot',
-      isBetaCommand: state === 'beta',
-      trailblazerCommunityUrl,
       trailblazerCommunityName,
-    });
+      trailblazerCommunityUrl,
+    };
+
+    this.data = Object.assign(command, commandData);
 
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
-  public async getParametersForTemplate(flags: Dictionary<CommandHelpInfo>) {
-    const final = [] as CommandHelpInfo[];
+  public async getParametersForTemplate(flags: Dictionary<FlagInfo>): Promise<CommandParameterData[]> {
+    const final: CommandParameterData[] = [];
 
     for (const [flagName, flag] of Object.entries(flags)) {
-      if (flag.hidden) continue;
-      const description = Array.isArray(flag.description) ? flag.description.join('\n') : flag.description || '';
-      const entireDescription = flag.summary ? `${flag.summary}\n${description}` : description;
+      if (!flag || flag.hidden) continue;
+      const description = replaceConfigVariables(
+        Array.isArray(flag?.description) ? flag?.description.join('\n') : flag?.description ?? '',
+        asString(this.commandMeta.binary, 'unknown'),
+        this.commandName
+      );
+      const entireDescription = flag.summary
+        ? `${replaceConfigVariables(
+            flag.summary,
+            asString(this.commandMeta.binary, 'unknown'),
+            this.commandName
+          )}\n${description}`
+        : description;
       const updated = Object.assign({}, flag, {
         name: flagName,
         description: this.formatParagraphs(entireDescription),
-        optional: !flag.required,
-        kind: flag.kind || flag.type,
-        hasValue: flag.type !== 'boolean',
+        optional: !flag?.required,
+        kind: flag?.kind ?? flag?.type,
+        hasValue: flag?.type !== 'boolean',
+        // eslint-disable-next-line no-await-in-loop
         defaultFlagValue: await getDefault(flag),
       });
       final.push(updated);
@@ -150,11 +150,12 @@ export class Command extends Ditamap {
     return final;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'command.hbs';
   }
 
-  protected async transformToDitamap() {
+  protected async transformToDitamap(): Promise<string> {
     const parameters = await this.getParametersForTemplate(this.flags);
     this.data = Object.assign({}, this.data, { parameters });
     return super.transformToDitamap();
