@@ -24,6 +24,7 @@ coverage
 
 # generated docs
 docs
+output*
 
 # -- CLEAN ALL
 .eslintcache
