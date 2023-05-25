@@ -6,7 +6,7 @@
  */
 
 import * as fs from 'fs/promises';
-import { AnyJson, ensure, ensureString } from '@salesforce/ts-types';
+import { AnyJson, ensureString } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
