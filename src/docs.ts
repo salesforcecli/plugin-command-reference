@@ -6,9 +6,8 @@
  */
 
 import * as fs from 'fs/promises';
-import { AnyJson, Dictionary, ensure, ensureString, isArray, Optional } from '@salesforce/ts-types';
+import { AnyJson, ensure, ensureString } from '@salesforce/ts-types';
 import * as chalk from 'chalk';
-import { ensureArray } from '@salesforce/kit';
 import { BaseDitamap } from './ditamap/base-ditamap';
 import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
@@ -16,6 +15,8 @@ import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
 import { CliMeta, CommandClass, events, punctuate, SfTopic, SfTopics } from './utils';
 import { HelpReference } from './ditamap/help-reference';
+
+type TopicsByTopicsByTopLevel = Map<string, Map<string, CommandClass[]>>;
 
 function emitNoTopicMetadataWarning(topic: string): void {
   events.emit(
@@ -41,7 +42,7 @@ export class Docs {
     await this.populateTemplate(commands);
   }
 
-  public async populateTopic(topic: string, subtopics: Dictionary<CommandClass | CommandClass[]>): Promise<AnyJson[]> {
+  public async populateTopic(topic: string, subtopics: Map<string, CommandClass[]>): Promise<AnyJson[]> {
     const topicMeta = this.topicMeta.get(topic);
     if (!topicMeta) {
       throw new Error(`No topic meta for ${topic} - add this topic to the oclif section of the package.json.`);
@@ -65,35 +66,21 @@ export class Docs {
     const subTopicNames = [];
     const commandIds = [];
 
-    for (const subtopic of Object.keys(subtopics)) {
-      const subtopicOrCommand = isArray(subtopics[subtopic])
-        ? Object.assign([], subtopics[subtopic])
-        : Object.assign({}, subtopics[subtopic]);
-
+    for (const [subtopic, classes] of subtopics.entries()) {
       try {
-        if (!isArray(subtopicOrCommand)) {
-          // If it is not subtopic (array) it is a command in the top-level topic
-          const command = Object.assign({}, subtopicOrCommand);
-          const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, 1);
-          // eslint-disable-next-line no-await-in-loop
-          await this.populateCommand(topic, null, command, commandMeta);
-          commandIds.push(command.id);
-          continue;
-        }
+        // const subTopicsMeta = topicMeta.subtopics;
 
-        const subTopicsMeta = topicMeta.subtopics;
-
-        if (!subTopicsMeta?.get(subtopic)) {
-          emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
-          continue;
-        }
+        // if (!subTopicsMeta?.get(subtopic)) {
+        //   emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
+        //   continue;
+        // }
 
         subTopicNames.push(subtopic);
 
         // Commands within the sub topic
-        for (const command of subtopicOrCommand) {
+        for (const command of classes) {
           const fullTopic = ensureString(command.id).replace(/:\w+$/, '');
-          const commandsInFullTopic = subtopicOrCommand.filter((cmd) => ensureString(cmd.id).startsWith(fullTopic));
+          const commandsInFullTopic = classes.filter((cmd) => ensureString(cmd.id).startsWith(fullTopic));
           const commandMeta = this.resolveCommandMeta(ensureString(command.id), command, commandsInFullTopic.length);
 
           // eslint-disable-next-line no-await-in-loop
@@ -126,8 +113,9 @@ export class Docs {
    * @param commands - The entire set of command data.
    * @returns The commands grouped by topics/subtopic/commands.
    */
-  private groupTopicsAndSubtopics(commands: CommandClass[]): Dictionary<Dictionary<CommandClass | CommandClass[]>> {
-    const topLevelTopics: Dictionary<Dictionary<CommandClass | CommandClass[]>> = {};
+  private groupTopicsAndSubtopics(commands: CommandClass[]): TopicsByTopicsByTopLevel {
+    // const topLevelTopics: Dictionary<Dictionary<CommandClass | CommandClass[]>> = {};
+    const topLevelTopics = new Map<string, Map<string, CommandClass[]>>();
 
     for (const command of commands) {
       if (command.hidden && !this.hidden) {
@@ -141,14 +129,16 @@ export class Docs {
         // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
-        const topics = topLevelTopics[topLevelTopic] ?? {};
+        const existingTopicsForTopLevel = topLevelTopics.get(topLevelTopic) ?? new Map<string, CommandClass[]>();
 
         if (commandParts.length === 1) {
           // This is a top-level topic that is also a command
-          topics[commandParts[0]] = command;
+          const existingTarget = existingTopicsForTopLevel.get(commandParts[0]) ?? [];
+          existingTopicsForTopLevel.set(commandParts[0], [...existingTarget, command]);
         } else if (commandParts.length === 2) {
           // This is a command directly under the top-level topic
-          topics[commandParts[1]] = command;
+          const existingTarget = existingTopicsForTopLevel.get(commandParts[1]) ?? [];
+          existingTopicsForTopLevel.set(commandParts[1], [...existingTarget, command]);
         } else {
           const subtopic = commandParts[1];
 
@@ -164,14 +154,11 @@ export class Docs {
 
           command.subtopic = subtopic;
 
-          const subtopicCommands: Optional<CommandClass[]> = topics[subtopic] ? ensureArray(topics[subtopic]) : [];
-          if (subtopicCommands) {
-            subtopicCommands.push(command);
-            topics[subtopic] = subtopicCommands;
-          }
+          const subtopicCommands = existingTopicsForTopLevel.get(subtopic) ?? [];
+          existingTopicsForTopLevel.set(subtopic, [...subtopicCommands, command]);
         }
 
-        topLevelTopics[topLevelTopic] = topics;
+        topLevelTopics.set(topLevelTopic, existingTopicsForTopLevel);
       }
     }
     return topLevelTopics;
@@ -183,14 +170,11 @@ export class Docs {
     await new CLIReference().write();
     await new HelpReference().write();
 
-    const topics = Object.keys(topicsAndSubtopics);
-
     // Generate one base file with all top-level topics.
-    await new BaseDitamap(topics).write();
+    await new BaseDitamap(Array.from(topicsAndSubtopics.keys())).write();
 
-    for (const topic of topics) {
+    for (const [topic, subtopics] of topicsAndSubtopics.entries()) {
       events.emit('topic', { topic });
-      const subtopics = ensure(topicsAndSubtopics[topic]);
       // eslint-disable-next-line no-await-in-loop
       await this.populateTopic(topic, subtopics);
     }
