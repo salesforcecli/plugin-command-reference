@@ -27,12 +27,6 @@ function emitNoTopicMetadataWarning(topic: string): void {
   );
 }
 
-// type CommandClassWithPlugin = CommandClass & {
-//   topic: string;
-//   subtopic: string;
-//   plugin: JsonMap & { name: string };
-// } & JsonMap;
-
 export class Docs {
   public constructor(
     private outputDir: string,
