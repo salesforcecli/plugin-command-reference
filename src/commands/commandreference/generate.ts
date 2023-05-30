@@ -78,7 +78,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
 
     let pluginNames: string[];
     if (!flags.plugins && !flags.all) {
-      pluginNames = this.loadedConfig.plugins.map((p) => p.name);
+      pluginNames = this.loadedConfig.plugins.filter((p) => p.type !== 'dev').map((p) => p.name);
     } else if (flags.all) {
       const ignore = [
         /@oclif/,
