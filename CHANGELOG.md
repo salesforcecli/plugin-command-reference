@@ -1,3 +1,12 @@
+## [3.0.2](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.1...3.0.2) (2023-05-30)
+
+
+### Bug Fixes
+
+* skip dev plugins when no plugins specified ([#369](https://github.com/salesforcecli/plugin-command-reference/issues/369)) ([ca5b72a](https://github.com/salesforcecli/plugin-command-reference/commit/ca5b72a6c0c621e45670ee8cb26bd853bab36bff))
+
+
+
 ## [3.0.1](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.0...3.0.1) (2023-05-30)
 
 
