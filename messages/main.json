@@ -1,7 +1,0 @@
-{
-  "commandDescription": "generate the command reference guide located",
-  "pluginFlagDescription": "comma separated list of plugin names to be part of the generation. Defaults to the oclif plugin in the current working directory",
-  "hiddenFlagDescription": "show hidden commands",
-  "outputdirFlagDescription": "output directory to put generated files",
-  "erroronwarningFlagDescription": "fail the command if there are any warnings"
-}

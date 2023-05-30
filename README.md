@@ -9,20 +9,21 @@ Generate the [Salesforce CLI command reference guide](https://developer.salesfor
 
 First install the plugin.
 
-```sh-session
-$ sfdx plugins:install @salesforce/plugin-command-reference
+```bash
+$ sf plugins install @salesforce/plugin-command-reference
 ```
 
 Ensure any plugins are installed that you with to generate documentation for.
 
-```sh-session
-$ sfdx update stable-rc
+```bash
+$ sf plugins:install salesforce@plugin-auth
 ```
 
 Now we can generate the documentation for all core plug-ins.
 
-```sh-session
-$ sfdx commandreference --plugins salesforce-alm,alias,apex,auth,config,custom-metadata,data,limits,org,schema,templates,user,@salesforce/sfdx-plugin-lwc-test,source
+```bash
+# notice we can use the oclif shorthand for the plugin name.  @salesforce/plugin-foo => foo
+$ sf commandreference --plugins auth
 ```
 
 **Note:** Warnings will occur for missing properties in plugins. Those have to be fixed in the plugin itself.
@@ -50,53 +51,60 @@ Then you can run this in your plugin's CI.
 If you need to make changes to this repository, the easiest thing to do is to link it to your Salesforce CLI. After you cloned this plugin, run the following from this plugin directory:
 
 ```sh-session
-sfdx plugins:link .
+sf plugins link .
 ```
 
-Now, you can install any plugins you want and run the command reference generation on them.
+## Testing
 
-```sh-session
-sfdx plugins:install config
-sfdx plugins:install alias
-sfdx plugins:install auth
-sfdx commandreference --plugins alias,config,auth
+How do you know if the output is correct, given your change?
+
+```bash
+# Install the current version of the plugin (use `@sf` until the plugin is publishing the sf version as main)
+sf plugins install @salesforce/plugin-command-reference@sf
+# installs all JIT plugins (if you intend to produce ditamaps for them)
+sf jit install
+# run using a relatively current version of plugins, saving the output as a "gold file"
+sf commandreference generate --plugins login env deploy-retrieve settings functions info sobject limits schema custom-metadata data community signups user org packaging templates apex auth dev @salesforce/sfdx-plugin-lwc-test -d outputGold
 ```
+
+While working on your branch
+
+```bash
+sf plugins link .
+# run the same command from above, but with your new version of the plugin, writing to a new output file
+sf commandreference generate --plugins login env deploy-retrieve settings functions info sobject limits schema custom-metadata data community signups user org packaging templates apex auth dev @salesforce/sfdx-plugin-lwc-test -d outputNew
+```
+
+Now diff the output. Changes should be intentional!
 
 ## Commands
 
 <!-- commands -->
 
-- [`sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-commandreferencegenerate--d-string--p-array---hidden---erroronwarnings---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+- [`sf commandreference generate`](#sf-commandreference-generate)
 
-## `sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sf commandreference generate`
 
 generate the command reference guide located
 
 ```
 USAGE
-  $ sfdx commandreference:generate [-d <string>] [-p <array>] [--hidden] [--erroronwarnings] [--json] [--loglevel
-  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sf commandreference generate [--json] [-d <value>] [-p <value> | -a] [-s <value>] [--hidden] [--erroronwarnings]
 
-OPTIONS
-  -d, --outputdir=outputdir                                                         [default: ./tmp/root] output
-                                                                                    directory to put generated files
+FLAGS
+  -a, --all                     include all relevant plugins in the generation
+  -d, --outputdir=<value>       [default: ./tmp/root] output directory to put generated files
+  -p, --plugins=<value>...      comma separated list of plugin names to be part of the generation. Defaults to the oclif
+                                plugin in the current working directory
+  -s, --ditamap-suffix=<value>  [default: unified] unique suffix to append to generated ditamap
+  --erroronwarnings             fail the command if there are any warnings
+  --hidden                      show hidden commands
 
-  -p, --plugins=plugins                                                             comma separated list of plugin names
-                                                                                    to be part of the generation.
-                                                                                    Defaults to the oclif plugin in the
-                                                                                    current working directory
+GLOBAL FLAGS
+  --json  Format output as json.
 
-  --erroronwarnings                                                                 fail the command if there are any
-                                                                                    warnings
-
-  --hidden                                                                          show hidden commands
-
-  --json                                                                            format output as json
-
-  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
-                                                                                    this command invocation
+DESCRIPTION
+  generate the command reference guide located
 ```
-
-_See code: [src/commands/commandreference/generate.ts](https://github.com/forcedotcom/plugin-command-reference/blob/v1.3.20/src/commands/commandreference/generate.ts)_
 
 <!-- commandsstop -->

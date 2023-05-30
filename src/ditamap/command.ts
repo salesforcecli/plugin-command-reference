@@ -6,115 +6,158 @@
  */
 
 import { join } from 'path';
-import { asString, Dictionary, ensureJsonMap, ensureObject, ensureString, JsonMap } from '@salesforce/ts-types';
-import { events, helpFromDescription, punctuate } from '../utils';
+import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
+import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils';
 import { Ditamap } from './ditamap';
 
-export type CommandHelpInfo = {
+type FlagInfo = {
   hidden: boolean;
   description: string;
-  longDescription: string;
+  summary: string;
   required: boolean;
   kind: string;
   type: string;
+  defaultHelpValue?: string;
+  default: string | (() => Promise<string>);
+};
+
+const getDefault = async (flag?: FlagInfo): Promise<string> => {
+  if (!flag) {
+    return '';
+  }
+  if (typeof flag.default === 'function') {
+    try {
+      const help = await flag.default();
+      return help || '';
+    } catch {
+      return '';
+    }
+  } else {
+    return flag.default;
+  }
 };
 
 export class Command extends Ditamap {
-  public constructor(topic: string, subtopic: string, command: Dictionary, commandMeta: JsonMap = {}) {
+  private flags: Dictionary<FlagInfo>;
+  private commandMeta: Record<string, unknown>;
+  private commandName: string;
+
+  public constructor(
+    topic: string,
+    subtopic: string | null,
+    command: CommandClass,
+    commandMeta: Record<string, unknown> = {}
+  ) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
-    const filename = `cli_reference_${commandWithUnderscores}.xml`;
+    const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
 
-    super(filename, {});
+    super(filename, undefined);
 
-    const flags = ensureObject(command.flags);
-    const parameters = this.getParametersForTemplate(flags as Dictionary<CommandHelpInfo>);
+    this.flags = ensureObject(command.flags);
+    this.commandMeta = commandMeta;
 
-    // The template only expects a oneline description. Punctuate the first line of either the lingDescription or description.
-    const fullDescription = asString(command.longDescription) || asString(command.description);
-    const description = punctuate(fullDescription);
+    const summary = punctuate(command.summary);
+    this.commandName = command.id.replace(/:/g, asString(this.commandMeta.topicSeparator, ':'));
+
+    const description = command.description
+      ? replaceConfigVariables(command.description, asString(this.commandMeta.binary, 'unknown'), this.commandName)
+      : undefined;
+
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
 
-    if (!description) {
-      events.emit('warning', `Missing description for ${command.id}\n`);
+    const help = this.formatParagraphs(description);
+
+    let trailblazerCommunityUrl: string | undefined;
+    let trailblazerCommunityName: string | undefined;
+
+    if (this.commandMeta.trailblazerCommunityLink) {
+      const community = this.commandMeta.trailblazerCommunityLink as { url: string; name: string };
+      trailblazerCommunityUrl = community.url ?? 'unknown';
+      trailblazerCommunityName = community.name ?? 'unknown';
     }
 
-    const help = this.formatParagraphs(asString(command.help) || helpFromDescription(fullDescription));
-    let trailblazerCommunityUrl;
-    let trailblazerCommunityName;
-
-    if (commandMeta.trailblazerCommunityLink) {
-      const community = ensureJsonMap(commandMeta.trailblazerCommunityLink);
-      trailblazerCommunityUrl = community.url;
-      trailblazerCommunityName = community.name;
-    }
-
-    if (Array.isArray(command.examples)) {
-      if (
-        help.includes('Examples:') &&
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        command.examples.map((example, foundAll) => foundAll && help.includes(example), true)
-      ) {
-        // Examples are already in the help, so don't duplicate.
-        // This is legacy support for ToolbeltCommand in salesforce-alm.
-        delete command.examples;
+    const examples = (command.examples ?? []).map((example) => {
+      let desc: string | null;
+      let commands: string[];
+      if (typeof example === 'string') {
+        const parts = example.split('\n');
+        desc = parts.length > 1 ? parts[0] : null;
+        commands = parts.length > 1 ? parts.slice(1) : [parts[0]];
+      } else {
+        desc = example.description;
+        commands = [example.command];
       }
-    }
 
-    let examples;
-    const binary = 'sfdx';
+      return {
+        description: replaceConfigVariables(desc ?? '', asString(this.commandMeta.binary, 'unknown'), this.commandName),
+        commands: commands.map((cmd) =>
+          replaceConfigVariables(cmd, asString(this.commandMeta.binary, 'unknown'), this.commandName)
+        ),
+      };
+    });
 
-    if (command.examples) {
-      examples = Array.isArray(command.examples) ? command.examples : [command.examples];
-
-      examples = examples.map((example) =>
-        example.replace(/<%= config.bin %>/g, binary).replace(/<%= command.id %>/g, command.id)
-      );
-    }
-
-    const state = command.state || commandMeta.state;
-    this.data = Object.assign(command, {
-      binary,
+    const state = command.state ?? this.commandMeta.state;
+    const commandData: CommandData = {
+      name: this.commandName,
+      summary,
+      description,
+      binary: 'binary' in commandMeta && typeof commandMeta.binary === 'string' ? commandMeta.binary : 'unknown',
       commandWithUnderscores,
+      deprecated: (command.deprecated as boolean) ?? false,
       examples,
       help,
-      description,
-      parameters,
+      isBetaCommand: state === 'beta',
       isClosedPilotCommand: state === 'closedPilot',
       isOpenPilotCommand: state === 'openPilot',
-      isBetaCommand: state === 'beta',
-      trailblazerCommunityUrl,
       trailblazerCommunityName,
-    }) as JsonMap;
+      trailblazerCommunityUrl,
+    };
 
-    // Override destination to include topic and subtopic
-    if (subtopic) {
-      this.destination = join(Ditamap.outputDir, topic, subtopic, filename);
-    } else {
-      this.destination = join(Ditamap.outputDir, topic, filename);
-    }
+    this.data = Object.assign(command, commandData);
+
+    this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
-  public getParametersForTemplate(flags: Dictionary<CommandHelpInfo>) {
-    return Object.entries(flags)
-      .filter(([, flag]) => !flag.hidden)
-      .map(([flagName, flag]) => {
-        const description = this.formatParagraphs(flag.longDescription || punctuate(flag.description));
-        if (!flag.longDescription) {
-          flag.longDescription = punctuate(flag.description);
-        }
-        return Object.assign(flag, {
-          name: flagName,
-          description,
-          optional: !flag.required,
-          kind: flag.kind || flag.type,
-          hasValue: flag.type !== 'boolean',
-        });
+  public async getParametersForTemplate(flags: Dictionary<FlagInfo>): Promise<CommandParameterData[]> {
+    const final: CommandParameterData[] = [];
+
+    for (const [flagName, flag] of Object.entries(flags)) {
+      if (!flag || flag.hidden) continue;
+      const description = replaceConfigVariables(
+        Array.isArray(flag?.description) ? flag?.description.join('\n') : flag?.description ?? '',
+        asString(this.commandMeta.binary, 'unknown'),
+        this.commandName
+      );
+      const entireDescription = flag.summary
+        ? `${replaceConfigVariables(
+            flag.summary,
+            asString(this.commandMeta.binary, 'unknown'),
+            this.commandName
+          )}\n${description}`
+        : description;
+      const updated = Object.assign({}, flag, {
+        name: flagName,
+        description: this.formatParagraphs(entireDescription),
+        optional: !flag?.required,
+        kind: flag?.kind ?? flag?.type,
+        hasValue: flag?.type !== 'boolean',
+        // eslint-disable-next-line no-await-in-loop
+        defaultFlagValue: await getDefault(flag),
       });
+      final.push(updated);
+    }
+    return final;
   }
 
   // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'command.hbs';
+  }
+
+  protected async transformToDitamap(): Promise<string> {
+    const parameters = await this.getParametersForTemplate(this.flags);
+    this.data = Object.assign({}, this.data, { parameters });
+    return super.transformToDitamap();
   }
 }

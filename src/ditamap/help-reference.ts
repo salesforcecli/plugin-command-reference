@@ -7,18 +7,17 @@
 
 import { Ditamap } from './ditamap';
 
-export class CLIReference extends Ditamap {
+export class HelpReference extends Ditamap {
   public constructor() {
-    const filename = Ditamap.file('cli_reference', 'xml');
-
+    // Set the data of topic and filenames
+    const filename = Ditamap.file('cli_reference_help', 'xml');
     super(filename, {
-      cliVersion: Ditamap.cliVersion,
-      pluginVersions: Ditamap.pluginVersions,
+      id: filename.replace('.xml', ''),
     });
   }
 
   // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
-    return 'cli_reference_xml.hbs';
+    return 'cli_reference_help.hbs';
   }
 }

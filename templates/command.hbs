@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
-<reference id="cli_reference_{{commandWithUnderscores}}" xml:lang="en-us">
+<reference id="{{uniqueId 'cli_reference' commandWithUnderscores}}" xml:lang="en-us">
 <!--
 
 NOTE TO WRITERS:
@@ -9,8 +9,12 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
 
 -->
     {{!--Not all commands have a minor noun; some are just commandmajornoun:commandverb. This is a sample topic for a commmand with no minor noun.--}}
-    <title><codeph otherprops="nolang">{{id}}</codeph>{{#if isClosedPilotCommand}} (Pilot){{/if}}{{#if isOpenPilotCommand}} (Pilot){{/if}}{{#if isBetaCommand}} (Beta){{/if}}{{#if deprecated}} (Deprecated){{/if}}</title>
-    <shortdesc><ph id="shortdesc">{{#if deprecated}}The command <codeph otherprops="nolang">{{id}}</codeph> has been deprecated and will be removed in v{{deprecated.version}}.0 or later. {{#if deprecated.to}} Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead. {{/if}} {{/if}}{{description}}</ph></shortdesc>
+    <title><codeph otherprops="nolang">{{name}}</codeph>{{#if isClosedPilotCommand}} (Pilot){{/if}}{{#if isOpenPilotCommand}} (Pilot){{/if}}{{#if isBetaCommand}} (Beta){{/if}}{{#if deprecated}} (Deprecated){{/if}}</title>
+    <shortdesc>
+      <ph id="shortdesc">
+        {{#if deprecated}}The command <codeph otherprops="nolang">{{name}}</codeph> has been deprecated and will be removed in v{{deprecated.version}}.0 or later. {{#if deprecated.to}} Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead. {{/if}} {{/if}}{{summary}}
+      </ph>
+    </shortdesc>
     <prolog>
         <metadata>
             {{!--In the future we’ll add keywords here.--}}
@@ -23,65 +27,62 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
     </prolog>
     <refbody>{{#if isClosedPilotCommand}}
         <section>
-            <note>We provide the <codeph otherprops="nolang">{{id}}</codeph> command to selected customers through an invitation-only
+            <note>We provide the <codeph otherprops="nolang">{{name}}</codeph> command to selected customers through an invitation-only
                 pilot program that requires agreement to specific terms and conditions. Pilot programs are subject to change, and we can’t
-                guarantee acceptance. The <codeph otherprops="nolang">{{id}}</codeph> command isn’t generally available unless or
+                guarantee acceptance. The <codeph otherprops="nolang">{{name}}</codeph> command isn’t generally available unless or
                 until Salesforce announces its general availability in documentation or in press
                 releases or public statements. We can’t guarantee general availability within any
                 particular time frame or at all. Make your purchase decisions only on the basis of
                 generally available products and features. You can provide feedback and suggestions for
-                the <codeph otherprops="nolang">{{id}}</codeph> command in the <xref
+                the <codeph otherprops="nolang">{{name}}</codeph> command in the <xref
                 href="{{trailblazerCommunityUrl}}"
                 format="html" scope="external" type="new-window:HTML">{{trailblazerCommunityName}}</xref> group in the
                 Trailblazer Community.</note>
         </section>{{/if}}{{#if isOpenPilotCommand}}
+        </section>{{/if}}{{#if isOpenPilotCommand}}
         <section>
-            <note>We provide the <codeph otherprops="nolang">{{id}}</codeph> command to selected customers through a pilot program
+            <note>We provide the <codeph otherprops="nolang">{{name}}</codeph> command to selected customers through a pilot program
                 that requires agreement to specific terms and conditions. To be nominated to participate
                 in the program, contact Salesforce. Pilot programs are subject to change, and we can’t
-                guarantee acceptance. The <codeph otherprops="nolang">{{id}}</codeph> command isn’t generally available unless or
+                guarantee acceptance. The <codeph otherprops="nolang">{{name}}</codeph> command isn’t generally available unless or
                 until Salesforce announces its general availability in documentation or in press
                 releases or public statements. We can’t guarantee general availability within any
                 particular time frame or at all. Make your purchase decisions only on the basis of
                 generally available products and features. You can provide feedback and suggestions for
-                the <codeph otherprops="nolang">{{id}}</codeph> command in the <xref
+                the <codeph otherprops="nolang">{{name}}</codeph> command in the <xref
                 href="{{trailblazerCommunityUrl}}"
                 format="html" scope="external" type="new-window:HTML">{{trailblazerCommunityName}}</xref> group in the
                 Trailblazer Community.</note>
         </section>{{/if}}{{#if isBetaCommand}}
         <section>
-            <note>This release contains a beta version of the <codeph otherprops="nolang">{{id}}</codeph> command, which means it’s a
-                high-quality feature with known limitations. The the <codeph otherprops="nolang">{{id}}</codeph> command isn’t generally
-                available unless or until Salesforce announces its general availability in documentation or in
-                press releases or public statements. We can’t guarantee general availability within any
-                particular time frame or at all. Make your purchase decisions only on the basis of generally
-                available products and features. You can provide feedback and suggestions for
-                the <codeph otherprops="nolang">{{id}}</codeph> command in the <xref
-                href="{{trailblazerCommunityUrl}}"
-                format="html" scope="external" type="new-window:HTML">{{trailblazerCommunityName}}</xref> group in the
-                Trailblazer Community.</note>
+            <note>This feature is a Beta Service. Customers may opt to try such Beta Service in its sole discretion. Any use of the Beta Service is subject to the applicable Beta Services Terms provided at Agreements and Terms (<xref href="https://www.salesforce.com/company/legal/agreements/" format="html" scope="external" type="new-window:HTML">https://www.salesforce.com/company/legal/agreements/</xref>).</note>
         </section>{{/if}}
         {{#if help}}
         <section>
-            <title><ph>Help for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
+            <title><ph>Description for <codeph otherprops="nolang">{{name}}</codeph></ph></title>
             {{#each help}}
-            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{removePrompt this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
             {{/each}}
         </section>
         {{/if}}
         {{#if examples}}
         <section>
-            <title><ph>Examples for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
+            <title><ph>Examples for <codeph otherprops="nolang">{{name}}</codeph></ph></title>
             {{#each examples}}
-            {{#isCodeBlock this}}<codeblock otherprops="nolang">{{removePrompt this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+              {{#if this.description}}<p>{{this.description}}</p>{{/if}}
+              {{#if this.commands}}
+              {{#each this.commands}}
+              {{#isCodeBlock this}}<codeblock otherprops="nolang">{{this}}</codeblock>{{else}}<p>{{this}}</p>{{/isCodeBlock}}
+              {{/each}}
+              {{/if}}
             {{/each}}
         </section>
         {{/if}}
         <section>
-            <title><ph>Command Syntax</ph></title>
+            <title><ph>Usage</ph></title>
             <dl>
                 <dlentry>
-                    <dt><codeph otherprops="nolang">{{binary}} {{id}}</codeph></dt>
+                    <dt><codeph otherprops="nolang">{{binary}} {{name}}</codeph></dt>
                     {{#each parameters}}
                     <dd>{{#if optional}}[{{/if}}<codeph otherprops="nolang">{{#if char}}-{{char}}{{else}}--{{name}}{{/if}}</codeph>{{#if hasValue}} <parmname>{{toUpperCase name}}</parmname>{{/if}}{{#if optional}}]{{/if}}</dd>
                     {{/each}}
@@ -90,7 +91,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
         </section>
         {{#if parameters}}
         <section>
-            <title><ph>Parameters</ph></title>
+            <title><ph>Flags</ph></title>
             <dl>
                 {{#each parameters}}
                 <dlentry>
@@ -99,8 +100,8 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
                     {{/if}}<dd>{{#if optional}}Optional{{else}}Required{{/if}}</dd>
                     <dd>{{#each description}}<p>{{[]}}</p>{{/each}}</dd>{{#if kind}}
                     <dd>Type: {{kind}}</dd>{{/if}}{{#if options}}
-                    <dd>Permissible values are: {{join options}}</dd>{{/if}}{{#if default}}
-                    <dd>Default value: {{default}}</dd>{{/if}}
+                    <dd>Permissible values are: {{join options}}</dd>{{/if}}{{#if defaultFlagValue}}
+                    <dd>Default value: {{defaultFlagValue}}</dd>{{/if}}
                 </dlentry>
                 {{/each}}
             </dl>
@@ -108,7 +109,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
         {{/if}}
         {{#if aliases}}
         <section>
-            <title><ph>Aliases for <codeph otherprops="nolang">{{id}}</codeph></ph></title>
+            <title><ph>Aliases for <codeph otherprops="nolang">{{name}}</codeph></ph></title>
             {{#each aliases}}
                 <codeblock otherprops="nolang">{{this}}</codeblock>
             {{/each}}

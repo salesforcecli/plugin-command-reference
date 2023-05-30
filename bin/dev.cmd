@@ -1,4 +1,3 @@
-@@ -0,0 +1,3 @@
 @echo off
-
+set NODE_ENV=development
 node "%~dp0\dev" %*

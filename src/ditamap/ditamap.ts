@@ -4,69 +4,91 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import * as fs from 'fs';
+
 import { dirname, join } from 'path';
-import { JsonMap } from '@salesforce/ts-types';
+import * as fs from 'fs/promises';
 import * as debugCreator from 'debug';
-// import { compile, registerHelper } from 'handlebars';
-import * as handlebars from 'handlebars';
+import * as hb from 'handlebars';
+import { HelperOptions } from 'handlebars';
+import { DitamapData } from '../utils';
 
 const debug = debugCreator('commandreference');
 
+hb.registerHelper('toUpperCase', (str: string) => str.toUpperCase());
+hb.registerHelper('join', (array: string[]) => array.join(', '));
+hb.registerHelper('xmlFile', (...strings) => {
+  const parts = strings.filter((s) => typeof s === 'string');
+  return Ditamap.file(parts.join('_'), 'xml');
+});
+hb.registerHelper('uniqueId', (...strings) => {
+  const parts = strings.filter((s) => typeof s === 'string');
+  return Ditamap.file(parts.join('_'), 'xml').replace('.xml', '');
+});
+
+/*
+ * Returns true if the string should be formatted as code block in docs
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+hb.registerHelper('isCodeBlock', function (this: any, val: string, options: HelperOptions): any {
+  return val.startsWith('sf') || val.startsWith('sfdx') || val.includes('$') || val.includes('>>')
+    ? options.fn(this)
+    : options.inverse(this);
+});
+
+hb.registerHelper('nextVersion', (value: string) => parseInt(value, 2) + 1);
+
 export abstract class Ditamap {
+  public static SUFFIX = 'unified';
+
   public static templatesDir = join(__dirname, '..', '..', 'templates');
 
   public static outputDir: string;
 
   public static cliVersion: string;
 
-  public static plugins: JsonMap;
+  public static plugins: Record<string, string>;
 
   public static pluginVersions: Array<{
     name: string;
     version: string;
   }>;
 
+  private static _suffix: string;
+
   protected destination: string;
 
-  private source: string;
+  private readonly source: string;
 
-  public constructor(private filename: string, protected data: JsonMap) {
-    handlebars.registerHelper('toUpperCase', (str) => str.toUpperCase());
-    handlebars.registerHelper('join', (array) => array.join(', '));
-
-    /*
-     * Returns true if the string should be formatted as code block in docs
-     */
-    // tslint:disable-next-line: no-any
-    handlebars.registerHelper('isCodeBlock', function (this: any, val, options) {
-      return val.indexOf('$ sfdx') >= 0 || val.indexOf('>>') >= 0 ? options.fn(this) : options.inverse(this);
-    });
-
-    /*
-     * Remove OS prompt in codeblocks, as per CCX style guidelines in our published docs
-     */
-    handlebars.registerHelper('removePrompt', (codeblock) =>
-      codeblock.substring((codeblock.indexOf('$') as number) + 1)
-    );
-    handlebars.registerHelper('nextVersion', (value) => parseInt(value as string, 2) + 1);
+  public constructor(private filename: string, protected data: DitamapData) {
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }
 
-  public getFilename() {
+  public static get suffix(): string {
+    return Ditamap._suffix;
+  }
+
+  public static set suffix(suffix: string) {
+    Ditamap._suffix = suffix;
+  }
+
+  public static file(name: string, ext: string): string {
+    return Ditamap.suffix ? `${name}_${Ditamap.suffix}.${ext}` : `${name}.${ext}`;
+  }
+
+  public getFilename(): string {
     return this.filename;
   }
 
-  public getOutputFilePath() {
+  public getOutputFilePath(): string {
     return this.destination;
   }
 
-  public async write() {
-    await fs.promises.mkdir(dirname(this.destination), { recursive: true });
+  public async write(): Promise<void> {
+    await fs.mkdir(dirname(this.destination), { recursive: true });
     const output = await this.transformToDitamap();
 
-    await fs.promises.writeFile(this.destination, output);
+    await fs.writeFile(this.destination, output);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -81,10 +103,10 @@ export abstract class Ditamap {
    * @param templateName
    * @returns {object}
    */
-  private async transformToDitamap() {
+  protected async transformToDitamap(): Promise<string> {
     debug(`Generating ${this.destination} from ${this.getTemplateFileName()}`);
-    const src = await fs.promises.readFile(this.source, 'utf8');
-    const template = handlebars.compile(src);
+    const src = await fs.readFile(this.source, 'utf8');
+    const template = hb.compile(src, { noEscape: false });
     return template(this.data);
   }
 
