@@ -19,7 +19,7 @@ Ensure any plugins are installed that you with to generate documentation for.
 $ sf plugins:install salesforce@plugin-auth
 ```
 
-Now we can generate the documentation for the `latest-rc` tag.
+Now we can generate the documentation for all core plug-ins.
 
 ```bash
 # notice we can use the oclif shorthand for the plugin name.  @salesforce/plugin-foo => foo
@@ -43,7 +43,7 @@ To add this to your plugin to catch warning at development time, add it as a dev
 Then you can run this in your plugin's CI.
 
 ```sh-session
-./bin/run commandreference --plugins <name-of-your-plugin> --error-on-warnings
+./bin/dev commandreference --plugins <name-of-your-plugin> --error-on-warnings
 ```
 
 ## Local Development

@@ -3,8 +3,8 @@ name: pr-validation
 on:
   pull_request:
     types: [opened, reopened, edited]
-    # only applies to PRs that want to merge to main and v2
-    branches: [main, v2]
+    # only applies to PRs that want to merge to main
+    branches: [main]
 
 jobs:
   pr-validation:
