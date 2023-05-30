@@ -13,7 +13,7 @@ import { CLIReference } from './ditamap/cli-reference';
 import { Command } from './ditamap/command';
 import { TopicCommands } from './ditamap/topic-commands';
 import { TopicDitamap } from './ditamap/topic-ditamap';
-import { CliMeta, CommandClass, events, punctuate, SfTopic, SfTopics } from './utils';
+import { CliMeta, events, punctuate, SfTopic, SfTopics, CommandClass } from './utils';
 import { HelpReference } from './ditamap/help-reference';
 
 type TopicsByTopicsByTopLevel = Map<string, Map<string, CommandClass[]>>;
@@ -26,6 +26,12 @@ function emitNoTopicMetadataWarning(topic: string): void {
     )}. That topic owner must add topic metadata in the oclif section in the package.json file within their plugin.`
   );
 }
+
+// type CommandClassWithPlugin = CommandClass & {
+//   topic: string;
+//   subtopic: string;
+//   plugin: JsonMap & { name: string };
+// } & JsonMap;
 
 export class Docs {
   public constructor(
@@ -161,6 +167,7 @@ export class Docs {
         topLevelTopics.set(topLevelTopic, existingTopicsForTopLevel);
       }
     }
+
     return topLevelTopics;
   }
 
@@ -188,7 +195,7 @@ export class Docs {
     const commandMeta = Object.assign({}, this.cliMeta);
     // Remove top level topic, since the topic meta is already for that topic
     const commandParts = commandId.split(':');
-    let part;
+    let part: string | undefined;
     try {
       let currentMeta: SfTopic | undefined;
       for (part of commandParts) {
