@@ -1,3 +1,12 @@
+## [3.0.5](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.4...3.0.5) (2023-06-11)
+
+
+### Bug Fixes
+
+* **deps:** bump http-cache-semantics from 4.1.0 to 4.1.1 ([f9528ce](https://github.com/salesforcecli/plugin-command-reference/commit/f9528cebf829931bdffdb650539c57588b546ee3))
+
+
+
 ## [3.0.4](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.3...3.0.4) (2023-06-11)
 
 
