@@ -897,10 +897,10 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/core@^4.0.1", "@salesforce/core@^4.1.0", "@salesforce/core@^4.1.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-4.2.2.tgz#48c2011615ea720d1d9c4e22b5b5d9393f974c7c"
-  integrity sha512-EFdEYRjNRBSA1me1YeuYMDgx0zN8yWAlS29pFcF+0fLUvVR2k8uygeiL7XEjAg/ZEkWk74alJ+0BugOIdLdv6Q==
+"@salesforce/core@^4.0.1", "@salesforce/core@^4.1.0", "@salesforce/core@^4.1.2", "@salesforce/core@^4.3.2":
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-4.3.2.tgz#01cab40d349bb0b48044942266a7996f3d1e2b9b"
+  integrity sha512-dsgUYI9pBpJx0l01fumyx85jOPBl5q3J1yTff5ktzlWAs3LXdjqa5KTQMTtS5b36nd4Ht3CVSd36iEOZodoB0g==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^3.0.3"
@@ -1198,12 +1198,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/semver@^7.3.12":
-  version "7.3.13"
-  resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.3.13.tgz#da4bfd73f49bd541d28920ab0e2bf0ee80f71c91"
-  integrity sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==
-
-"@types/semver@^7.5.0":
+"@types/semver@^7.3.12", "@types/semver@^7.5.0":
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.0.tgz#591c1ce3a702c45ee15f47a42ade72c2fd78978a"
   integrity sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw==
