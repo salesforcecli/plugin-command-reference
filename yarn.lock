@@ -971,14 +971,14 @@
     "@salesforce/ts-types" "^2.0.1"
     tslib "^2.5.2"
 
-"@salesforce/plugin-auth@^2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.1.tgz#3ae8fe63ed66560bb52d0c9b9e28b11f0d8a512b"
-  integrity sha512-4AUXzINC5z3k68up+G7nJGCaYKfOXc6CWG6sP4uj9Y8OrW+eAcIw8zwfZSpCoQ9ZRxU6mE3ZawRTyZgDh4bMbw==
+"@salesforce/plugin-auth@^2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.2.tgz#40ff9f0db6bf3c28d8801a58ddbd18f0b0de087f"
+  integrity sha512-2q3M+Kx2rp+wVUg5g8UrgukkLsgZEeWRRw/pF0tL/6vXTADrrJ3V62RP4RgF62iAPlM4mdUjvcNPomsPNqEe1w==
   dependencies:
     "@oclif/core" "^2.8.2"
     "@salesforce/core" "^4.0.1"
-    "@salesforce/kit" "^3.0.2"
+    "@salesforce/kit" "^3.0.3"
     "@salesforce/sf-plugins-core" "^3.0.2"
     "@salesforce/ts-types" "^2.0.2"
     chalk "^4.1.2"
