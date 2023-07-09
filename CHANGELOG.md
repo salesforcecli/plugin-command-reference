@@ -1,3 +1,12 @@
+## [3.0.13](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.12...3.0.13) (2023-07-09)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 4.3.5 to 4.3.7 ([476896e](https://github.com/salesforcecli/plugin-command-reference/commit/476896e82d83c772414320e31c8466264461e2ca))
+
+
+
 ## [3.0.12](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.11...3.0.12) (2023-07-09)
 
 
