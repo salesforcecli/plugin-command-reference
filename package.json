@@ -9,7 +9,7 @@
     "@salesforce/core": "^4.3.7",
     "@salesforce/kit": "^3.0.3",
     "@salesforce/sf-plugins-core": "^3.0.4",
-    "@salesforce/ts-types": "^2.0.3",
+    "@salesforce/ts-types": "^2.0.4",
     "chalk": "^4",
     "handlebars": "^4.7.7",
     "tslib": "^2"
