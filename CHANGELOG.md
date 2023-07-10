@@ -1,3 +1,12 @@
+## [3.0.14](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.13...3.0.14) (2023-07-10)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/ts-types from 2.0.3 to 2.0.4 ([61765b8](https://github.com/salesforcecli/plugin-command-reference/commit/61765b802223cfc70ff4d1fbdfbe2f7abb69587d))
+
+
+
 ## [3.0.13](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.12...3.0.13) (2023-07-09)
 
 
