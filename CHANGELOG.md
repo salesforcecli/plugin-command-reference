@@ -1,3 +1,12 @@
+## [3.0.15](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.14...3.0.15) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** bump semver from 5.7.1 to 5.7.2 ([4fe12dd](https://github.com/salesforcecli/plugin-command-reference/commit/4fe12dd8031e799c83fb55e45a4eb826259555a6))
+
+
+
 ## [3.0.14](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.13...3.0.14) (2023-07-10)
 
 
