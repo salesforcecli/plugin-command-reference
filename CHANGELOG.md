@@ -1,3 +1,12 @@
+## [3.0.16](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.15...3.0.16) (2023-07-13)
+
+
+### Bug Fixes
+
+* pass deprecations options to template, clean template with Juliet ([f993326](https://github.com/salesforcecli/plugin-command-reference/commit/f993326526c39f02d2f1a4f8b4099baa6748843a))
+
+
+
 ## [3.0.15](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.14...3.0.15) (2023-07-11)
 
 
