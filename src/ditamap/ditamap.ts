@@ -59,7 +59,7 @@ export abstract class Ditamap {
 
   private readonly source: string;
 
-  public constructor(private filename: string, protected data: DitamapData) {
+  protected constructor(private filename: string, protected data: DitamapData) {
     this.source = join(Ditamap.templatesDir, this.getTemplateFileName());
     this.destination = join(Ditamap.outputDir, filename);
   }
@@ -104,6 +104,7 @@ export abstract class Ditamap {
    * @returns {object}
    */
   protected async transformToDitamap(): Promise<string> {
+    //
     debug(`Generating ${this.destination} from ${this.getTemplateFileName()}`);
     const src = await fs.readFile(this.source, 'utf8');
     const template = hb.compile(src, { noEscape: false });

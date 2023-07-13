@@ -12,7 +12,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
     <title><codeph otherprops="nolang">{{name}}</codeph>{{#if isClosedPilotCommand}} (Pilot){{/if}}{{#if isOpenPilotCommand}} (Pilot){{/if}}{{#if isBetaCommand}} (Beta){{/if}}{{#if deprecated}} (Deprecated){{/if}}</title>
     <shortdesc>
       <ph id="shortdesc">
-        {{#if deprecated}}The command <codeph otherprops="nolang">{{name}}</codeph> has been deprecated and will be removed in v{{deprecated.version}}.0 or later. {{#if deprecated.to}} Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead. {{/if}} {{/if}}{{summary}}
+        {{#if deprecated}}The command <codeph otherprops="nolang">{{name}}</codeph> has been deprecated{{#if deprecationOptions.version}} and will be removed in v{{deprecationOptions.version}} or later{{/if}}. {{#if deprecated.to}} Use <codeph otherprops="nolang">{{deprecated.to}}</codeph> instead. {{/if}} {{/if}}{{summary}}
       </ph>
     </shortdesc>
     <prolog>
@@ -33,11 +33,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
                 until Salesforce announces its general availability in documentation or in press
                 releases or public statements. We can’t guarantee general availability within any
                 particular time frame or at all. Make your purchase decisions only on the basis of
-                generally available products and features. You can provide feedback and suggestions for
-                the <codeph otherprops="nolang">{{name}}</codeph> command in the <xref
-                href="{{trailblazerCommunityUrl}}"
-                format="html" scope="external" type="new-window:HTML">{{trailblazerCommunityName}}</xref> group in the
-                Trailblazer Community.</note>
+                generally available products and features.</note>
         </section>{{/if}}{{#if isOpenPilotCommand}}
         </section>{{/if}}{{#if isOpenPilotCommand}}
         <section>
@@ -48,11 +44,7 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
                 until Salesforce announces its general availability in documentation or in press
                 releases or public statements. We can’t guarantee general availability within any
                 particular time frame or at all. Make your purchase decisions only on the basis of
-                generally available products and features. You can provide feedback and suggestions for
-                the <codeph otherprops="nolang">{{name}}</codeph> command in the <xref
-                href="{{trailblazerCommunityUrl}}"
-                format="html" scope="external" type="new-window:HTML">{{trailblazerCommunityName}}</xref> group in the
-                Trailblazer Community.</note>
+                generally available products and features.</note>
         </section>{{/if}}{{#if isBetaCommand}}
         <section>
             <note>This feature is a Beta Service. Customers may opt to try such Beta Service in its sole discretion. Any use of the Beta Service is subject to the applicable Beta Services Terms provided at Agreements and Terms (<xref href="https://www.salesforce.com/company/legal/agreements/" format="html" scope="external" type="new-window:HTML">https://www.salesforce.com/company/legal/agreements/</xref>).</note>
