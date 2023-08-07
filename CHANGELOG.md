@@ -1,3 +1,12 @@
+## [3.0.25](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.24...3.0.25) (2023-08-07)
+
+
+### Bug Fixes
+
+* **deps:** updates from devScripts ([#427](https://github.com/salesforcecli/plugin-command-reference/issues/427)) ([ad1a153](https://github.com/salesforcecli/plugin-command-reference/commit/ad1a1538f72cc557c78c76e2af824bbd72d5c24b))
+
+
+
 ## [3.0.24](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.23...3.0.24) (2023-08-07)
 
 
