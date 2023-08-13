@@ -680,10 +680,10 @@
     supports-color "^8.1.1"
     tslib "^2"
 
-"@oclif/core@^2.11.1", "@oclif/core@^2.11.7", "@oclif/core@^2.9.3", "@oclif/core@^2.9.4":
-  version "2.11.7"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.11.7.tgz#7781a4dc65597ed9d8fda39cb1b209efca1c2d24"
-  integrity sha512-0jbHePVekndUTd+Wee0+pnCpRhuHJrKiG9OtMqf4JSBCxp5Q8V+ACf8QKN4gNH9ppbGORfnTIYtXWh60+DcIiw==
+"@oclif/core@^2.11.1", "@oclif/core@^2.11.7", "@oclif/core@^2.11.8", "@oclif/core@^2.9.4":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.11.8.tgz#780c4fdf53e8569cf754c2a8fefcc7ddeacf1747"
+  integrity sha512-GILmztcHBzze45GvxRpUvqQI5nM26kSE/Q21Y+6DtMR+C8etM/hFW26D3uqIAbGlGtg5QEZZ6pjA/Fqgz+gl3A==
   dependencies:
     "@types/cli-progress" "^3.11.0"
     ansi-escapes "^4.3.2"
@@ -858,7 +858,7 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/core@^4.1.0", "@salesforce/core@^4.3.6":
+"@salesforce/core@^4.1.0":
   version "4.3.11"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-4.3.11.tgz#3fde6affd77f56ee1915b4a2d594ea424ce84817"
   integrity sha512-rjrS0VoDlNaB4RYKLNZQ8+7QayWh5yTV79apCU9fYe0fR1D1p5tb+GAXe4B7AaOReQ8JOQhPBRMx1uzF3Lqn4A==
@@ -955,16 +955,16 @@
     "@salesforce/ts-types" "^2.0.6"
     tslib "^2.6.1"
 
-"@salesforce/plugin-auth@^2.8.8":
-  version "2.8.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.8.tgz#fb957cdaa210b7be33fdbe1458f5147bee31a63c"
-  integrity sha512-4tLlOStSfdoLoHghG+gQDeBr9vRYWrBVkYvZZkE3Oza7NMqrK4rH92fYn3sNAPt+tF0apSbqW3alpeoFtppwvQ==
+"@salesforce/plugin-auth@^2.8.12":
+  version "2.8.12"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.12.tgz#31f24a461ce443c83449d50c2478f47689209238"
+  integrity sha512-orVt+oZwz0DPJ7sWq3c8NajPkE8Tas1F2YVzqDICpRg3pRX6GeEcLRfUJIRPSORYT7xQgnwrwbpenY37IH4ITw==
   dependencies:
-    "@oclif/core" "^2.9.3"
-    "@salesforce/core" "^4.3.6"
-    "@salesforce/kit" "^3.0.4"
-    "@salesforce/sf-plugins-core" "^3.1.4"
-    "@salesforce/ts-types" "^2.0.3"
+    "@oclif/core" "^2.11.8"
+    "@salesforce/core" "^5.2.0"
+    "@salesforce/kit" "^3.0.9"
+    "@salesforce/sf-plugins-core" "^3.1.14"
+    "@salesforce/ts-types" "^2.0.6"
     chalk "^4.1.2"
     inquirer "^8.2.5"
     open "^8.2.1"
@@ -980,7 +980,7 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.6.0.tgz#14505ebad2fb2d4f7b14837545d662766d293561"
   integrity sha512-SwhDTLucj/GRbPpxlEoDZeqlX22o+G6fiebTXTu1cZKmd1oE0W2L7SlTTgJnWck8bhTeBIgQi9cpD8c2t5ISKA==
 
-"@salesforce/sf-plugins-core@^3.1.14", "@salesforce/sf-plugins-core@^3.1.4":
+"@salesforce/sf-plugins-core@^3.1.14":
   version "3.1.14"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-3.1.14.tgz#b2ca3bacfdfe338ccceafc2b92b968aa0780be4b"
   integrity sha512-8tVZoJdTrE77ZEqj3Nh2T0oXB8AEB5o22ffYraeSrUZtGh6lH8feZ8bxAVN1z6wIT9vXW3GhXrqR22UZYDl4ng==
@@ -992,7 +992,7 @@
     chalk "^4"
     inquirer "^8.2.5"
 
-"@salesforce/ts-types@^2.0.2", "@salesforce/ts-types@^2.0.3", "@salesforce/ts-types@^2.0.5", "@salesforce/ts-types@^2.0.6":
+"@salesforce/ts-types@^2.0.2", "@salesforce/ts-types@^2.0.5", "@salesforce/ts-types@^2.0.6":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-2.0.6.tgz#659590ee6ece45213bbdb23c9e244d206a2f912e"
   integrity sha512-hGSU3pwZKItAw567cD2hf+nwe4yPVANonb1E28bLVaRjYAI6FmdxjjTxA+wZRrTpTCpjd5TY67Lq2X1X1lY8bA==
