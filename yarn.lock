@@ -955,10 +955,10 @@
     "@salesforce/ts-types" "^2.0.6"
     tslib "^2.6.1"
 
-"@salesforce/plugin-auth@^2.8.12":
-  version "2.8.12"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.12.tgz#31f24a461ce443c83449d50c2478f47689209238"
-  integrity sha512-orVt+oZwz0DPJ7sWq3c8NajPkE8Tas1F2YVzqDICpRg3pRX6GeEcLRfUJIRPSORYT7xQgnwrwbpenY37IH4ITw==
+"@salesforce/plugin-auth@^2.8.13":
+  version "2.8.13"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.13.tgz#084b5fcccbf35b3c84aecb9f7f589a3f6ec30bb2"
+  integrity sha512-tTIYhAuDmYmTYvqCKMJJN2PO1v9f4ZeyQwRRGHaYKn8Nfl07rxNpKd/NKZoVXRi82We5J6w6awajacp91vL3Xg==
   dependencies:
     "@oclif/core" "^2.11.8"
     "@salesforce/core" "^5.2.0"
