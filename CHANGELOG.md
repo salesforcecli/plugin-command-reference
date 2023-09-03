@@ -1,3 +1,12 @@
+## [3.0.30](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.29...3.0.30) (2023-09-03)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 5.2.1 to 5.2.5 ([d517ae4](https://github.com/salesforcecli/plugin-command-reference/commit/d517ae43fcc1d2ed61ddbf517d4a10e7e5425805))
+
+
+
 ## [3.0.29](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.28...3.0.29) (2023-08-27)
 
 
