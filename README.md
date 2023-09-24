@@ -82,6 +82,7 @@ Now diff the output. Changes should be intentional!
 <!-- commands -->
 
 - [`sf commandreference generate`](#sf-commandreference-generate)
+- [`sf jit install`](#sf-jit-install)
 
 ## `sf commandreference generate`
 
@@ -89,15 +90,17 @@ generate the command reference guide located
 
 ```
 USAGE
-  $ sf commandreference generate [--json] [-d <value>] [-p <value> | -a] [-s <value>] [--hidden] [--erroronwarnings]
+  $ sf commandreference generate [--json] [-d <value>] [-p <value> | -a] [-s <value>] [--hidden] [--error-on-warnings] [-c
+    <value>]
 
 FLAGS
   -a, --all                     include all relevant plugins in the generation
-  -d, --outputdir=<value>       [default: ./tmp/root] output directory to put generated files
+  -c, --config-path=<value>     A path to the directory containing a plugin or cli
+  -d, --output-dir=<value>      [default: ./tmp/root] output directory to put generated files
   -p, --plugins=<value>...      comma separated list of plugin names to be part of the generation. Defaults to the oclif
                                 plugin in the current working directory
   -s, --ditamap-suffix=<value>  [default: unified] unique suffix to append to generated ditamap
-  --erroronwarnings             fail the command if there are any warnings
+  --error-on-warnings           fail the command if there are any warnings
   --hidden                      show hidden commands
 
 GLOBAL FLAGS
@@ -105,6 +108,47 @@ GLOBAL FLAGS
 
 DESCRIPTION
   generate the command reference guide located
+
+  generate the command reference guide located
+
+EXAMPLES
+  Generate the command reference guide
+
+    $ sf commandreference generate
+
+  Generate the command reference for a set of plugins
+
+    $ sf commandreference generate --plugins pluginA,pluginB
+
+  Generate the command reference for all plugins
+
+    $ sf commandreference generate --all --output-dir ./docs
+
+  Generate the command reference for all plugins in a directory
+
+    $ sf commandreference generate --all --config-path /path/to/plugin --output-dir ./docs
 ```
+
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.34/src/commands/commandreference/generate.ts)_
+
+## `sf jit install`
+
+Install all JIT plugins.
+
+```
+USAGE
+  $ sf jit install [--json] [-d]
+
+FLAGS
+  -d, --dry-run  List the plugins that would be installed.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+EXAMPLES
+  $ sf jit install
+```
+
+_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.34/src/commands/jit/install.ts)_
 
 <!-- commandsstop -->
