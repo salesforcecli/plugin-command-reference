@@ -20,7 +20,7 @@
     "@salesforce/dev-scripts": "^5.10.0",
     "@salesforce/plugin-auth": "^2.8.17",
     "@salesforce/prettier-config": "^0.0.3",
-    "@types/debug": "^4.1.8",
+    "@types/debug": "^4.1.9",
     "@types/ejs": "^3.1.2",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.61.0",
