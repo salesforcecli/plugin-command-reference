@@ -1,3 +1,9 @@
+## [3.0.36](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.35...3.0.36) (2023-09-28)
+
+### Bug Fixes
+
+- **deps:** bump get-func-name from 2.0.0 to 2.0.2 ([2cefb25](https://github.com/salesforcecli/plugin-command-reference/commit/2cefb252d79e3e192516bdef70b8b219248674aa))
+
 ## [3.0.35](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.34...3.0.35) (2023-09-24)
 
 ### Bug Fixes
