@@ -1,3 +1,9 @@
+## [3.0.42](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.41...3.0.42) (2023-10-17)
+
+### Bug Fixes
+
+- **deps:** bump @babel/traverse from 7.16.3 to 7.23.2 ([dc741cf](https://github.com/salesforcecli/plugin-command-reference/commit/dc741cf8414416f801ff395f4afd63dd1249daa3))
+
 ## [3.0.41](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.40...3.0.41) (2023-10-15)
 
 ### Bug Fixes
