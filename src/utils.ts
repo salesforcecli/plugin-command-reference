@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { EventEmitter } from 'events';
-import { EOL } from 'os';
+import { EventEmitter } from 'node:events';
+import { EOL } from 'node:os';
 import { Command, Interfaces } from '@oclif/core';
 import { AnyJson } from '@salesforce/ts-types';
 

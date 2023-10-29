@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'os';
-import { resolve } from 'path';
+import * as os from 'node:os';
+import { resolve } from 'node:path';
 import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
 // eslint-disable-next-line sf-plugin/no-oclif-flags-command-import
 import { Command, Config, Interfaces } from '@oclif/core';
@@ -34,35 +34,35 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
   public static readonly flags = {
     'output-dir': Flags.string({
       char: 'd',
-      summary: messages.getMessage('outputdirFlagSummary'),
+      summary: messages.getMessage('flags.output-dir.summary'),
       aliases: ['outputdir'],
       deprecateAliases: true,
       default: './tmp/root',
     }),
     plugins: Flags.string({
       char: 'p',
-      summary: messages.getMessage('pluginFlagSummary'),
+      summary: messages.getMessage('flags.plugins.summary'),
       multiple: true,
       exclusive: ['all'],
     }),
     all: Flags.boolean({
       char: 'a',
-      summary: messages.getMessage('allFlagSummary'),
+      summary: messages.getMessage('flags.all.summary'),
       exclusive: ['plugins'],
     }),
     'ditamap-suffix': Flags.string({
       char: 's',
-      summary: messages.getMessage('ditamapSuffixFlagSummary'),
+      summary: messages.getMessage('flags.ditamap-suffix.summary'),
       default: Ditamap.SUFFIX,
     }),
-    hidden: Flags.boolean({ summary: messages.getMessage('hiddenFlagSummary') }),
+    hidden: Flags.boolean({ summary: messages.getMessage('flags.hidden.summary') }),
     'error-on-warnings': Flags.boolean({
-      summary: messages.getMessage('erroronwarningFlagSummary'),
+      summary: messages.getMessage('flags.error-on-warnings.summary'),
       aliases: ['erroronwarnings'],
       deprecateAliases: true,
     }),
     'config-path': Flags.directory({
-      summary: messages.getMessage('configPathFlagSummary'),
+      summary: messages.getMessage('flags.config-path.summary'),
       char: 'c',
     }),
   };

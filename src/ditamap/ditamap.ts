@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { dirname, join } from 'path';
-import * as fs from 'fs/promises';
+import { dirname, join } from 'node:path';
+import * as fs from 'node:fs/promises';
 import * as debugCreator from 'debug';
 import * as hb from 'handlebars';
 import { HelperOptions } from 'handlebars';
