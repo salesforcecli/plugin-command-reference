@@ -6,31 +6,31 @@ generate the command reference guide located
 
 generate the command reference guide located
 
-# pluginFlagSummary
+# flags.plugins.summary
 
 comma separated list of plugin names to be part of the generation. Defaults to the oclif plugin in the current working directory
 
-# allFlagSummary
+# flags.all.summary
 
 include all relevant plugins in the generation
 
-# hiddenFlagSummary
+# flags.hidden.summary
 
 show hidden commands
 
-# outputdirFlagSummary
+# flags.output-dir.summary
 
 output directory to put generated files
 
-# erroronwarningFlagSummary
+# flags.error-on-warnings.summary
 
 fail the command if there are any warnings
 
-# ditamapSuffixFlagSummary
+# flags.ditamap-suffix.summary
 
 unique suffix to append to generated ditamap
 
-# configPathFlagSummary
+# flags.config-path.summary
 
 A path to the directory containing a plugin or cli
 

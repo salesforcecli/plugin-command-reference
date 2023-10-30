@@ -5,9 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { access, rm } from 'fs/promises';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { access, rm } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { expect } from 'chai';
 
 /**
