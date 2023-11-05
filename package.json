@@ -18,7 +18,7 @@
     "@oclif/plugin-help": "^5.2.20",
     "@salesforce/dev-config": "^4.1.0",
     "@salesforce/dev-scripts": "^5.12.2",
-    "@salesforce/plugin-auth": "^2.8.25",
+    "@salesforce/plugin-auth": "^2.8.26",
     "@salesforce/prettier-config": "^0.0.3",
     "@types/debug": "^4.1.10",
     "@types/ejs": "^3.1.4",
