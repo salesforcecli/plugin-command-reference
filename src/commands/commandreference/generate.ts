@@ -209,7 +209,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
               ...topicInfo,
               // TODO: this might need to be recursive if keys collide at lower levels
               subtopics:
-                existing.subtopics || topicInfo.subtopics
+                Boolean(existing.subtopics) || Boolean(topicInfo.subtopics)
                   ? new Map([...(existing.subtopics ?? []), ...(topicInfo.subtopics ?? [])])
                   : undefined,
             });
