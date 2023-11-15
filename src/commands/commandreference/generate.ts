@@ -78,7 +78,10 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
 
     let pluginNames: string[];
     if (!flags.plugins && !flags.all) {
-      pluginNames = this.loadedConfig.plugins.filter((p) => p.type !== 'dev').map((p) => p.name);
+      pluginNames = this.loadedConfig
+        .getPluginsList()
+        .filter((p) => p.type !== 'dev')
+        .map((p) => p.name);
     } else if (flags.all) {
       const ignore = [
         /@oclif/,
@@ -87,7 +90,10 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
         /@salesforce\/plugin-telemetry/,
         /@salesforce\/plugin-command-reference/,
       ];
-      pluginNames = this.loadedConfig.plugins.map((p) => p.name).filter((p) => !ignore.some((i) => i.test(p)));
+      pluginNames = this.loadedConfig
+        .getPluginsList()
+        .map((p) => p.name)
+        .filter((p) => !ignore.some((i) => i.test(p)));
     } else {
       pluginNames = flags.plugins ?? [];
     }
@@ -179,7 +185,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
   }
 
   private getPlugin(pluginName: string): Interfaces.Plugin | undefined {
-    return this.loadedConfig.plugins.find((info) => info.name === pluginName);
+    return this.loadedConfig.plugins.get(pluginName);
   }
 
   // eslint-disable-next-line class-methods-use-this
