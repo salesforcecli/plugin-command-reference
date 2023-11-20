@@ -100,8 +100,8 @@ FLAGS
   -p, --plugins=<value>...      comma separated list of plugin names to be part of the generation. Defaults to the oclif
                                 plugin in the current working directory
   -s, --ditamap-suffix=<value>  [default: unified] unique suffix to append to generated ditamap
-  --error-on-warnings           fail the command if there are any warnings
-  --hidden                      show hidden commands
+      --error-on-warnings       fail the command if there are any warnings
+      --hidden                  show hidden commands
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -129,7 +129,7 @@ EXAMPLES
     $ sf commandreference generate --all --config-path /path/to/plugin --output-dir ./docs
 ```
 
-_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.46/src/commands/commandreference/generate.ts)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.47/src/commands/commandreference/generate.ts)_
 
 ## `sf jit install`
 
@@ -149,6 +149,6 @@ EXAMPLES
   $ sf jit install
 ```
 
-_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.46/src/commands/jit/install.ts)_
+_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.47/src/commands/jit/install.ts)_
 
 <!-- commandsstop -->
