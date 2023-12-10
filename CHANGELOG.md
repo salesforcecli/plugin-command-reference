@@ -1,3 +1,9 @@
+## [3.0.52](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.51...3.0.52) (2023-12-10)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 3.13.1 to 3.14.1 ([cadb04d](https://github.com/salesforcecli/plugin-command-reference/commit/cadb04dcf73da1781cb7b053f5bcea6581d27263))
+
 ## [3.0.51](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.50...3.0.51) (2023-12-03)
 
 ### Bug Fixes
