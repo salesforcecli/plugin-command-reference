@@ -10,7 +10,7 @@ package-lock.json
 npm-error.log
 yarn-error.log
 lerna-debug.log
-*.tsbuildinfo
+
 
 # compile source
 lib
@@ -26,10 +26,18 @@ coverage
 docs
 output*
 
+
+npm-shrinkwrap.json
+oclif.manifest.json
+oclif.lock
+
 # -- CLEAN ALL
 .eslintcache
 .wireit
 node_modules
+
+
+*.tsbuildinfo
 
 # --
 # put files here you don't want cleaned with sf-clean
@@ -45,4 +53,3 @@ package.json.bak.
 
 /tmp
 /test/tmp
-oclif.manifest.json
