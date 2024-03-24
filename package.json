@@ -6,7 +6,7 @@
   "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
   "dependencies": {
     "@oclif/core": "^3.20.0",
-    "@salesforce/core": "^6.7.1",
+    "@salesforce/core": "^6.7.3",
     "@salesforce/kit": "^3.0.15",
     "@salesforce/sf-plugins-core": "^5.0.13",
     "@salesforce/ts-types": "^2.0.9",
