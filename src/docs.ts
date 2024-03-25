@@ -5,16 +5,16 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as fs from 'node:fs/promises';
+import fs from 'node:fs/promises';
 import { AnyJson, ensureString } from '@salesforce/ts-types';
-import * as chalk from 'chalk';
-import { BaseDitamap } from './ditamap/base-ditamap';
-import { CLIReference } from './ditamap/cli-reference';
-import { Command } from './ditamap/command';
-import { TopicCommands } from './ditamap/topic-commands';
-import { TopicDitamap } from './ditamap/topic-ditamap';
-import { CliMeta, events, punctuate, SfTopic, SfTopics, CommandClass } from './utils';
-import { HelpReference } from './ditamap/help-reference';
+import chalk from 'chalk';
+import { BaseDitamap } from './ditamap/base-ditamap.js';
+import { CLIReference } from './ditamap/cli-reference.js';
+import { Command } from './ditamap/command.js';
+import { TopicCommands } from './ditamap/topic-commands.js';
+import { TopicDitamap } from './ditamap/topic-ditamap.js';
+import { CliMeta, events, punctuate, SfTopic, SfTopics, CommandClass } from './utils.js';
+import { HelpReference } from './ditamap/help-reference.js';
 
 type TopicsByTopicsByTopLevel = Map<string, Map<string, CommandClass[]>>;
 

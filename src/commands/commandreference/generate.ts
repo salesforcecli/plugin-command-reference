@@ -5,21 +5,21 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'node:os';
+import os from 'node:os';
 import { resolve } from 'node:path';
 import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
 // eslint-disable-next-line sf-plugin/no-oclif-flags-command-import
 import { Command, Config, Interfaces } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, ensure } from '@salesforce/ts-types';
-import chalk = require('chalk');
+import chalk from 'chalk';
 import { PJSON } from '@oclif/core/lib/interfaces';
-import { Ditamap } from '../../ditamap/ditamap';
-import { Docs } from '../../docs';
-import { CliMeta, CommandClass, events, SfTopic, SfTopics } from '../../utils';
+import { Ditamap } from '../../ditamap/ditamap.js';
+import { Docs } from '../../docs.js';
+import { CliMeta, CommandClass, events, SfTopic, SfTopics } from '../../utils.js';
 
 // Initialize Messages with the current plugin directory
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'main');
 
 export type CommandReferenceGenerateResults = {
@@ -156,7 +156,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
     await docs.build(commands);
     this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
 
-    if (flags.erroronwarnings && warnings.length > 0) {
+    if (flags['error-on-warnings'] && warnings.length > 0) {
       throw new SfError(`Found ${warnings.length} warnings.`);
     }
 

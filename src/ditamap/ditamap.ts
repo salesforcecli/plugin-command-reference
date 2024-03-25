@@ -6,11 +6,12 @@
  */
 
 import { dirname, join } from 'node:path';
-import * as fs from 'node:fs/promises';
-import * as debugCreator from 'debug';
-import * as hb from 'handlebars';
+import { fileURLToPath } from 'node:url';
+import fs from 'node:fs/promises';
+import debugCreator from 'debug';
+import hb from 'handlebars';
 import { HelperOptions } from 'handlebars';
-import { DitamapData } from '../utils';
+import { DitamapData } from '../utils.js';
 
 const debug = debugCreator('commandreference');
 
@@ -40,7 +41,7 @@ hb.registerHelper('nextVersion', (value: string) => parseInt(value, 2) + 1);
 export abstract class Ditamap {
   public static SUFFIX = 'unified';
 
-  public static templatesDir = join(__dirname, '..', '..', 'templates');
+  public static templatesDir = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'templates');
 
   public static outputDir: string;
 

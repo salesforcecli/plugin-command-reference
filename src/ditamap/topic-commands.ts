@@ -6,8 +6,8 @@
  */
 
 import { join } from 'node:path';
-import { SfTopic } from '../utils';
-import { Ditamap } from './ditamap';
+import { SfTopic } from '../utils.js';
+import { Ditamap } from './ditamap.js';
 
 export class TopicCommands extends Ditamap {
   public constructor(topic: string, topicMeta: SfTopic) {
