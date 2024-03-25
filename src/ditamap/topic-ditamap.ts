@@ -6,7 +6,7 @@
  */
 
 import { join } from 'node:path';
-import { Ditamap } from './ditamap';
+import { Ditamap } from './ditamap.js';
 
 export class TopicDitamap extends Ditamap {
   public constructor(topic: string, commandIds: string[]) {

@@ -7,7 +7,7 @@
 
 import { EOL } from 'node:os';
 import { expect } from 'chai';
-import { punctuate } from '../../src/utils';
+import { punctuate } from '../../src/utils.js';
 
 describe('punctuate', () => {
   it('description to longDescription', () => {

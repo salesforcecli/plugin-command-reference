@@ -7,9 +7,9 @@
 
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-command-reference', 'jit.install');
 
 export default class JitInstall extends SfCommand<void> {
