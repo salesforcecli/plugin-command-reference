@@ -1,3 +1,9 @@
+## [3.0.74](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.73...3.0.74) (2024-03-31)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/kit from 3.0.15 to 3.1.0 ([5fae157](https://github.com/salesforcecli/plugin-command-reference/commit/5fae1575ef21802b776610ba593c93e57e41dd67))
+
 ## [3.0.73](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.72...3.0.73) (2024-03-24)
 
 ### Bug Fixes
