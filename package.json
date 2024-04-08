@@ -157,7 +157,7 @@
       ]
     },
     "test:command-reference": {
-      "command": "ts-node \"./bin/dev.js\" commandreference:generate --plugins auth --outputdir test/tmp",
+      "command": "ts-node \"./bin/run.js\" commandreference:generate --plugins auth --outputdir test/tmp",
       "files": [
         "src/**/*.ts",
         "messages/**",
