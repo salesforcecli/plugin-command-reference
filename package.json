@@ -11,12 +11,13 @@
     "@salesforce/sf-plugins-core": "^5.0.13",
     "@salesforce/ts-types": "^2.0.9",
     "chalk": "^4",
+    "debug": "^4.3.4",
     "handlebars": "^4.7.8",
     "tslib": "^2"
   },
   "devDependencies": {
     "@oclif/plugin-help": "^6",
-    "@salesforce/dev-scripts": "^8.4.1",
+    "@salesforce/dev-scripts": "^8.5.0",
     "@salesforce/plugin-auth": "^2.8.26",
     "@types/debug": "^4.1.12",
     "@types/ejs": "^3.1.5",
