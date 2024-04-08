@@ -1,14 +1,14 @@
 {
   "name": "@salesforce/plugin-command-reference",
   "description": "Generate the Salesforce CLI command reference guide",
-  "version": "3.0.73",
+  "version": "3.0.75",
   "author": "Salesforce",
   "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
   "type": "module",
   "dependencies": {
     "@oclif/core": "^3.26.0",
-    "@salesforce/core": "^6.7.3",
-    "@salesforce/kit": "^3.0.15",
+    "@salesforce/core": "^6.7.6",
+    "@salesforce/kit": "^3.1.0",
     "@salesforce/sf-plugins-core": "^8.0.0",
     "@salesforce/ts-types": "^2.0.9",
     "chalk": "^5.3.0",
@@ -17,13 +17,13 @@
   },
   "devDependencies": {
     "@oclif/plugin-help": "^6",
-    "@salesforce/dev-scripts": "^8.4.2",
+    "@salesforce/dev-scripts": "^8.5.0",
     "@salesforce/plugin-auth": "^2.8.26",
     "@types/debug": "^4.1.12",
-    "eslint-plugin-sf-plugin": "^1.17.4",
+    "eslint-plugin-sf-plugin": "^1.17.5",
     "oclif": "^4.6.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -186,7 +186,7 @@
       "output": []
     },
     "link-check": {
-      "command": "node -e \"process.exit(process.env.CI ? 0 : 1)\" || linkinator \"**/*.md\" --skip \"CHANGELOG.md|node_ s|test/|confluence.internal.salesforce.com|my.salesforce.com|%s\" --markdown --retry --directory-listing --verbosity error",
+      "command": "node -e \"process.exit(process.env.CI ? 0 : 1)\" || linkinator \"**/*.md\" --skip \"CHANGELOG.md|node_modules|test/|confluence.internal.salesforce.com|my.salesforce.com|%s\" --markdown --retry --directory-listing --verbosity error",
       "files": [
         "./*.md",
         "./!(CHANGELOG).md",
