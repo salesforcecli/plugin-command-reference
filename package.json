@@ -6,7 +6,7 @@
   "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
   "type": "module",
   "dependencies": {
-    "@oclif/core": "^3.26.0",
+    "@oclif/core": "^3.26.2",
     "@salesforce/core": "^7.1.0",
     "@salesforce/kit": "^3.1.0",
     "@salesforce/sf-plugins-core": "^8.0.0",
@@ -16,12 +16,12 @@
     "handlebars": "^4.7.8"
   },
   "devDependencies": {
-    "@oclif/plugin-help": "^6",
+    "@oclif/plugin-help": "^6.0.20",
     "@salesforce/dev-scripts": "^8.5.0",
-    "@salesforce/plugin-auth": "^3.5.6",
+    "@salesforce/plugin-auth": "^3.6.0",
     "@types/debug": "^4.1.12",
     "eslint-plugin-sf-plugin": "^1.18.0",
-    "oclif": "^4.6.3",
+    "oclif": "^4.8.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.4"
   },
