@@ -1769,7 +1769,7 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.7.0.tgz#b7e0af3ee414ae7160bce351c0184d77ccb98fe3"
   integrity sha512-Z0PiCEV55khm0PG+DsnRYCjaDmacNe3HDmsoSm/CSyYvJJm+D5vvkHKN9/PKD/gaRe8XAU836yfamIYFblLINw==
 
-"@salesforce/sf-plugins-core@^8.0.0", "@salesforce/sf-plugins-core@^8.0.3":
+"@salesforce/sf-plugins-core@^8.0.3":
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-8.0.4.tgz#9e75925baf0b1ef03c5ae26678dc9fafabcb21d4"
   integrity sha512-Ea13VvmWWEdtCBTgJw1IgCoPJPWqGLZUPQ46blVddh1OTPi2ldolq0W+/DTnoBTgJtvWPfas+nIPGnfTcsKDPQ==
@@ -1782,10 +1782,10 @@
     "@salesforce/ts-types" "^2.0.9"
     chalk "^5.3.0"
 
-"@salesforce/sf-plugins-core@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.0.0.tgz#8ac6e45fa985ef35ad7f47a09d96f2b2f6d70710"
-  integrity sha512-Eo1mfq68uVIEFgAE7oSlsfJT3YyShQAHRCiLqKivEcxu/3xOHPU212u2nT9igA81Me/6NZmBSvm6vLdN+L/9og==
+"@salesforce/sf-plugins-core@^9.0.0", "@salesforce/sf-plugins-core@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.0.1.tgz#e5617661de7c235b734f0faac679ac489053e4fb"
+  integrity sha512-5+qoCCDpQAdKE74qmL85Jhb0QDkzy/3MsmpzHSQf3ONi+V5vbwJK0BPc+9cOHShYzf8K0gIDdhbcjLuR3TTP/A==
   dependencies:
     "@inquirer/confirm" "^2.0.17"
     "@inquirer/password" "^1.1.16"
