@@ -1,3 +1,5 @@
+## [3.0.76](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.75...3.0.76) (2024-04-11)
+
 ## [3.0.75](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.74...3.0.75) (2024-04-07)
 
 ### Bug Fixes

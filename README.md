@@ -90,8 +90,8 @@ generate the command reference guide located
 
 ```
 USAGE
-  $ sf commandreference generate [--json] [-d <value>] [-p <value> | -a] [-s <value>] [--hidden] [--error-on-warnings] [-c
-    <value>]
+  $ sf commandreference generate [--json] [--flags-dir <value>] [-d <value>] [-p <value> | -a] [-s <value>] [--hidden]
+    [--error-on-warnings] [-c <value>]
 
 FLAGS
   -a, --all                     include all relevant plugins in the generation
@@ -104,7 +104,8 @@ FLAGS
       --hidden                  show hidden commands
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   generate the command reference guide located
@@ -129,7 +130,7 @@ EXAMPLES
     $ sf commandreference generate --all --config-path /path/to/plugin --output-dir ./docs
 ```
 
-_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.75/src/commands/commandreference/generate.ts)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.76/src/commands/commandreference/generate.ts)_
 
 ## `sf jit install`
 
@@ -137,18 +138,19 @@ Install all JIT plugins.
 
 ```
 USAGE
-  $ sf jit install [--json] [-d]
+  $ sf jit install [--json] [--flags-dir <value>] [-d]
 
 FLAGS
   -d, --dry-run  List the plugins that would be installed.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 EXAMPLES
   $ sf jit install
 ```
 
-_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.75/src/commands/jit/install.ts)_
+_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.0.76/src/commands/jit/install.ts)_
 
 <!-- commandsstop -->
