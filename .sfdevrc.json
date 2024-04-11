@@ -4,7 +4,7 @@
   },
   "wireit": {
     "test:command-reference": {
-      "command": "ts-node \"./bin/dev.js\" commandreference:generate --plugins auth --outputdir test/tmp",
+      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning  \"./bin/dev.js\" commandreference generate --plugins auth --outputdir test/tmp",
       "files": ["src/**/*.ts", "messages/**", "package.json"],
       "output": ["test/tmp"]
     },

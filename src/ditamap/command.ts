@@ -7,8 +7,8 @@
 
 import { join } from 'node:path';
 import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
-import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils';
-import { Ditamap } from './ditamap';
+import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils.js';
+import { Ditamap } from './ditamap.js';
 
 type FlagInfo = {
   hidden: boolean;
