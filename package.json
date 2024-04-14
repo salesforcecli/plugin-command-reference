@@ -21,7 +21,7 @@
     "@salesforce/plugin-auth": "^3.6.1",
     "@types/debug": "^4.1.12",
     "eslint-plugin-sf-plugin": "^1.18.0",
-    "oclif": "^4.8.0",
+    "oclif": "^4.8.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
