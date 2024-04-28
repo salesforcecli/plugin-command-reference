@@ -20,7 +20,7 @@
     "@salesforce/dev-scripts": "^9.0.0",
     "@salesforce/plugin-auth": "^3.6.1",
     "@types/debug": "^4.1.12",
-    "eslint-plugin-sf-plugin": "^1.18.0",
+    "eslint-plugin-sf-plugin": "^1.18.3",
     "oclif": "^4.9.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
