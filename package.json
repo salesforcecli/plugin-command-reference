@@ -18,7 +18,7 @@
   "devDependencies": {
     "@oclif/plugin-help": "^6.0.20",
     "@salesforce/dev-scripts": "^9.0.0",
-    "@salesforce/plugin-auth": "^3.6.4",
+    "@salesforce/plugin-auth": "^3.6.8",
     "@types/debug": "^4.1.12",
     "eslint-plugin-sf-plugin": "^1.18.3",
     "oclif": "^4.9.0",
