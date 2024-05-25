@@ -1579,14 +1579,14 @@
     chalk "^4.1.2"
     figures "^3.2.0"
 
-"@inquirer/select@^2.3.2":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@inquirer/select/-/select-2.3.2.tgz#3c4768a223a38aea57b694cfd7d1c283df320570"
-  integrity sha512-VzLHVpaobBpI3o/CWSG2sCDqrjHZEYAfT1bowbR8Q72fEi0WfBO3Fnh595QqBit9kQhI1uJbVHaaovg1I7eE7Q==
+"@inquirer/select@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@inquirer/select/-/select-2.3.4.tgz#f1040402ceb51ca4eb7a08d457fba540f01ec6a8"
+  integrity sha512-y9HGzHfPPh60QciH7WiKtjtWjgU24jrIsfJnq4Zqmu8k4HVVQPBXxiKKzwzJyJWwdWZcWATm4VDDWGFEjVHvGA==
   dependencies:
-    "@inquirer/core" "^8.1.0"
-    "@inquirer/figures" "^1.0.1"
-    "@inquirer/type" "^1.3.1"
+    "@inquirer/core" "^8.2.1"
+    "@inquirer/figures" "^1.0.2"
+    "@inquirer/type" "^1.3.2"
     ansi-escapes "^4.3.2"
     chalk "^4.1.2"
 
@@ -6349,16 +6349,16 @@ object.values@^1.1.7:
     define-properties "^1.2.0"
     es-abstract "^1.22.1"
 
-oclif@^4.10.14:
-  version "4.10.14"
-  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.10.14.tgz#5d26b923cb0a57a87ffa717c1016bdb20ebf92f9"
-  integrity sha512-xnA2QLrbfOxZ/XfzZR8BxHMPe5dm4LsXhgn6UZfcPC1GiAAj2s6PtNDJae8qmjm/yiXisJrj1BkOOJq+UTDYvw==
+oclif@^4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.11.0.tgz#fea86b00bfbeedd0fa48c369cbbf549ae513a522"
+  integrity sha512-IzMejhLlcDPXWg+jyDCvUqb3taHJY6sAwDBVXQ920t/oV9FLQVZSHMEmlQb2p4ZXn45kIy/PujN7zF22zglpow==
   dependencies:
     "@aws-sdk/client-cloudfront" "^3.574.0"
     "@aws-sdk/client-s3" "^3.577.0"
     "@inquirer/confirm" "^3.1.6"
     "@inquirer/input" "^2.1.1"
-    "@inquirer/select" "^2.3.2"
+    "@inquirer/select" "^2.3.4"
     "@oclif/core" "^3.26.5"
     "@oclif/plugin-help" "^6.0.21"
     "@oclif/plugin-not-found" "^3.1.9"
