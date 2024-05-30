@@ -21,8 +21,12 @@ type FlagInfo = {
   default: string | (() => Promise<string>);
 };
 
-const getDefault = async (flag: FlagInfo): Promise<string> => {
+const getDefault = async (flag: FlagInfo, flagName: string): Promise<string> => {
   if (!flag) {
+    return '';
+  }
+  if (flagName === 'target-org') {
+    // special handling to prevent global/local default usernames from appearing in the docs, but they do appear in user's help
     return '';
   }
   if (typeof flag.default === 'function') {
@@ -123,8 +127,6 @@ export class Command extends Ditamap {
       [...Object.entries(flags)]
         .filter(flagIsDefined)
         .filter(([, flag]) => !flag.hidden)
-        // special handling to prevent global/local default usernames from appearing in the docs, but they do appear in user's help
-        .filter(([flagName]) => flagName !== 'target-org')
         .map(
           async ([flagName, flag]) =>
             ({
@@ -134,7 +136,7 @@ export class Command extends Ditamap {
               optional: !flag.required,
               kind: flag.kind ?? flag.type,
               hasValue: flag.type !== 'boolean',
-              defaultFlagValue: await getDefault(flag),
+              defaultFlagValue: await getDefault(flag, flagName),
             } satisfies CommandParameterData)
         )
     );
