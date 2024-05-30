@@ -92,11 +92,6 @@ export abstract class Ditamap {
     await fs.writeFile(this.destination, output);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  protected formatParagraphs(textToFormat?: string): string[] {
-    return textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];
-  }
-
   /**
    * Applies the named handlebars template to the supplied data
    *

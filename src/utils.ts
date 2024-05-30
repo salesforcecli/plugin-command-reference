@@ -69,6 +69,7 @@ type ClIRefTopicData = {
 };
 
 export type CommandParameterData = {
+  description: string[];
   optional?: boolean;
   char?: string;
   name: string;
