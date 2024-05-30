@@ -1,7 +1,7 @@
 {
   "name": "@salesforce/plugin-command-reference",
   "description": "Generate the Salesforce CLI command reference guide",
-  "version": "3.0.88",
+  "version": "3.0.89",
   "author": "Salesforce",
   "bugs": "https://github.com/salesforcecli/plugin-command-reference/issues",
   "type": "module",

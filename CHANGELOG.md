@@ -1,3 +1,9 @@
+## [3.0.89](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.88...3.0.89) (2024-05-30)
+
+### Bug Fixes
+
+- suppress [object Object] defaults (probably Org flags) ([#651](https://github.com/salesforcecli/plugin-command-reference/issues/651)) ([5d70d2c](https://github.com/salesforcecli/plugin-command-reference/commit/5d70d2c15040aab560f2cf5f6fb7bfc43a295f97))
+
 ## [3.0.88](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.87...3.0.88) (2024-05-26)
 
 ### Bug Fixes
