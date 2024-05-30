@@ -28,7 +28,7 @@ const getDefault = async (flag?: FlagInfo): Promise<string> => {
   if (typeof flag.default === 'function') {
     try {
       const help = await flag.default();
-      return help || '';
+      return help.includes('[object Object]') ? '' : help ?? '';
     } catch {
       return '';
     }
