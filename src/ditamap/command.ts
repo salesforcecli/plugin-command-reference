@@ -25,7 +25,7 @@ const getDefault = async (flag: FlagInfo, flagName: string): Promise<string> => 
   if (!flag) {
     return '';
   }
-  if (flagName === 'target-org') {
+  if (flagName === 'target-org' || flagName === 'target-dev-hub') {
     // special handling to prevent global/local default usernames from appearing in the docs, but they do appear in user's help
     return '';
   }
