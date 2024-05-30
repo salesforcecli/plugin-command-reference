@@ -6,7 +6,7 @@
  */
 
 import { join } from 'node:path';
-import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
+import { asString, Dictionary, ensureObject, ensureString, Optional } from '@salesforce/ts-types';
 import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils.js';
 import { Ditamap } from './ditamap.js';
 
@@ -21,7 +21,7 @@ type FlagInfo = {
   default: string | (() => Promise<string>);
 };
 
-const getDefault = async (flag?: FlagInfo): Promise<string> => {
+const getDefault = async (flag: FlagInfo): Promise<string> => {
   if (!flag) {
     return '';
   }
@@ -50,23 +50,23 @@ export class Command extends Ditamap {
   ) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
     const filename = Ditamap.file(`cli_reference_${commandWithUnderscores}`, 'xml');
-
     super(filename, undefined);
 
     this.flags = ensureObject(command.flags);
     this.commandMeta = commandMeta;
+    const binary = readBinary(this.commandMeta);
 
     const summary = punctuate(command.summary);
     this.commandName = command.id.replace(/:/g, asString(this.commandMeta.topicSeparator, ':'));
 
     const description = command.description
-      ? replaceConfigVariables(command.description, asString(this.commandMeta.binary, 'unknown'), this.commandName)
+      ? replaceConfigVariables(command.description, binary, this.commandName)
       : undefined;
 
     // Help are all the lines after the first line in the description. Before oclif, there was a 'help' property so continue to
     // support that.
 
-    const help = this.formatParagraphs(description);
+    const help = formatParagraphs(description);
 
     let trailblazerCommunityUrl: string | undefined;
     let trailblazerCommunityName: string | undefined;
@@ -90,10 +90,8 @@ export class Command extends Ditamap {
       }
 
       return {
-        description: replaceConfigVariables(desc ?? '', asString(this.commandMeta.binary, 'unknown'), this.commandName),
-        commands: commands.map((cmd) =>
-          replaceConfigVariables(cmd, asString(this.commandMeta.binary, 'unknown'), this.commandName)
-        ),
+        description: replaceConfigVariables(desc ?? '', binary, this.commandName),
+        commands: commands.map((cmd) => replaceConfigVariables(cmd, binary, this.commandName)),
       };
     });
 
@@ -102,7 +100,7 @@ export class Command extends Ditamap {
       name: this.commandName,
       summary,
       description,
-      binary: 'binary' in commandMeta && typeof commandMeta.binary === 'string' ? commandMeta.binary : 'unknown',
+      binary,
       commandWithUnderscores,
       deprecated: (command.deprecated as boolean) ?? state === 'deprecated' ?? false,
       examples,
@@ -120,34 +118,26 @@ export class Command extends Ditamap {
   }
 
   public async getParametersForTemplate(flags: Dictionary<FlagInfo>): Promise<CommandParameterData[]> {
-    const final: CommandParameterData[] = [];
-
-    for (const [flagName, flag] of Object.entries(flags)) {
-      if (!flag || flag.hidden) continue;
-      const description = replaceConfigVariables(
-        Array.isArray(flag?.description) ? flag?.description.join('\n') : flag?.description ?? '',
-        asString(this.commandMeta.binary, 'unknown'),
-        this.commandName
-      );
-      const entireDescription = flag.summary
-        ? `${replaceConfigVariables(
-            flag.summary,
-            asString(this.commandMeta.binary, 'unknown'),
-            this.commandName
-          )}\n${description}`
-        : description;
-      const updated = Object.assign({}, flag, {
-        name: flagName,
-        description: this.formatParagraphs(entireDescription),
-        optional: !flag?.required,
-        kind: flag?.kind ?? flag?.type,
-        hasValue: flag?.type !== 'boolean',
-        // eslint-disable-next-line no-await-in-loop
-        defaultFlagValue: await getDefault(flag),
-      });
-      final.push(updated);
-    }
-    return final;
+    const descriptionBuilder = buildDescription(this.commandName)(readBinary(this.commandMeta));
+    return Promise.all(
+      [...Object.entries(flags)]
+        .filter(flagIsDefined)
+        .filter(([, flag]) => !flag.hidden)
+        // special handling to prevent global/local default usernames from appearing in the docs, but they do appear in user's help
+        .filter(([flagName]) => flagName !== 'target-org')
+        .map(
+          async ([flagName, flag]) =>
+            ({
+              ...flag,
+              name: flagName,
+              description: descriptionBuilder(flag),
+              optional: !flag.required,
+              kind: flag.kind ?? flag.type,
+              hasValue: flag.type !== 'boolean',
+              defaultFlagValue: await getDefault(flag),
+            } satisfies CommandParameterData)
+        )
+    );
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -161,3 +151,25 @@ export class Command extends Ditamap {
     return super.transformToDitamap();
   }
 }
+
+const flagIsDefined = (input: [string, Optional<FlagInfo>]): input is [string, FlagInfo] => input[1] !== undefined;
+
+const buildDescription =
+  (commandName: string) =>
+  (binary: string) =>
+  (flag: FlagInfo): string[] => {
+    const description = replaceConfigVariables(
+      Array.isArray(flag?.description) ? flag?.description.join('\n') : flag?.description ?? '',
+      binary,
+      commandName
+    );
+    return formatParagraphs(
+      flag.summary ? `${replaceConfigVariables(flag.summary, binary, commandName)}\n${description}` : description
+    );
+  };
+
+const formatParagraphs = (textToFormat?: string): string[] =>
+  textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];
+
+const readBinary = (commandMeta: Record<string, unknown>): string =>
+  'binary' in commandMeta && typeof commandMeta.binary === 'string' ? commandMeta.binary : 'unknown';
