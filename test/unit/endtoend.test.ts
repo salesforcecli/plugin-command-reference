@@ -25,7 +25,7 @@ function loadTestDitamapFile(path: string) {
   return readFileSync(join(testFilesPath, path), 'utf8');
 }
 
-describe('plugin-auth', () => {
+describe('plugin-auth and user', () => {
   before(async () => {
     try {
       await access(testFilesPath);
@@ -37,6 +37,10 @@ describe('plugin-auth', () => {
   });
   after(async () => {
     await rm(testFilesPath, { recursive: true });
+  });
+  it('produces no [object Object] nonsense for default flags', () => {
+    const dita = loadTestDitamapFile(join('org', 'cli_reference_org_create_user_unified.xml'));
+    expect(dita.includes('[object Object]')).to.be.false;
   });
   it('creates with spaced commands', async () => {
     const dita = loadTestDitamapFile(join('org', 'cli_reference_org_login_jwt_unified.xml'));
