@@ -1,3 +1,9 @@
+## [3.0.90](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.89...3.0.90) (2024-06-02)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 9.0.14 to 9.1.1 ([70af034](https://github.com/salesforcecli/plugin-command-reference/commit/70af0343e5f8328023a9efe76ecd6b019b368f2b))
+
 ## [3.0.89](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.88...3.0.89) (2024-05-30)
 
 ### Bug Fixes
