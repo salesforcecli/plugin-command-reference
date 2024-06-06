@@ -70,17 +70,6 @@ IF YOU WANT TO CHANGE THIS CONTENT, CONTACT juliet.shackell@salesforce.com FOR D
             {{/each}}
         </section>
         {{/if}}
-        <section>
-            <title><ph>Usage</ph></title>
-            <dl>
-                <dlentry>
-                    <dt><codeph otherprops="nolang">{{binary}} {{name}}</codeph></dt>
-                    {{#each parameters}}
-                    <dd>{{#if optional}}[{{/if}}<codeph otherprops="nolang">{{#if char}}-{{char}}{{else}}--{{name}}{{/if}}</codeph>{{#if hasValue}} <parmname>{{toUpperCase name}}</parmname>{{/if}}{{#if optional}}]{{/if}}</dd>
-                    {{/each}}
-                </dlentry>
-            </dl>
-        </section>
         {{#if parameters}}
         <section>
             <title><ph>Flags</ph></title>
