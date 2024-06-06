@@ -1,3 +1,9 @@
+# [3.1.0](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.91...3.1.0) (2024-06-06)
+
+### Features
+
+- use oclif/core v4 ([#660](https://github.com/salesforcecli/plugin-command-reference/issues/660)) ([690715f](https://github.com/salesforcecli/plugin-command-reference/commit/690715fd379807bd62d28ded76780e13c8dfa788))
+
 ## [3.0.91](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.90...3.0.91) (2024-06-06)
 
 ### Bug Fixes
