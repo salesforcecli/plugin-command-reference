@@ -1,3 +1,9 @@
+## [3.0.91](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.90...3.0.91) (2024-06-06)
+
+### Bug Fixes
+
+- remove usage section of command pages ([#659](https://github.com/salesforcecli/plugin-command-reference/issues/659)) ([818857a](https://github.com/salesforcecli/plugin-command-reference/commit/818857a7421698912e8d2dc04f07cdbe85f9b162))
+
 ## [3.0.90](https://github.com/salesforcecli/plugin-command-reference/compare/3.0.89...3.0.90) (2024-06-02)
 
 ### Bug Fixes
