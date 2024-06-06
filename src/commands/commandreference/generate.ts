@@ -13,7 +13,6 @@ import { Command, Config, Interfaces } from '@oclif/core';
 import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, ensure } from '@salesforce/ts-types';
 import chalk from 'chalk';
-import { PJSON } from '@oclif/core/lib/interfaces';
 import { Ditamap } from '../../ditamap/ditamap.js';
 import { Docs } from '../../docs.js';
 import { CliMeta, CommandClass, events, SfTopic, SfTopics } from '../../utils.js';
@@ -277,7 +276,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
 }
 
 /** recursively convert the oclif style topics to the command reference topic SfTopicStructure */
-const objectTopicsToMap = (pjsonTopics: PJSON.Plugin['oclif']['topics']): SfTopics =>
+const objectTopicsToMap = (pjsonTopics: Interfaces.OclifConfiguration['topics']): SfTopics =>
   new Map<string, SfTopic>(
     Object.entries(pjsonTopics ?? {}).map(([topic, topicInfo]) => {
       if (topicInfo.subtopics) {
