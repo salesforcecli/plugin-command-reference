@@ -1673,7 +1673,7 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^4":
+"@oclif/core@^4", "@oclif/core@^4.0.0-beta.12", "@oclif/core@^4.0.0-beta.13":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.3.tgz#6231272447c7057813986860448613ed38cfdc47"
   integrity sha512-yM8R/M2WfSNfL9eF8clS/SbQvanvHZJgoij5bLs3ro7uAFCkL/LYcagyj0UVGbysx5AI+SNIof6OHQUXYZpOZw==
@@ -1692,29 +1692,6 @@
     minimatch "^9.0.4"
     string-width "^4.2.3"
     supports-color "^8"
-    widest-line "^3.1.0"
-    wordwrap "^1.0.0"
-    wrap-ansi "^7.0.0"
-
-"@oclif/core@^4.0.0-beta.12", "@oclif/core@^4.0.0-beta.13":
-  version "4.0.0-beta.13"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.0-beta.13.tgz#0e0a6431cfe612db77073d2f9ef361f14e4090b8"
-  integrity sha512-ug8CZUCJphgetSZVgd4HQgyewlYVGGG1LIeFXGxjgYsjZ/f5I3nSCj7xpAMEDqjVD/lwmSujtVwa7tvEgLGICw==
-  dependencies:
-    ansi-escapes "^4.3.2"
-    ansis "^3.0.1"
-    clean-stack "^3.0.1"
-    cli-spinners "^2.9.2"
-    cosmiconfig "^9.0.0"
-    debug "^4.3.4"
-    ejs "^3.1.10"
-    get-package-type "^0.1.0"
-    globby "^11.1.0"
-    indent-string "^4.0.0"
-    is-wsl "^2.2.0"
-    minimatch "^9.0.4"
-    string-width "^4.2.3"
-    supports-color "^9.4.0"
     widest-line "^3.1.0"
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
@@ -1821,20 +1798,19 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/plugin-auth@^3.6.17":
-  version "3.6.17"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.17.tgz#1d6cd9317b84df083d02626ca5b99643346d93c2"
-  integrity sha512-VNVI3UKcmjF4pILqFdXqy/Q8+N1MDmjsZljo6+5180rUkm/94OciMAUBxflgz9P5tVSr1qRrgaxBQca7R5dFBA==
+"@salesforce/plugin-auth@^3.6.19":
+  version "3.6.19"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.19.tgz#ba1fda07b1340e6d09479139acd18d306a79dc15"
+  integrity sha512-d3JYaOwEwvGFeRgypiE8PqnWNXrhoO8O7TUgih37ArZkNZ23bXdfLJs24nOG5nyU52nz/K+XXTdblGNNkZER2A==
   dependencies:
     "@inquirer/checkbox" "^2.3.5"
     "@inquirer/select" "^2.3.5"
-    "@oclif/core" "^3.26.5"
+    "@oclif/core" "^4"
     "@salesforce/core" "^7.3.9"
     "@salesforce/kit" "^3.1.1"
     "@salesforce/plugin-info" "^3.3.1"
-    "@salesforce/sf-plugins-core" "^9.1.1"
+    "@salesforce/sf-plugins-core" "^10.0.0"
     "@salesforce/ts-types" "^2.0.9"
-    chalk "^5.3.0"
     open "^10.1.0"
 
 "@salesforce/plugin-info@^3.3.1":
@@ -1894,7 +1870,7 @@
     string-width "^7.1.0"
     terminal-link "^3.0.0"
 
-"@salesforce/sf-plugins-core@^9.0.12", "@salesforce/sf-plugins-core@^9.0.7", "@salesforce/sf-plugins-core@^9.1.1":
+"@salesforce/sf-plugins-core@^9.0.12", "@salesforce/sf-plugins-core@^9.0.7":
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.1.1.tgz#8818fdb23e0f174d9e6dded0cf34a88be5e3cc44"
   integrity sha512-5d4vGLqb1NZoHvDpuTu96TsFg/lexdnQNWC0h7GhOqxikJBpxk6P1DEbk9HrZWL18Gs1YXO9OCj2g8nKqbIC/Q==
@@ -3149,7 +3125,7 @@ ansicolors@~0.3.2:
   resolved "https://registry.yarnpkg.com/ansicolors/-/ansicolors-0.3.2.tgz#665597de86a9ffe3aa9bfbe6cae5c6ea426b4979"
   integrity sha512-QXu7BPrP29VllRxH8GwB7x5iX5qWKAAMLqKQGWTeLWVlNHNOpVMJ91dsxQAIWXpjuW5wqvxu3Jd/nRjrJ+0pqg==
 
-ansis@^3.0.1, ansis@^3.1.1:
+ansis@^3.1.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.2.0.tgz#0e050c5be94784f32ffdac4b84fccba064aeae4b"
   integrity sha512-Yk3BkHH9U7oPyCN3gL5Tc7CpahG/+UFv/6UG03C311Vy9lzRmA5uoxDTpU9CO3rGHL6KzJz/pdDeXZCZ5Mu/Sg==
@@ -7585,11 +7561,6 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
   dependencies:
     has-flag "^4.0.0"
-
-supports-color@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.4.0.tgz#17bfcf686288f531db3dea3215510621ccb55954"
-  integrity sha512-VL+lNrEoIXww1coLPOmiEmK/0sGigko5COxI09KzHc2VJXJsQ37UaQ+8quuxjDeA7+KnLGTWRyOXSLLR2Wb4jw==
 
 supports-hyperlinks@^2.1.0, supports-hyperlinks@^2.2.0:
   version "2.3.0"
