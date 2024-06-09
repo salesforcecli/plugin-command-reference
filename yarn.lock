@@ -1798,20 +1798,19 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/plugin-auth@^3.6.17":
-  version "3.6.17"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.17.tgz#1d6cd9317b84df083d02626ca5b99643346d93c2"
-  integrity sha512-VNVI3UKcmjF4pILqFdXqy/Q8+N1MDmjsZljo6+5180rUkm/94OciMAUBxflgz9P5tVSr1qRrgaxBQca7R5dFBA==
+"@salesforce/plugin-auth@^3.6.20":
+  version "3.6.20"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.20.tgz#46dca62f18e70af59932a6a3bca141c2828684e0"
+  integrity sha512-0UH5o5mmVHo8U+2WCzSrfo/dF6hItmlKs0QuBp2ovHXUQp+p2c88aFcQ217a5Z6wlosBpD7fJ06TOvDgsrIWOA==
   dependencies:
     "@inquirer/checkbox" "^2.3.5"
     "@inquirer/select" "^2.3.5"
-    "@oclif/core" "^3.26.5"
-    "@salesforce/core" "^7.3.9"
+    "@oclif/core" "^4"
+    "@salesforce/core" "^7.3.12"
     "@salesforce/kit" "^3.1.1"
     "@salesforce/plugin-info" "^3.3.1"
-    "@salesforce/sf-plugins-core" "^9.1.1"
+    "@salesforce/sf-plugins-core" "^10.0.0"
     "@salesforce/ts-types" "^2.0.9"
-    chalk "^5.3.0"
     open "^10.1.0"
 
 "@salesforce/plugin-info@^3.3.1":
@@ -1871,7 +1870,7 @@
     string-width "^7.1.0"
     terminal-link "^3.0.0"
 
-"@salesforce/sf-plugins-core@^9.0.7", "@salesforce/sf-plugins-core@^9.1.1":
+"@salesforce/sf-plugins-core@^9.0.7":
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.1.1.tgz#8818fdb23e0f174d9e6dded0cf34a88be5e3cc44"
   integrity sha512-5d4vGLqb1NZoHvDpuTu96TsFg/lexdnQNWC0h7GhOqxikJBpxk6P1DEbk9HrZWL18Gs1YXO9OCj2g8nKqbIC/Q==
