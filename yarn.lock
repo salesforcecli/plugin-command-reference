@@ -1497,7 +1497,7 @@
   resolved "https://registry.yarnpkg.com/@inquirer/figures/-/figures-1.0.3.tgz#1227cc980f88e6d6ab85abadbf164f5038041edd"
   integrity sha512-ErXXzENMH5pJt5/ssXV0DfWUZqly8nGzf0UcBV9xTnP+KyffE2mqyxIMBrZ8ijQck2nU0TQm40EQB53YreyWHw==
 
-"@inquirer/input@^2.1.6", "@inquirer/input@^2.1.9":
+"@inquirer/input@^2.1.8", "@inquirer/input@^2.1.9":
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/@inquirer/input/-/input-2.1.9.tgz#ac47671bfdfb0ae99411c644aadf783ae946e168"
   integrity sha512-1xTCHmIe48x9CG1+8glAHrVVdH+QfYhzgBUbgyoVpp5NovnXgRcjSn/SNulepxf9Ol8HDq3gzw3ZCAUr+h1Eyg==
@@ -1798,33 +1798,32 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/plugin-auth@^3.6.17":
-  version "3.6.17"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.17.tgz#1d6cd9317b84df083d02626ca5b99643346d93c2"
-  integrity sha512-VNVI3UKcmjF4pILqFdXqy/Q8+N1MDmjsZljo6+5180rUkm/94OciMAUBxflgz9P5tVSr1qRrgaxBQca7R5dFBA==
+"@salesforce/plugin-auth@^3.6.21":
+  version "3.6.21"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.21.tgz#2dcfdac157594978b85a65188fb1589fed2bf75b"
+  integrity sha512-U6OvMR3BSLKavE9pBCYdrDKx0t+V1azmKVSsCgBCOgmqpQiXfo7XcOvUi9Jug1/Szr7T5U/1kuunxdGk8XGfIg==
   dependencies:
     "@inquirer/checkbox" "^2.3.5"
     "@inquirer/select" "^2.3.5"
-    "@oclif/core" "^3.26.5"
-    "@salesforce/core" "^7.3.9"
+    "@oclif/core" "^4"
+    "@salesforce/core" "^7.3.12"
     "@salesforce/kit" "^3.1.1"
-    "@salesforce/plugin-info" "^3.3.1"
-    "@salesforce/sf-plugins-core" "^9.1.1"
+    "@salesforce/plugin-info" "^3.3.5"
+    "@salesforce/sf-plugins-core" "^10.0.0"
     "@salesforce/ts-types" "^2.0.9"
-    chalk "^5.3.0"
     open "^10.1.0"
 
-"@salesforce/plugin-info@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.3.1.tgz#1c05c6874b9723c2fd443c0e41a59cebae725660"
-  integrity sha512-3NsU82lBSRhPDzaskJ1d+/v0pGVyzn0XhexrOXd8c64I5p39FqTbGfjF95g1sMmEYPH2V7UPy6yyaD/eolq9hA==
+"@salesforce/plugin-info@^3.3.5":
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.3.5.tgz#59a5a9e5e0509e4dc846c7e0c9177f86fe7a67ad"
+  integrity sha512-KveT3o2mXdcvt8T2J0Pb7wzwvAPOqHvxO/+xu6GTceMWQfpA0H0hx3awwXF0keY4Ek6fLHgzIfmnCjCoxp6y6w==
   dependencies:
-    "@inquirer/input" "^2.1.6"
+    "@inquirer/input" "^2.1.8"
     "@jsforce/jsforce-node" "^3.2.0"
-    "@oclif/core" "^3.26.5"
+    "@oclif/core" "^4"
     "@salesforce/core" "^7.3.9"
     "@salesforce/kit" "^3.1.0"
-    "@salesforce/sf-plugins-core" "^9.0.7"
+    "@salesforce/sf-plugins-core" "^10.0.0"
     got "^13.0.0"
     marked "^4.3.0"
     marked-terminal "^4.2.0"
@@ -1870,19 +1869,6 @@
     slice-ansi "^7.1.0"
     string-width "^7.1.0"
     terminal-link "^3.0.0"
-
-"@salesforce/sf-plugins-core@^9.0.7", "@salesforce/sf-plugins-core@^9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.1.1.tgz#8818fdb23e0f174d9e6dded0cf34a88be5e3cc44"
-  integrity sha512-5d4vGLqb1NZoHvDpuTu96TsFg/lexdnQNWC0h7GhOqxikJBpxk6P1DEbk9HrZWL18Gs1YXO9OCj2g8nKqbIC/Q==
-  dependencies:
-    "@inquirer/confirm" "^3.1.9"
-    "@inquirer/password" "^2.1.9"
-    "@oclif/core" "^3.26.6"
-    "@salesforce/core" "^7.3.9"
-    "@salesforce/kit" "^3.1.2"
-    "@salesforce/ts-types" "^2.0.9"
-    chalk "^5.3.0"
 
 "@salesforce/ts-types@^2.0.9":
   version "2.0.9"
