@@ -1673,7 +1673,7 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^4":
+"@oclif/core@^4", "@oclif/core@^4.0.0-beta.12", "@oclif/core@^4.0.0-beta.13":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.3.tgz#6231272447c7057813986860448613ed38cfdc47"
   integrity sha512-yM8R/M2WfSNfL9eF8clS/SbQvanvHZJgoij5bLs3ro7uAFCkL/LYcagyj0UVGbysx5AI+SNIof6OHQUXYZpOZw==
@@ -1692,29 +1692,6 @@
     minimatch "^9.0.4"
     string-width "^4.2.3"
     supports-color "^8"
-    widest-line "^3.1.0"
-    wordwrap "^1.0.0"
-    wrap-ansi "^7.0.0"
-
-"@oclif/core@^4.0.0-beta.12", "@oclif/core@^4.0.0-beta.13":
-  version "4.0.0-beta.13"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.0-beta.13.tgz#0e0a6431cfe612db77073d2f9ef361f14e4090b8"
-  integrity sha512-ug8CZUCJphgetSZVgd4HQgyewlYVGGG1LIeFXGxjgYsjZ/f5I3nSCj7xpAMEDqjVD/lwmSujtVwa7tvEgLGICw==
-  dependencies:
-    ansi-escapes "^4.3.2"
-    ansis "^3.0.1"
-    clean-stack "^3.0.1"
-    cli-spinners "^2.9.2"
-    cosmiconfig "^9.0.0"
-    debug "^4.3.4"
-    ejs "^3.1.10"
-    get-package-type "^0.1.0"
-    globby "^11.1.0"
-    indent-string "^4.0.0"
-    is-wsl "^2.2.0"
-    minimatch "^9.0.4"
-    string-width "^4.2.3"
-    supports-color "^9.4.0"
     widest-line "^3.1.0"
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
@@ -1855,15 +1832,15 @@
     proxy-agent "^6.4.0"
     semver "^7.6.0"
 
-"@salesforce/plugin-user@^3.5.11":
-  version "3.5.11"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.5.11.tgz#839796a7f17562ad9ece2c69d4dfdb5bc033f4d9"
-  integrity sha512-GA81RgZ5KMBuK2MEsYPCgRJP6U371Zvr0qxZUmXpDiuC8rjp9EqPl/1s4BfFVzB8emQWmFXxejSqCZz5FJh1dg==
+"@salesforce/plugin-user@^3.5.13":
+  version "3.5.13"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.5.13.tgz#248aaee8d1188d17f74fedead69a29030f0bde28"
+  integrity sha512-Bng9cavmSgI/JIW7MeKgjLXKKUEHucTlns9CYPqLoJxJZkv4oSz9dWyzY6ABZv88JwJSxKU4136egHa+4z4Lrg==
   dependencies:
-    "@oclif/core" "^3.26.6"
+    "@oclif/core" "^4"
     "@salesforce/core" "^7.3.8"
     "@salesforce/kit" "^3.1.0"
-    "@salesforce/sf-plugins-core" "^9.0.12"
+    "@salesforce/sf-plugins-core" "^10.0.0"
     "@salesforce/ts-types" "^2.0.9"
 
 "@salesforce/prettier-config@^0.0.3":
@@ -1894,7 +1871,7 @@
     string-width "^7.1.0"
     terminal-link "^3.0.0"
 
-"@salesforce/sf-plugins-core@^9.0.12", "@salesforce/sf-plugins-core@^9.0.7", "@salesforce/sf-plugins-core@^9.1.1":
+"@salesforce/sf-plugins-core@^9.0.7", "@salesforce/sf-plugins-core@^9.1.1":
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.1.1.tgz#8818fdb23e0f174d9e6dded0cf34a88be5e3cc44"
   integrity sha512-5d4vGLqb1NZoHvDpuTu96TsFg/lexdnQNWC0h7GhOqxikJBpxk6P1DEbk9HrZWL18Gs1YXO9OCj2g8nKqbIC/Q==
@@ -3149,7 +3126,7 @@ ansicolors@~0.3.2:
   resolved "https://registry.yarnpkg.com/ansicolors/-/ansicolors-0.3.2.tgz#665597de86a9ffe3aa9bfbe6cae5c6ea426b4979"
   integrity sha512-QXu7BPrP29VllRxH8GwB7x5iX5qWKAAMLqKQGWTeLWVlNHNOpVMJ91dsxQAIWXpjuW5wqvxu3Jd/nRjrJ+0pqg==
 
-ansis@^3.0.1, ansis@^3.1.1:
+ansis@^3.1.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.2.0.tgz#0e050c5be94784f32ffdac4b84fccba064aeae4b"
   integrity sha512-Yk3BkHH9U7oPyCN3gL5Tc7CpahG/+UFv/6UG03C311Vy9lzRmA5uoxDTpU9CO3rGHL6KzJz/pdDeXZCZ5Mu/Sg==
@@ -7585,11 +7562,6 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
   dependencies:
     has-flag "^4.0.0"
-
-supports-color@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.4.0.tgz#17bfcf686288f531db3dea3215510621ccb55954"
-  integrity sha512-VL+lNrEoIXww1coLPOmiEmK/0sGigko5COxI09KzHc2VJXJsQ37UaQ+8quuxjDeA7+KnLGTWRyOXSLLR2Wb4jw==
 
 supports-hyperlinks@^2.1.0, supports-hyperlinks@^2.2.0:
   version "2.3.0"
