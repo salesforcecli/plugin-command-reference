@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@oclif/plugin-help": "^6.1.0",
-    "@salesforce/dev-scripts": "^10",
+    "@salesforce/dev-scripts": "^10.1.0",
     "@salesforce/plugin-auth": "^3.6.17",
     "@salesforce/plugin-user": "^3.5.13",
     "@types/debug": "^4.1.12",
