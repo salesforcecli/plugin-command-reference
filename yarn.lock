@@ -1798,10 +1798,10 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/plugin-auth@^3.6.21":
-  version "3.6.21"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.21.tgz#2dcfdac157594978b85a65188fb1589fed2bf75b"
-  integrity sha512-U6OvMR3BSLKavE9pBCYdrDKx0t+V1azmKVSsCgBCOgmqpQiXfo7XcOvUi9Jug1/Szr7T5U/1kuunxdGk8XGfIg==
+"@salesforce/plugin-auth@^3.6.22":
+  version "3.6.22"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.22.tgz#273dae7dc85582120cdd449fa3295ff9f541b04e"
+  integrity sha512-eUaGfIwkhrs4vrbwduSt1ySgQAg1Qdvhtm5+dukW4EVTR7PUCuzkcH7kj1J8M5Mf+0mI82HrfOyzraVlDJtsJg==
   dependencies:
     "@inquirer/checkbox" "^2.3.5"
     "@inquirer/select" "^2.3.5"
