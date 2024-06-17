@@ -1,3 +1,9 @@
+## [3.1.4](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.3...3.1.4) (2024-06-17)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 10.0.0 to 10.0.1 ([1e61d13](https://github.com/salesforcecli/plugin-command-reference/commit/1e61d13a02785e3f425a6e2716f4cbd6d81651e1))
+
 ## [3.1.3](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.2...3.1.3) (2024-06-16)
 
 ### Bug Fixes
