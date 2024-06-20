@@ -1,3 +1,9 @@
+## [3.1.5](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.4...3.1.5) (2024-06-20)
+
+### Bug Fixes
+
+- core8 ([#682](https://github.com/salesforcecli/plugin-command-reference/issues/682)) ([03c0053](https://github.com/salesforcecli/plugin-command-reference/commit/03c0053785bb0a68a4c48f036886b731e0a6029a))
+
 ## [3.1.4](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.3...3.1.4) (2024-06-17)
 
 ### Bug Fixes
