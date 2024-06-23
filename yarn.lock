@@ -1493,12 +1493,12 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz#4a2868d75d6d6963e423bcf90b7fd1be343409d3"
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
-"@inquirer/checkbox@^2.3.5":
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/@inquirer/checkbox/-/checkbox-2.3.5.tgz#835699f49b932de1b94bc797f26991250fe65932"
-  integrity sha512-3V0OSykTkE/38GG1DhxRGLBmqefgzRg2EK5A375zz+XEvIWfAHcac31e+zlBDPypRHxhmXc/Oh6v9eOPbH3nAg==
+"@inquirer/checkbox@^2.3.6":
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/@inquirer/checkbox/-/checkbox-2.3.6.tgz#c49919951812aa69bd2bdd42d558e7db0b066879"
+  integrity sha512-BziU88BEwBaGclY0RM59QOop2zyPgAr1EH/czvW6/J9ELXYN4vbGTI4KM/ogNnh+Y0yNnVvKxAQqFsI2Ra2BtA==
   dependencies:
-    "@inquirer/core" "^8.2.2"
+    "@inquirer/core" "^8.2.3"
     "@inquirer/figures" "^1.0.3"
     "@inquirer/type" "^1.3.3"
     ansi-escapes "^4.3.2"
@@ -1521,6 +1521,25 @@
     "@inquirer/type" "^1.3.3"
     "@types/mute-stream" "^0.0.4"
     "@types/node" "^20.12.13"
+    "@types/wrap-ansi" "^3.0.0"
+    ansi-escapes "^4.3.2"
+    chalk "^4.1.2"
+    cli-spinners "^2.9.2"
+    cli-width "^4.1.0"
+    mute-stream "^1.0.0"
+    signal-exit "^4.1.0"
+    strip-ansi "^6.0.1"
+    wrap-ansi "^6.2.0"
+
+"@inquirer/core@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@inquirer/core/-/core-8.2.3.tgz#e1986ae0e7de4c1dee72d34dcf0f9a3587709eff"
+  integrity sha512-WrpDVPAaxJQjHid3Ra4FhUO70YBzkHSYVyW5X48L5zHYdudoPISJqTRRWSeamHfaXda7PNNaC5Py5MEo7QwBNA==
+  dependencies:
+    "@inquirer/figures" "^1.0.3"
+    "@inquirer/type" "^1.3.3"
+    "@types/mute-stream" "^0.0.4"
+    "@types/node" "^20.14.6"
     "@types/wrap-ansi" "^3.0.0"
     ansi-escapes "^4.3.2"
     chalk "^4.1.2"
@@ -1853,26 +1872,26 @@
     typescript "^5.4.3"
     wireit "^0.14.4"
 
-"@salesforce/kit@^3.1.0", "@salesforce/kit@^3.1.1", "@salesforce/kit@^3.1.2", "@salesforce/kit@^3.1.3", "@salesforce/kit@^3.1.6":
+"@salesforce/kit@^3.1.0", "@salesforce/kit@^3.1.2", "@salesforce/kit@^3.1.3", "@salesforce/kit@^3.1.6":
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-3.1.6.tgz#aefb39c0e0f325e11f80551ff92cf6979dd74070"
   integrity sha512-zAYPmCSAvdonDOnL5AzuVRVv0sRMlQd6gi12HDE1964VqSjt5pzlLU90thh3Qq4A1Wxbdu0FbHYx9BvZ4fWPvQ==
   dependencies:
     "@salesforce/ts-types" "^2.0.10"
 
-"@salesforce/plugin-auth@^3.6.22":
-  version "3.6.22"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.22.tgz#273dae7dc85582120cdd449fa3295ff9f541b04e"
-  integrity sha512-eUaGfIwkhrs4vrbwduSt1ySgQAg1Qdvhtm5+dukW4EVTR7PUCuzkcH7kj1J8M5Mf+0mI82HrfOyzraVlDJtsJg==
+"@salesforce/plugin-auth@^3.6.26":
+  version "3.6.26"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.26.tgz#8ea6976959282cb743f6c967654330382487b614"
+  integrity sha512-MSGhX1nX4YZwRRSNqaVekSVmv+qUaefrRm30u4ya8/08EkBzDweAGMNI8ymTaEc7E7dlHImrLRjVKJ6ZYkstgA==
   dependencies:
-    "@inquirer/checkbox" "^2.3.5"
+    "@inquirer/checkbox" "^2.3.6"
     "@inquirer/select" "^2.3.5"
     "@oclif/core" "^4"
-    "@salesforce/core" "^7.3.12"
-    "@salesforce/kit" "^3.1.1"
+    "@salesforce/core" "^8.0.3"
+    "@salesforce/kit" "^3.1.6"
     "@salesforce/plugin-info" "^3.3.5"
-    "@salesforce/sf-plugins-core" "^10.0.0"
-    "@salesforce/ts-types" "^2.0.9"
+    "@salesforce/sf-plugins-core" "^11.1.1"
+    "@salesforce/ts-types" "^2.0.10"
     open "^10.1.0"
 
 "@salesforce/plugin-info@^3.3.5":
@@ -2579,6 +2598,13 @@
   version "18.19.37"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.37.tgz#506ee89d6b5edd5a4c4e01b22162dd8309718a35"
   integrity sha512-Pi53fdVMk7Ig5IfAMltQQMgtY7xLzHaEous8IQasYsdQbYK3v90FkxI3XYQCe/Qme58pqp14lXJIsFmGP8VoZQ==
+  dependencies:
+    undici-types "~5.26.4"
+
+"@types/node@^20.14.6":
+  version "20.14.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.8.tgz#45c26a2a5de26c3534a9504530ddb3b27ce031ac"
+  integrity sha512-DO+2/jZinXfROG7j7WKFn/3C6nFwxy2lLpgLjEXJz+0XKphZlTLJ14mo8Vfg8X5BWN6XjyESXq+LcYdT7tR3bA==
   dependencies:
     undici-types "~5.26.4"
 
