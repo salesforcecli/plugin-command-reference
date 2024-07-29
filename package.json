@@ -19,7 +19,7 @@
     "@oclif/plugin-help": "^6.2.6",
     "@salesforce/dev-scripts": "^10.2.4",
     "@salesforce/plugin-auth": "^3.6.38",
-    "@salesforce/plugin-user": "^3.5.19",
+    "@salesforce/plugin-user": "^3.5.20",
     "@types/debug": "^4.1.12",
     "eslint-plugin-sf-plugin": "^1.20.0",
     "oclif": "^4.14.9",
