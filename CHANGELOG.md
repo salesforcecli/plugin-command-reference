@@ -1,3 +1,9 @@
+## [3.1.23](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.22...3.1.23) (2024-09-12)
+
+### Bug Fixes
+
+- **deps:** bump path-to-regexp from 1.8.0 to 1.9.0 ([2627202](https://github.com/salesforcecli/plugin-command-reference/commit/2627202c4e998d70ce3ca39754f93a12a41450c9))
+
 ## [3.1.22](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.21...3.1.22) (2024-09-09)
 
 ### Bug Fixes
