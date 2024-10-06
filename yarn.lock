@@ -1464,7 +1464,7 @@
     "@inquirer/type" "^1.5.3"
     ansi-escapes "^4.3.2"
 
-"@inquirer/select@^2.4.7", "@inquirer/select@^2.5.0":
+"@inquirer/select@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@inquirer/select/-/select-2.5.0.tgz#345c6908ecfaeef3d84ddd2f9feb2f487c558efb"
   integrity sha512-YmDobTItPP3WcEI86GvPo+T2sRHkxxOq/kXmsBjHS5BVXUgvgZ5AfJjkvQvZr03T81NnI3KrrRuMzeuYUQRFOA==
@@ -1714,15 +1714,15 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/plugin-auth@^3.6.60":
-  version "3.6.60"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.60.tgz#c04fc56d70afa0a63653c9fe7e2cf5a3eeac522c"
-  integrity sha512-8M/DyOwgeNc9fgZ1rX/datPsjMR3RX8/wkSdEv9mW5mOMXi3yfrhpe3iP4aFyGG36UkZjqrAJVv9w4+zqzS5hA==
+"@salesforce/plugin-auth@^3.6.65":
+  version "3.6.65"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.65.tgz#7cdf679357884696a6002cbba556bf58c2b699f1"
+  integrity sha512-jOX06hAtEPOfy9bUKNnNJW1RqTXFDRmGtwpz2Uh89FzaOOjatWe4GB6pccMCgy8UAwP8w8RVsPvCN1LGE/IJlQ==
   dependencies:
     "@inquirer/checkbox" "^2.5.0"
-    "@inquirer/select" "^2.4.7"
+    "@inquirer/select" "^2.5.0"
     "@oclif/core" "^4"
-    "@salesforce/core" "^8.5.1"
+    "@salesforce/core" "^8.6.1"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/plugin-info" "^3.4.6"
     "@salesforce/sf-plugins-core" "^11.3.10"
