@@ -1,3 +1,9 @@
+## [3.1.38](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.37...3.1.38) (2024-12-22)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.3.0 to 5.4.1 ([4e41004](https://github.com/salesforcecli/plugin-command-reference/commit/4e4100462307c26d42343a8ad710dc9b24fb405d))
+
 ## [3.1.37](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.36...3.1.37) (2024-12-08)
 
 ### Bug Fixes
