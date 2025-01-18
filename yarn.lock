@@ -1960,14 +1960,14 @@
     proxy-agent "^6.5.0"
     semver "^7.6.3"
 
-"@salesforce/plugin-user@^3.6.5":
-  version "3.6.5"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.5.tgz#bed6e5a6951e247da7dbe897ebe9a6ed269f23bd"
-  integrity sha512-QHQ1nDV1fVuZsRSobxgQ6RGcwWkIrukUZgwIZzZfB+dXMJTItMWtZr9SvyxySzzUt6Cm7FtK3t4n8L2lagR3vg==
+"@salesforce/plugin-user@^3.6.6":
+  version "3.6.6"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.6.tgz#08f8ad9d60d894cd6cdbb15c831a99049e34b5c7"
+  integrity sha512-zTiLAZ04aznPsLWlKv1itjx5mcLXybH0P9LwtQcY7LvtCrSaChUFXE5KU0vZZkXxEM5FPaQXQiLAp/HAEgozXA==
   dependencies:
     "@salesforce/core" "^8.6.4"
     "@salesforce/kit" "^3.2.2"
-    "@salesforce/sf-plugins-core" "^12.1.1"
+    "@salesforce/sf-plugins-core" "^12.1.2"
     "@salesforce/ts-types" "^2.0.11"
 
 "@salesforce/prettier-config@^0.0.3":
@@ -1998,7 +1998,7 @@
     string-width "^7.2.0"
     terminal-link "^3.0.0"
 
-"@salesforce/sf-plugins-core@^12", "@salesforce/sf-plugins-core@^12.1.1", "@salesforce/sf-plugins-core@^12.1.2":
+"@salesforce/sf-plugins-core@^12", "@salesforce/sf-plugins-core@^12.1.2":
   version "12.1.2"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-12.1.2.tgz#0c4fba3787ee670014c8bca447c2fc59fb9c3ec3"
   integrity sha512-qrmGZr2mG7uOpqhOpeOJjBEVztM7Mt8B10lD3rG+aOBZQelTm3YQ738yZYcwHjksQW3AOyf0QtqZICCfe0nD8A==
