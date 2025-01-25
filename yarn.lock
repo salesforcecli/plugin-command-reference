@@ -1857,15 +1857,15 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/plugin-auth@^3.6.87":
-  version "3.6.87"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.87.tgz#5dab195ddef0718cb36526514bfee247a61551d6"
-  integrity sha512-9biEYFk4wKNTzSS5UaiidX/2ViTWHCPgNhOCJ16LaKNI3BFtpga0in84dYKiJ6t69hqig1x2NW/CM90XjE9ZVA==
+"@salesforce/plugin-auth@^3.6.90":
+  version "3.6.90"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.90.tgz#35e917a1c8bb26bddd4e42ddfc877a6d07e2959a"
+  integrity sha512-YeOAAtAFpr/Xx4kNlTHcswnZ38TAvsDQWzkOGmc/fx18wQkL69mdR267hup95CL0In2XeUk7UyppKvb5SN3OyA==
   dependencies:
     "@inquirer/checkbox" "^2.5.0"
     "@inquirer/select" "^2.5.0"
     "@oclif/core" "^4"
-    "@salesforce/core" "^8.8.0"
+    "@salesforce/core" "^8.8.2"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/plugin-info" "^3.4.30"
     "@salesforce/sf-plugins-core" "^12.1.2"
