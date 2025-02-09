@@ -1818,25 +1818,25 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/plugin-auth@^3.6.91":
-  version "3.6.91"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.91.tgz#7e91f999f8bc3bab08b74cc48ea34a39ff5de456"
-  integrity sha512-AaNvfdWlt7rVCW2N1YSQWgPhIMq82qvGuEavaWneuSKpLzW8jSUgXqKet7xZUCfmToq5NIa/IAZIzYhjmPk6aw==
+"@salesforce/plugin-auth@^3.6.93":
+  version "3.6.93"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.93.tgz#d080549761ccfeb1cdb43fb075b4da834891aa8a"
+  integrity sha512-TJHQN0HAd6uEA1BgV2SeTqK+nz2UvABVhF+effme0YM1vsjDDerIejNS3Hp5JxVnQOAzLBuwzVJT2bd5ohLb8g==
   dependencies:
     "@inquirer/checkbox" "^2.5.0"
     "@inquirer/select" "^2.5.0"
     "@oclif/core" "^4"
     "@salesforce/core" "^8.8.2"
     "@salesforce/kit" "^3.2.3"
-    "@salesforce/plugin-info" "^3.4.30"
+    "@salesforce/plugin-info" "^3.4.34"
     "@salesforce/sf-plugins-core" "^12.1.2"
     "@salesforce/ts-types" "^2.0.11"
     open "^10.1.0"
 
-"@salesforce/plugin-info@^3.4.30":
-  version "3.4.30"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.30.tgz#6a62622c14bba4cd3920bf5951e2caf794957ae7"
-  integrity sha512-PQ4/6u85epah4w5Y7nC665PCgPTVta17eyB/5noRm0Inu/jzTLMqJnWRa9ZVHbQmWSraZSHt6fO25FWRLL5zHA==
+"@salesforce/plugin-info@^3.4.34":
+  version "3.4.37"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.37.tgz#6ce5a2b09d892484983d37feb964ccd35227a9e4"
+  integrity sha512-ak9owqn5Q1PP+HL9JXZLYJo7ufTOQa1PoYag5HEq5l9oDgWvPbUKlMoEm02dVIzKqoULWvYhoy1CpHq4CQflDg==
   dependencies:
     "@inquirer/input" "^2.3.0"
     "@jsforce/jsforce-node" "^3.6.3"
@@ -1849,7 +1849,7 @@
     marked-terminal "^4.2.0"
     open "^10.1.0"
     proxy-agent "^6.5.0"
-    semver "^7.6.3"
+    semver "^7.7.0"
 
 "@salesforce/plugin-user@^3.6.8":
   version "3.6.8"
@@ -7161,6 +7161,11 @@ semver@^7.3.4, semver@^7.3.5, semver@^7.5.4, semver@^7.6.0, semver@^7.6.3:
   version "7.6.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
   integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
+
+semver@^7.7.0:
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.1.tgz#abd5098d82b18c6c81f6074ff2647fd3e7220c9f"
+  integrity sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==
 
 sentence-case@^3.0.4:
   version "3.0.4"
