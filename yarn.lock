@@ -1660,7 +1660,7 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@salesforce/core@^8.5.1", "@salesforce/core@^8.8.4", "@salesforce/core@^8.8.5":
+"@salesforce/core@^8.5.1", "@salesforce/core@^8.8.5":
   version "8.8.5"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.8.5.tgz#4004e22523e4e45b42631733d06dc8aec9fdc23d"
   integrity sha512-eCiiO4NptvKkz04A4ivBVLzEBy/6IIFmaXoZ4tnF1FcD5MESvC+Xuc+0RFSRiYmPi5oloKNl6njrfVCKAho2zQ==
@@ -1761,12 +1761,12 @@
     proxy-agent "^6.5.0"
     semver "^7.7.1"
 
-"@salesforce/plugin-user@^3.6.12":
-  version "3.6.12"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.12.tgz#0f83456a3578b84f85c611f0048903ae862778f5"
-  integrity sha512-fZVjnI1zUxaXZ9CDViJXnjP854dhiKDOnuyZiVetasWfNYqgFEO7w6dUpW6xtohkIw39w+X/eMi2O95M6Y0ZCg==
+"@salesforce/plugin-user@^3.6.13":
+  version "3.6.13"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.13.tgz#2c6bafa98d94eaa705293475213ad29675cefe58"
+  integrity sha512-RBMQ6YHjTj4OhFmyKPP845jwWZtSE/T29ElK9XYt1fzkWrztDN1d62wn8sNRXWgNLf/JnY9WK8FbOcVPWzSnJA==
   dependencies:
-    "@salesforce/core" "^8.8.4"
+    "@salesforce/core" "^8.8.5"
     "@salesforce/kit" "^3.2.2"
     "@salesforce/sf-plugins-core" "^12.2.0"
     "@salesforce/ts-types" "^2.0.11"
