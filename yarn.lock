@@ -1748,30 +1748,30 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/plugin-auth@^3.6.106":
-  version "3.6.106"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.106.tgz#e9556dda4e2c463838b534bfad78bf81714e47a6"
-  integrity sha512-fUg53WqBkowa3WGZ1ctxB3p4EqFbnQu/u4ce9u9YEjJqLvVMc4F9xpNMo/fISqA+81qzy/ciSuq7xKP4+OLCyA==
+"@salesforce/plugin-auth@^3.6.108":
+  version "3.6.108"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.108.tgz#b7cb60b5d689aa736164c618aedf8fe6f64ab9e6"
+  integrity sha512-bJxg0ciLfuS7SfbhIv3XFBpYRRph0PJGrpbJNhggyZQ/C7oDt6bx1KgzYQfr+h3UrPc/K2UzR5tSMrpKG2c6lw==
   dependencies:
     "@inquirer/checkbox" "^2.5.0"
     "@inquirer/select" "^2.5.0"
     "@oclif/core" "^4"
     "@salesforce/core" "^8.8.5"
     "@salesforce/kit" "^3.2.3"
-    "@salesforce/plugin-info" "^3.4.47"
+    "@salesforce/plugin-info" "^3.4.50"
     "@salesforce/sf-plugins-core" "^12.2.0"
     "@salesforce/ts-types" "^2.0.11"
     open "^10.1.0"
 
-"@salesforce/plugin-info@^3.4.47":
-  version "3.4.47"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.47.tgz#4bc57a9f5fba532cb13a217a90e03d81f619245c"
-  integrity sha512-qZx4Ce2TgCfk7yg0Z1+d9ZyUqpPmaHrLlCfecvLAd7aqFPYFw8MRZ5sF9dKlu+AHbBT5aSAYAb70tCIUmUmVSg==
+"@salesforce/plugin-info@^3.4.50":
+  version "3.4.50"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.50.tgz#2717e5ea82828e2c51815aa01eada38c4632d298"
+  integrity sha512-2nD8yzCxdQJg5qtYZJxTqM+jLHtr1mqF9DjPJT/cimHmcTP08rIhdZpJQM+tPcRapVqsIUq/L6biSF3Q4PGo6A==
   dependencies:
     "@inquirer/input" "^2.3.0"
     "@jsforce/jsforce-node" "^3.6.6"
     "@oclif/core" "^4"
-    "@salesforce/core" "^8.8.5"
+    "@salesforce/core" "^8.8.6"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/sf-plugins-core" "^12"
     got "^13.0.0"
