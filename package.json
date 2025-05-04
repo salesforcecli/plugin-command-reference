@@ -7,7 +7,7 @@
   "type": "module",
   "dependencies": {
     "@oclif/core": "^4",
-    "@salesforce/core": "^8.10.0",
+    "@salesforce/core": "^8.10.1",
     "@salesforce/kit": "^3.2.3",
     "@salesforce/sf-plugins-core": "^11.3.12",
     "@salesforce/ts-types": "^2.0.11",
