@@ -1659,7 +1659,7 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@salesforce/core@^8.10.0", "@salesforce/core@^8.10.1", "@salesforce/core@^8.10.3", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.5":
+"@salesforce/core@^8.10.1", "@salesforce/core@^8.10.2", "@salesforce/core@^8.10.3", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.5":
   version "8.10.3"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.10.3.tgz#3cc2c99d097757cb4b08dab921254cfa3a00c7c1"
   integrity sha512-juqbU304TBrrjb8sZGw+QkeAJISKu4+v2XIMTCxGJoEjs4LLhsyI7/drxCUY+7FNye+veAGeJdn/PCxkKhSgcA==
@@ -1727,36 +1727,36 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/plugin-auth@^3.6.116":
-  version "3.6.116"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.116.tgz#8ff25b32660a10f991a8bdca0503ac0fb3b96f84"
-  integrity sha512-avANjZDGjbmQ9forg9XPXx+q4rKrlDCpk8wFWVZCnTv7G+nmG2DJgv9W0MUPoRmhfdwh80UpuBwiVGL59ZYzJQ==
+"@salesforce/plugin-auth@^3.6.120":
+  version "3.6.120"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.120.tgz#e8e902e861b0fbcb84adf42f4eaf11cc9bfed450"
+  integrity sha512-vmzxnikUdBEJZXC45uhzu+P0efJ/7dC56f6H1ZmOF3RQ1yd1f7M3VHuA7eNVidBbzyX7yPWbnamKcbH2gbCKJQ==
   dependencies:
     "@inquirer/checkbox" "^2.5.0"
     "@inquirer/select" "^2.5.0"
     "@oclif/core" "^4"
-    "@salesforce/core" "^8.10.1"
+    "@salesforce/core" "^8.10.3"
     "@salesforce/kit" "^3.2.3"
-    "@salesforce/plugin-info" "^3.4.54"
+    "@salesforce/plugin-info" "^3.4.59"
     "@salesforce/sf-plugins-core" "^12.2.1"
     "@salesforce/ts-types" "^2.0.11"
-    open "^10.1.1"
+    open "^10.1.2"
 
-"@salesforce/plugin-info@^3.4.54":
-  version "3.4.56"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.56.tgz#5e8e2021987658347cd5c361b400391824fb81ff"
-  integrity sha512-5PbvZkDxYjWhoovcBO3xlrdwSn8jbH2Rjdm8E1cMYEI6jRYHCyTrhLEecDE/0C9wyIjS4v3drZlzgGT7vqu5rg==
+"@salesforce/plugin-info@^3.4.59":
+  version "3.4.59"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.59.tgz#ec2e969e0b0e8cff4068862cd9d01744e5c66729"
+  integrity sha512-0vkfJJsaazpQdSkk5teAT6Xo1e5crRXz++YfJ+Buymet121Z0ydNcNhUJVgKfRWFqv5GpPj52gG4SnF3M6Xazw==
   dependencies:
     "@inquirer/input" "^2.3.0"
     "@jsforce/jsforce-node" "^3.8.1"
     "@oclif/core" "^4"
-    "@salesforce/core" "^8.10.0"
+    "@salesforce/core" "^8.10.2"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/sf-plugins-core" "^12"
     got "^13.0.0"
     marked "^4.3.0"
     marked-terminal "^4.2.0"
-    open "^10.1.1"
+    open "^10.1.2"
     proxy-agent "^6.5.0"
     semver "^7.7.1"
 
@@ -6194,10 +6194,10 @@ onetime@^5.1.0, onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-open@^10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/open/-/open-10.1.1.tgz#5fd814699e47ae3e1a09962d39f4f4441cae6c22"
-  integrity sha512-zy1wx4+P3PfhXSEPJNtZmJXfhkkIaxU1VauWIrDZw1O7uJRDRJtKr9n3Ic4NgbA16KyOxOXO2ng9gYwCdXuSXA==
+open@^10.1.2:
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/open/-/open-10.1.2.tgz#d5df40984755c9a9c3c93df8156a12467e882925"
+  integrity sha512-cxN6aIDPz6rm8hbebcP7vrQNhvRcveZoJU72Y7vskh4oIm+BZwBECnx5nTmrlres1Qapvx27Qo1Auukpf8PKXw==
   dependencies:
     default-browser "^5.2.1"
     define-lazy-prop "^3.0.0"
