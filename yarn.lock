@@ -1565,7 +1565,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.2.10":
+"@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.2.10", "@oclif/core@^4.3.0":
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.3.0.tgz#9a2951f05f81a4c7ae5ffcc00b2d720cca0898e6"
   integrity sha512-lIzHY+JMP6evrS5E/sGijNnwrCoNtGy8703jWXcMuPOYKiFhWoAqnIm1BGgoRgmxczkbSfRsHUL/lwsSgh74Lw==
@@ -1659,7 +1659,7 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@salesforce/core@^8.10.2", "@salesforce/core@^8.10.3", "@salesforce/core@^8.11.0", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.5":
+"@salesforce/core@^8.10.0", "@salesforce/core@^8.10.3", "@salesforce/core@^8.11.0", "@salesforce/core@^8.5.1":
   version "8.11.0"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.11.0.tgz#23d5ddcc318008230258ab449e70a26f671123c2"
   integrity sha512-S4UgHKUy1hykRQVaoYm+LSktQgRhI3ltAUoLGI25/Q8gYokERTa2E7MpPMb+X/kTpjJJvDlnQqelB/sQJs/AKA==
@@ -1727,30 +1727,30 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/plugin-auth@^3.6.120":
-  version "3.6.120"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.120.tgz#e8e902e861b0fbcb84adf42f4eaf11cc9bfed450"
-  integrity sha512-vmzxnikUdBEJZXC45uhzu+P0efJ/7dC56f6H1ZmOF3RQ1yd1f7M3VHuA7eNVidBbzyX7yPWbnamKcbH2gbCKJQ==
+"@salesforce/plugin-auth@^3.6.122":
+  version "3.6.122"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.6.122.tgz#897e084c96d5ddcc0a63793336d68849f6971209"
+  integrity sha512-VPmCiwRlGZ8ACIAC8qPf6txEwO7jjsB9ZndZ3WVi9Bp1tkgdw66q14F+KUmrGPVrLU4whISdebgYXIFZUCMEbg==
   dependencies:
     "@inquirer/checkbox" "^2.5.0"
     "@inquirer/select" "^2.5.0"
     "@oclif/core" "^4"
     "@salesforce/core" "^8.10.3"
     "@salesforce/kit" "^3.2.3"
-    "@salesforce/plugin-info" "^3.4.59"
-    "@salesforce/sf-plugins-core" "^12.2.1"
+    "@salesforce/plugin-info" "^3.4.60"
+    "@salesforce/sf-plugins-core" "^12.2.2"
     "@salesforce/ts-types" "^2.0.11"
     open "^10.1.2"
 
-"@salesforce/plugin-info@^3.4.59":
-  version "3.4.59"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.59.tgz#ec2e969e0b0e8cff4068862cd9d01744e5c66729"
-  integrity sha512-0vkfJJsaazpQdSkk5teAT6Xo1e5crRXz++YfJ+Buymet121Z0ydNcNhUJVgKfRWFqv5GpPj52gG4SnF3M6Xazw==
+"@salesforce/plugin-info@^3.4.60":
+  version "3.4.61"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.61.tgz#8eab92ac5df7b459919f0f69745a061b8dceeec0"
+  integrity sha512-HSB64YSmMxOOa47NOFjliPCt7TfLdKwq5dkFx4Giyehf+FbmvBJFw4YAmmyZBfBgesAXH9Wnimt72Px4VC8SjA==
   dependencies:
     "@inquirer/input" "^2.3.0"
     "@jsforce/jsforce-node" "^3.8.1"
     "@oclif/core" "^4"
-    "@salesforce/core" "^8.10.2"
+    "@salesforce/core" "^8.11.0"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/sf-plugins-core" "^12"
     got "^13.0.0"
@@ -1798,16 +1798,16 @@
     string-width "^7.2.0"
     terminal-link "^3.0.0"
 
-"@salesforce/sf-plugins-core@^12", "@salesforce/sf-plugins-core@^12.2.1":
-  version "12.2.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-12.2.1.tgz#1048a5d1245f07f0e864f0f76e8818fd21a84fe6"
-  integrity sha512-b3eRSzGO0weBLL1clHaJNgNP1aKkD1Qy2DQEc0ieteEm+fh1FfPA0QpJ9rh/hdmkJRip2x2R2zz9tflJ0wflbg==
+"@salesforce/sf-plugins-core@^12", "@salesforce/sf-plugins-core@^12.2.1", "@salesforce/sf-plugins-core@^12.2.2":
+  version "12.2.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-12.2.2.tgz#41e704e47ba997dcb6922ab9563aa19407079c85"
+  integrity sha512-LuNT1kzi0N185xhCBCOU9P650CwoehiICB2lCP1RsO98NqfHTRpD6Rq1TDQtLTudOh3pDUFZTgo8kt4qwz20yw==
   dependencies:
     "@inquirer/confirm" "^3.1.22"
     "@inquirer/password" "^2.2.0"
-    "@oclif/core" "^4.2.10"
+    "@oclif/core" "^4.3.0"
     "@oclif/table" "^0.4.6"
-    "@salesforce/core" "^8.8.5"
+    "@salesforce/core" "^8.10.0"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/ts-types" "^2.0.12"
     ansis "^3.3.2"
