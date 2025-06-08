@@ -1,3 +1,9 @@
+## [3.1.55](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.54...3.1.55) (2025-06-08)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.11.4 to 8.12.0 ([dd1a01b](https://github.com/salesforcecli/plugin-command-reference/commit/dd1a01b32b1cc8dc0dc830329766e4a3ecbfceb4))
+
 ## [3.1.54](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.53...3.1.54) (2025-05-18)
 
 ### Bug Fixes
