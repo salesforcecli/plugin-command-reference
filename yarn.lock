@@ -1549,6 +1549,22 @@
     node-fetch "^2.6.1"
     xml2js "^0.6.2"
 
+"@jsforce/jsforce-node@^3.9.1":
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/@jsforce/jsforce-node/-/jsforce-node-3.9.1.tgz#503bcee3b511b2768abb090b8c8af508c2412244"
+  integrity sha512-tHG9Wozb9tQMiOyKz4MgcSK0XEDdER+dUm42o7qUaokwqC+IPmjgptx0PNTO75U1nqgW6yX6M5Qq1thhj7KMCA==
+  dependencies:
+    "@sindresorhus/is" "^4"
+    base64url "^3.0.1"
+    csv-parse "^5.5.2"
+    csv-stringify "^6.4.4"
+    faye "^1.4.0"
+    form-data "^4.0.0"
+    https-proxy-agent "^5.0.0"
+    multistream "^3.1.0"
+    node-fetch "^2.6.1"
+    xml2js "^0.6.2"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -1664,12 +1680,12 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@salesforce/core@^8.14.0", "@salesforce/core@^8.15.0", "@salesforce/core@^8.17.0", "@salesforce/core@^8.5.1":
-  version "8.17.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.17.0.tgz#f7e54324f06d5cd541276e743a8d1cb4983d52c7"
-  integrity sha512-2pZfBtwA1oX5IuxS8/gVnrFXzPAJpf6ZA5bfImN1dWGbWlwrfocXzXTNRFdQ2gP0FG4o+PFSlc6d4g8Vwz25IA==
+"@salesforce/core@^8.14.0", "@salesforce/core@^8.15.0", "@salesforce/core@^8.17.0", "@salesforce/core@^8.18.1", "@salesforce/core@^8.5.1":
+  version "8.18.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.18.1.tgz#4a790f9479339f45e42799d9ef7a1428d49b6ba1"
+  integrity sha512-RkG9Ye5TdsIQz4KLUHvDpVjbrTeeRmw5KUJIHRyMGAOjKB8wr2jvgXyZm7GD0epIW5ILsyKQQWWOa1uqsfVycA==
   dependencies:
-    "@jsforce/jsforce-node" "^3.8.2"
+    "@jsforce/jsforce-node" "^3.9.1"
     "@salesforce/kit" "^3.2.2"
     "@salesforce/schemas" "^1.9.0"
     "@salesforce/ts-types" "^2.0.10"
@@ -1765,12 +1781,12 @@
     proxy-agent "^6.5.0"
     semver "^7.7.2"
 
-"@salesforce/plugin-user@^3.6.27":
-  version "3.6.27"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.27.tgz#6b062c432760baeefa229e236be743d0594ce192"
-  integrity sha512-r06XWyplrhtLSDg6bMsnT96HttFNZ2Atr0FzCoNtiSCYnTE+LiNqqO6VHhOydoukkYpzGWC71GUGTZ5Y7uxrcw==
+"@salesforce/plugin-user@^3.6.29":
+  version "3.6.29"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.29.tgz#355ce7d0313c6042bfec3b43d1d3e7d510fba1b9"
+  integrity sha512-Jripbq9Zta96kPBC9AwEbPUlCzMf1R9kdQ0ECNN/4eRecxHMP/Ynonqt3xMou8QGlAULHq2stUEAqDysEU+nFA==
   dependencies:
-    "@salesforce/core" "^8.14.0"
+    "@salesforce/core" "^8.18.1"
     "@salesforce/kit" "^3.2.2"
     "@salesforce/sf-plugins-core" "^12.2.3"
     "@salesforce/ts-types" "^2.0.11"
