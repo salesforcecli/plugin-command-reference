@@ -1500,7 +1500,7 @@
     semver "^7.6.3"
     ts-retry-promise "^0.8.1"
 
-"@salesforce/core@^8.18.7", "@salesforce/core@^8.21.2", "@salesforce/core@^8.22.0", "@salesforce/core@^8.23.0", "@salesforce/core@^8.5.1":
+"@salesforce/core@^8.18.7", "@salesforce/core@^8.22.0", "@salesforce/core@^8.23.0", "@salesforce/core@^8.5.1":
   version "8.23.0"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.23.0.tgz#19e9effb2175507538157255d969e08925f91f76"
   integrity sha512-njdJlo+SYtmuCBE1p8lwbcQF6oRsE1ZkcEQUElpu4WhB+DT/0mv7oN3eeYfh9Ss9Px95sSgzPJhEFLsZLwGJ4w==
@@ -1602,12 +1602,12 @@
     proxy-agent "^6.5.0"
     semver "^7.7.2"
 
-"@salesforce/plugin-user@^3.6.35":
-  version "3.6.35"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.35.tgz#2df04a4b6a8a1cb060ae2a5e551e68d91e4035a3"
-  integrity sha512-TIEStbZ1riEOI7cgJwpWzKQy7Un5Po3e7jm0WVo2SD7WfPcg0Su/uILVDvOks9D7gXe4cE+/a6AjWsyVTVaSnQ==
+"@salesforce/plugin-user@^3.6.36":
+  version "3.6.36"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.6.36.tgz#2bbb6a5ac111b0bcfb7aedb929630791fce67add"
+  integrity sha512-njrRFLlCSNfNndBAi09+4pe+RRMEj3dvJrwpg6dFpsVa/gkQNMDnsfRd9z9111NNILIRdKwg3M/vehx/wsqrwQ==
   dependencies:
-    "@salesforce/core" "^8.21.2"
+    "@salesforce/core" "^8.22.0"
     "@salesforce/kit" "^3.2.2"
     "@salesforce/sf-plugins-core" "^12.2.4"
     "@salesforce/ts-types" "^2.0.11"
