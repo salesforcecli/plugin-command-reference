@@ -1,3 +1,9 @@
+## [3.1.70](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.69...3.1.70) (2025-09-14)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.6.0 to 5.6.2 ([f904936](https://github.com/salesforcecli/plugin-command-reference/commit/f904936278cfac51c867f8db2b02c56b963d2bcd))
+
 ## [3.1.69](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.68...3.1.69) (2025-09-14)
 
 ### Bug Fixes
