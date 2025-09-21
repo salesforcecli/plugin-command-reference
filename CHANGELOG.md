@@ -1,3 +1,9 @@
+## [3.1.71](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.70...3.1.71) (2025-09-21)
+
+### Bug Fixes
+
+- **deps:** bump debug from 4.4.1 to 4.4.3 ([7f03b56](https://github.com/salesforcecli/plugin-command-reference/commit/7f03b560f88f3c0e41e055379fef8123d9232bb4))
+
 ## [3.1.70](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.69...3.1.70) (2025-09-14)
 
 ### Bug Fixes
