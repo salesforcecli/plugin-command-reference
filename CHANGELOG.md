@@ -1,3 +1,9 @@
+## [3.1.78](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.77...3.1.78) (2025-11-02)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.7.2 to 4.8.0 ([1a1e062](https://github.com/salesforcecli/plugin-command-reference/commit/1a1e0626871346e6686e55afd7a091c77cf7ae94))
+
 ## [3.1.77](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.76...3.1.77) (2025-10-26)
 
 ### Bug Fixes
