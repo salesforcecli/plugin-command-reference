@@ -1497,32 +1497,7 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@salesforce/core@8.23.3":
-  version "8.23.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.23.3.tgz#23d92d6eb887e946e26989552a605fa085e626e8"
-  integrity sha512-BD9cOUOw3wTR8ud6dBacLvA4x0KAfQXkNGdxtU9ujz5nEW86ms5tU1AEUzVXnhuDrrtdQZh7/yTGxqg5mS7rZg==
-  dependencies:
-    "@jsforce/jsforce-node" "^3.10.8"
-    "@salesforce/kit" "^3.2.4"
-    "@salesforce/schemas" "^1.10.3"
-    "@salesforce/ts-types" "^2.0.12"
-    ajv "^8.17.1"
-    change-case "^4.1.2"
-    fast-levenshtein "^3.0.0"
-    faye "^1.4.1"
-    form-data "^4.0.4"
-    js2xmlparser "^4.0.1"
-    jsonwebtoken "9.0.2"
-    jszip "3.10.1"
-    memfs "^4.30.1"
-    pino "^9.7.0"
-    pino-abstract-transport "^1.2.0"
-    pino-pretty "^11.3.0"
-    proper-lockfile "^4.1.2"
-    semver "^7.7.3"
-    ts-retry-promise "^0.8.1"
-
-"@salesforce/core@^8.18.7", "@salesforce/core@^8.23.1", "@salesforce/core@^8.23.2", "@salesforce/core@^8.23.3", "@salesforce/core@^8.5.1":
+"@salesforce/core@8.23.4", "@salesforce/core@^8.18.7", "@salesforce/core@^8.23.1", "@salesforce/core@^8.23.2", "@salesforce/core@^8.23.3", "@salesforce/core@^8.23.4", "@salesforce/core@^8.5.1":
   version "8.23.4"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.23.4.tgz#f1fa18eace08f685e72975a09d96e7f6958ca3b4"
   integrity sha512-+JZMFD76P7X8fLSrHJRi9+ygjTehqZqJRXxmNq51miqIHY1Xlb0qH/yr9u5QEGsFIOZ8H8oStl/Zj+ZbrFs0vw==
@@ -1591,30 +1566,30 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/plugin-auth@^3.9.16":
-  version "3.9.16"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.9.16.tgz#40f82a06a53f4f654c2bb53b33da56473bd4635f"
-  integrity sha512-tTjT25CUbAdZUnqXA+JMu9Rhm2QD4DWQyXtYteI3mB7Pr4j3FCH7/E+vCs3dTHs4nEPoPtsrhjr7AvL09KuIRQ==
+"@salesforce/plugin-auth@^3.9.18":
+  version "3.9.18"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-3.9.18.tgz#609f67c6aa0b1fb270099db0d53a24ac38b47948"
+  integrity sha512-nIGvXhFiItI3ZfsPb4i3QkueBW+g35lGcDWFptNT8hruGS3jYGEjzh/h7hvoKEC6nc3iBs7xgNAmH85oIuXnxA==
   dependencies:
     "@inquirer/checkbox" "^2.5.0"
     "@inquirer/select" "^2.5.0"
     "@oclif/core" "^4"
-    "@salesforce/core" "8.23.3"
+    "@salesforce/core" "8.23.4"
     "@salesforce/kit" "^3.2.4"
-    "@salesforce/plugin-info" "^3.4.89"
+    "@salesforce/plugin-info" "^3.4.95"
     "@salesforce/sf-plugins-core" "^12.2.5"
     "@salesforce/ts-types" "^2.0.11"
     open "^10.2.0"
 
-"@salesforce/plugin-info@^3.4.89":
-  version "3.4.89"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.89.tgz#3c57f8115eaa3599ab6064fd61f624c0c43ed071"
-  integrity sha512-SoS+BRb9oKo0TveJP0VhYZSBSAUx5d3a3QWpBTHohMxTCNCOuhXO5Ky5FMLAxpxgUOnH0NJ2AqF2HMKwrHj24Q==
+"@salesforce/plugin-info@^3.4.95":
+  version "3.4.96"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-info/-/plugin-info-3.4.96.tgz#9b8a0c3caa22f4862d1cd9f178834b2d8cc3ee01"
+  integrity sha512-TMwW7BJ7Pmh82LzXtIruyMl//1Vjg1IJKf+ylJbxBR0nY2byuI4Bf5AjDATi3mviyKYt9RrV3epZLaG4qtChGw==
   dependencies:
     "@inquirer/input" "^2.3.0"
     "@jsforce/jsforce-node" "^3.10.8"
     "@oclif/core" "^4"
-    "@salesforce/core" "^8.23.1"
+    "@salesforce/core" "^8.23.4"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/sf-plugins-core" "^12"
     got "^13.0.0"
@@ -1622,7 +1597,7 @@
     marked-terminal "^4.2.0"
     open "^10.2.0"
     proxy-agent "^6.5.0"
-    semver "^7.7.2"
+    semver "^7.7.3"
 
 "@salesforce/plugin-user@^3.6.40":
   version "3.6.40"
@@ -6874,7 +6849,7 @@ semver@^6.0.0, semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.4, semver@^7.3.5, semver@^7.5.4, semver@^7.6.0, semver@^7.7.2, semver@^7.7.3:
+semver@^7.3.4, semver@^7.3.5, semver@^7.5.4, semver@^7.6.0, semver@^7.7.3:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
   integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
