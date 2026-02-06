@@ -113,6 +113,7 @@ export type CommandData = {
   isClosedPilotCommand: boolean;
   isOpenPilotCommand: boolean;
   isBetaCommand: boolean;
+  isPreviewCommand: boolean;
   deprecated: boolean;
   trailblazerCommunityUrl?: string;
   trailblazerCommunityName?: string;
