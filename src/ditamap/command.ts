@@ -119,6 +119,7 @@ export class Command extends Ditamap {
       examples,
       help,
       isBetaCommand: state === 'beta',
+      isPreviewCommand: state === 'preview',
       isClosedPilotCommand: state === 'closedPilot',
       isOpenPilotCommand: state === 'openPilot',
       trailblazerCommunityName,
