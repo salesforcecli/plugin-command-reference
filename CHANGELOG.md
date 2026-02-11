@@ -1,3 +1,9 @@
+## [3.1.80](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.79...3.1.80) (2026-02-11)
+
+### Bug Fixes
+
+- support dev preview commands ([126c633](https://github.com/salesforcecli/plugin-command-reference/commit/126c633bbe41fb8edd564a7d80b53263c0ec11e7))
+
 ## [3.1.79](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.78...3.1.79) (2025-12-05)
 
 ### Bug Fixes
