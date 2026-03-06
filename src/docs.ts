@@ -18,12 +18,18 @@ import fs from 'node:fs/promises';
 import { AnyJson, ensureString } from '@salesforce/ts-types';
 import chalk from 'chalk';
 import { BaseDitamap } from './ditamap/base-ditamap.js';
-import { CLIReference } from './ditamap/cli-reference.js';
-import { Command } from './ditamap/command.js';
-import { TopicCommands } from './ditamap/topic-commands.js';
+import { CLIReference as DitaCLIReference } from './ditamap/cli-reference.js';
+import { Command as DitaCommand } from './ditamap/command.js';
+import { TopicCommands as DitaTopicCommands } from './ditamap/topic-commands.js';
 import { TopicDitamap } from './ditamap/topic-ditamap.js';
+import { HelpReference as DitaHelpReference } from './ditamap/help-reference.js';
+import { BaseIndex } from './markdown/base-index.js';
+import { CLIReference as MarkdownCLIReference } from './markdown/cli-reference.js';
+import { Command as MarkdownCommand } from './markdown/command.js';
+import { TopicCommands as MarkdownTopicCommands } from './markdown/topic-commands.js';
+import { TopicIndex } from './markdown/topic-index.js';
+import { HelpReference as MarkdownHelpReference } from './markdown/help-reference.js';
 import { CliMeta, events, punctuate, SfTopic, SfTopics, CommandClass } from './utils.js';
-import { HelpReference } from './ditamap/help-reference.js';
 
 type TopicsByTopicsByTopLevel = Map<string, Map<string, CommandClass[]>>;
 
@@ -41,7 +47,8 @@ export class Docs {
     private outputDir: string,
     private hidden: boolean,
     private topicMeta: SfTopics,
-    private cliMeta: CliMeta
+    private cliMeta: CliMeta,
+    private format: 'dita' | 'markdown' = 'dita'
   ) {}
 
   public async build(commands: CommandClass[]): Promise<void> {
@@ -110,8 +117,13 @@ export class Docs {
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
 
-    await new TopicCommands(topic, topicMeta).write();
-    await new TopicDitamap(topic, commandIds).write();
+    if (this.format === 'markdown') {
+      await new MarkdownTopicCommands(topic, topicMeta).write();
+      await new TopicIndex(topic, commandIds).write();
+    } else {
+      await new DitaTopicCommands(topic, topicMeta).write();
+      await new TopicDitamap(topic, commandIds).write();
+    }
     return subTopicNames;
   }
 
@@ -177,11 +189,15 @@ export class Docs {
   private async populateTemplate(commands: CommandClass[]): Promise<void> {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
-    await new CLIReference().write();
-    await new HelpReference().write();
-
-    // Generate one base file with all top-level topics.
-    await new BaseDitamap(Array.from(topicsAndSubtopics.keys())).write();
+    if (this.format === 'markdown') {
+      await new MarkdownCLIReference().write();
+      await new MarkdownHelpReference().write();
+      await new BaseIndex(Array.from(topicsAndSubtopics.keys())).write();
+    } else {
+      await new DitaCLIReference().write();
+      await new DitaHelpReference().write();
+      await new BaseDitamap(Array.from(topicsAndSubtopics.keys())).write();
+    }
 
     for (const [topic, subtopics] of topicsAndSubtopics.entries()) {
       events.emit('topic', { topic });
@@ -240,8 +256,14 @@ export class Docs {
       return '';
     }
 
-    const commandDitamap = new Command(topic, subtopic, command, commandMeta);
-    await commandDitamap.write();
-    return commandDitamap.getFilename();
+    if (this.format === 'markdown') {
+      const commandMarkdown = new MarkdownCommand(topic, subtopic, command, commandMeta);
+      await commandMarkdown.write();
+      return commandMarkdown.getFilename();
+    } else {
+      const commandDitamap = new DitaCommand(topic, subtopic, command, commandMeta);
+      await commandDitamap.write();
+      return commandDitamap.getFilename();
+    }
   }
 }

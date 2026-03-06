@@ -23,6 +23,7 @@ import { Messages, SfError } from '@salesforce/core';
 import { AnyJson, ensure } from '@salesforce/ts-types';
 import chalk from 'chalk';
 import { Ditamap } from '../../ditamap/ditamap.js';
+import { Markdoc } from '../../markdown/markdoc.js';
 import { Docs } from '../../docs.js';
 import { CliMeta, CommandClass, events, SfTopic, SfTopics } from '../../utils.js';
 
@@ -62,6 +63,12 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
       char: 's',
       summary: messages.getMessage('flags.ditamap-suffix.summary'),
       default: Ditamap.SUFFIX,
+    }),
+    format: Flags.string({
+      char: 'f',
+      summary: 'output format for the generated documentation',
+      options: ['dita', 'markdown'],
+      default: 'dita',
     }),
     hidden: Flags.boolean({ summary: messages.getMessage('flags.hidden.summary') }),
     'error-on-warnings': Flags.boolean({
@@ -133,22 +140,36 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
         .join(', ')}`
     );
 
-    Ditamap.outputDir = flags['output-dir'];
-
-    Ditamap.cliVersion = this.loadedConfig.version.replace(/-[0-9a-zA-Z]+$/, '');
-    Ditamap.plugins = this.pluginMap(plugins);
-    Ditamap.pluginVersions = plugins.map((name) => {
+    const outputDir = flags['output-dir'];
+    const cliVersion = this.loadedConfig.version.replace(/-[0-9a-zA-Z]+$/, '');
+    const pluginsMap = this.pluginMap(plugins);
+    const pluginVersions = plugins.map((name) => {
       const plugin = this.getPlugin(name);
       const version = plugin?.version;
       if (!version) throw new Error(`No version found for plugin ${name}`);
       return { name, version };
     });
+
+    if (flags.format === 'markdown') {
+      Markdoc.outputDir = outputDir;
+      Markdoc.cliVersion = cliVersion;
+      Markdoc.plugins = pluginsMap;
+      Markdoc.pluginVersions = pluginVersions;
+      Markdoc.suffix = flags['ditamap-suffix'];
+    } else {
+      Ditamap.outputDir = outputDir;
+      Ditamap.cliVersion = cliVersion;
+      Ditamap.plugins = pluginsMap;
+      Ditamap.pluginVersions = pluginVersions;
+      Ditamap.suffix = flags['ditamap-suffix'];
+    }
+
     const commands = await this.loadCommands(plugins);
     const topicMetadata = this.loadTopicMetadata(commands);
     const cliMeta = this.loadCliMeta();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const docs = new Docs(Ditamap.outputDir, flags.hidden, topicMetadata, cliMeta);
+    const docs = new Docs(outputDir, flags.hidden, topicMetadata, cliMeta, flags.format as 'dita' | 'markdown');
 
     events.on('topic', ({ topic }: { topic: string }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
@@ -162,7 +183,7 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
     });
 
     await docs.build(commands);
-    this.log(`\nWrote generated doc to ${Ditamap.outputDir}`);
+    this.log(`\nWrote generated doc to ${outputDir}`);
 
     if (flags['error-on-warnings'] && warnings.length > 0) {
       throw new SfError(`Found ${warnings.length} warnings.`);

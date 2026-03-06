@@ -1,0 +1,94 @@
+# `{{name}}`{{#if isPreviewCommand}} (Developer Preview){{/if}}{{#if isClosedPilotCommand}} (Pilot){{/if}}{{#if isOpenPilotCommand}} (Pilot){{/if}}{{#if isBetaCommand}} (Beta){{/if}}{{#if deprecated}} (Deprecated){{/if}}
+
+{{#if deprecated}}**DEPRECATED:** The command `{{name}}` has been deprecated{{#if deprecationOptions.version}} and will be removed in v{{deprecationOptions.version}} or later{{/if}}.{{#if deprecated.to}} Use `{{deprecated.to}}` instead.{{/if}}
+
+{{/if}}{{summary}}
+{{#if isClosedPilotCommand}}
+
+> **Note:** We provide the `{{name}}` command to selected customers through an invitation-only pilot program that requires agreement to specific terms and conditions. Pilot programs are subject to change, and we can't guarantee acceptance. The `{{name}}` command isn't generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can't guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.
+{{/if}}{{#if isOpenPilotCommand}}
+
+> **Note:** We provide the `{{name}}` command to selected customers through a pilot program that requires agreement to specific terms and conditions. To be nominated to participate in the program, contact Salesforce. Pilot programs are subject to change, and we can't guarantee acceptance. The `{{name}}` command isn't generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can't guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.
+{{/if}}{{#if isBetaCommand}}
+
+> **Note:** This feature is a Beta Service. Customers may opt to try such Beta Service in its sole discretion. Any use of the Beta Service is subject to the applicable Beta Services Terms provided at [Agreements and Terms](https://www.salesforce.com/company/legal/agreements/).
+{{/if}}{{#if isPreviewCommand}}
+
+> **Note:** This command is available as a developer preview. The command isn't generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. All commands, parameters, and other features are subject to change or deprecation at any time, with or without notice. Don't implement functionality developed with these commands or tools.
+{{/if}}
+{{#if help}}
+
+## Description
+
+{{#each help}}
+{{#isCodeBlock this}}
+```
+{{this}}
+```
+{{else}}
+{{this}}
+
+{{/isCodeBlock}}
+{{/each}}
+{{/if}}
+{{#if examples}}
+
+## Examples
+
+{{#each examples}}
+{{#if this.description}}
+{{this.description}}
+
+{{/if}}
+{{#if this.commands}}
+{{#each this.commands}}
+{{#isCodeBlock this}}
+```bash
+{{this}}
+```
+{{else}}
+{{this}}
+
+{{/isCodeBlock}}
+{{/each}}
+{{/if}}
+{{/each}}
+{{/if}}
+{{#if parameters}}
+
+## Flags
+
+{{#each parameters}}
+### `{{#if char}}-{{char}}{{#if hasValue}} {{toUpperCase name}}{{/if}} | {{/if}}--{{name}}{{#if hasValue}} {{toUpperCase name}}{{/if}}`
+
+{{#if deprecated}}
+**DEPRECATED:** The parameter `--{{name}}` has been deprecated and will be removed in v{{nextVersion deprecated.version}}.0 or later. Use `{{deprecated.to}}` instead.
+{{/if}}
+{{#if optional}}*Optional*{{else}}**Required**{{/if}}
+
+{{#each description}}
+{{this}}
+
+{{/each}}
+{{#if kind}}
+**Type:** {{kind}}
+
+{{/if}}
+{{#if options}}
+**Permissible values:** {{join options}}
+
+{{/if}}
+{{#if defaultFlagValue}}
+**Default value:** {{defaultFlagValue}}
+
+{{/if}}
+{{/each}}
+{{/if}}
+{{#if aliases}}
+
+## Aliases
+
+{{#each aliases}}
+- `{{this}}`
+{{/each}}
+{{/if}}
