@@ -1625,10 +1625,10 @@
     proxy-agent "^6.5.0"
     semver "^7.7.3"
 
-"@salesforce/plugin-user@^3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.8.0.tgz#f541332c607b0136796c46ef277c32564c6dede7"
-  integrity sha512-bW8HfO8hjc+fMUGzQk9H8w3LQZ7tiTEV1eQqLID7bTrdECI0gsZ2e/TGn30VXBRp76AREHtPalvM0UhpQMjpRg==
+"@salesforce/plugin-user@^3.8.2":
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.8.2.tgz#c868791a2a79e776b52811d518a49ecf0d969562"
+  integrity sha512-YviZLW9pVpCPNPun2135u4JSvr5dS19/cA5dosUEJSpkg+NmmBpSsc2+nTr9hJZXKYid5ETS3Lm0/ZFIoaU+RQ==
   dependencies:
     "@salesforce/core" "^8.27.0"
     "@salesforce/kit" "^3.2.4"
