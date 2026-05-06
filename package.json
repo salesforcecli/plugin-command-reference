@@ -156,7 +156,8 @@
       ],
       "output": [],
       "dependencies": [
-        "test:command-reference"
+        "test:command-reference",
+        "test:command-reference-markdown"
       ]
     },
     "test:command-reference": {
@@ -198,7 +199,7 @@
       "output": []
     },
     "test:command-reference-markdown": {
-      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning \"./bin/dev.js\" commandreference generate --plugins auth --plugins user --output-format markdown --outputdir test/tmp-md",
+      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning \"./bin/dev.js\" commandreference generate --plugins auth --plugins user --output-format markdown --output-dir test/tmp-md",
       "files": [
         "src/**/*.ts",
         "messages/**",

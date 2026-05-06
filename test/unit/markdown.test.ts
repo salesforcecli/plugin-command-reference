@@ -47,7 +47,7 @@ describe('markdown output: plugin-auth and user', () => {
 
   it('creates a command file with the correct H1 heading', () => {
     const md = loadMdFile(join('org', 'cli_reference_org_login_jwt.md'));
-    expect(md.includes('# sf org login jwt')).to.be.true;
+    expect(md.includes('# org login jwt')).to.be.true;
   });
 
   it('includes the command summary', () => {
@@ -86,15 +86,15 @@ describe('markdown output: plugin-auth and user', () => {
     expect(md.includes('# org Commands')).to.be.true;
   });
 
-  it('creates a root index file', () => {
-    const md = loadMdFile('cli_reference_index.md');
-    expect(md.includes('# sf CLI Reference')).to.be.true;
-    expect(md.includes('./org/cli_reference_org.md')).to.be.true;
+  it('creates a toc file', () => {
+    const toc = loadMdFile('sfclireference-toc.yml');
+    expect(toc.includes('- title: Salesforce CLI Command Reference')).to.be.true;
+    expect(toc.includes('org/cli_reference_org.md')).to.be.true;
   });
 
   it('creates a root cli reference file', () => {
     const md = loadMdFile('cli_reference.md');
-    expect(md.includes('# sf CLI Command Reference')).to.be.true;
+    expect(md.includes('# Salesforce CLI Command Reference')).to.be.true;
   });
 
   it('files use .md extension, not .xml or .ditamap', async () => {
