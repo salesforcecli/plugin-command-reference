@@ -18,7 +18,13 @@ import fs from 'node:fs/promises';
 import { AnyJson, ensureString } from '@salesforce/ts-types';
 import chalk from 'chalk';
 import { CliMeta, events, punctuate, SfTopic, SfTopics, CommandClass } from './utils.js';
-import { DitaGeneratorFactory, GeneratorFactory, MarkdownGeneratorFactory, OutputFormat } from './generator-factory.js';
+import {
+  DitaGeneratorFactory,
+  GeneratorFactory,
+  MarkdownGeneratorFactory,
+  OutputFormat,
+  TocTopicEntry,
+} from './generator-factory.js';
 
 type TopicsByTopicsByTopLevel = Map<string, Map<string, CommandClass[]>>;
 
@@ -166,18 +172,28 @@ export class Docs {
   private async populateTemplate(commands: CommandClass[]): Promise<void> {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
-    await this.factory.createCliReference().write();
+    await this.factory.createCliReference(Array.from(topicsAndSubtopics.keys())).write();
 
     const helpReference = this.factory.createHelpReference();
     if (helpReference) await helpReference.write();
 
-    await this.factory.createRootIndex(Array.from(topicsAndSubtopics.keys())).write();
+    const rootIndex = this.factory.createRootIndex(Array.from(topicsAndSubtopics.keys()));
+    if (rootIndex) await rootIndex.write();
 
+    const tocEntries: TocTopicEntry[] = [];
     for (const [topic, subtopics] of topicsAndSubtopics.entries()) {
       events.emit('topic', { topic });
       // eslint-disable-next-line no-await-in-loop
       await this.populateTopic(topic, subtopics);
+      const commandIds = [...subtopics.values()]
+        .flat()
+        .filter((cmd) => !cmd.hidden || this.hidden)
+        .map((cmd) => ({ id: ensureString(cmd.id), state: cmd.state }));
+      tocEntries.push({ topic, commandIds });
     }
+
+    const toc = this.factory.createToc(tocEntries);
+    if (toc) await toc.write();
   }
 
   private resolveCommandMeta(

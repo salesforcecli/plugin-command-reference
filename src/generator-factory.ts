@@ -23,9 +23,9 @@ import { TopicCommands } from './ditamap/topic-commands.js';
 import { TopicDitamap } from './ditamap/topic-ditamap.js';
 import { MarkdownCliReference } from './markdown/cli-reference.js';
 import { MarkdownCommand } from './markdown/command.js';
-import { MarkdownRootIndex } from './markdown/root-index.js';
 import { MarkdownTopicCommands } from './markdown/topic-commands.js';
 import { MarkdownTopicIndex } from './markdown/topic-index.js';
+import { MarkdownToc } from './markdown/toc.js';
 import { CommandClass, SfTopic } from './utils.js';
 
 export type OutputFormat = 'dita' | 'markdown';
@@ -33,10 +33,16 @@ export type OutputFormat = 'dita' | 'markdown';
 type Writable = { write(): Promise<void> };
 type WritableWithFilename = Writable & { getFilename(): string };
 
+export type TocTopicEntry = {
+  topic: string;
+  commandIds: Array<{ id: string; state?: string }>;
+};
+
 export type GeneratorFactory = {
-  createCliReference(): Writable;
+  createCliReference(topics: string[]): Writable;
   createHelpReference(): Writable | null;
-  createRootIndex(topics: string[]): Writable;
+  createRootIndex(topics: string[]): Writable | null;
+  createToc(topicEntries: TocTopicEntry[]): Writable | null;
   createTopicCommands(topic: string, topicMeta: SfTopic): Writable;
   createTopicIndex(topic: string, commandIds: string[]): Writable;
   createCommand(
@@ -49,7 +55,8 @@ export type GeneratorFactory = {
 
 export class DitaGeneratorFactory implements GeneratorFactory {
   // eslint-disable-next-line class-methods-use-this
-  public createCliReference(): Writable {
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  public createCliReference(_topics: string[]): Writable {
     return new CLIReference();
   }
 
@@ -61,6 +68,11 @@ export class DitaGeneratorFactory implements GeneratorFactory {
   // eslint-disable-next-line class-methods-use-this
   public createRootIndex(topics: string[]): Writable {
     return new BaseDitamap(topics);
+  }
+
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  public createToc(_topicEntries: TocTopicEntry[]): null {
+    return null;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -87,8 +99,8 @@ export class DitaGeneratorFactory implements GeneratorFactory {
 export class MarkdownGeneratorFactory implements GeneratorFactory {
   public constructor(private outputDir: string) {}
 
-  public createCliReference(): Writable {
-    return new MarkdownCliReference(Ditamap.cliVersion, Ditamap.pluginVersions, this.outputDir);
+  public createCliReference(topics: string[]): Writable {
+    return new MarkdownCliReference(Ditamap.cliVersion, Ditamap.pluginVersions, topics, this.outputDir);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -96,8 +108,13 @@ export class MarkdownGeneratorFactory implements GeneratorFactory {
     return null;
   }
 
-  public createRootIndex(topics: string[]): Writable {
-    return new MarkdownRootIndex(topics, this.outputDir);
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  public createRootIndex(_topics: string[]): null {
+    return null;
+  }
+
+  public createToc(topicEntries: TocTopicEntry[]): Writable {
+    return new MarkdownToc(topicEntries, this.outputDir);
   }
 
   public createTopicCommands(topic: string, topicMeta: SfTopic): Writable {
