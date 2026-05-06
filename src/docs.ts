@@ -17,13 +17,8 @@
 import fs from 'node:fs/promises';
 import { AnyJson, ensureString } from '@salesforce/ts-types';
 import chalk from 'chalk';
-import { BaseDitamap } from './ditamap/base-ditamap.js';
-import { CLIReference } from './ditamap/cli-reference.js';
-import { Command } from './ditamap/command.js';
-import { TopicCommands } from './ditamap/topic-commands.js';
-import { TopicDitamap } from './ditamap/topic-ditamap.js';
 import { CliMeta, events, punctuate, SfTopic, SfTopics, CommandClass } from './utils.js';
-import { HelpReference } from './ditamap/help-reference.js';
+import { DitaGeneratorFactory, GeneratorFactory, MarkdownGeneratorFactory, OutputFormat } from './generator-factory.js';
 
 type TopicsByTopicsByTopLevel = Map<string, Map<string, CommandClass[]>>;
 
@@ -37,12 +32,17 @@ function emitNoTopicMetadataWarning(topic: string): void {
 }
 
 export class Docs {
+  private factory: GeneratorFactory;
+
   public constructor(
     private outputDir: string,
+    outputFormat: OutputFormat,
     private hidden: boolean,
     private topicMeta: SfTopics,
     private cliMeta: CliMeta
-  ) {}
+  ) {
+    this.factory = outputFormat === 'markdown' ? new MarkdownGeneratorFactory(outputDir) : new DitaGeneratorFactory();
+  }
 
   public async build(commands: CommandClass[]): Promise<void> {
     // Create if doesn't exist
@@ -77,13 +77,6 @@ export class Docs {
 
     for (const [subtopic, classes] of subtopics.entries()) {
       try {
-        // const subTopicsMeta = topicMeta.subtopics;
-
-        // if (!subTopicsMeta?.get(subtopic)) {
-        //   emitNoTopicMetadataWarning(`${topic}:${subtopic}`);
-        //   continue;
-        // }
-
         subTopicNames.push(subtopic);
 
         // Commands within the sub topic
@@ -110,8 +103,8 @@ export class Docs {
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
 
-    await new TopicCommands(topic, topicMeta).write();
-    await new TopicDitamap(topic, commandIds).write();
+    await this.factory.createTopicCommands(topic, topicMeta).write();
+    await this.factory.createTopicIndex(topic, commandIds).write();
     return subTopicNames;
   }
 
@@ -123,7 +116,6 @@ export class Docs {
    * @returns The commands grouped by topics/subtopic/commands.
    */
   private groupTopicsAndSubtopics(commands: CommandClass[]): TopicsByTopicsByTopLevel {
-    // const topLevelTopics: Dictionary<Dictionary<CommandClass | CommandClass[]>> = {};
     const topLevelTopics = new Map<string, Map<string, CommandClass[]>>();
 
     for (const command of commands) {
@@ -135,17 +127,14 @@ export class Docs {
 
       const plugin = command.plugin;
       if (plugin) {
-        // Also include the namespace on the commands so we don't need to do the split at other times in the code.
         command.topic = topLevelTopic;
 
         const existingTopicsForTopLevel = topLevelTopics.get(topLevelTopic) ?? new Map<string, CommandClass[]>();
 
         if (commandParts.length === 1) {
-          // This is a top-level topic that is also a command
           const existingTarget = existingTopicsForTopLevel.get(commandParts[0]) ?? [];
           existingTopicsForTopLevel.set(commandParts[0], [...existingTarget, command]);
         } else if (commandParts.length === 2) {
-          // This is a command directly under the top-level topic
           const existingTarget = existingTopicsForTopLevel.get(commandParts[1]) ?? [];
           existingTopicsForTopLevel.set(commandParts[1], [...existingTarget, command]);
         } else {
@@ -177,11 +166,12 @@ export class Docs {
   private async populateTemplate(commands: CommandClass[]): Promise<void> {
     const topicsAndSubtopics = this.groupTopicsAndSubtopics(commands);
 
-    await new CLIReference().write();
-    await new HelpReference().write();
+    await this.factory.createCliReference().write();
 
-    // Generate one base file with all top-level topics.
-    await new BaseDitamap(Array.from(topicsAndSubtopics.keys())).write();
+    const helpReference = this.factory.createHelpReference();
+    if (helpReference) await helpReference.write();
+
+    await this.factory.createRootIndex(Array.from(topicsAndSubtopics.keys())).write();
 
     for (const [topic, subtopics] of topicsAndSubtopics.entries()) {
       events.emit('topic', { topic });
@@ -240,8 +230,8 @@ export class Docs {
       return '';
     }
 
-    const commandDitamap = new Command(topic, subtopic, command, commandMeta);
-    await commandDitamap.write();
-    return commandDitamap.getFilename();
+    const commandGenerator = this.factory.createCommand(topic, subtopic, command, commandMeta);
+    await commandGenerator.write();
+    return commandGenerator.getFilename();
   }
 }

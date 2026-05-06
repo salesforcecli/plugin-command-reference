@@ -15,40 +15,10 @@
  */
 
 import { join } from 'node:path';
-import { asString, Dictionary, ensureObject, ensureString, Optional } from '@salesforce/ts-types';
-import { CommandClass, CommandData, CommandParameterData, punctuate, replaceConfigVariables } from '../utils.js';
+import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
+import { CommandClass, CommandData, punctuate, replaceConfigVariables } from '../utils.js';
 import { Ditamap } from './ditamap.js';
-
-type FlagInfo = {
-  hidden: boolean;
-  description: string;
-  summary: string;
-  required: boolean;
-  kind: string;
-  type: string;
-  defaultHelpValue?: string;
-  default: string | (() => Promise<string>);
-};
-
-const getDefault = async (flag: FlagInfo, flagName: string): Promise<string> => {
-  if (!flag) {
-    return '';
-  }
-  if (flagName === 'target-org' || flagName === 'target-dev-hub') {
-    // special handling to prevent global/local default usernames from appearing in the docs, but they do appear in user's help
-    return '';
-  }
-  if (typeof flag.default === 'function') {
-    try {
-      const help = await flag.default();
-      return help.includes('[object Object]') ? '' : help ?? '';
-    } catch {
-      return '';
-    }
-  } else {
-    return flag.default;
-  }
-};
+import { buildCommandParameters, FlagInfo, readBinary, formatParagraphs } from './command-helpers.js';
 
 export class Command extends Ditamap {
   private flags: Dictionary<FlagInfo>;
@@ -131,57 +101,14 @@ export class Command extends Ditamap {
     this.destination = join(Ditamap.outputDir, topic, filename);
   }
 
-  public async getParametersForTemplate(flags: Dictionary<FlagInfo>): Promise<CommandParameterData[]> {
-    const descriptionBuilder = buildDescription(this.commandName)(readBinary(this.commandMeta));
-    return Promise.all(
-      [...Object.entries(flags)]
-        .filter(flagIsDefined)
-        .filter(([, flag]) => !flag.hidden)
-        .map(
-          async ([flagName, flag]) =>
-            ({
-              ...flag,
-              name: flagName,
-              description: descriptionBuilder(flag),
-              optional: !flag.required,
-              kind: flag.kind ?? flag.type,
-              hasValue: flag.type !== 'boolean',
-              defaultFlagValue: await getDefault(flag, flagName),
-            } satisfies CommandParameterData)
-        )
-    );
-  }
-
   // eslint-disable-next-line class-methods-use-this
   public getTemplateFileName(): string {
     return 'command.hbs';
   }
 
   protected async transformToDitamap(): Promise<string> {
-    const parameters = await this.getParametersForTemplate(this.flags);
+    const parameters = await buildCommandParameters(this.commandName, readBinary(this.commandMeta), this.flags);
     this.data = Object.assign({}, this.data, { parameters });
     return super.transformToDitamap();
   }
 }
-
-const flagIsDefined = (input: [string, Optional<FlagInfo>]): input is [string, FlagInfo] => input[1] !== undefined;
-
-const buildDescription =
-  (commandName: string) =>
-  (binary: string) =>
-  (flag: FlagInfo): string[] => {
-    const description = replaceConfigVariables(
-      Array.isArray(flag?.description) ? flag?.description.join('\n') : flag?.description ?? '',
-      binary,
-      commandName
-    );
-    return formatParagraphs(
-      flag.summary ? `${replaceConfigVariables(flag.summary, binary, commandName)}\n${description}` : description
-    );
-  };
-
-const formatParagraphs = (textToFormat?: string): string[] =>
-  textToFormat ? textToFormat.split('\n').filter((n) => n !== '') : [];
-
-const readBinary = (commandMeta: Record<string, unknown>): string =>
-  'binary' in commandMeta && typeof commandMeta.binary === 'string' ? commandMeta.binary : 'unknown';
