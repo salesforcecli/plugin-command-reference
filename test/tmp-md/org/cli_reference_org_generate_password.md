@@ -4,7 +4,7 @@
 
 Generate a random password for scratch org users.
 
-## Description
+## Description for org generate password
 
 By default, new scratch orgs contain one admin user with no password. Use this command to generate or change a password for this admin user. After it's set, you can’t unset a password, you can only change it.
 
@@ -26,6 +26,32 @@ To change the password strength, set the --complexity flag to a value between 0 
 
 To see a password that was previously generated, run "org display user".
 
+## Examples for org generate password
+
+Generate a password for the original admin user of your default scratch org:
+
+```shell
+sf org generate password
+```
+
+Generate a password that contains 25 characters for the original admin user of the scratch org with alias "my-scratch":
+
+```shell
+sf org generate password --length 25 --target-org my-scratch
+```
+
+Generate a password for your default scratch org admin user that uses lower and upper case letters and numbers only:
+
+```shell
+sf org generate password --complexity 3
+```
+
+Generate a password for the specified users in the default scratch org; these users must have been created locally with the "org create user" command:
+
+```shell
+sf org generate password --on-behalf-of user1@my.org --on-behalf-of user2@my.org --on-behalf-of user3@my.org
+```
+
 ## Flags
 
 | Flag                                | Description                                                                                                                                |
@@ -33,33 +59,7 @@ To see a password that was previously generated, run "org display user".
 | `--json`                            | Format output as json.                                                                                                                     |
 | `--flags-dir FLAGS-DIR`             | Import flag values from a directory.                                                                                                       |
 | `-b`, `--on-behalf-of ON-BEHALF-OF` | Comma-separated list of usernames or aliases to assign the password to; must have been created locally with the "org create user" command. |
-| `-l`, `--length LENGTH`             | Number of characters in the generated password; valid values are between 8 and 100. Default: `13`.                                         |
+| `-l`, `--length LENGTH`             | Number of characters in the generated password; valid values are between 20 and 100. Default value is 20. Default: `20`.                   |
 | `-c`, `--complexity COMPLEXITY`     | Level of password complexity or strength; the higher the value, the stronger the password. Default: `5`.                                   |
 | `-o`, `--target-org TARGET-ORG`     | **Required.** Username or alias of the target org. Not required if the `target-org` configuration variable is already set.                 |
 | `--api-version API-VERSION`         | Override the api version used for api requests made by this command                                                                        |
-
-## Examples
-
-Generate a password for the original admin user of your default scratch org:
-
-```shell
-sf sf org generate password
-```
-
-Generate a password that contains 12 characters for the original admin user of the scratch org with alias "my-scratch":
-
-```shell
-sf sf org generate password --length 12 --target-org my-scratch
-```
-
-Generate a password for your default scratch org admin user that uses lower and upper case letters and numbers only:
-
-```shell
-sf sf org generate password --complexity 3
-```
-
-Generate a password for the specified users in the default scratch org; these users must have been created locally with the "org create user" command:
-
-```shell
-sf sf org generate password --on-behalf-of user1@my.org --on-behalf-of user2@my.org --on-behalf-of user3@my.org
-```

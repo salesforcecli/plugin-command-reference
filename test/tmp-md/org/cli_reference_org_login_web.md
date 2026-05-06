@@ -4,7 +4,7 @@
 
 Log in to a Salesforce org using the web server flow.
 
-## Description
+## Description for org login web
 
 Opens a Salesforce instance URL in a web browser so you can enter your credentials and log in to your org. After you log in, you can close the browser window.
 
@@ -15,6 +15,38 @@ We recommend that you set an alias when you log into an org. Aliases make it eas
 By default, this command uses the global out-of-the-box connected app in your org. If you need more security or control, such as setting the refresh token timeout or specifying IP ranges, create your own connected app using a digital certificate. Make note of the consumer key (also called cliend id) that’s generated for you. Then specify the consumer key with the --client-id flag.
 
 You can also use this command to link one or more connected or external client apps in an org to an already-authenticated user. Then Salesforce CLI commands that have API-specific requirements, such as new OAuth scopes or JWT-based access tokens, can use these custom client apps rather than the default one. To create the link, you use the --client-app flag to give the link a name and the --username flag to specify the already-authenticated user. Use the --scopes flag to add OAuth scopes if required. After you create the link, you then use the --client-app value in the other command that has the API-specific requirements. An example of a command that uses this feature is "agent preview"; see the "Preview an Agent" section in the "Agentforce Developer Guide" for details and examples. (https://developer.salesforce.com/docs/einstein/genai/guide/agent-dx-preview.html)
+
+## Examples for org login web
+
+Run the command with no flags to open the default Salesforce login page (https://login.salesforce.com):
+
+```shell
+sf org login web
+```
+
+Log in to your Dev Hub, set it as your default Dev Hub, and set an alias that you reference later when you create a scratch org:
+
+```shell
+sf org login web --set-default-dev-hub --alias dev-hub
+```
+
+Log in to a sandbox and set it as your default org:
+
+```shell
+sf org login web --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default
+```
+
+Use --browser to specify a specific browser, such as Google Chrome:
+
+```shell
+sf org login web --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default --browser chrome
+```
+
+Use your own connected app by specifying its consumer key (also called client ID) and specify additional OAuth scopes:
+
+```shell
+sf org login web --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default --browser chrome --client-id 04580y4051234051 --scopes "sfap_api chatbot_api"
+```
 
 ## Flags
 
@@ -31,35 +63,3 @@ You can also use this command to link one or more connected or external client a
 | `-c`, `--client-app CLIENT-APP`     | Name to give to the link between the connected app or external client and the already-authenticated user. You can specify any string you want. Must be used with --username.                                                                                                                                                                                         |
 | `--username USERNAME`               | Username of the already-authenticated user to link to the connected app or external client app. Must be used with --client-app.                                                                                                                                                                                                                                      |
 | `--scopes SCOPES`                   | Authentication (OAuth) scopes to request. Use the scope's short name; specify multiple scopes using just one flag instance and separated by spaces: --scopes "sfap_api chatbot_api".                                                                                                                                                                                 |
-
-## Examples
-
-Run the command with no flags to open the default Salesforce login page (https://login.salesforce.com):
-
-```shell
-sf sf org login web
-```
-
-Log in to your Dev Hub, set it as your default Dev Hub, and set an alias that you reference later when you create a scratch org:
-
-```shell
-sf sf org login web --set-default-dev-hub --alias dev-hub
-```
-
-Log in to a sandbox and set it as your default org:
-
-```shell
-sf sf org login web --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default
-```
-
-Use --browser to specify a specific browser, such as Google Chrome:
-
-```shell
-sf sf org login web --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default --browser chrome
-```
-
-Use your own connected app by specifying its consumer key (also called client ID) and specify additional OAuth scopes:
-
-```shell
-sf sf org login web --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com --set-default --browser chrome --client-id 04580y4051234051 --scopes "sfap_api chatbot_api"
-```

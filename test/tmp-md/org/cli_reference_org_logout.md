@@ -4,7 +4,7 @@
 
 Log out of a Salesforce org.
 
-## Description
+## Description for org logout
 
 If you run this command with no flags and no default org set in your config or environment, it first displays a list of orgs you've created or logged into, with none of the orgs selected. Use the arrow keys to scroll through the list and the space bar to select the orgs you want to log out of. Press Enter when you're done; the command asks for a final confirmation before logging out of the selected orgs.
 
@@ -13,6 +13,32 @@ The process is similar if you specify --all, except that in the initial list of 
 Be careful! If you log out of a scratch org without having access to its password, you can't access the scratch org again, either through the CLI or the Salesforce UI.
 
 Use the --client-app flag to log out of the link you previously created between an authenticated user and a connected app or external client app; you create these links with "org login web --client-app". Run "org display" to get the list of client app names.
+
+## Examples for org logout
+
+Interactively select the orgs to log out of:
+
+```shell
+sf org logout
+```
+
+Log out of the org with username me@my.org:
+
+```shell
+sf org logout --target-org me@my.org
+```
+
+Log out of all orgs after confirmation:
+
+```shell
+sf org logout --all
+```
+
+Logout of the org with alias my-scratch and don't prompt for confirmation:
+
+```shell
+sf org logout --target-org my-scratch --no-prompt
+```
 
 ## Flags
 
@@ -24,29 +50,3 @@ Use the --client-app flag to log out of the link you previously created between 
 | `-c`, `--client-app CLIENT-APP` | Client app to log out of.                                                                                                              |
 | `-a`, `--all`                   | Include all authenticated orgs. All orgs includes Dev Hubs, sandboxes, DE orgs, and expired, deleted, and unknown-status scratch orgs. |
 | `-p`, `--no-prompt`             | Don't prompt for confirmation.                                                                                                         |
-
-## Examples
-
-Interactively select the orgs to log out of:
-
-```shell
-sf sf org logout
-```
-
-Log out of the org with username me@my.org:
-
-```shell
-sf sf org logout --target-org me@my.org
-```
-
-Log out of all orgs after confirmation:
-
-```shell
-sf sf org logout --all
-```
-
-Logout of the org with alias my-scratch and don't prompt for confirmation:
-
-```shell
-sf sf org logout --target-org my-scratch --no-prompt
-```

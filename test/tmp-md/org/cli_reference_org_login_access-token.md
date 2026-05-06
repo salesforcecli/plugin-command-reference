@@ -4,11 +4,25 @@
 
 Authorize an org using an existing Salesforce access token.
 
-## Description
+## Description for org login access-token
 
 By default, the command runs interactively and asks you for the access token. If you previously authorized the org, the command prompts whether you want to overwrite the local file. Specify --no-prompt to not be prompted.
 
 To use the command in a CI/CD script, set the SF_ACCESS_TOKEN environment variable to the access token. Then run the command with the --no-prompt parameter.
+
+## Examples for org login access-token
+
+Authorize an org on https://mycompany.my.salesforce.com; the command prompts you for the access token:
+
+```shell
+sf org login access-token --instance-url https://mycompany.my.salesforce.com
+```
+
+Authorize the org without being prompted; you must have previously set the SF_ACCESS_TOKEN environment variable to the access token:
+
+```shell
+sf org login access-token --instance-url https://dev-hub.my.salesforce.com --no-prompt
+```
 
 ## Flags
 
@@ -21,17 +35,3 @@ To use the command in a CI/CD script, set the SF_ACCESS_TOKEN environment variab
 | `-s`, `--set-default`               | Set the authenticated org as the default that all org-related commands run against.                                                                                                                                                                                                                                                                                                |
 | `-a`, `--alias ALIAS`               | Alias for the org.                                                                                                                                                                                                                                                                                                                                                                 |
 | `-p`, `--no-prompt`                 | Don't prompt for confirmation.                                                                                                                                                                                                                                                                                                                                                     |
-
-## Examples
-
-Authorize an org on https://mycompany.my.salesforce.com; the command prompts you for the access token:
-
-```shell
-sf sf org login access-token --instance-url https://mycompany.my.salesforce.com
-```
-
-Authorize the org without being prompted; you must have previously set the SF_ACCESS_TOKEN environment variable to the access token:
-
-```shell
-sf sf org login access-token --instance-url https://dev-hub.my.salesforce.com --no-prompt
-```

@@ -4,9 +4,17 @@
 
 List authorization information about the orgs you created or logged into.
 
-## Description
+## Description for org list auth
 
 This command uses local authorization information that Salesforce CLI caches when you create a scratch org or log into an org. The command doesn't actually connect to the orgs to verify that they're still active. As a result, this command executes very quickly. If you want to view live information about your authorized orgs, such as their connection status, use the "org list" command.
+
+## Examples for org list auth
+
+List local authorization information about your orgs:
+
+```shell
+sf org list auth
+```
 
 ## Flags
 
@@ -14,11 +22,3 @@ This command uses local authorization information that Salesforce CLI caches whe
 | ----------------------- | ------------------------------------ |
 | `--json`                | Format output as json.               |
 | `--flags-dir FLAGS-DIR` | Import flag values from a directory. |
-
-## Examples
-
-List local authorization information about your orgs:
-
-```shell
-sf sf org list auth
-```

@@ -11,4 +11,4 @@ CLI version: `3.1.95`
 | Plugin                    | Version  |
 | ------------------------- | -------- |
 | `@salesforce/plugin-auth` | `3.9.26` |
-| `@salesforce/plugin-user` | `3.6.44` |
+| `@salesforce/plugin-user` | `3.9.1`  |

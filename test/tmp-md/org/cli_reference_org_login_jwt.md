@@ -4,7 +4,7 @@
 
 Log in to a Salesforce org using a JSON web token (JWT).
 
-## Description
+## Description for org login jwt
 
 Use this command in automated environments where you can’t interactively log in with a browser, such as in CI/CD scripts.
 
@@ -22,6 +22,32 @@ See https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfd
 
 We recommend that you set an alias when you log into an org. Aliases make it easy to later reference this org when running commands that require it. If you don’t set an alias, you use the username that you specified when you logged in to the org. If you run multiple commands that reference the same org, consider setting the org as your default. Use --set-default for your default scratch org or sandbox, or --set-default-dev-hub for your default Dev Hub.
 
+## Examples for org login jwt
+
+Log into an org with username jdoe@example.org and on the default instance URL (https://login.salesforce.com). The private key is stored in the file /Users/jdoe/JWT/server.key and the command uses the connected app with consumer key (client id) 04580y4051234051.
+
+```shell
+sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051
+```
+
+Set the org as the default and give it an alias:
+
+```shell
+sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051 --alias ci-org --set-default
+```
+
+Set the org as the default Dev Hub and give it an alias:
+
+```shell
+sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
+```
+
+Log in to a sandbox using URL https://MyDomainName--SandboxName.sandbox.my.salesforce.com:
+
+```shell
+sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051 --alias ci-org --set-default --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com
+```
+
 ## Flags
 
 | Flag                                | Description                                                                                                                                                                                                                                                                                                                                                          |
@@ -35,29 +61,3 @@ We recommend that you set an alias when you log into an org. Aliases make it eas
 | `-d`, `--set-default-dev-hub`       | Set the authenticated org as the default Dev Hub.                                                                                                                                                                                                                                                                                                                    |
 | `-s`, `--set-default`               | Set the authenticated org as the default that all org-related commands run against.                                                                                                                                                                                                                                                                                  |
 | `-a`, `--alias ALIAS`               | Alias for the org.                                                                                                                                                                                                                                                                                                                                                   |
-
-## Examples
-
-Log into an org with username jdoe@example.org and on the default instance URL (https://login.salesforce.com). The private key is stored in the file /Users/jdoe/JWT/server.key and the command uses the connected app with consumer key (client id) 04580y4051234051.
-
-```shell
-sf sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051
-```
-
-Set the org as the default and give it an alias:
-
-```shell
-sf sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051 --alias ci-org --set-default
-```
-
-Set the org as the default Dev Hub and give it an alias:
-
-```shell
-sf sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051 --alias ci-dev-hub --set-default-dev-hub
-```
-
-Log in to a sandbox using URL https://MyDomainName--SandboxName.sandbox.my.salesforce.com:
-
-```shell
-sf sf org login jwt --username jdoe@example.org --jwt-key-file /Users/jdoe/JWT/server.key --client-id 04580y4051234051 --alias ci-org --set-default --instance-url https://MyDomainName--SandboxName.sandbox.my.salesforce.com
-```

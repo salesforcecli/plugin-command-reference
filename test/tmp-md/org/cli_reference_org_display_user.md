@@ -4,9 +4,23 @@
 
 Display information about a Salesforce user.
 
-## Description
+## Description for org display user
 
 Output includes the profile name, org ID, access token, instance URL, login URL, and alias if applicable. The displayed alias is local and different from the Alias field of the User sObject record of the new user, which you set in the Setup UI.
+
+## Examples for org display user
+
+Display information about the admin user of your default scratch org:
+
+```shell
+sf org display user
+```
+
+Display information about the specified user and output in JSON format:
+
+```shell
+sf org display user --target-org me@my.org --json
+```
 
 ## Flags
 
@@ -16,17 +30,3 @@ Output includes the profile name, org ID, access token, instance URL, login URL,
 | `--flags-dir FLAGS-DIR`         | Import flag values from a directory.                                                                                       |
 | `-o`, `--target-org TARGET-ORG` | **Required.** Username or alias of the target org. Not required if the `target-org` configuration variable is already set. |
 | `--api-version API-VERSION`     | Override the api version used for api requests made by this command                                                        |
-
-## Examples
-
-Display information about the admin user of your default scratch org:
-
-```shell
-sf sf org display user
-```
-
-Display information about the specified user and output in JSON format:
-
-```shell
-sf sf org display user --target-org me@my.org --json
-```
