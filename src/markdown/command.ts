@@ -138,11 +138,14 @@ export class MarkdownCommand extends MarkdownBase {
     if (parameters.length > 0) {
       lines.push('## Flags');
       lines.push('');
+      lines.push('<!-- prettier-ignore-start -->');
       lines.push('| Flag | Description |');
       lines.push('|----------------------------------------|-------------|');
       for (const param of parameters) {
         lines.push(renderFlagRow(param));
       }
+      lines.push('');
+      lines.push('<!-- prettier-ignore-end -->');
       lines.push('');
     }
 
@@ -157,6 +160,8 @@ function escapeAngleBrackets(text: string): string {
 function applyCodeFormatting(text: string): string {
   // Wrap --flag-name tokens (not already in backticks)
   let result = text.replace(/(?<!`)--([\w-]+)(?!`)/g, '`--$1`');
+  // Wrap glob patterns like *.cls, *.trigger (not already in backticks)
+  result = result.replace(/(?<!`)\*(\.\w+)(?!`)/g, '`*$1`');
   // Wrap file/directory paths: must be preceded by whitespace or opening punctuation (not part of a URL)
   // Matches: ./foo/bar, ../foo, foo/bar/baz — but not https://foo/bar
   result = result.replace(/(^|(?<=[\s(["]))(?!https?:\/\/)((?:\.{1,2}\/|[\w][\w-]*\/)[\w./-]+)/g, '$1`$2`');
