@@ -109,8 +109,9 @@ export class Docs {
     // The topic ditamap with all of the subtopic links.
     events.emit('subtopics', topic, subTopicNames);
 
-    await this.factory.createTopicCommands(topic, topicMeta).write();
-    await this.factory.createTopicIndex(topic, commandIds).write();
+    const topicCommands = this.factory.createTopicCommands(topic, topicMeta);
+    if (topicCommands) await topicCommands.write();
+    await this.factory.createTopicIndex(topic, commandIds, topicMeta).write();
     return subTopicNames;
   }
 
@@ -188,7 +189,7 @@ export class Docs {
       const commandIds = [...subtopics.values()]
         .flat()
         .filter((cmd) => !cmd.hidden || this.hidden)
-        .map((cmd) => ({ id: ensureString(cmd.id), state: cmd.state }));
+        .map((cmd) => ({ id: ensureString(cmd.id), state: cmd.state, deprecated: cmd.deprecated ?? false }));
       tocEntries.push({ topic, commandIds });
     }
 

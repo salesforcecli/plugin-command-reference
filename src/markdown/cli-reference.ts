@@ -20,7 +20,6 @@ export class MarkdownCliReference extends MarkdownBase {
   public constructor(
     private cliVersion: string,
     private pluginVersions: Array<{ name: string; version: string }>,
-    private topics: string[],
     outputDir: string
   ) {
     super(MarkdownBase.file('cli_reference'), outputDir);
@@ -36,7 +35,7 @@ export class MarkdownCliReference extends MarkdownBase {
         ' scratch orgs and sandboxes, synchronize source to and from orgs, create and install packages, and more.'
     );
     lines.push('');
-    lines.push(`Salesforce CLI version: \`${this.cliVersion}\`.`);
+    lines.push(`Salesforce CLI version: \`${this.cliVersion}\``);
     lines.push('');
     if (this.pluginVersions.length > 0) {
       lines.push('## Plugin Versions');
@@ -45,14 +44,6 @@ export class MarkdownCliReference extends MarkdownBase {
       lines.push('|--------|---------|');
       for (const { name, version } of this.pluginVersions) {
         lines.push(`| \`${name}\` | \`${version}\` |`);
-      }
-      lines.push('');
-    }
-    if (this.topics.length > 0) {
-      lines.push('## Command Topic Index');
-      lines.push('');
-      for (const topic of this.topics.sort()) {
-        lines.push(`- [${topic}](./${topic}/cli_reference_${topic}.md)`);
       }
       lines.push('');
     }

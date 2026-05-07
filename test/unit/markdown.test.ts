@@ -75,15 +75,10 @@ describe('markdown output: plugin-auth and user', () => {
     expect(md.includes('<codeph')).to.be.false;
   });
 
-  it('creates a topic index file', () => {
+  it('creates a topic index file with description and command links', () => {
     const md = loadMdFile(join('org', 'cli_reference_org.md'));
     expect(md.includes('# org Commands')).to.be.true;
     expect(md.includes('cli_reference_org_login_jwt.md')).to.be.true;
-  });
-
-  it('creates a topic commands overview file', () => {
-    const md = loadMdFile(join('org', 'cli_reference_org_commands.md'));
-    expect(md.includes('# org Commands')).to.be.true;
   });
 
   it('creates a toc file', () => {

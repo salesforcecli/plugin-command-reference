@@ -34,6 +34,7 @@ export class MarkdownCommand extends MarkdownBase {
   private examples: ParsedExample[];
   private state: unknown;
   private deprecated: boolean;
+  private deprecationDetails: { version?: string; to?: string } | null;
 
   public constructor(
     topic: string,
@@ -81,6 +82,8 @@ export class MarkdownCommand extends MarkdownBase {
 
     this.state = command.state ?? this.commandMeta.state;
     this.deprecated = (command.deprecated as boolean) ?? this.state === 'deprecated' ?? false;
+    const dep = command.deprecated;
+    this.deprecationDetails = dep && typeof dep === 'object' ? (dep as { version?: string; to?: string }) : null;
   }
 
   protected async generate(): Promise<string> {
@@ -89,7 +92,8 @@ export class MarkdownCommand extends MarkdownBase {
 
     const lines: string[] = [];
 
-    lines.push(`# ${this.commandName}`);
+    const stateLabel = resolveStateLabel(this.state, this.deprecated);
+    lines.push(`# ${this.commandName}${stateLabel ? ` (${stateLabel})` : ''}`);
     lines.push('');
 
     if (this.summary) {
@@ -97,20 +101,11 @@ export class MarkdownCommand extends MarkdownBase {
       lines.push('');
     }
 
-    if (this.deprecated) {
-      lines.push('> **Deprecated**');
-      lines.push('');
-    } else if (this.state === 'beta') {
-      lines.push('> **Beta**');
-      lines.push('');
-    } else if (this.state === 'preview') {
-      lines.push('> **Preview**');
-      lines.push('');
-    } else if (this.state === 'closedPilot') {
-      lines.push('> **Closed Pilot**');
-      lines.push('');
-    } else if (this.state === 'openPilot') {
-      lines.push('> **Open Pilot**');
+    const disclaimer = resolveDisclaimer(this.commandName, this.state, this.deprecated, this.deprecationDetails);
+    if (disclaimer) {
+      lines.push(':::note');
+      lines.push(disclaimer);
+      lines.push(':::');
       lines.push('');
     }
 
@@ -118,7 +113,7 @@ export class MarkdownCommand extends MarkdownBase {
       lines.push(`## Description for ${this.commandName}`);
       lines.push('');
       for (const paragraph of this.help) {
-        lines.push(paragraph);
+        lines.push(applyCodeFormatting(escapeAngleBrackets(paragraph)));
         lines.push('');
       }
     }
@@ -144,7 +139,7 @@ export class MarkdownCommand extends MarkdownBase {
       lines.push('## Flags');
       lines.push('');
       lines.push('| Flag | Description |');
-      lines.push('|------|-------------|');
+      lines.push('|----------------------------------------|-------------|');
       for (const param of parameters) {
         lines.push(renderFlagRow(param));
       }
@@ -153,6 +148,58 @@ export class MarkdownCommand extends MarkdownBase {
 
     return lines.join('\n');
   }
+}
+
+function escapeAngleBrackets(text: string): string {
+  return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function applyCodeFormatting(text: string): string {
+  // Wrap --flag-name tokens (not already in backticks)
+  let result = text.replace(/(?<!`)--([\w-]+)(?!`)/g, '`--$1`');
+  // Wrap file/directory paths: must be preceded by whitespace or opening punctuation (not part of a URL)
+  // Matches: ./foo/bar, ../foo, foo/bar/baz — but not https://foo/bar
+  result = result.replace(/(^|(?<=[\s(["]))(?!https?:\/\/)((?:\.{1,2}\/|[\w][\w-]*\/)[\w./-]+)/g, '$1`$2`');
+  return result;
+}
+
+function resolveStateLabel(state: unknown, deprecated: boolean): string | null {
+  if (deprecated) return 'Deprecated';
+  if (state === 'beta') return 'Beta';
+  if (state === 'preview') return 'Developer Preview';
+  if (state === 'closedPilot' || state === 'openPilot') return 'Pilot';
+  return null;
+}
+
+function resolveDisclaimer(
+  commandName: string,
+  state: unknown,
+  deprecated: boolean,
+  deprecationDetails: { version?: string; to?: string } | null
+): string | null {
+  if (deprecated) {
+    const versionNote = deprecationDetails?.version
+      ? ` and will be removed in v${deprecationDetails.version} or later`
+      : '';
+    const toNote = deprecationDetails?.to ? ` Use \`${deprecationDetails.to}\` instead.` : '';
+    return `The command \`${commandName}\` has been deprecated${versionNote}.${toNote}`;
+  }
+  if (state === 'closedPilot') {
+    // prettier-ignore
+    return `We provide the \`${commandName}\` command to selected customers through an invitation-only pilot program that requires agreement to specific terms and conditions. Pilot programs are subject to change, and we can\x27t guarantee acceptance. The \`${commandName}\` command isn\x27t generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can\x27t guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.`;
+  }
+  if (state === 'openPilot') {
+    // prettier-ignore
+    return `We provide the \`${commandName}\` command to selected customers through a pilot program that requires agreement to specific terms and conditions. To be nominated to participate in the program, contact Salesforce. Pilot programs are subject to change, and we can\x27t guarantee acceptance. The \`${commandName}\` command isn\x27t generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can\x27t guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.`;
+  }
+  if (state === 'beta') {
+    return 'This feature is a Beta Service. Customers may opt to try such Beta Service in its sole discretion. Any use of the Beta Service is subject to the applicable Beta Services Terms provided at [Agreements and Terms](https://www.salesforce.com/company/legal/agreements/).';
+  }
+  if (state === 'preview') {
+    // prettier-ignore
+    return 'This command is available as a developer preview. The command isn\'t generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. All commands, parameters, and other features are subject to change or deprecation at any time, with or without notice. Don\'t implement functionality developed with these commands or tools.';
+  }
+  return null;
 }
 
 function renderFlagRow(param: CommandParameterData): string {
@@ -171,13 +218,18 @@ function renderFlagLabel(param: CommandParameterData): string {
 
 function renderFlagDescription(param: CommandParameterData): string {
   const parts: string[] = [];
-  if (!param.optional) parts.push('**Required.**');
-  const desc = param.description.join(' ').replace(/\|/g, '&#124;');
-  if (desc) parts.push(desc);
-  if (param.defaultFlagValue) parts.push(`Default: \`${param.defaultFlagValue}\`.`);
-  if (param.options?.length) parts.push(`Options: ${param.options.map((o) => `\`${o}\``).join(', ')}.`);
   if (param.deprecated) {
-    parts.push(`Deprecated${param.deprecated.to ? `, use \`--${param.deprecated.to}\`` : ''}.`);
+    const toNote = param.deprecated.to ? ` Use \`--${param.deprecated.to}\` instead.` : '';
+    parts.push(`**This flag is deprecated.${toNote}**`);
   }
-  return parts.join(' ').replace(/\n/g, ' ');
+  if (!param.optional) parts.push('**Required**');
+  if (param.options?.length) {
+    parts.push(`**Valid Values:** ${param.options.map((o) => `\`${o}\``).join(', ')}`);
+  }
+  if (param.defaultFlagValue) parts.push(`**Default value:** \`${param.defaultFlagValue}\``);
+  const desc = param.description
+    .map((p) => applyCodeFormatting(escapeAngleBrackets(p.replace(/\|/g, '&#124;'))))
+    .join('<br><br>');
+  if (desc) parts.push(desc);
+  return parts.join('<br>').replace(/\n/g, ' ');
 }

@@ -15,10 +15,16 @@
  */
 
 import { join } from 'node:path';
+import { SfTopic } from '../utils.js';
 import { MarkdownBase } from './markdown-base.js';
 
 export class MarkdownTopicIndex extends MarkdownBase {
-  public constructor(private topic: string, private commandIds: string[], outputDir: string) {
+  public constructor(
+    private topic: string,
+    private commandIds: string[],
+    private topicMeta: SfTopic,
+    outputDir: string
+  ) {
     const filename = MarkdownBase.file(`cli_reference_${topic}`);
     super(filename, outputDir);
     this.destination = join(outputDir, topic, filename);
@@ -26,9 +32,12 @@ export class MarkdownTopicIndex extends MarkdownBase {
 
   protected generate(): Promise<string> {
     const lines: string[] = [];
-    lines.push('');
     lines.push(`# ${this.topic} Commands`);
     lines.push('');
+    if (this.topicMeta.description) {
+      lines.push(this.topicMeta.description);
+      lines.push('');
+    }
     for (const id of [...this.commandIds].sort()) {
       const commandWithUnderscores = id.replace(/:/g, '_');
       const commandWithSpaces = id.replace(/:/g, ' ');

@@ -19,9 +19,10 @@ import { MarkdownBase } from './markdown-base.js';
 
 const STATE_LABELS: Record<string, string> = {
   beta: 'Beta',
-  preview: 'Preview',
+  preview: 'Developer Preview',
   closedPilot: 'Closed Pilot',
   openPilot: 'Open Pilot',
+  deprecated: 'Deprecated',
 };
 
 export class MarkdownToc extends MarkdownBase {
@@ -50,10 +51,14 @@ export class MarkdownToc extends MarkdownBase {
       lines.push(`- title: ${topic} Commands`);
       lines.push(`  link: ${topic}/cli_reference_${topic}.md`);
       lines.push('  topics:');
-      for (const { id, state } of [...commandIds].sort((a, b) => a.id.localeCompare(b.id))) {
+      for (const { id, state, deprecated } of [...commandIds].sort((a, b) => a.id.localeCompare(b.id))) {
         const commandWithUnderscores = id.replace(/:/g, '_');
         const commandWithSpaces = id.replace(/:/g, ' ');
-        const stateLabel = state && STATE_LABELS[state] ? ` (${STATE_LABELS[state]})` : '';
+        const stateLabel = deprecated
+          ? ' (Deprecated)'
+          : state && STATE_LABELS[state]
+          ? ` (${STATE_LABELS[state]})`
+          : '';
         lines.push(`    - title: ${commandWithSpaces}${stateLabel}`);
         lines.push(`      link: ${topic}/cli_reference_${commandWithUnderscores}.md`);
       }
