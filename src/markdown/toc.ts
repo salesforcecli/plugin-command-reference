@@ -59,8 +59,12 @@ export class MarkdownToc extends MarkdownBase {
           : state && STATE_LABELS[state]
           ? ` (${STATE_LABELS[state]})`
           : '';
+        const isTopicLevelCommand = !id.includes(':');
+        const linkTarget = isTopicLevelCommand
+          ? `cli_reference_${commandWithUnderscores}_command.md`
+          : `cli_reference_${commandWithUnderscores}.md`;
         lines.push(`    - title: ${commandWithSpaces}${stateLabel}`);
-        lines.push(`      link: ${topic}/cli_reference_${commandWithUnderscores}.md`);
+        lines.push(`      link: ${topic}/${linkTarget}`);
       }
     }
 

@@ -41,7 +41,11 @@ export class MarkdownTopicIndex extends MarkdownBase {
     for (const id of [...this.commandIds].sort()) {
       const commandWithUnderscores = id.replace(/:/g, '_');
       const commandWithSpaces = id.replace(/:/g, ' ');
-      lines.push(`- [${commandWithSpaces}](./cli_reference_${commandWithUnderscores}.md)`);
+      const isTopicLevelCommand = !id.includes(':');
+      const linkTarget = isTopicLevelCommand
+        ? `cli_reference_${commandWithUnderscores}_command.md`
+        : `cli_reference_${commandWithUnderscores}.md`;
+      lines.push(`- [${commandWithSpaces}](./${linkTarget})`);
     }
     lines.push('');
     return Promise.resolve(lines.join('\n'));

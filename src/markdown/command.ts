@@ -44,7 +44,13 @@ export class MarkdownCommand extends MarkdownBase {
     outputDir: string
   ) {
     const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
-    const filename = MarkdownBase.file(`cli_reference_${commandWithUnderscores}`);
+    // If the command ID has no subtopic (e.g. "doctor"), its filename would collide with the topic
+    // index file (cli_reference_doctor.md), so append _command to disambiguate.
+    const isTopicLevelCommand = !ensureString(command.id).includes(':');
+    const baseName = isTopicLevelCommand
+      ? `cli_reference_${commandWithUnderscores}_command`
+      : `cli_reference_${commandWithUnderscores}`;
+    const filename = MarkdownBase.file(baseName);
     super(filename, outputDir);
     this.destination = join(outputDir, topic, filename);
 
@@ -112,8 +118,10 @@ export class MarkdownCommand extends MarkdownBase {
     if (this.help.length > 0) {
       lines.push(`## Description for ${this.commandName}`);
       lines.push('');
-      for (const paragraph of this.help) {
-        lines.push(applyCodeFormatting(escapeAngleBrackets(paragraph)));
+      for (const paragraph of convertHyphenListsToMarkdown(
+        this.help.map((p) => applyCodeFormatting(escapeAngleBrackets(p)))
+      )) {
+        lines.push(paragraph);
         lines.push('');
       }
     }
@@ -162,9 +170,34 @@ function applyCodeFormatting(text: string): string {
   let result = text.replace(/(?<!`)--([\w-]+)(?!`)/g, '`--$1`');
   // Wrap glob patterns like *.cls, *.trigger (not already in backticks)
   result = result.replace(/(?<!`)\*(\.\w+)(?!`)/g, '`*$1`');
+  // Wrap filenames/extensions with known doc-related extensions (not already in backticks)
+  // Must run compound extensions (.sarif.json) before simple ones (.sarif, .json)
+  result = result.replace(/(?<![\w`])(\.sarif\.json)(?![\w`])/g, '`$1`');
+  result = result.replace(/(?<![\w`])(\w[\w.-]*\.(?:xml|html?|json|sarif|csv))(?![\w`])/g, '`$1`');
+  result = result.replace(/(?<![\w`])(\.(?:xml|html?|json|sarif|csv))(?![\w`])/g, '`$1`');
   // Wrap file/directory paths: must be preceded by whitespace or opening punctuation (not part of a URL)
   // Matches: ./foo/bar, ../foo, foo/bar/baz — but not https://foo/bar
   result = result.replace(/(^|(?<=[\s(["]))(?!https?:\/\/)((?:\.{1,2}\/|[\w][\w-]*\/)[\w./-]+)/g, '$1`$2`');
+  return result;
+}
+
+function convertHyphenListsToMarkdown(paragraphs: string[]): string[] {
+  const result: string[] = [];
+  let i = 0;
+  while (i < paragraphs.length) {
+    if (paragraphs[i].startsWith('- ')) {
+      // Collect consecutive list items and join with <br> for table cell rendering
+      const items: string[] = [];
+      while (i < paragraphs.length && paragraphs[i].startsWith('- ')) {
+        items.push(paragraphs[i]);
+        i++;
+      }
+      result.push(items.join('<br>'));
+    } else {
+      result.push(paragraphs[i]);
+      i++;
+    }
+  }
   return result;
 }
 
@@ -232,9 +265,9 @@ function renderFlagDescription(param: CommandParameterData): string {
     parts.push(`**Valid Values:** ${param.options.map((o) => `\`${o}\``).join(', ')}`);
   }
   if (param.defaultFlagValue) parts.push(`**Default value:** \`${param.defaultFlagValue}\``);
-  const desc = param.description
-    .map((p) => applyCodeFormatting(escapeAngleBrackets(p.replace(/\|/g, '&#124;'))))
-    .join('<br><br>');
+  const desc = convertHyphenListsToMarkdown(
+    param.description.map((p) => applyCodeFormatting(escapeAngleBrackets(p.replace(/\|/g, '&#124;'))))
+  ).join('<br><br>');
   if (desc) parts.push(desc);
   return parts.join('<br>').replace(/\n/g, ' ');
 }
