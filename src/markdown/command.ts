@@ -136,7 +136,7 @@ export class MarkdownCommand extends MarkdownBase {
         }
         for (const cmd of example.commands) {
           lines.push('```shell');
-          lines.push(cmd.trim());
+          lines.push(cmd.trim().replace(/^\$\s*/, ''));
           lines.push('```');
           lines.push('');
         }
