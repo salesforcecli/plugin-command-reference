@@ -1458,7 +1458,7 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.10.2", "@oclif/core@^4.10.6":
+"@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.10.2", "@oclif/core@^4.11.2":
   version "4.11.2"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.11.2.tgz#c8062fc16f0d82c247f60670364026483a48d522"
   integrity sha512-LWDalCgy+hYyAkLa9sMIXMXk6ws5RzQhVnkmfXtVIIyEEYigbXQ/9/x+s76p53MiXxNc6SJB7lfwkPF+SdzfMQ==
@@ -1511,10 +1511,10 @@
     lodash "^4.17.23"
     registry-auth-token "^5.1.1"
 
-"@oclif/table@^0.5.5":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@oclif/table/-/table-0.5.6.tgz#cc22cc3f620c9f23bdb734b0dd6f97cdda4a0f28"
-  integrity sha512-W0SlIIkcqYxRSbZVw+VnFPT6hStjm5OoMduli35569OXezBPS92yNsoIA9jAuAt3lVIGlnUIetnAUUjs+yLHKg==
+"@oclif/table@^0.5.7":
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@oclif/table/-/table-0.5.7.tgz#0198755a73fb4c8f4738dc472fab50b5a31cd19e"
+  integrity sha512-iS7gXzOhUf2toij0pxkcD6sPnXzr/j4eLugHwjSKI2+WgytjUycP7A3i6OIvXDrIGMuq8+S7wgZ7tCC1I18q+Q==
   dependencies:
     "@types/react" "^18.3.12"
     change-case "^5.4.4"
@@ -1655,14 +1655,14 @@
     proxy-agent "^6.5.0"
     semver "^7.7.3"
 
-"@salesforce/plugin-user@^3.9.1":
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.9.1.tgz#f4d344f81a02d34e2494f2f166780963719d0c5d"
-  integrity sha512-gcUUAcL07X0kQruh/ZcJP6DVCo3PtfSogz0wIqcTC0Erqb7fwAA9/xrO6Fylyepsbmofwn7QAyd1+au17dLQlw==
+"@salesforce/plugin-user@^3.9.4":
+  version "3.9.4"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.9.4.tgz#40ecbb42b598fd2d90b6afa5c393b8124869b8a4"
+  integrity sha512-S9erM9zRcjP9nLFA31V+swR8+YX1jTzwj0FEdDofQprBv3nGE2XYOpHW7rv/kuuS445YcE56+5FHLUxVjDuPXQ==
   dependencies:
     "@salesforce/core" "^8.28.4"
     "@salesforce/kit" "^3.2.4"
-    "@salesforce/sf-plugins-core" "^12.2.10"
+    "@salesforce/sf-plugins-core" "^12.2.14"
     "@salesforce/ts-types" "^2.0.11"
 
 "@salesforce/prettier-config@^0.0.3":
@@ -1688,15 +1688,15 @@
     string-width "^7.2.0"
     terminal-link "^3.0.0"
 
-"@salesforce/sf-plugins-core@^12", "@salesforce/sf-plugins-core@^12.2.10", "@salesforce/sf-plugins-core@^12.2.6":
-  version "12.2.11"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-12.2.11.tgz#5749b949d2e526481cc70b92299816de5ec73f22"
-  integrity sha512-mqbkgqIvsH0YdYimgla7V90kUPeZPFdW2pscJjXnwOQjDQQi7pVf3Pz715sjw6/yWfgpPwvWs5J0XXXppKlbVQ==
+"@salesforce/sf-plugins-core@^12", "@salesforce/sf-plugins-core@^12.2.14", "@salesforce/sf-plugins-core@^12.2.6":
+  version "12.2.16"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-12.2.16.tgz#664ef3540f4556ba83a1e5378b5721d2aabde91e"
+  integrity sha512-csZxi6gJ675/+9dc1Q9KDDq21XRy+tKtgr1ZSPyA6TeP0J4bnuIfsk9cZCOzxaI6T8L6lM3CyWltQMJ927vpzA==
   dependencies:
     "@inquirer/confirm" "^6.0.12"
     "@inquirer/password" "^5.0.12"
-    "@oclif/core" "^4.10.6"
-    "@oclif/table" "^0.5.5"
+    "@oclif/core" "^4.11.2"
+    "@oclif/table" "^0.5.7"
     "@salesforce/core" "^8.29.0"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/ts-types" "^2.0.12"
