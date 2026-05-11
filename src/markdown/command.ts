@@ -126,6 +126,20 @@ export class MarkdownCommand extends MarkdownBase {
       }
     }
 
+    if (parameters.length > 0) {
+      lines.push('## Flags');
+      lines.push('');
+      lines.push('<!-- prettier-ignore-start -->');
+      lines.push('| Flag Name (Long) | Flag Name (Short) | Description |');
+      lines.push('|------------------|-------------------|-------------|');
+      for (const param of parameters) {
+        lines.push(renderFlagRow(param));
+      }
+      lines.push('');
+      lines.push('<!-- prettier-ignore-end -->');
+      lines.push('');
+    }
+
     if (this.examples.length > 0) {
       lines.push(`## Examples for ${this.commandName}`);
       lines.push('');
@@ -141,20 +155,6 @@ export class MarkdownCommand extends MarkdownBase {
           lines.push('');
         }
       }
-    }
-
-    if (parameters.length > 0) {
-      lines.push('## Flags');
-      lines.push('');
-      lines.push('<!-- prettier-ignore-start -->');
-      lines.push('| Flag | Description |');
-      lines.push('|----------------------------------------|-------------|');
-      for (const param of parameters) {
-        lines.push(renderFlagRow(param));
-      }
-      lines.push('');
-      lines.push('<!-- prettier-ignore-end -->');
-      lines.push('');
     }
 
     return lines.join('\n');
@@ -241,33 +241,32 @@ function resolveDisclaimer(
 }
 
 function renderFlagRow(param: CommandParameterData): string {
-  const flagLabel = renderFlagLabel(param);
+  const longFlag = `\`--${param.name}\``;
+  const shortFlag = param.char ? `\`-${param.char}\`` : 'N/A';
   const desc = renderFlagDescription(param);
-  return `| ${flagLabel} | ${desc} |`;
-}
-
-function renderFlagLabel(param: CommandParameterData): string {
-  const parts: string[] = [];
-  if (param.char) parts.push(`\`-${param.char}\``);
-  const longFlag = param.hasValue ? `\`--${param.name} ${param.name.toUpperCase()}\`` : `\`--${param.name}\``;
-  parts.push(longFlag);
-  return parts.join(', ');
+  return `| ${longFlag} | ${shortFlag} | ${desc} |`;
 }
 
 function renderFlagDescription(param: CommandParameterData): string {
-  const parts: string[] = [];
+  const metadataParts: string[] = [];
   if (param.deprecated) {
     const toNote = param.deprecated.to ? ` Use \`--${param.deprecated.to}\` instead.` : '';
-    parts.push(`**This flag is deprecated.${toNote}**`);
+    metadataParts.push(`**This flag is deprecated.${toNote}**`);
   }
-  if (!param.optional) parts.push('**Required**');
+  const flagType = param.hasValue ? 'Value' : 'Boolean';
+  metadataParts.push(`**Type:** ${flagType}`);
+  if (!param.optional) metadataParts.push('**Required**');
   if (param.options?.length) {
-    parts.push(`**Valid Values:** ${param.options.map((o) => `\`${o}\``).join(', ')}`);
+    metadataParts.push(`**Valid Values:** ${param.options.map((o) => `\`${o}\``).join(', ')}`);
   }
-  if (param.defaultFlagValue) parts.push(`**Default value:** \`${param.defaultFlagValue}\``);
+  if (param.defaultFlagValue) metadataParts.push(`**Default value:** \`${param.defaultFlagValue}\``);
+
   const desc = convertHyphenListsToMarkdown(
     param.description.map((p) => applyCodeFormatting(escapeAngleBrackets(p.replace(/\|/g, '&#124;'))))
   ).join('<br><br>');
+
+  const parts: string[] = [metadataParts.join('<br>')];
   if (desc) parts.push(desc);
-  return parts.join('<br>').replace(/\n/g, ' ');
+
+  return parts.join('<br><br>').replace(/\n/g, ' ');
 }
