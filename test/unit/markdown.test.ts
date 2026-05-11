@@ -58,7 +58,7 @@ describe('markdown output: plugin-auth and user', () => {
   it('includes a Flags section with a Markdown table', () => {
     const md = loadMdFile(join('org', 'cli_reference_org_login_jwt.md'));
     expect(md.includes('## Flags')).to.be.true;
-    expect(md.includes('| Flag | Description |')).to.be.true;
+    expect(md.includes('| Flag Name (Long) | Flag Name (Short) | Description |')).to.be.true;
     expect(md.includes('--username')).to.be.true;
   });
 
