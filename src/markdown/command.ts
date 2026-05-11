@@ -118,7 +118,7 @@ export class MarkdownCommand extends MarkdownBase {
     }
 
     if (this.help.length > 0) {
-      lines.push(`## Description for "${this.commandName}"`);
+      lines.push(`## Description for ${this.commandName}`);
       lines.push('');
       for (const paragraph of convertHyphenListsToMarkdown(
         this.help.map((p) => applyCodeFormatting(escapeAngleBrackets(p)))
@@ -129,7 +129,7 @@ export class MarkdownCommand extends MarkdownBase {
     }
 
     if (this.aliases.length > 0) {
-      lines.push(`## Aliases for "${this.commandName}"`);
+      lines.push(`## Aliases for ${this.commandName}`);
       lines.push('');
       for (const alias of this.aliases) {
         lines.push(`\`${alias}\``);
@@ -152,7 +152,7 @@ export class MarkdownCommand extends MarkdownBase {
     }
 
     if (this.examples.length > 0) {
-      lines.push(`## Examples for "${this.commandName}"`);
+      lines.push(`## Examples for ${this.commandName}`);
       lines.push('');
       for (const example of this.examples) {
         if (example.description) {
@@ -177,8 +177,10 @@ function escapeAngleBrackets(text: string): string {
 }
 
 function applyCodeFormatting(text: string): string {
+  // First, wrap JSON-like structures (must run before other code formatting to avoid double-wrapping)
+  let result = wrapJsonInCode(text);
   // Wrap --flag-name tokens (not already in backticks)
-  let result = text.replace(/(?<!`)--([\w-]+)(?!`)/g, '`--$1`');
+  result = result.replace(/(?<!`)--([\w-]+)(?!`)/g, '`--$1`');
   // Wrap glob patterns like *.cls, *.trigger (not already in backticks)
   result = result.replace(/(?<!`)\*(\.\w+)(?!`)/g, '`*$1`');
   // Wrap filenames/extensions with known doc-related extensions (not already in backticks)
@@ -192,18 +194,103 @@ function applyCodeFormatting(text: string): string {
   return result;
 }
 
+function wrapJsonInCode(text: string): string {
+  // Strategy: Look for JSON-like patterns and validate them before wrapping
+  // Match objects like {"key": "value"} or {"key": 123, "key2": true}
+  // Match arrays like ["value1", "value2"] or [{"key": "value"}]
+
+  let result = text;
+  const matches: Array<{ start: number; end: number; content: string }> = [];
+
+  // Find potential JSON objects and arrays
+  let i = 0;
+  while (i < text.length) {
+    if (text[i] === '{' || text[i] === '[') {
+      const openChar = text[i];
+      const closeChar = openChar === '{' ? '}' : ']';
+      let depth = 1;
+      let j = i + 1;
+      let inString = false;
+      let escape = false;
+
+      // Find matching closing bracket
+      while (j < text.length && depth > 0) {
+        if (escape) {
+          escape = false;
+          j++;
+          continue;
+        }
+
+        if (text[j] === '\\') {
+          escape = true;
+          j++;
+          continue;
+        }
+
+        if (text[j] === '"') {
+          inString = !inString;
+        } else if (!inString) {
+          if (text[j] === openChar) {
+            depth++;
+          } else if (text[j] === closeChar) {
+            depth--;
+          }
+        }
+        j++;
+      }
+
+      if (depth === 0) {
+        const content = text.substring(i, j);
+        // Check if this looks like JSON: must have quotes around keys and colons
+        if (looksLikeJson(content)) {
+          matches.push({ start: i, end: j, content });
+        }
+        i = j;
+      } else {
+        i++;
+      }
+    } else {
+      i++;
+    }
+  }
+
+  // Apply wrapping in reverse order to preserve indices
+  for (let k = matches.length - 1; k >= 0; k--) {
+    const { start, end, content } = matches[k];
+    // Check if already in backticks
+    const before = text.substring(Math.max(0, start - 1), start);
+    const after = text.substring(end, Math.min(text.length, end + 1));
+    if (before !== '`' && after !== '`') {
+      result = result.substring(0, start) + `\`${content}\`` + result.substring(end);
+    }
+  }
+
+  return result;
+}
+
+function looksLikeJson(text: string): boolean {
+  // Must contain at least one quoted key-value pair with colon, or be an array with quoted strings
+  const hasKeyValue = /"[^"]+"\s*:\s*/.test(text);
+  const isArray = text.trim().startsWith('[') && text.trim().endsWith(']');
+  const hasQuotedString = /"[^"]+"\s*/.test(text);
+
+  return hasKeyValue || (isArray && hasQuotedString);
+}
+
 function convertHyphenListsToMarkdown(paragraphs: string[]): string[] {
   const result: string[] = [];
   let i = 0;
   while (i < paragraphs.length) {
-    if (paragraphs[i].startsWith('- ')) {
-      // Collect consecutive list items and join with <br> for table cell rendering
+    if (paragraphs[i].startsWith('- ') || paragraphs[i].startsWith('* ')) {
+      // Collect consecutive list items and render as HTML bullet list
       const items: string[] = [];
-      while (i < paragraphs.length && paragraphs[i].startsWith('- ')) {
-        items.push(paragraphs[i]);
+      while (i < paragraphs.length && (paragraphs[i].startsWith('- ') || paragraphs[i].startsWith('* '))) {
+        // Remove the leading "- " or "* " and wrap in <li>
+        items.push(`<li>${paragraphs[i].substring(2)}</li>`);
         i++;
       }
-      result.push(items.join('<br>'));
+      // Wrap all items in <ul> tags
+      result.push(`<ul>${items.join('')}</ul>`);
     } else {
       result.push(paragraphs[i]);
       i++;
