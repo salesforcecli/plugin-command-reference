@@ -35,6 +35,7 @@ export class MarkdownCommand extends MarkdownBase {
   private state: unknown;
   private deprecated: boolean;
   private deprecationDetails: { version?: string; to?: string } | null;
+  private aliases: string[];
 
   public constructor(
     topic: string,
@@ -90,6 +91,7 @@ export class MarkdownCommand extends MarkdownBase {
     this.deprecated = (command.deprecated as boolean) ?? this.state === 'deprecated' ?? false;
     const dep = command.deprecated;
     this.deprecationDetails = dep && typeof dep === 'object' ? (dep as { version?: string; to?: string }) : null;
+    this.aliases = command.aliases ?? [];
   }
 
   protected async generate(): Promise<string> {
@@ -116,12 +118,21 @@ export class MarkdownCommand extends MarkdownBase {
     }
 
     if (this.help.length > 0) {
-      lines.push(`## Description for ${this.commandName}`);
+      lines.push(`## Description for "${this.commandName}"`);
       lines.push('');
       for (const paragraph of convertHyphenListsToMarkdown(
         this.help.map((p) => applyCodeFormatting(escapeAngleBrackets(p)))
       )) {
         lines.push(paragraph);
+        lines.push('');
+      }
+    }
+
+    if (this.aliases.length > 0) {
+      lines.push(`## Aliases for "${this.commandName}"`);
+      lines.push('');
+      for (const alias of this.aliases) {
+        lines.push(`\`${alias}\``);
         lines.push('');
       }
     }
@@ -141,7 +152,7 @@ export class MarkdownCommand extends MarkdownBase {
     }
 
     if (this.examples.length > 0) {
-      lines.push(`## Examples for ${this.commandName}`);
+      lines.push(`## Examples for "${this.commandName}"`);
       lines.push('');
       for (const example of this.examples) {
         if (example.description) {
