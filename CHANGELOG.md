@@ -1,3 +1,9 @@
+## [3.1.101](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.100...3.1.101) (2026-05-13)
+
+### Bug Fixes
+
+- clarified sf-plugins-core dependency @W-22477677@ ([a1f7f00](https://github.com/salesforcecli/plugin-command-reference/commit/a1f7f0042f2e9b7d2ebfde9d44c7c4932d32f915))
+
 ## [3.1.100](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.99...3.1.100) (2026-05-13)
 
 ### Bug Fixes
