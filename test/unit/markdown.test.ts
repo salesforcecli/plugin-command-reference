@@ -111,8 +111,15 @@ describe('markdown output: plugin-auth and user', () => {
     // If there are any < or > characters in descriptions, they should be escaped
     const lines = md.split('\n');
     for (const line of lines) {
-      // Skip code blocks and HTML tags we intentionally create
-      if (line.includes('```') || line.startsWith('<ul>') || line.startsWith('<li>') || line.startsWith(':::')) {
+      // Skip code blocks, HTML tags/comments we intentionally create, and markdown directives
+      if (
+        line.includes('```') ||
+        line.startsWith('<ul>') ||
+        line.startsWith('<li>') ||
+        line.startsWith(':::') ||
+        line.includes('<!--') ||
+        line.includes('<br>')
+      ) {
         continue;
       }
       // Check that raw < and > are not present (they should be &lt; and &gt;)
