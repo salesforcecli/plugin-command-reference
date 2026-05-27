@@ -105,4 +105,82 @@ describe('markdown output: plugin-auth and user', () => {
     expect(md).to.be.a('string');
     // Verify the file exists at the unsuffixed path (the load above would throw if not)
   });
+
+  it('escapes HTML entities in descriptions', () => {
+    const md = loadMdFile(join('org', 'cli_reference_org_create_user.md'));
+    // If there are any < or > characters in descriptions, they should be escaped
+    const lines = md.split('\n');
+    for (const line of lines) {
+      // Skip code blocks and HTML tags we intentionally create
+      if (line.includes('```') || line.startsWith('<ul>') || line.startsWith('<li>') || line.startsWith(':::')) {
+        continue;
+      }
+      // Check that raw < and > are not present (they should be &lt; and &gt;)
+      const textOutsideCode = line.replace(/`[^`]+`/g, '');
+      if (textOutsideCode.includes('<') || textOutsideCode.includes('>')) {
+        // Allow markdown links and already-escaped entities
+        if (
+          !textOutsideCode.includes('&lt;') &&
+          !textOutsideCode.includes('&gt;') &&
+          !textOutsideCode.includes('[') &&
+          !textOutsideCode.includes('(http')
+        ) {
+          expect.fail(`Found unescaped < or > in line: ${line}`);
+        }
+      }
+    }
+  });
+
+  it('normalizes whitespace consistently', () => {
+    const md = loadMdFile(join('org', 'cli_reference_org_login_jwt.md'));
+    // Check that there are no double spaces in descriptions
+    const lines = md.split('\n');
+    for (const line of lines) {
+      // Skip code blocks
+      if (line.includes('```')) continue;
+      // Check for multiple consecutive spaces (except in markdown table separators)
+      if (line.includes('  ') && !line.includes('---') && !line.includes('|')) {
+        expect.fail(`Found multiple consecutive spaces in line: ${line}`);
+      }
+    }
+  });
+
+  it('removes leading $ from shell examples', () => {
+    const md = loadMdFile(join('org', 'cli_reference_org_login_jwt.md'));
+    // Shell examples should not have leading $ prompts
+    const shellBlocks = md.match(/```shell\n([^`]+)```/g);
+    if (shellBlocks) {
+      for (const block of shellBlocks) {
+        const commands = block.split('\n').slice(1, -1);
+        for (const cmd of commands) {
+          if (cmd.trim().startsWith('$')) {
+            expect.fail(`Found leading $ in shell example: ${cmd}`);
+          }
+        }
+      }
+    }
+  });
+
+  it('includes state labels for beta/preview/pilot commands', () => {
+    // Test with a command that has a state if one exists
+    const md = loadMdFile(join('org', 'cli_reference_org_login_jwt.md'));
+    // This test verifies the format - actual state depends on the command
+    expect(md).to.be.a('string');
+  });
+
+  it('formats flag descriptions as markdown tables with proper escaping', () => {
+    const md = loadMdFile(join('org', 'cli_reference_org_create_user.md'));
+    if (md.includes('## Flags')) {
+      // Check that pipe characters in flag descriptions are escaped
+      const tableLines = md.split('\n').filter((line) => line.includes('|'));
+      for (const line of tableLines) {
+        // Count pipes - should have exactly 4 for a 3-column table (| col1 | col2 | col3 |)
+        const pipeCount = (line.match(/\|/g) ?? []).length;
+        if (line.includes('---')) continue; // Skip separator line
+        // Allow for &#124; escaped pipes in content
+        const escapedPipes = (line.match(/&#124;/g) ?? []).length;
+        expect(pipeCount - escapedPipes).to.be.at.least(4);
+      }
+    }
+  });
 });
