@@ -120,9 +120,7 @@ export class MarkdownCommand extends MarkdownBase {
     if (this.help.length > 0) {
       lines.push(`## Description for ${this.commandName}`);
       lines.push('');
-      for (const paragraph of convertHyphenListsToMarkdown(
-        this.help.map((p) => applyCodeFormatting(escapeAngleBrackets(p)))
-      )) {
+      for (const paragraph of convertHyphenListsToMarkdown(this.help.map((p) => escapeForMarkdown(p)))) {
         lines.push(paragraph);
         lines.push('');
       }
@@ -172,109 +170,17 @@ export class MarkdownCommand extends MarkdownBase {
   }
 }
 
-function escapeAngleBrackets(text: string): string {
-  return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
+function escapeForMarkdown(text: string): string {
+  // Escape HTML entities for markdown safety
+  let result = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-function applyCodeFormatting(text: string): string {
-  // First, wrap JSON-like structures (must run before other code formatting to avoid double-wrapping)
-  let result = wrapJsonInCode(text);
-  // Wrap --flag-name tokens (not already in backticks)
-  result = result.replace(/(?<!`)--([\w-]+)(?!`)/g, '`--$1`');
-  // Wrap glob patterns like *.cls, *.trigger (not already in backticks)
-  result = result.replace(/(?<!`)\*(\.\w+)(?!`)/g, '`*$1`');
-  // Wrap filenames/extensions with known doc-related extensions (not already in backticks)
-  // Must run compound extensions (.sarif.json) before simple ones (.sarif, .json)
-  result = result.replace(/(?<![\w`])(\.sarif\.json)(?![\w`])/g, '`$1`');
-  result = result.replace(/(?<![\w`])(\w[\w.-]*\.(?:xml|html?|json|sarif|csv))(?![\w`])/g, '`$1`');
-  result = result.replace(/(?<![\w`])(\.(?:xml|html?|json|sarif|csv))(?![\w`])/g, '`$1`');
-  // Wrap file/directory paths: must be preceded by whitespace or opening punctuation (not part of a URL)
-  // Matches: ./foo/bar, ../foo, foo/bar/baz — but not https://foo/bar
-  result = result.replace(/(^|(?<=[\s(["]))(?!https?:\/\/)((?:\.{1,2}\/|[\w][\w-]*\/)[\w./-]+)/g, '$1`$2`');
-  return result;
-}
+  // Normalize whitespace: collapse multiple spaces/tabs/newlines to single space
+  result = result.replace(/\s+/g, ' ');
 
-function wrapJsonInCode(text: string): string {
-  // Strategy: Look for JSON-like patterns and validate them before wrapping
-  // Match objects like {"key": "value"} or {"key": 123, "key2": true}
-  // Match arrays like ["value1", "value2"] or [{"key": "value"}]
-
-  let result = text;
-  const matches: Array<{ start: number; end: number; content: string }> = [];
-
-  // Find potential JSON objects and arrays
-  let i = 0;
-  while (i < text.length) {
-    if (text[i] === '{' || text[i] === '[') {
-      const openChar = text[i];
-      const closeChar = openChar === '{' ? '}' : ']';
-      let depth = 1;
-      let j = i + 1;
-      let inString = false;
-      let escape = false;
-
-      // Find matching closing bracket
-      while (j < text.length && depth > 0) {
-        if (escape) {
-          escape = false;
-          j++;
-          continue;
-        }
-
-        if (text[j] === '\\') {
-          escape = true;
-          j++;
-          continue;
-        }
-
-        if (text[j] === '"') {
-          inString = !inString;
-        } else if (!inString) {
-          if (text[j] === openChar) {
-            depth++;
-          } else if (text[j] === closeChar) {
-            depth--;
-          }
-        }
-        j++;
-      }
-
-      if (depth === 0) {
-        const content = text.substring(i, j);
-        // Check if this looks like JSON: must have quotes around keys and colons
-        if (looksLikeJson(content)) {
-          matches.push({ start: i, end: j, content });
-        }
-        i = j;
-      } else {
-        i++;
-      }
-    } else {
-      i++;
-    }
-  }
-
-  // Apply wrapping in reverse order to preserve indices
-  for (let k = matches.length - 1; k >= 0; k--) {
-    const { start, end, content } = matches[k];
-    // Check if already in backticks
-    const before = text.substring(Math.max(0, start - 1), start);
-    const after = text.substring(end, Math.min(text.length, end + 1));
-    if (before !== '`' && after !== '`') {
-      result = result.substring(0, start) + `\`${content}\`` + result.substring(end);
-    }
-  }
+  // Trim leading/trailing whitespace
+  result = result.trim();
 
   return result;
-}
-
-function looksLikeJson(text: string): boolean {
-  // Must contain at least one quoted key-value pair with colon, or be an array with quoted strings
-  const hasKeyValue = /"[^"]+"\s*:\s*/.test(text);
-  const isArray = text.trim().startsWith('[') && text.trim().endsWith(']');
-  const hasQuotedString = /"[^"]+"\s*/.test(text);
-
-  return hasKeyValue || (isArray && hasQuotedString);
 }
 
 function convertHyphenListsToMarkdown(paragraphs: string[]): string[] {
@@ -360,7 +266,7 @@ function renderFlagDescription(param: CommandParameterData): string {
   if (param.defaultFlagValue) metadataParts.push(`**Default value:** \`${param.defaultFlagValue}\``);
 
   const desc = convertHyphenListsToMarkdown(
-    param.description.map((p) => applyCodeFormatting(escapeAngleBrackets(p.replace(/\|/g, '&#124;'))))
+    param.description.map((p) => escapeForMarkdown(p.replace(/\|/g, '&#124;')))
   ).join('<br><br>');
 
   const parts: string[] = [metadataParts.join('<br>')];

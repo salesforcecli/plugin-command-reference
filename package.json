@@ -156,8 +156,7 @@
       ],
       "output": [],
       "dependencies": [
-        "test:command-reference",
-        "test:command-reference-markdown"
+        "test:command-reference"
       ]
     },
     "test:command-reference": {
