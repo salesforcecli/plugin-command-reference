@@ -28,6 +28,7 @@ type ParsedExample = {
 export class MarkdownCommand extends MarkdownBase {
   private flags: Dictionary<FlagInfo>;
   private commandMeta: Record<string, unknown>;
+  private binary: string;
   private commandName: string;
   private summary: string | undefined;
   private help: string[];
@@ -57,15 +58,14 @@ export class MarkdownCommand extends MarkdownBase {
 
     this.flags = ensureObject(command.flags);
     this.commandMeta = commandMeta;
-    const binary = readBinary(this.commandMeta);
+    this.binary = readBinary(this.commandMeta);
 
     this.summary = punctuate(command.summary);
-    // commandName is the bare command ID used for template variable replacement (e.g. "agent activate")
-    // commandNameForDisplay is the full invocation shown in headings (e.g. "sf agent activate")
+    // commandName is the bare command ID with colons replaced by the topic separator (e.g. "agent activate")
     this.commandName = command.id.replace(/:/g, asString(this.commandMeta.topicSeparator, ' '));
 
     const description = command.description
-      ? replaceConfigVariables(command.description, binary, this.commandName)
+      ? replaceConfigVariables(command.description, this.binary, this.commandName)
       : undefined;
 
     this.help = formatParagraphs(description);
@@ -82,21 +82,20 @@ export class MarkdownCommand extends MarkdownBase {
         commands = [example.command];
       }
       return {
-        description: replaceConfigVariables(desc ?? '', binary, this.commandName),
-        commands: commands.map((cmd) => replaceConfigVariables(cmd, binary, this.commandName)),
+        description: replaceConfigVariables(desc ?? '', this.binary, this.commandName),
+        commands: commands.map((cmd) => replaceConfigVariables(cmd, this.binary, this.commandName)),
       };
     });
 
     this.state = command.state ?? this.commandMeta.state;
-    this.deprecated = (command.deprecated as boolean) ?? this.state === 'deprecated' ?? false;
+    this.deprecated = Boolean(command.deprecated) || this.state === 'deprecated';
     const dep = command.deprecated;
     this.deprecationDetails = dep && typeof dep === 'object' ? (dep as { version?: string; to?: string }) : null;
     this.aliases = command.aliases ?? [];
   }
 
   protected async generate(): Promise<string> {
-    const binary = readBinary(this.commandMeta);
-    const parameters = await buildCommandParameters(this.commandName, binary, this.flags);
+    const parameters = await buildCommandParameters(this.commandName, this.binary, this.flags);
 
     const lines: string[] = [];
 
@@ -123,7 +122,7 @@ export class MarkdownCommand extends MarkdownBase {
     if (this.help.length > 0) {
       lines.push(`## Description for ${this.commandName}`);
       lines.push('');
-      for (const paragraph of convertHyphenListsToMarkdown(this.help.map((p) => escapeForMarkdown(p)))) {
+      for (const paragraph of convertBulletListsToHtml(this.help.map((p) => escapeForMarkdown(p)))) {
         lines.push(paragraph);
         lines.push('');
       }
@@ -192,17 +191,30 @@ function escapeForMarkdown(text: string): string {
   return result;
 }
 
-function convertHyphenListsToMarkdown(paragraphs: string[]): string[] {
+/**
+ * Converts bullet list paragraphs to HTML <ul>/<li> tags for compact rendering in markdown.
+ * Strips leading whitespace from bullets to prevent code block rendering.
+ *
+ * @param paragraphs - Array of paragraph strings, some may be bullet items
+ * @returns Array where consecutive bullets are converted to a single HTML <ul> string
+ */
+function convertBulletListsToHtml(paragraphs: string[]): string[] {
   const result: string[] = [];
   let i = 0;
   while (i < paragraphs.length) {
-    if (paragraphs[i].startsWith('- ') || paragraphs[i].startsWith('* ')) {
+    const trimmed = paragraphs[i].trimStart();
+    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
       // Collect consecutive list items and render as HTML bullet list
       const items: string[] = [];
-      while (i < paragraphs.length && (paragraphs[i].startsWith('- ') || paragraphs[i].startsWith('* '))) {
-        // Remove the leading "- " or "* " and wrap in <li>
-        items.push(`<li>${paragraphs[i].substring(2)}</li>`);
-        i++;
+      while (i < paragraphs.length) {
+        const itemTrimmed = paragraphs[i].trimStart();
+        if (itemTrimmed.startsWith('- ') || itemTrimmed.startsWith('* ')) {
+          // Remove the bullet marker (- or *) and wrap in <li>
+          items.push(`<li>${itemTrimmed.substring(2)}</li>`);
+          i++;
+        } else {
+          break;
+        }
       }
       // Wrap all items in <ul> tags
       result.push(`<ul>${items.join('')}</ul>`);
@@ -274,7 +286,7 @@ function renderFlagDescription(param: CommandParameterData): string {
   }
   if (param.defaultFlagValue) metadataParts.push(`**Default value:** \`${param.defaultFlagValue}\``);
 
-  const desc = convertHyphenListsToMarkdown(
+  const desc = convertBulletListsToHtml(
     param.description.map((p) => escapeForMarkdown(p.replace(/\|/g, '&#124;')))
   ).join('<br><br>');
 
