@@ -100,6 +100,9 @@ export class MarkdownCommand extends MarkdownBase {
 
     const lines: string[] = [];
 
+    lines.push('<!-- prettier-ignore-start -->');
+    lines.push('');
+
     const stateLabel = resolveStateLabel(this.state, this.deprecated);
     lines.push(`# ${this.commandName}${stateLabel ? ` (${stateLabel})` : ''}`);
     lines.push('');
@@ -138,14 +141,13 @@ export class MarkdownCommand extends MarkdownBase {
     if (parameters.length > 0) {
       lines.push('## Flags');
       lines.push('');
-      lines.push('<!-- prettier-ignore-start -->');
       lines.push('| Flag Name (Long) | Flag Name (Short) | Description |');
       lines.push('|------------------|-------------------|-------------|');
-      for (const param of parameters) {
+      // Sort parameters alphabetically by flag name
+      const sortedParams = [...parameters].sort((a, b) => a.name.localeCompare(b.name));
+      for (const param of sortedParams) {
         lines.push(renderFlagRow(param));
       }
-      lines.push('');
-      lines.push('<!-- prettier-ignore-end -->');
       lines.push('');
     }
 
@@ -164,7 +166,14 @@ export class MarkdownCommand extends MarkdownBase {
           lines.push('');
         }
       }
+      // Remove the trailing empty line after the last example
+      if (lines[lines.length - 1] === '') {
+        lines.pop();
+      }
     }
+
+    lines.push('<!-- prettier-ignore-end -->');
+    lines.push('');
 
     return lines.join('\n');
   }

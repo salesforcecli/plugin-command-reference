@@ -23,12 +23,14 @@ export class MarkdownRootIndex extends MarkdownBase {
 
   protected generate(): Promise<string> {
     const lines: string[] = [];
+    lines.push('<!-- prettier-ignore-start -->');
     lines.push('');
     lines.push('# sf CLI Reference — Topic Index');
     lines.push('');
     for (const topic of this.topics.sort()) {
       lines.push(`- [${topic}](./${topic}/cli_reference_${topic}.md)`);
     }
+    lines.push('<!-- prettier-ignore-end -->');
     lines.push('');
     return Promise.resolve(lines.join('\n'));
   }

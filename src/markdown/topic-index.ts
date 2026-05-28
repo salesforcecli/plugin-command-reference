@@ -32,6 +32,8 @@ export class MarkdownTopicIndex extends MarkdownBase {
 
   protected generate(): Promise<string> {
     const lines: string[] = [];
+    lines.push('<!-- prettier-ignore-start -->');
+    lines.push('');
     lines.push(`# ${this.topic} Commands`);
     lines.push('');
     if (this.topicMeta.description) {
@@ -47,6 +49,7 @@ export class MarkdownTopicIndex extends MarkdownBase {
         : `cli_reference_${commandWithUnderscores}.md`;
       lines.push(`- [${commandWithSpaces}](./${linkTarget})`);
     }
+    lines.push('<!-- prettier-ignore-end -->');
     lines.push('');
     return Promise.resolve(lines.join('\n'));
   }

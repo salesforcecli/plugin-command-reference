@@ -27,6 +27,8 @@ export class MarkdownCliReference extends MarkdownBase {
 
   protected generate(): Promise<string> {
     const lines: string[] = [];
+    lines.push('<!-- prettier-ignore-start -->');
+    lines.push('');
     lines.push('# Salesforce CLI Command Reference');
     lines.push('');
     lines.push(
@@ -38,16 +40,14 @@ export class MarkdownCliReference extends MarkdownBase {
     if (this.pluginVersions.length > 0) {
       lines.push('## Plugin Versions');
       lines.push('');
-      lines.push('<!-- prettier-ignore-start -->');
       lines.push('| Plugin | Version |');
       lines.push('|--------|---------|');
       for (const { name, version } of this.pluginVersions) {
         lines.push(`| \`${name}\` | \`${version}\` |`);
       }
-      lines.push('');
-      lines.push('<!-- prettier-ignore-end -->');
-      lines.push('');
     }
+    lines.push('<!-- prettier-ignore-end -->');
+    lines.push('');
     return Promise.resolve(lines.join('\n'));
   }
 }
