@@ -1406,10 +1406,10 @@
     proxy-agent "^6.5.0"
     semver "^7.7.3"
 
-"@salesforce/plugin-user@^3.10.0":
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.10.0.tgz#f3be31587899fa969b4611d3dadaaac491f988a6"
-  integrity sha512-s2khmxS1OqcwmO1lThxS/A9Mxth19YQDVDm0CkjNrqmMqrPeVuC2SlZizRgKirtDidwTf3b2BGLtrbLpDfe9CQ==
+"@salesforce/plugin-user@^3.10.1":
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-3.10.1.tgz#515642963c167e10b816286b5eb9197e06199642"
+  integrity sha512-FY4gDdfAAw2ZJ7C/qsqZHpj8X6Fr+xUIcpR0G4nMq+kDDP+ThhfELlpcejzm2ky09SculrH5T1E7HmqOFxOjVw==
   dependencies:
     "@salesforce/core" "^8.30.3"
     "@salesforce/kit" "^3.2.4"
