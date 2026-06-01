@@ -21,7 +21,7 @@ import { AnyJson } from '@salesforce/ts-types';
 
 export type CommandClass = Pick<
   Command.Class,
-  'id' | 'hidden' | 'description' | 'plugin' | 'state' | 'examples' | 'summary' | 'flags' | 'pluginName'
+  'id' | 'hidden' | 'description' | 'plugin' | 'state' | 'examples' | 'summary' | 'flags' | 'pluginName' | 'aliases'
 > & { topic: string; subtopic: string; longDescription?: string; binary: string; deprecated?: boolean };
 
 export const events = new EventEmitter();
