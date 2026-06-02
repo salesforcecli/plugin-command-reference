@@ -151,9 +151,13 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
     const commands = await this.loadCommands(plugins);
     const topicMetadata = this.loadTopicMetadata(commands);
     const cliMeta = this.loadCliMeta();
+    const outputFormat = flags['output-format'];
+    if (outputFormat !== 'dita' && outputFormat !== 'markdown') {
+      throw new SfError(`Invalid output format: ${outputFormat}. Must be 'dita' or 'markdown'.`);
+    }
     const docs = new Docs(
       Ditamap.outputDir,
-      flags['output-format'] as 'dita' | 'markdown',
+      outputFormat,
       flags.hidden,
       topicMetadata ?? new Map<string, never>(),
       cliMeta
