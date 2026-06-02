@@ -45,6 +45,7 @@ export class MarkdownCliReference extends MarkdownBase {
       for (const { name, version } of this.pluginVersions) {
         lines.push(`| \`${name}\` | \`${version}\` |`);
       }
+      lines.push('');
     }
     lines.push('<!-- prettier-ignore-end -->');
     lines.push('');
