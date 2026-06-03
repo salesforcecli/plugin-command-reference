@@ -171,6 +171,7 @@
       "output": [
         "test/tmp"
       ],
+      "clean": "if-file-deleted",
       "dependencies": [
         "compile"
       ]
@@ -213,8 +214,10 @@
       "output": [
         "test/tmp-md"
       ],
+      "clean": "if-file-deleted",
+      "cache": false,
       "dependencies": [
-        "compile"
+        "test:command-reference"
       ]
     }
   }
