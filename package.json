@@ -169,6 +169,9 @@
       ],
       "output": [
         "test/tmp"
+      ],
+      "dependencies": [
+        "compile"
       ]
     },
     "test:deprecation-policy": {
@@ -207,6 +210,9 @@
       ],
       "output": [
         "test/tmp-md"
+      ],
+      "dependencies": [
+        "compile"
       ]
     }
   }
