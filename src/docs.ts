@@ -79,7 +79,7 @@ export class Docs {
     }
 
     const subTopicNames = [];
-    const commandIds = [];
+    const commands = [];
 
     for (const [subtopic, classes] of subtopics.entries()) {
       try {
@@ -93,7 +93,7 @@ export class Docs {
 
           // eslint-disable-next-line no-await-in-loop
           await this.populateCommand(topic, subtopic, command, commandMeta);
-          commandIds.push(command.id);
+          commands.push(command);
         }
       } catch (error) {
         const err =
@@ -111,7 +111,7 @@ export class Docs {
 
     const topicCommands = this.factory.createTopicCommands(topic, topicMeta);
     if (topicCommands) await topicCommands.write();
-    await this.factory.createTopicIndex(topic, commandIds, topicMeta).write();
+    await this.factory.createTopicIndex(topic, commands, topicMeta).write();
     return subTopicNames;
   }
 

@@ -43,7 +43,7 @@ export type GeneratorFactory = {
   createRootIndex(topics: string[]): Writable | null;
   createToc(topicEntries: TocTopicEntry[]): Writable | null;
   createTopicCommands(topic: string, topicMeta: SfTopic): Writable | null;
-  createTopicIndex(topic: string, commandIds: string[], topicMeta: SfTopic): Writable;
+  createTopicIndex(topic: string, commands: CommandClass[], topicMeta: SfTopic): Writable;
   createCommand(
     topic: string,
     subtopic: string | null,
@@ -79,7 +79,8 @@ export class DitaGeneratorFactory implements GeneratorFactory {
   }
 
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
-  public createTopicIndex(topic: string, commandIds: string[], _topicMeta: SfTopic): Writable {
+  public createTopicIndex(topic: string, commands: CommandClass[], _topicMeta: SfTopic): Writable {
+    const commandIds = commands.map((cmd) => cmd.id);
     return new TopicDitamap(topic, commandIds);
   }
 
@@ -121,8 +122,8 @@ export class MarkdownGeneratorFactory implements GeneratorFactory {
     return null;
   }
 
-  public createTopicIndex(topic: string, commandIds: string[], topicMeta: SfTopic): Writable {
-    return new MarkdownTopicIndex(topic, commandIds, topicMeta, this.outputDir);
+  public createTopicIndex(topic: string, commands: CommandClass[], topicMeta: SfTopic): Writable {
+    return new MarkdownTopicIndex(topic, commands, topicMeta, this.outputDir);
   }
 
   public createCommand(
