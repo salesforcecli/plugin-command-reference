@@ -266,8 +266,8 @@ function resolveDisclaimer(
 }
 
 function renderFlagRow(param: CommandParameterData): string {
-  const longFlag = `\`--${param.name}\``;
-  const shortFlag = param.char ? `\`-${param.char}\`` : 'N/A';
+  const longFlag = `<code>&#8209;&#8209;${param.name.replace(/-/g, '&#8209;')}</code>`;
+  const shortFlag = param.char ? `<code>&#8209;${param.char}</code>` : 'N/A';
   const desc = renderFlagDescription(param);
   return `| ${longFlag} | ${shortFlag} | ${desc} |`;
 }
