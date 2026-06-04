@@ -70,6 +70,7 @@ export class MarkdownTopicIndex extends MarkdownBase {
         lines.push(`- **[${commandDisplay}](./${linkTarget})**`);
       }
     }
+    lines.push('');
     lines.push('<!-- prettier-ignore-end -->');
     lines.push('');
     return Promise.resolve(lines.join('\n'));
