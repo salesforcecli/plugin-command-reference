@@ -196,6 +196,19 @@
         "messages/**/*.md"
       ],
       "output": []
+    },
+    "test:command-reference-markdown": {
+      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning \"./bin/dev.js\" commandreference generate --plugins auth --plugins user --output-format markdown --output-dir test/tmp-md",
+      "files": [
+        "src/**/*.ts",
+        "messages/**",
+        "package.json"
+      ],
+      "output": [
+        "test/tmp-md"
+      ],
+      "clean": "if-file-deleted",
+      "cache": false
     }
   }
 }

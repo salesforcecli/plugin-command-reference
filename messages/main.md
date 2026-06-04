@@ -28,7 +28,11 @@ fail the command if there are any warnings
 
 # flags.ditamap-suffix.summary
 
-unique suffix to append to generated ditamap
+unique suffix to append to generated DITA files
+
+# flags.output-format.summary
+
+output format for generated documentation; 'dita' (default) generates DITA XML files, 'markdown' generates Markdown files
 
 # flags.config-path.summary
 

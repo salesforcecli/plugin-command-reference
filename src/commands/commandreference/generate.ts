@@ -73,6 +73,11 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
       summary: messages.getMessage('flags.config-path.summary'),
       char: 'c',
     }),
+    'output-format': Flags.string({
+      summary: messages.getMessage('flags.output-format.summary'),
+      options: ['dita', 'markdown'],
+      default: 'dita',
+    }),
   };
 
   private loadedConfig!: Interfaces.Config;
@@ -146,9 +151,17 @@ export default class CommandReferenceGenerate extends SfCommand<CommandReference
     const commands = await this.loadCommands(plugins);
     const topicMetadata = this.loadTopicMetadata(commands);
     const cliMeta = this.loadCliMeta();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const docs = new Docs(Ditamap.outputDir, flags.hidden, topicMetadata, cliMeta);
+    const outputFormat = flags['output-format'];
+    if (outputFormat !== 'dita' && outputFormat !== 'markdown') {
+      throw new SfError(`Invalid output format: ${outputFormat}. Must be 'dita' or 'markdown'.`);
+    }
+    const docs = new Docs(
+      Ditamap.outputDir,
+      outputFormat,
+      flags.hidden,
+      topicMetadata ?? new Map<string, never>(),
+      cliMeta
+    );
 
     events.on('topic', ({ topic }: { topic: string }) => {
       this.log(chalk.green(`Generating topic '${topic}'`));
