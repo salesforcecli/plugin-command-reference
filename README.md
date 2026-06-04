@@ -91,7 +91,7 @@ generate the command reference guide located
 ```
 USAGE
   $ sf commandreference generate [--json] [--flags-dir <value>] [-d <value>] [-p <value>... | -a] [-s <value>] [--hidden]
-    [--error-on-warnings] [-c <value>]
+    [--error-on-warnings] [-c <value>] [--output-format dita|markdown]
 
 FLAGS
   -a, --all                     include all relevant plugins in the generation
@@ -99,9 +99,12 @@ FLAGS
   -d, --output-dir=<value>      [default: ./tmp/root] output directory to put generated files
   -p, --plugins=<value>...      comma separated list of plugin names to be part of the generation. Defaults to the oclif
                                 plugin in the current working directory
-  -s, --ditamap-suffix=<value>  [default: unified] unique suffix to append to generated ditamap
+  -s, --ditamap-suffix=<value>  [default: unified] unique suffix to append to generated DITA files
       --error-on-warnings       fail the command if there are any warnings
       --hidden                  show hidden commands
+      --output-format=<option>  [default: dita] output format for generated documentation; 'dita' (default) generates
+                                DITA XML files, 'markdown' generates Markdown files
+                                <options: dita|markdown>
 
 GLOBAL FLAGS
   --flags-dir=<value>  Import flag values from a directory.
@@ -130,7 +133,7 @@ EXAMPLES
     $ sf commandreference generate --all --config-path /path/to/plugin --output-dir ./docs
 ```
 
-_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.107/src/commands/commandreference/generate.ts)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.108/src/commands/commandreference/generate.ts)_
 
 ## `sf jit install`
 
@@ -151,6 +154,6 @@ EXAMPLES
   $ sf jit install
 ```
 
-_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.107/src/commands/jit/install.ts)_
+_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.108/src/commands/jit/install.ts)_
 
 <!-- commandsstop -->
