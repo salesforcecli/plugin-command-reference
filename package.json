@@ -142,7 +142,7 @@
       ]
     },
     "test:only": {
-      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning \"./bin/dev.js\" commandreference generate --plugins auth --plugins user --output-format markdown --output-dir test/tmp-md && nyc mocha \"test/**/*.test.ts\"",
+      "command": "nyc mocha \"test/**/*.test.ts\"",
       "env": {
         "FORCE_COLOR": "2"
       },
@@ -160,19 +160,14 @@
       ]
     },
     "test:command-reference": {
-      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning  \"./bin/dev.js\" commandreference generate --plugins auth --plugins user --output-dir test/tmp",
+      "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning  \"./bin/dev.js\" commandreference generate --plugins auth --plugins user --outputdir test/tmp",
       "files": [
         "src/**/*.ts",
-        "lib/**/*.js",
         "messages/**",
         "package.json"
       ],
       "output": [
         "test/tmp"
-      ],
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "compile"
       ]
     },
     "test:deprecation-policy": {
