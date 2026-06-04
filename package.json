@@ -202,7 +202,6 @@
       "command": "node --loader ts-node/esm --no-warnings=ExperimentalWarning \"./bin/dev.js\" commandreference generate --plugins auth --plugins user --output-format markdown --output-dir test/tmp-md",
       "files": [
         "src/**/*.ts",
-        "lib/**/*.js",
         "messages/**",
         "package.json"
       ],
@@ -210,10 +209,7 @@
         "test/tmp-md"
       ],
       "clean": "if-file-deleted",
-      "cache": false,
-      "dependencies": [
-        "test:command-reference"
-      ]
+      "cache": false
     }
   }
 }
