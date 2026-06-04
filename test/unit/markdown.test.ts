@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-import { access, rm } from 'node:fs/promises';
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
+import { rm } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect } from 'chai';
 
+const execAsync = promisify(exec);
+
 /**
- * Tests for markdown output generation. These tests verify that the markdown
- * format is generated correctly for the plugin-auth and plugin-user plugins.
+ * Tests for markdown output generation. These tests are self-contained:
+ * they generate the markdown files, test them, then clean up.
  */
 
 const testFilesPath = './test/tmp-md';
@@ -31,30 +35,36 @@ function loadMarkdownFile(path: string) {
 }
 
 describe('markdown output: plugin-auth and user', () => {
-  before(async () => {
-    try {
-      await access(testFilesPath);
-    } catch (e) {
-      throw new Error(
-        `Could not read generated markdown test docs from ${testFilesPath}. Ensure the "pretest" has run or run it manually.`
-      );
-    }
+  before(async function () {
+    // Increase timeout for file generation
+    this.timeout(60000);
+
+    // Generate markdown files for testing
+    await execAsync(
+      'node --loader ts-node/esm --no-warnings=ExperimentalWarning "./bin/dev.js" commandreference generate --plugins auth --plugins user --output-format markdown --output-dir test/tmp-md'
+    );
   });
+
   after(async () => {
-    await rm(testFilesPath, { recursive: true });
+    // Clean up generated files
+    await rm(testFilesPath, { recursive: true, force: true });
   });
+
   it('produces no [object Object] nonsense for default flags', () => {
     const md = loadMarkdownFile(join('org', 'cli_reference_org_create_user.md'));
     expect(md.includes('[object Object]')).to.be.false;
   });
+
   it('creates with spaced commands', () => {
     const md = loadMarkdownFile(join('org', 'cli_reference_org_login_jwt.md'));
     expect(md.includes('# org login jwt')).to.be.true;
   });
+
   it('creates with summary', () => {
     const md = loadMarkdownFile(join('org', 'cli_reference_org_login_jwt.md'));
     expect(md.includes('Log in to a Salesforce org using a JSON web token (JWT).')).to.be.true;
   });
+
   it('creates parameters', () => {
     const md = loadMarkdownFile(join('org', 'cli_reference_org_login_jwt.md'));
     expect(md.includes('## Flags')).to.be.true;
