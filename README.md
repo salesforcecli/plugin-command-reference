@@ -133,7 +133,7 @@ EXAMPLES
     $ sf commandreference generate --all --config-path /path/to/plugin --output-dir ./docs
 ```
 
-_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.112/src/commands/commandreference/generate.ts)_
+_See code: [src/commands/commandreference/generate.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.113/src/commands/commandreference/generate.ts)_
 
 ## `sf jit install`
 
@@ -154,6 +154,6 @@ EXAMPLES
   $ sf jit install
 ```
 
-_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.112/src/commands/jit/install.ts)_
+_See code: [src/commands/jit/install.ts](https://github.com/salesforcecli/plugin-command-reference/blob/3.1.113/src/commands/jit/install.ts)_
 
 <!-- commandsstop -->
