@@ -1,3 +1,9 @@
+## [3.1.124](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.123...3.1.124) (2026-07-25)
+
+### Bug Fixes
+
+- **deps:** bump linkify-it from 5.0.1 to 5.0.2 ([f9c3b8f](https://github.com/salesforcecli/plugin-command-reference/commit/f9c3b8f89cb190ee701de380c533b349a61c574d))
+
 ## [3.1.123](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.122...3.1.123) (2026-07-19)
 
 ### Bug Fixes
