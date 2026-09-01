@@ -1,3 +1,10 @@
+## [3.1.133](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.132...3.1.133) (2026-09-01)
+
+### Bug Fixes
+
+- bump auth and user lib ([0461e73](https://github.com/salesforcecli/plugin-command-reference/commit/0461e733f0e64b17764f591dc9005ef13fe28f77))
+- upgrade @oclif/core to v5 @W-23512455@ ([7fe89e1](https://github.com/salesforcecli/plugin-command-reference/commit/7fe89e1fab41346c6427e97ccf6a830b5703b0b2))
+
 ## [3.1.132](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.131...3.1.132) (2026-08-09)
 
 ### Bug Fixes
