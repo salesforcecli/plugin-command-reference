@@ -1317,7 +1317,7 @@
   dependencies:
     "@salesforce/ts-types" "^3.0.0"
 
-"@salesforce/plugin-auth@^5.0.6":
+"@salesforce/plugin-auth@^5.0.7":
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-5.0.7.tgz#464b7977088cdf62b90882096f0590e943890c0c"
   integrity sha512-cm2Fqn/oH86Uw9yLSYoUjj8NupGhtPIA//ga8P4eHD4Nlk0/rp42u4NML/eewchNzbQZ6D5vQUVwA3Q9HEN/GA==
@@ -1352,7 +1352,7 @@
     semver "^7.8.1"
     which "^4"
 
-"@salesforce/plugin-user@^5.0.2":
+"@salesforce/plugin-user@^5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-5.0.3.tgz#121af1f8b35670890eb051c4b420f47ab5e4c5c0"
   integrity sha512-hJ3/tQ3ysSb7ejqakunhhbG3mbEjPoiiGrlyn9mnQqRPIk9RYk1DqkBxKPa9m1tPd5C+fdql7kY9hvOE+XpYyw==
