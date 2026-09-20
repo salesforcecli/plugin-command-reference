@@ -90,7 +90,7 @@ export class MarkdownCommand extends MarkdownBase {
     this.state = command.state ?? this.commandMeta.state;
     this.deprecated = Boolean(command.deprecated) || this.state === 'deprecated';
     const dep = command.deprecated;
-    this.deprecationDetails = dep && typeof dep === 'object' ? (dep as { version?: string; to?: string }) : null;
+    this.deprecationDetails = dep && typeof dep === 'object' ? (dep) : null;
     this.aliases = command.aliases ?? [];
   }
 
