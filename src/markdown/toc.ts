@@ -15,15 +15,8 @@
  */
 
 import { TocTopicEntry } from '../generator-factory.js';
+import { commandLinkTarget, stateLabel } from '../utils.js';
 import { MarkdownBase } from './markdown-base.js';
-
-const STATE_LABELS: Record<string, string> = {
-  beta: 'Beta',
-  preview: 'Developer Preview',
-  closedPilot: 'Closed Pilot',
-  openPilot: 'Open Pilot',
-  deprecated: 'Deprecated',
-};
 
 export class MarkdownToc extends MarkdownBase {
   public constructor(private topicEntries: TocTopicEntry[], outputDir: string) {
@@ -52,18 +45,10 @@ export class MarkdownToc extends MarkdownBase {
       lines.push(`  link: ${topic}/cli_reference_${topic}.md`);
       lines.push('  topics:');
       for (const { id, state, deprecated } of [...commandIds].sort((a, b) => a.id.localeCompare(b.id))) {
-        const commandWithUnderscores = id.replace(/:/g, '_');
         const commandWithSpaces = id.replace(/:/g, ' ');
-        const stateLabel = deprecated
-          ? ' (Deprecated)'
-          : state && STATE_LABELS[state]
-          ? ` (${STATE_LABELS[state]})`
-          : '';
-        const isTopicLevelCommand = !id.includes(':');
-        const linkTarget = isTopicLevelCommand
-          ? `cli_reference_${commandWithUnderscores}_command.md`
-          : `cli_reference_${commandWithUnderscores}.md`;
-        lines.push(`    - title: ${commandWithSpaces}${stateLabel}`);
+        const label = stateLabel(state, deprecated);
+        const linkTarget = commandLinkTarget(id);
+        lines.push(`    - title: ${commandWithSpaces}${label ? ` (${label})` : ''}`);
         lines.push(`      link: ${topic}/${linkTarget}`);
       }
     }

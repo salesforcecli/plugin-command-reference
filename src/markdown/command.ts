@@ -16,7 +16,15 @@
 
 import { join } from 'node:path';
 import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
-import { CommandClass, CommandParameterData, escapeAngleBrackets, punctuate, replaceConfigVariables } from '../utils.js';
+import {
+  CommandClass,
+  CommandParameterData,
+  commandFileBase,
+  escapeAngleBrackets,
+  punctuate,
+  replaceConfigVariables,
+  stateLabel,
+} from '../utils.js';
 import { buildCommandParameters, FlagInfo, formatParagraphs, readBinary } from '../ditamap/command-helpers.js';
 import { MarkdownBase } from './markdown-base.js';
 
@@ -40,19 +48,11 @@ export class MarkdownCommand extends MarkdownBase {
 
   public constructor(
     topic: string,
-    subtopic: string | null,
     command: CommandClass,
     commandMeta: Record<string, unknown> = {},
     outputDir: string
   ) {
-    const commandWithUnderscores = ensureString(command.id).replace(/:/g, '_');
-    // If the command ID has no subtopic (e.g. "doctor"), its filename would collide with the topic
-    // index file (cli_reference_doctor.md), so append _command to disambiguate.
-    const isTopicLevelCommand = !ensureString(command.id).includes(':');
-    const baseName = isTopicLevelCommand
-      ? `cli_reference_${commandWithUnderscores}_command`
-      : `cli_reference_${commandWithUnderscores}`;
-    const filename = MarkdownBase.file(baseName);
+    const filename = MarkdownBase.file(commandFileBase(ensureString(command.id)));
     super(filename, outputDir);
     this.destination = join(outputDir, topic, filename);
 
@@ -102,8 +102,8 @@ export class MarkdownCommand extends MarkdownBase {
     lines.push('<!-- prettier-ignore-start -->');
     lines.push('');
 
-    const stateLabel = resolveStateLabel(this.state, this.deprecated);
-    lines.push(`# ${this.commandName}${stateLabel ? ` (${stateLabel})` : ''}`);
+    const label = stateLabel(this.state, this.deprecated);
+    lines.push(`# ${this.commandName}${label ? ` (${label})` : ''}`);
     lines.push('');
 
     if (this.summary) {
@@ -224,14 +224,6 @@ function convertBulletListsToHtml(paragraphs: string[]): string[] {
     }
   }
   return result;
-}
-
-function resolveStateLabel(state: unknown, deprecated: boolean): string | null {
-  if (deprecated) return 'Deprecated';
-  if (state === 'beta') return 'Beta';
-  if (state === 'preview') return 'Developer Preview';
-  if (state === 'closedPilot' || state === 'openPilot') return 'Pilot';
-  return null;
 }
 
 function resolveDisclaimer(
