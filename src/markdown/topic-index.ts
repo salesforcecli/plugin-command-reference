@@ -15,7 +15,7 @@
  */
 
 import { join } from 'node:path';
-import { CommandClass, punctuate, SfTopic } from '../utils.js';
+import { CommandClass, escapeAngleBrackets, punctuate, SfTopic } from '../utils.js';
 import { MarkdownBase } from './markdown-base.js';
 
 function resolveStateLabel(command: CommandClass): string | null {
@@ -48,7 +48,7 @@ export class MarkdownTopicIndex extends MarkdownBase {
     lines.push(`# ${this.topic} Commands`);
     lines.push('');
     if (this.topicMeta.description) {
-      lines.push(this.topicMeta.description);
+      lines.push(escapeAngleBrackets(this.topicMeta.description));
       lines.push('');
     }
     const sortedCommands = [...this.commands].sort((a, b) => a.id.localeCompare(b.id));
@@ -65,7 +65,7 @@ export class MarkdownTopicIndex extends MarkdownBase {
       const summary = punctuate(command.summary);
       if (summary) {
         lines.push(`- **[${commandDisplay}](./${linkTarget})**<br>`);
-        lines.push(`  ${summary}`);
+        lines.push(`  ${escapeAngleBrackets(summary)}`);
       } else {
         lines.push(`- **[${commandDisplay}](./${linkTarget})**`);
       }

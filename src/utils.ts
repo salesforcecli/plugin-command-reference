@@ -44,6 +44,14 @@ export function punctuate(description?: string): string | undefined {
 export const replaceConfigVariables = (text: string, bin: string, id: string): string =>
   text.replace(/<%= config.bin %>/g, bin ?? 'unknown').replace(/<%= command.id %>/g, id);
 
+/**
+ * Converts the `<` and `>` characters to their HTML entity equivalents (`&lt;` and `&gt;`)
+ * so they render as literal characters instead of being interpreted as HTML tags.
+ */
+export function escapeAngleBrackets(text: string): string {
+  return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 export type CliMeta = {
   binary: string;
   topicSeparator?: string;

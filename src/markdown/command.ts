@@ -16,7 +16,7 @@
 
 import { join } from 'node:path';
 import { asString, Dictionary, ensureObject, ensureString } from '@salesforce/ts-types';
-import { CommandClass, CommandParameterData, punctuate, replaceConfigVariables } from '../utils.js';
+import { CommandClass, CommandParameterData, escapeAngleBrackets, punctuate, replaceConfigVariables } from '../utils.js';
 import { buildCommandParameters, FlagInfo, formatParagraphs, readBinary } from '../ditamap/command-helpers.js';
 import { MarkdownBase } from './markdown-base.js';
 
@@ -107,7 +107,7 @@ export class MarkdownCommand extends MarkdownBase {
     lines.push('');
 
     if (this.summary) {
-      lines.push(this.summary);
+      lines.push(escapeAngleBrackets(this.summary));
       lines.push('');
     }
 
@@ -180,7 +180,7 @@ export class MarkdownCommand extends MarkdownBase {
 
 function escapeForMarkdown(text: string): string {
   // Escape HTML entities for markdown safety
-  let result = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  let result = escapeAngleBrackets(text);
 
   // Normalize whitespace: collapse multiple spaces/tabs/newlines to single space
   result = result.replace(/\s+/g, ' ');
