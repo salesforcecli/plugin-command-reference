@@ -44,6 +44,44 @@ export function punctuate(description?: string): string | undefined {
 export const replaceConfigVariables = (text: string, bin: string, id: string): string =>
   text.replace(/<%= config.bin %>/g, bin ?? 'unknown').replace(/<%= command.id %>/g, id);
 
+/**
+ * Converts the `<` and `>` characters to their HTML entity equivalents (`&lt;` and `&gt;`)
+ * so they render as literal characters instead of being interpreted as HTML tags.
+ */
+export function escapeAngleBrackets(text: string): string {
+  return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * Resolves a command's state (and deprecation) to the label shown next to its name, or `null`
+ * when there's nothing to show. Both pilot states render as "Pilot".
+ */
+export function stateLabel(state: unknown, deprecated = false): string | null {
+  if (deprecated) return 'Deprecated';
+  if (state === 'beta') return 'Beta';
+  if (state === 'preview') return 'Developer Preview';
+  if (state === 'closedPilot' || state === 'openPilot') return 'Pilot';
+  return null;
+}
+
+/**
+ * Returns the base filename (without extension) for a command's reference page.
+ *
+ * A command ID with no subtopic (e.g. "doctor") would collide with the topic index file
+ * (cli_reference_doctor.md), so its page is suffixed with `_command` to disambiguate.
+ */
+export function commandFileBase(id: string): string {
+  const commandWithUnderscores = id.replace(/:/g, '_');
+  return id.includes(':')
+    ? `cli_reference_${commandWithUnderscores}`
+    : `cli_reference_${commandWithUnderscores}_command`;
+}
+
+/** Returns the relative Markdown filename to link to a command's reference page. */
+export function commandLinkTarget(id: string): string {
+  return `${commandFileBase(id)}.md`;
+}
+
 export type CliMeta = {
   binary: string;
   topicSeparator?: string;

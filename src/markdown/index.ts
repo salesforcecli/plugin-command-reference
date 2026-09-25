@@ -18,6 +18,5 @@ export { MarkdownBase } from './markdown-base.js';
 export { MarkdownCommand } from './command.js';
 export { MarkdownCliReference } from './cli-reference.js';
 export { MarkdownRootIndex } from './root-index.js';
-export { MarkdownTopicCommands } from './topic-commands.js';
 export { MarkdownTopicIndex } from './topic-index.js';
 export { MarkdownToc } from './toc.js';

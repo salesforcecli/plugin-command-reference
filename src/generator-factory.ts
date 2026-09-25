@@ -126,12 +126,13 @@ export class MarkdownGeneratorFactory implements GeneratorFactory {
     return new MarkdownTopicIndex(topic, commands, topicMeta, this.outputDir);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public createCommand(
     topic: string,
-    subtopic: string | null,
+    _subtopic: string | null,
     command: CommandClass,
     commandMeta: Record<string, unknown>
   ): WritableWithFilename {
-    return new MarkdownCommand(topic, subtopic, command, commandMeta, this.outputDir);
+    return new MarkdownCommand(topic, command, commandMeta, this.outputDir);
   }
 }

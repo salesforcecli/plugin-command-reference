@@ -15,19 +15,8 @@
  */
 
 import { join } from 'node:path';
-import { CommandClass, punctuate, SfTopic } from '../utils.js';
+import { CommandClass, commandLinkTarget, escapeAngleBrackets, punctuate, SfTopic, stateLabel } from '../utils.js';
 import { MarkdownBase } from './markdown-base.js';
-
-function resolveStateLabel(command: CommandClass): string | null {
-  const deprecated = Boolean(command.deprecated);
-  const state = command.state;
-
-  if (deprecated) return 'Deprecated';
-  if (state === 'beta') return 'Beta';
-  if (state === 'preview') return 'Developer Preview';
-  if (state === 'closedPilot' || state === 'openPilot') return 'Pilot';
-  return null;
-}
 
 export class MarkdownTopicIndex extends MarkdownBase {
   public constructor(
@@ -48,24 +37,20 @@ export class MarkdownTopicIndex extends MarkdownBase {
     lines.push(`# ${this.topic} Commands`);
     lines.push('');
     if (this.topicMeta.description) {
-      lines.push(this.topicMeta.description);
+      lines.push(escapeAngleBrackets(this.topicMeta.description));
       lines.push('');
     }
     const sortedCommands = [...this.commands].sort((a, b) => a.id.localeCompare(b.id));
     for (const command of sortedCommands) {
       const id = command.id;
-      const commandWithUnderscores = id.replace(/:/g, '_');
       const commandWithSpaces = id.replace(/:/g, ' ');
-      const isTopicLevelCommand = !id.includes(':');
-      const linkTarget = isTopicLevelCommand
-        ? `cli_reference_${commandWithUnderscores}_command.md`
-        : `cli_reference_${commandWithUnderscores}.md`;
-      const stateLabel = resolveStateLabel(command);
-      const commandDisplay = stateLabel ? `${commandWithSpaces} (${stateLabel})` : commandWithSpaces;
+      const linkTarget = commandLinkTarget(id);
+      const label = stateLabel(command.state, Boolean(command.deprecated));
+      const commandDisplay = label ? `${commandWithSpaces} (${label})` : commandWithSpaces;
       const summary = punctuate(command.summary);
       if (summary) {
         lines.push(`- **[${commandDisplay}](./${linkTarget})**<br>`);
-        lines.push(`  ${summary}`);
+        lines.push(`  ${escapeAngleBrackets(summary)}`);
       } else {
         lines.push(`- **[${commandDisplay}](./${linkTarget})**`);
       }
