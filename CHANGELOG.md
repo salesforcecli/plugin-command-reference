@@ -1,3 +1,9 @@
+## [3.1.134](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.133...3.1.134) (2026-09-25)
+
+### Bug Fixes
+
+- escape angle brackets in command summary, description, and topic index ([546c395](https://github.com/salesforcecli/plugin-command-reference/commit/546c395cf551b113371c77f5309c5694bb169eb2))
+
 ## [3.1.133](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.132...3.1.133) (2026-09-01)
 
 ### Bug Fixes
