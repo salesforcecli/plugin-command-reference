@@ -27,7 +27,7 @@ export class MarkdownToc extends MarkdownBase {
     return 'sfclireference-toc.yml';
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   protected generate(): Promise<string> {
     const lines: string[] = [
       '- title: Salesforce CLI Command Reference',

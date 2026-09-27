@@ -230,7 +230,7 @@ export class Docs {
         commandMeta.description = command.description;
         commandMeta.longDescription = (
           command.longDescription ? command.longDescription : punctuate(command.description)
-        ) as AnyJson;
+        );
       }
     }
     return commandMeta;
