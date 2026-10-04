@@ -98,7 +98,7 @@ export class DitaGeneratorFactory implements GeneratorFactory {
 export class MarkdownGeneratorFactory implements GeneratorFactory {
   public constructor(private outputDir: string) {}
 
-  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public createCliReference(_topics: string[]): Writable {
     return new MarkdownCliReference(Ditamap.cliVersion, Ditamap.pluginVersions, this.outputDir);
   }
@@ -126,7 +126,7 @@ export class MarkdownGeneratorFactory implements GeneratorFactory {
     return new MarkdownTopicIndex(topic, commands, topicMeta, this.outputDir);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   public createCommand(
     topic: string,
     _subtopic: string | null,
