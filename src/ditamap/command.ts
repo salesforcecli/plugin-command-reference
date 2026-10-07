@@ -85,7 +85,7 @@ export class Command extends Ditamap {
       description,
       binary,
       commandWithUnderscores,
-      deprecated: (command.deprecated as boolean) ?? state === 'deprecated' ?? false,
+      deprecated: ((command.deprecated as boolean) || state === 'deprecated') ?? false,
       examples,
       help,
       isBetaCommand: state === 'beta',
