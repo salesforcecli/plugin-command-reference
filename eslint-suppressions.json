@@ -1,0 +1,37 @@
+{
+  "src/commands/commandreference/generate.ts": {
+    "@typescript-eslint/no-base-to-string": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    },
+    "sf-plugin/no-oclif-flags-command-import": {
+      "count": 1
+    }
+  },
+  "src/ditamap/ditamap.ts": {
+    "no-underscore-dangle": {
+      "count": 2
+    }
+  },
+  "src/docs.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    },
+    "@typescript-eslint/prefer-nullish-coalescing": {
+      "count": 1
+    },
+    "@typescript-eslint/restrict-template-expressions": {
+      "count": 1
+    }
+  },
+  "test/unit/endtoend.test.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    },
+    "preserve-caught-error": {
+      "count": 1
+    }
+  }
+}
