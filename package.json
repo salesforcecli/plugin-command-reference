@@ -19,7 +19,7 @@
     "@oclif/plugin-help": "^7.0.0",
     "@salesforce/dev-scripts": "^15.0.0",
     "@salesforce/plugin-auth": "^5.0.7",
-    "@salesforce/plugin-user": "^5.0.3",
+    "@salesforce/plugin-user": "^5.0.8",
     "@types/chai": "^4.3.17",
     "@types/debug": "^4.1.13",
     "@types/mocha": "^10.0.10",
