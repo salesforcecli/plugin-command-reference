@@ -1,3 +1,9 @@
+## [3.1.141](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.140...3.1.141) (2026-10-11)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 5.0.0 to 5.1.2 ([85d4b42](https://github.com/salesforcecli/plugin-command-reference/commit/85d4b4287491fd4ae66c72926d546cdf778ce4e7))
+
 ## [3.1.140](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.139...3.1.140) (2026-10-11)
 
 ### Bug Fixes
