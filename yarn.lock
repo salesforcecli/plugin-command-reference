@@ -1390,10 +1390,10 @@
     semver "^7.8.1"
     which "^4"
 
-"@salesforce/plugin-user@^5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-5.0.8.tgz#86cb7c195ee8dfe6dfe2737e0b27869fd87c3a62"
-  integrity sha512-TPVHDdCTLVLkKn8R3jWtMO0hAhjeWsBDuDL2BdIOJgTvq/vGXed1WJD9Oq8FC5wWnFUx071uxRKJhiXEqoAgow==
+"@salesforce/plugin-user@^5.0.11":
+  version "5.0.11"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-user/-/plugin-user-5.0.11.tgz#5aad47703bb6d8483faf5760006cc5e81bd8723f"
+  integrity sha512-d8gh1KTm4/iVxEhIUvlinscZEVDYuDEJF1GC09l8QsGDkorc0xPLIMA6Kg5eOAAGeC8H+AYkzLXwgekhx9VSEA==
   dependencies:
     "@salesforce/core" "^9.1.9"
     "@salesforce/kit" "^4.0.0"
