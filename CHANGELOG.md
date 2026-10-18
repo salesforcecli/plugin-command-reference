@@ -1,3 +1,9 @@
+## [3.1.142](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.141...3.1.142) (2026-10-18)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/ts-types from 3.2.0 to 3.2.2 ([0dfcb48](https://github.com/salesforcecli/plugin-command-reference/commit/0dfcb48907bc849acd72c731d734aa96f7adbbde))
+
 ## [3.1.141](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.140...3.1.141) (2026-10-11)
 
 ### Bug Fixes
