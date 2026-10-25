@@ -1,3 +1,9 @@
+## [3.1.146](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.145...3.1.146) (2026-10-25)
+
+### Bug Fixes
+
+- **deps:** bump undici from 8.11.2 to 8.12.3 ([fd35b60](https://github.com/salesforcecli/plugin-command-reference/commit/fd35b60e9abc23e63c1eb5bc0667146e73f47bc2))
+
 ## [3.1.145](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.144...3.1.145) (2026-10-25)
 
 ### Bug Fixes
