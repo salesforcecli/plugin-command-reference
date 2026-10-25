@@ -1,3 +1,9 @@
+## [3.1.144](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.143...3.1.144) (2026-10-25)
+
+### Bug Fixes
+
+- **deps:** bump zod from 4.1.13 to 4.6.7 ([784b9f2](https://github.com/salesforcecli/plugin-command-reference/commit/784b9f24031b096ba268ff31c5d5395d44b10e59))
+
 ## [3.1.143](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.142...3.1.143) (2026-10-25)
 
 ### Bug Fixes
