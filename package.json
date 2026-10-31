@@ -16,7 +16,7 @@
     "handlebars": "^4.7.10"
   },
   "devDependencies": {
-    "@oclif/plugin-help": "^7.0.5",
+    "@oclif/plugin-help": "^7.0.6",
     "@salesforce/dev-scripts": "^15.0.0",
     "@salesforce/plugin-auth": "^5.0.16",
     "@salesforce/plugin-user": "^5.0.11",
