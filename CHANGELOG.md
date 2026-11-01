@@ -1,3 +1,9 @@
+## [3.1.149](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.148...3.1.149) (2026-11-01)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 9.3.6 to 9.4.1 ([8313c05](https://github.com/salesforcecli/plugin-command-reference/commit/8313c05457c0640b095cb2d5cb6766de19cbbcc4))
+
 ## [3.1.148](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.147...3.1.148) (2026-11-01)
 
 ### Bug Fixes
