@@ -46,6 +46,10 @@ Then you can run this in your plugin's CI.
 ./bin/dev commandreference --plugins <name-of-your-plugin> --error-on-warnings
 ```
 
+## Contributing
+
+If you're interested in contributing, take a look at the [CONTRIBUTING](CONTRIBUTING.md) guide.
+
 ## Local Development
 
 If you need to make changes to this repository, the easiest thing to do is to link it to your Salesforce CLI. After you cloned this plugin, run the following from this plugin directory:
