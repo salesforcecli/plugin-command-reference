@@ -1,3 +1,10 @@
+## [3.1.151](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.150...3.1.151) (2026-11-03)
+
+### Bug Fixes
+
+- Update CONTRIBUTING.md to remove NUTs reference ([b6d63b5](https://github.com/salesforcecli/plugin-command-reference/commit/b6d63b53ce1218577d578673451b4e3f8c5e6f95))
+- update md files ([b8cb302](https://github.com/salesforcecli/plugin-command-reference/commit/b8cb302cc3969af8435f880b7e1de444547a4d64))
+
 ## [3.1.150](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.149...3.1.150) (2026-11-01)
 
 ### Bug Fixes
