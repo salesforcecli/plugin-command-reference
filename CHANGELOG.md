@@ -1,3 +1,9 @@
+## [3.1.154](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.153...3.1.154) (2026-11-08)
+
+### Bug Fixes
+
+- **deps:** bump brace-expansion from 1.1.11 to 1.1.21 ([4d570c0](https://github.com/salesforcecli/plugin-command-reference/commit/4d570c0e52fcc565d2129794426da97646d4d8d4))
+
 ## [3.1.153](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.152...3.1.153) (2026-11-08)
 
 ### Bug Fixes
