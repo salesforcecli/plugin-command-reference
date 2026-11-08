@@ -1,3 +1,9 @@
+## [3.1.153](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.152...3.1.153) (2026-11-08)
+
+### Bug Fixes
+
+- **deps:** bump js-yaml from 3.14.1 to 3.15.2 ([63e3371](https://github.com/salesforcecli/plugin-command-reference/commit/63e33712f0a3f6a891f6d866adeb09fc72febed8))
+
 ## [3.1.152](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.151...3.1.152) (2026-11-08)
 
 ### Bug Fixes
