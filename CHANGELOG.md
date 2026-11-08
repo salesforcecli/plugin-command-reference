@@ -1,3 +1,9 @@
+## [3.1.155](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.154...3.1.155) (2026-11-08)
+
+### Bug Fixes
+
+- **deps:** bump picomatch from 2.3.1 to 2.3.2 ([6a83fe4](https://github.com/salesforcecli/plugin-command-reference/commit/6a83fe4d1617b1b0da71fb5f1f085c58576eb619))
+
 ## [3.1.154](https://github.com/salesforcecli/plugin-command-reference/compare/3.1.153...3.1.154) (2026-11-08)
 
 ### Bug Fixes
